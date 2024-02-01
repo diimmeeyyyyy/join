@@ -6,3 +6,46 @@ h1 {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+
+/* ====
+BOARD
+=======*/
+.board {
+  padding: 40px 60px;
+  background-color: lightgray;
+}
+/* ==========
+BOARD-HEADER
+=============*/
+.board-section-header-div1 {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 25px;
+}
+.board-section-header-div1 h1 {
+  font-size: 35px;
+}
+.board-section-header-findTask-div {
+  display: flex;
+  gap: 40px;
+}
+.board-section-header-findTask-div input,
+button {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+.addTask-button {
+  color: white;
+  background-color: rgb(43, 54, 71);
+}
+
+.board-section-header-div2 {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 150px;
+}
+/* ===============
+BOARD-MAIN-CONTENT
+==================*/

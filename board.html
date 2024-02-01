@@ -1,18 +1,37 @@
-<main>
-<section>
-    <span>
-        <h1>Board</h1>
-    </span>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Board</title>
+    <!-- LINKED FILES -->
+    <link rel="stylesheet" href="style.css" />
+    <script src="board.js"></script>
+    <!------------------>
+  </head>
+  <body>
+    <main class="board">
+      <section class="board-section-header">
+        <div class="board-section-header-div1">
+          <span>
+            <h1>Board</h1>
+          </span>
 
-</section>
+          <div class="board-section-header-findTask-div">
+            <input type="text" placeholder="Find Task" />
+            <button class="addTask-button">Add task</button>
+          </div>
+        </div>
 
+        <div class="board-section-header-div2">
+          <p>To-do</p>
+          <p>In progress</p>
+          <p>Await feedback</p>
+          <p>Done</p>
+        </div>
+      </section>
 
-
-
-
-
-<section>
-
-</section>
-
-</main>
+      <section class="board-section-mainContent"></section>
+    </main>
+  </body>
+</html>
