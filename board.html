@@ -7,9 +7,11 @@
     <!-- LINKED FILES -->
     <link rel="stylesheet" href="style.css" />
     <script src="board.js"></script>
+    <script src="utils.js"></script>
     <!------------------>
   </head>
-  <body>
+  <body onload="includeHTML()">
+    <header w3-include-html="assets/templates/header.html"></header>
     <main class="board">
       <section class="board-section-header">
         <div class="board-section-header-div1">
