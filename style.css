@@ -6,46 +6,73 @@ h1 {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
 
 /* ====
 BOARD
 =======*/
 .board {
-  padding: 40px 60px;
-  background-color: lightgray;
+  padding-top: 40px;
+  padding-inline: 60px;
+  background-color: rgb(246, 247, 248);
+  min-height: 100vh;
 }
 /* ==========
 BOARD-HEADER
 =============*/
-.board-section-header-div1 {
+.board-section-header-div {
   display: flex;
   justify-content: space-between;
   padding-bottom: 25px;
 }
-.board-section-header-div1 h1 {
+.board-section-header-div h1 {
   font-size: 35px;
 }
 .board-section-header-findTask-div {
   display: flex;
   gap: 40px;
 }
+.board-section-header-findTask-div input {
+  width: 250px;
+}
 .board-section-header-findTask-div input,
-button {
+aside {
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
   border: none;
 }
 .addTask-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: white;
   background-color: rgb(43, 54, 71);
-}
-
-.board-section-header-div2 {
-  display: flex;
-  justify-content: space-between;
-  margin-right: 150px;
 }
 /* ===============
 BOARD-MAIN-CONTENT
 ==================*/
+.board-section-mainContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.board-mainContent-container {
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.board-mainContent-titleDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.noTasks-toDo {
+  padding: 10px;
+  border: 2px dotted black;
+  border-radius: 10px;
+  background-color: rgb(231, 231, 231);
+  color: rgb(155, 155, 155);
+}
