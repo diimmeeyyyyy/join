@@ -1,11 +1,14 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: rgb(246, 247, 248);
 }
+
 h1 {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+
 p {
   margin-block-start: 0;
   margin-block-end: 0;
@@ -15,15 +18,60 @@ p {
 HEADER 
 =======*/
 
-#headerContainer{
+.header-container {
   width: 100%;
   height: 80px;
+  background-color: white;
   display: flex;
   align-items: center; 
   padding-left: 80px;
-
-
 }
+
+/* ====
+ADD TASK-SECTION
+=======*/
+
+.add-task-section {
+  display:flex;
+  margin-left: 32px;
+  margin-right: 32px;
+}
+
+.add-task-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(100% / 2);
+  margin: 32px;
+}
+
+.add-task-inputfield {
+  margin-top: 4px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+.add-task-highlight-red {         
+  color:red;                           
+}
+
+.add-task-legend {
+  font-weight: 8px;
+}
+
+.add-task-prio-button{
+  border: none;
+  border-radius: 4px;
+  color: black;
+  background-color: white;
+  padding: 8px;
+}
+
+.add-task-clear-and-create-task-buttons{
+  display: flex;
+  justify-content: flex-end
+}
+
 
 /* ====
 BOARD
