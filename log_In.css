@@ -22,9 +22,34 @@ p {
   top: 30px;
   left: 80px;
 }
-/* ============
-  LOG-IN WINDOW
-  ===============*/
+/* ===================
+  SIGN-UP BUTTON SECTION
+  ======================*/
+.signUp-button-section {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  position: absolute;
+  top: 60px;
+  right: 80px;
+}
+.signUp-button-section p {
+  font-size: 20px;
+  font-weight: 400;
+}
+.signUp-button-section button {
+  border: none;
+  background-color: #2a3647;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+}
+/* ===================
+  LOG-IN WINDOW SECTION
+  =====================*/
 .logIn-window-section {
   display: flex;
   flex-direction: column;
@@ -57,13 +82,14 @@ p {
 .email-and-password-form input {
   border-radius: 10px;
   border: 1px solid #d1d1d1;
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
   height: 40px;
-  width: 420px;
+  width: 300px;
+  font-size: 21px;
 }
 .email-and-password-form input::placeholder {
-  font-size: 24px;
+  font-size: 21px;
 }
 .checkbox-div {
   display: flex;
@@ -96,37 +122,14 @@ p {
   color: white;
   font-size: 21px;
   font-weight: 700;
+  border: none;
 }
 .guest-logIn-button {
   background-color: white;
   color: #2a3647;
   font-size: 21px;
   font-weight: 700;
-}
-
-/* ===================
-  SIGN-UP BUTTON SECTION
-  ======================*/
-.signUp-button-section {
-  display: flex;
-  align-items: center;
-  gap: 35px;
-  position: absolute;
-  top: 67px;
-  left: 1039px;
-}
-.signUp-button-section p {
-  font-size: 20px;
-  font-weight: 400;
-}
-.signUp-button-section button {
-  border: none;
-  background-color: #2a3647;
-  color: white;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  border-radius: 8px;
+  border: 2px solid #2a3647 !important;
 }
 /* ====================================
   PRIVACY POLICY & LEGAL NOTIVE CONTAINER
