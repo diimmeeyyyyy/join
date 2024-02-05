@@ -4,8 +4,8 @@ body {
   background-color: rgb(246, 247, 248);
 }
 
-
-h1,p {
+h1,
+p {
   margin-block-start: 0;
   margin-block-end: 0;
 }
@@ -19,226 +19,14 @@ HEADER
   height: 80px;
   background-color: white;
   display: flex;
-  align-items: center; 
+  align-items: center;
   padding-left: 80px;
 }
 
-/* ====
-ADD TASK-SECTION
-=======*/
-
-.add-task-section {
-  display:flex;
-  margin-left: 32px;
-  margin-right: 32px;
-}
-
-.add-task-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: calc(100% / 2);
-  margin: 32px;
-}
-
-.add-task-inputfield {
-  margin-top: 4px;
-  margin-bottom: 24px;
-  border-radius: 8px;
-}
-
-.add-task-highlight-red {         
-  color:red;                           
-}
-
-.add-task-legend {
-  font-weight: 8px;
-}
-
-.add-task-prio-button{
-  border: none;
-  border-radius: 4px;
-  color: black;
-  background-color: white;
-  padding: 8px;
-}
-
-.add-task-clear-and-create-task-buttons{
-  display: flex;
-  justify-content: flex-end
-}
-
-
-/* ====
-BOARD
-=======*/
-.board {
-  padding-top: 40px;
-  padding-inline: 60px;
-  background-color: rgb(246, 247, 248);
-  min-height: 100vh;
-}
-
-/* ==========
-BOARD-HEADER
-=============*/
-.board-section-header-div {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 25px;
-}
-
-.board-section-header-div1 h1 {
-  font-size: 35px;
-}
-
-.board-section-header-findTask-div {
-  display: flex;
-  gap: 40px;
-}
-.board-section-header-findTask-div input {
-  width: 250px;
-}
-.board-section-header-findTask-div input,
-aside {
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  border: none;
-}
-
-.addTask-button {
+.add-task-button {
   display: flex;
   align-items: center;
   gap: 10px;
   color: white;
   background-color: rgb(43, 54, 71);
 }
-
-.board-section-header-div2 {
-  display: flex;
-  justify-content: space-between;
-  margin-right: 150px;
-}
-
-/* ===============
-BOARD-MAIN-CONTENT
-==================*/
-
-/* CONTACT-CONTAINER */
-.newContacts {
-  margin: 30px;
-}
-
-.buttonContact {
-  background-color: rgb(42, 54, 71);
-  color: white;
-  width: 100%;
-}
-
-.buttonContact:hover {
-  background-color: rgb(0, 204, 255);
-}
-
-.contacts {
-  display: flex;
-  align-items: center;
-  margin: 30px;
-  height: 20px;
-  padding: 20px;
-  border-radius: 20px;
-
-}
-
-.contacts:hover {
-  background-color: lightgrey;
-}
-
-.names {
-  margin: 20px;
-}
-
-.buttonName {
-  height: 50px;
-  width: 50px;
-  border-radius: 80px;
-  background-color: orange;
-  color: white;
-}
-
-.container1 {
-  height: 100vh;
-  width: 40vw;
-  border-right: 1px lightgray solid;
-}
-
-.allContainer {
-  display: flex;
-}
-
-.container2 {
-  display: flex;
-  align-content: center;
-  gap: 20px;
-  background-color: rgb(246, 247, 248);
-  padding: 30px;
-  height: 100vh;
-  width: 100vw;
-  font-size: 40px;
-
-}
-
-.container2 h1 {
-  font-size: 90px;
-}
-
-.partingLine {
-  color: rgb(93, 190, 231);
-}
-
-.contactPartingLine {
-  margin: 0px 20px;
-  padding: 0px 20px;
-}
-
-.nameLetter {
-  margin: 0px 60px;
-}
-
-.newContactContainer {
-  display: flex;
-  position: absolute;
- 
-}
-.backroundNewContactContainer{
-  background-color: rgb(0, 0, 0, 0.1);
-  height: 100vh;
-}
-
-.addContact {
-  background-color: rgb(42, 54, 71);
-  color: white;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-form{
-  display: flex;
-  flex-direction: column;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-  background-color: white;
-  padding: 20px;
-}
-.pictureAndFormContact{
-  display: flex;
-  align-items: center;
-  background-color: white;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-}
-
-/* CONTACT-CONTAINER */

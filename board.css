@@ -1,0 +1,55 @@
+/* ====
+BOARD
+=======*/
+.board {
+  padding-top: 40px;
+  padding-inline: 60px;
+  background-color: rgb(246, 247, 248);
+  min-height: 100vh;
+}
+
+/* ==========
+  BOARD-HEADER
+  =============*/
+.board-section-header-div {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 25px;
+}
+
+.board-section-header-div1 h1 {
+  font-size: 35px;
+}
+
+.board-section-header-find-task-div {
+  display: flex;
+  gap: 40px;
+}
+.board-section-header-find-task-div input {
+  width: 250px;
+}
+.board-section-header-find-task-div input,
+aside {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.add-task-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  background-color: rgb(43, 54, 71);
+}
+
+.board-section-header-div2 {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 150px;
+}
+
+/* ===============
+  BOARD-MAIN-CONTENT
+  ==================*/
