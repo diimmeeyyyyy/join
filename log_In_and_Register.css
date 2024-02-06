@@ -76,6 +76,7 @@ CSS FOR LOG-IN & REGISTER HTML
   background-color: #29abe2;
   margin-top: 5px;
 }
+/* ================================= */
 .form-body {
   display: flex;
   flex-direction: column;
@@ -110,6 +111,10 @@ CSS FOR LOG-IN & REGISTER HTML
   font-size: 20px;
   font-weight: 400;
 }
+.checkbox-div label a {
+  text-decoration: none;
+  color: #29abe2;
+}
 
 .logIn-button-div {
   display: flex;
@@ -136,18 +141,16 @@ CSS FOR LOG-IN & REGISTER HTML
 }
 
 .register-button {
-    border-radius: 8px;
-    padding: 10px;
-    cursor: pointer;
-    background-color: #2a3647;
-    color: white;
-    font-size: 21px;
-    font-weight: 700;
-    border: none;
-    width: 125px;
-  }
-
-
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #2a3647;
+  color: white;
+  font-size: 21px;
+  font-weight: 700;
+  border: none;
+  width: 125px;
+}
 
 /* ====================================
   PRIVACY POLICY & LEGAL NOTIVE CONTAINER
