@@ -1,3 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
 /* ====
 BOARD
 =======*/
@@ -50,6 +61,35 @@ aside {
   margin-right: 150px;
 }
 
+.add-task-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  background-color: rgb(43, 54, 71);
+}
+
 /* ===============
   BOARD-MAIN-CONTENT
   ==================*/
+.board-section-mainContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.board-mainContent-container {
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.board-mainContent-titleDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.noTasks-toDo {
+  padding: 10px;
+  border: 2px dotted black;
+  border-radius: 10px;
+  background-color: rgb(231, 231, 231);
+  color: rgb(155, 155, 155);
+}
