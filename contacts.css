@@ -1,9 +1,12 @@
 /* CONTACT-CONTAINER */
-.newContacts {
-  margin: 30px;
+.new-contacts {
+  width: 456px;
+  height: 101px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.buttonContact {
+.button-contact {
   background-color: rgb(42, 54, 71, 1);
   color: white;
   width: 352px;
@@ -15,7 +18,7 @@
   gap: 16px;
 }
 
-.buttonContact:hover {
+.button-contact:hover {
   background-color: rgb(0, 204, 255);
 }
 
@@ -40,7 +43,7 @@
   margin: 20px;
 }
 
-.buttonName {
+.button-name {
   height: 42px;
   width: 42px;
   border-radius: 80px;
@@ -49,10 +52,47 @@
   font-size: 12px;
   border: white;
 }
+.create-contact{
+  background-color: rgb(42, 54, 71, 1);
+  color: white;
+  width: 214px;
+  height: 57px;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 16px;
+  gap: 4px;
+  font-size: 21px;
+  font-weight: 700px;
+}
+.create-contact:hover{
+  cursor: pointer;
+  background-color: rgb(0, 204, 255);
+}
+.cancel{
+  height: 56px;
+  width: 130px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  padding: 16px;
+  font-size: 24px;
+  background-color: white;
+}
+.cancel:hover{
+  cursor: pointer;
+  color: rgb(0, 204, 255);
+  border: 1px solid rgb(0, 204, 255);
+}
+.cancel-and-ceate{
+  display: flex;
+  gap: 24px;
+}
+
 
 .container1 {
-  height: 1188px;
-  width: 400px;
+  height: 928px;
+  width: 456px;
+  top: 96px;
+  left: 28px;
   border-right: 1px lightgray solid;
   background-color: white;
   padding: 32px 24px 32px 24px;
@@ -61,9 +101,10 @@
   flex-direction: column;
   align-content: center;
   align-items: center;
+  overflow: auto;
 }
 
-.allContainer {
+.all-container {
   display: flex;
   box-shadow: 0px 20px 30px grey;
 }
@@ -86,10 +127,10 @@
 }
 
 .container2 p {
-  font-size: 27px;
+  font-size: 32px;
 }
 
-.partingLine {
+.parting-line {
   color: rgb(93, 190, 231);
   font-size: 73px;
   height: 59px;
@@ -97,7 +138,7 @@
 
 }
 
-.contactPartingLine {
+.contact-parting-line {
   width: 352px;
   height: 16px;
   padding: 8px 0px 8px 0px;
@@ -107,7 +148,7 @@
 
 }
 
-.nameLetter {
+.name-letter {
   width: 352px;
   height: 28px;
   font-size: 20px;
@@ -118,43 +159,75 @@
   margin-left: 20px;
 }
 
-.newContactContainer {
+.new-contact-container {
   display: flex;
   position: absolute;
+  top: 200px;
+  left: 200px;
 
 }
 
-.backroundNewContactContainer {
+.backround-new-contact-container {
   background-color: rgb(0, 0, 0, 0.1);
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-.addContact {
+.add-contact {
+  height: 594px;
+  width: 467px;
   background-color: rgb(42, 54, 71);
   color: white;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  padding: 20px;
+  padding: 66px 48px 66px 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.add-contact h1{
+  font-size: 73px
+}
+.add-contact p{
+  font-size: 27px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   background-color: white;
-  padding: 20px;
+  padding: 13px 21px 13px 21px;
+  gap: 10px;
+  border: 1px lightgrey;
+  top: 137px;
+  left: 742px;
+}
+form input{
+  width: 422px;
+  height: 50px;
+  gap: 8px;
+  border-radius: 10px;
+  justify-content: space-between;
+  padding-left: 20px;
+  font-size: 20px;
 }
 
-.pictureAndFormContact {
+.picture-and-form-contact {
+  height: 594px;
+  width: 600px;
   display: flex;
   align-items: center;
   background-color: white;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
+  padding: 66px 48px 66px 48px;
 }
-
+.d-none{
+  display: none;
+}
 /* CONTACT-CONTAINER */

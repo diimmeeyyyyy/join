@@ -1,47 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="contacts.css">
     <script src="utils.js"></script>
     <script src="contacts.js"></script>
 </head>
+
 <body onload="includeHTML()">
     <header w3-include-html="assets/templates/header.html"></header>
- 
 
 
-    <div class="allContainer">
+
+    <div class="all-container">
         <div class="container1">
-            <div class="newContacts">
-                <button class="buttonContact" onclick="newContact()">Add new contact <img src="" alt=""></button>
+            <div class="new-contacts">
+                <button class="button-contact" onclick="newContactOpen()">Add new contact <img src="" alt=""></button>
             </div>
-            <div class="nameLetter">A</div>
-            <div class="contactPartingLine"> <hr></div>
-            <div class="contacts">
-                <button class="buttonName">AP</button>
-                <div class="names">
-                    <p>Andreas Pflaum <br> <a href="">andy@gmail.com</a></p>
+            <div id="newContacts">
+                <div class="name-letter">A</div>
+                <div class="contact-parting-line">
+                    <hr>
+                </div>
+                <div class="contacts">
+                    <button class="button-name">AP</button>
+                    <div class="names">
+                        <p>Andreas Pflaum <br> <a href="">andy@gmail.com</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="container2">
+                <h1>Contacts</h1>
+                <p class="parting-line">|</p>
+                <p>Better with a team</p>
+
+            </div>
+            <div id="push_contacts">
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+    <div id="new-contact">
+        <div id="backround" class="backround-new-contact-container d-none">
+            <div class="new-contact-container">
+                <div class="add-contact">
+                    <img src="" alt="Bild Join">
+                    <h1>Add contact</h1>
+                    <p> Tasks are better with a team!</p>
+                    <div class="parting-line"></div>
+                </div>
+                <div class="picture-and-form-contact">
+                    <div class="picture-new-contact">
+                        <img src="" alt="Bild Contact">
+                    </div>
+                    <div>
+                        <form action="form-contact">
+                            <input type="text" placeholder="Name"> <br>
+                            <input type="email" placeholder="Email"> <br>
+                            <input type="number" placeholder="Phone"> <br>
+                        </form>
+                        <div class="cancel-and-ceate">
+                            <button onclick="closeContact()" class="cancel">Cancel x</button>
+                            <button class="create-contact">Create contact</button>
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
         </div>
-        <div class="container2">
-            <h1>Contacts</h1> <p class="partingLine">|</p> <p>Better with a team</p>
-
-            
 
 
-        </div>
-        
-        
-    </div>
-    <div id="newContact">
-
-        
     </div>
 </body>
 
