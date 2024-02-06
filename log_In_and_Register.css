@@ -14,18 +14,18 @@ p {
   margin-block-end: 0;
 }
 
-/* =========
-  LOG-IN PAGE
-  ============*/
+/* ============================
+CSS FOR LOG-IN & REGISTER HTML
+================================*/
 .join-logo {
   position: absolute;
   top: 30px;
   left: 80px;
 }
-/* ===================
-  SIGN-UP BUTTON SECTION
-  ======================*/
-.signUp-button-section {
+/* ====================================
+  REGISTER BUTTON SECTION ON LOG-IN HTML
+  ======================================*/
+.register-button-section {
   display: flex;
   align-items: center;
   gap: 35px;
@@ -33,11 +33,11 @@ p {
   top: 60px;
   right: 80px;
 }
-.signUp-button-section p {
+.register-button-section p {
   font-size: 20px;
   font-weight: 400;
 }
-.signUp-button-section button {
+.register-button-section button {
   border: none;
   background-color: #2a3647;
   color: white;
@@ -47,10 +47,10 @@ p {
   border-radius: 8px;
   cursor: pointer;
 }
-/* ===================
-  LOG-IN WINDOW SECTION
-  =====================*/
-.logIn-window-section {
+/* ==============================
+  LOG-IN & REGISTER WINDOW SECTION
+  ================================*/
+.logIn-and-register-window-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,26 +60,29 @@ p {
   background-color: white;
   border-radius: 30px;
 }
-.logIn-window-headline {
+/*================================= */
+.logIn-and-register-window-headline {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.logIn-window-headline h1 {
+.logIn-and-register-window-headline h1 {
   font-size: 61px;
 }
 .dividing-line {
   height: 3px;
   width: 150px;
   background-color: #29abe2;
+  margin-top: 5px;
 }
-.email-and-password-form {
+.form-body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 }
-.email-and-password-form input {
+.form-body input {
   border-radius: 10px;
   border: 1px solid #d1d1d1;
   padding: 5px;
@@ -88,7 +91,7 @@ p {
   width: 300px;
   font-size: 21px;
 }
-.email-and-password-form input::placeholder {
+.form-body input::placeholder {
   font-size: 21px;
 }
 .checkbox-div {
@@ -131,6 +134,21 @@ p {
   font-weight: 700;
   border: 2px solid #2a3647 !important;
 }
+
+.register-button {
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #2a3647;
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+    border: none;
+    width: 125px;
+  }
+
+
+
 /* ====================================
   PRIVACY POLICY & LEGAL NOTIVE CONTAINER
   =======================================*/
