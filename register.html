@@ -3,10 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LogIn</title>
-    <!--LINKED FILES -->
+    <title>Sign Up</title>
     <link rel="stylesheet" href="log_In_and_Register.css" />
-    <script src="log_In.js"></script>
   </head>
   <body>
     <!-- JOIN-LOGO -->
@@ -41,33 +39,34 @@
       />
     </svg>
     <!--------------->
-    <!------------ SIGN-UP ------------>
-    <section class="register-button-section">
-      <p>Not a Join user?</p>
-      <button>Sign up</button>
-    </section>
-    <!--------------------------------->
-    <!----------------- LOG-IN-WINDOW ----------------->
+    <!------------ SIGN-UP WINDOW SECTION ------------>
     <section class="logIn-and-register-window-section">
       <span class="logIn-and-register-window-headline">
-        <h1>Log In</h1>
+        <h1>Sign up</h1>
         <p class="dividing-line"></p>
       </span>
 
-      <form class="form-body" onsubmit="logInUser(); return false">
+      <form class="form-body" onsubmit="registerUser(); return false">
+        <input type="text" placeholder="Name" id="Name" required />
         <input type="email" placeholder="Email" id="Email" required />
         <input type="password" placeholder="Password" id="Password" required />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          id="Confirm_Password"
+          required
+        />
         <div class="checkbox-div">
-          <input type="checkbox" id="Remember_Me_Checkbox" />
-          <label for="Remember_Me_Checkbox">Remember me</label>
+          <input type="checkbox" id="Privacy_Policy_Checkbox" />
+          <label for="Privacy_Policy_Checkbox"
+            >I accept the <a href="#">privacy policy</a></label
+          >
         </div>
-        <div class="logIn-button-div">
-          <button class="logIn-button">Log in</button>
-          <button class="guest-logIn-button">Guest Log in</button>
-        </div>
+
+        <button class="register-button">Sign up</button>
       </form>
     </section>
-    <!------------------------------------------------->
+
     <!------- PRIVACY POLICY & LEGAL NOTIVE CONTAINER ------->
     <section class="rights-section">
       <p>Privacy policy</p>
