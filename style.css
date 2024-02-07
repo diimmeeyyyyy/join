@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(246, 247, 248);
-}
+  }
 
 h1,
 p {
@@ -30,3 +30,4 @@ HEADER
   color: white;
   background-color: rgb(43, 54, 71);
 }
+

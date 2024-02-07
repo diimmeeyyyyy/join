@@ -6,11 +6,71 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="add_Task.css">
-    <script src="utils.js"></script>
+    <script src="utils.js"></script> 
+    <script src="storage.js"></script>        
     <script src="add_Task.js"></script>
+  
 </head>
 <body onload="includeHTML()">
     <header w3-include-html="assets/templates/header.html"></header>
-    <div w3-include-html="assets/templates/add_Task.html"></div>
+    <div>
+
+        <form onsubmit="addToTasks()", return false; class="add-task-section">
+            <div class="add-task-container">
+                <h1>Add Task</h1>
+                <span>Title<span class="add-task-highlight-red">*</span></span>
+                <input id="add_task_title" class="add-task-inputfield" required placeholder="Enter a title">
+    
+                <span>Description</span>
+                <textarea id="add_task_description" class="add-task-inputfield" placeholder="Enter a Description"></textarea>
+    
+                <span>Assigned to</span>
+                <select id="add_task_contacts_to_assign" class="add-task-inputfield">
+                    <option disabled selected hidden>Select contacts to assign</option>            //NACHGUCKEN
+                    <option> (NAME 1) </option>
+                    <option> (NAME 2) </option>
+                    <option> (NAME 3) </option>
+                </select>
+    
+                <span class="add-task-legend"><span class="add-task-highlight-red">*</span>This field is requiered</span>
+    
+            </div>
+    
+            
+            <div class="add-task-container">
+    
+                <span>Due Date<span class="add-task-highlight-red">*</span></span>
+                <input id="add_task_due_date" class="add-task-inputfield" required type="date">
+                
+                <span>Prio</span>
+                <div class="add-task-inputfield">
+                        <button id="add_task_prio_button_urgent" class="add-task-prio-button add-task-prio-button-urgent" type="button">Urgent</button>
+                        <button id="add_task_prio_button_medium" class="add-task-prio-button add-task-prio-button-medium" type="button">Medium</button>
+                        <button id="add_task_prio_button_low" class="add-task-prio-button add-task-prio-button-low" type="button">Low</button>
+                </div>
+    
+                <span>Category<span class="add-task-highlight-red">*</span></span>
+                <select id="add_task_categorie" class="add-task-inputfield" required>  // To DO: herausfinden, warum required nicht funktioniert
+                    <option disabled selected hidden>Select task category</option>
+                    <option>Technical Task</option>
+                    <option>User Story</option>
+                </select>
+    
+                <span>Subtasks</span>
+                <input id="add_task_subtasks" class="add-task-inputfield" placeholder="Add new subtask">
+    
+                <div class="add-task-clear-and-create-task-buttons">
+                    <button type="reset">Clear</button>
+                    <button type="submit" class="add-task-button">Create Task</button>
+                </div>
+            </div>
+        </form>
+
+
+
+
+    </div>
+
+</body>
 
     
