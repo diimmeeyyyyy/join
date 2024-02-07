@@ -37,6 +37,18 @@ ADD TASK-SECTION
     background-color: white;
     padding: 8px;
   }
+
+  .add-task-prio-button-red{
+    background-color: red;
+  }
+
+  .add-task-prio-button-yellow{
+    background-color: yellow;
+  }
+
+  .add-task-prio-button-green{
+    background-color: green;
+  }
   
   .add-task-clear-and-create-task-buttons{
     display: flex;
