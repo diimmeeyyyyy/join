@@ -48,10 +48,6 @@
 
         </div>
 
-
-
-
-
     </div>
     <div id="new-contact">
         <div id="backround" class="backround-new-contact-container d-none">
@@ -67,16 +63,16 @@
                         <img src="" alt="Bild Contact">
                     </div>
                     <div>
-                        <form action="form-contact">
-                            <input type="text" placeholder="Name"> <br>
-                            <input type="email" placeholder="Email"> <br>
-                            <input type="number" placeholder="Phone"> <br>
-                        </form>
-                        <div class="cancel-and-ceate">
-                            <button onclick="closeContact()" class="cancel">Cancel x</button>
-                            <button class="create-contact">Create contact</button>
-                        </div>
+                        <form onsubmit="">
+                            <input required type="text" placeholder="Name"> <br>
+                            <input required type="email" placeholder="Email"> <br>
+                            <input required type="number" placeholder="Phone"> <br>
 
+                            <div class="cancel-and-ceate">
+                                <button onclick="closeContact()" class="cancel">Cancel x</button>
+                                <button class="create-contact">Create contact</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>

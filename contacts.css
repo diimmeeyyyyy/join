@@ -25,9 +25,7 @@
 .contacts {
   display: flex;
   align-items: center;
-  height: 20px;
   padding: 15px 24px 15px 24px;
-  gap: 35px;
   width: 352px;
   font-size: 20px;
   height: 78px;
@@ -40,7 +38,12 @@
 }
 
 .names {
-  margin: 20px;
+  gap: 5px;
+  font-size: 20px;
+
+}
+.mail{
+  font-size: 19px;
 }
 
 .button-name {
@@ -102,6 +105,7 @@
   align-content: center;
   align-items: center;
   overflow: auto;
+
 }
 
 .all-container {
