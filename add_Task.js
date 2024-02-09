@@ -1,5 +1,6 @@
 let tasks = [];
 let prio = '';
+let subtasks = []; 
 
 
 function addPrioToTask(priority) {
@@ -33,14 +34,27 @@ function changeButtonColor() {
 }
 
 
-function addToTasks() {
+function addNewSubtask() {
+    let newSubtasksList = document.getElementById('add-task-subtasks-list');
+    let subtask = document.getElementById('add_task_subtasks_inputfield');
+  
+
+    newSubtasksList.innerHTML += `      
+        <li> ${subtask.value} <br></li>
+    `
+    subtasks.push(subtask.value);
+    console.log('subtasks', subtasks)
+    subtask.value = '';
+}
+
+
+async function addToTasks() {
     let title = document.getElementById('add_task_title');
     let description = document.getElementById('add_task_description');
     let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
     let dueDate = document.getElementById('add_task_due_date');
     let category = document.getElementById('add_task_categorie');
-    let subtasks = document.getElementById('add_task_subtasks');
-
+    
 
     let task = {
         "title": title.value,
@@ -49,11 +63,12 @@ function addToTasks() {
         "dueDate": dueDate.value,
         "prio": prio,
         "category": category.value,
-        "subtasks": subtasks.value
-    }
+        "subtasks": subtasks
+        }
 
     tasks.push(task);
     console.log('tasks', tasks);
+
 
     title.value = '';
     description.value = '';
@@ -61,9 +76,6 @@ function addToTasks() {
     dueDate.value = '';
     category.value = '';
     subtasks.value = '';
-
-    setItem(key, value);
-
 }
 
 
