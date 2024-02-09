@@ -37,7 +37,7 @@ CSS FOR LOG-IN & REGISTER HTML
   font-size: 20px;
   font-weight: 400;
 }
-.register-button-section button {
+.register-button-section a {
   border: none;
   background-color: #2a3647;
   color: white;
@@ -46,6 +46,14 @@ CSS FOR LOG-IN & REGISTER HTML
   font-weight: 700;
   border-radius: 8px;
   cursor: pointer;
+  text-decoration: none;
+}
+
+/* ========================
+ARROW BACK ON REGISTER.HTML
+============================*/
+.go-back-arrow {
+  position: relative;
 }
 /* ==============================
   LOG-IN & REGISTER WINDOW SECTION
@@ -56,7 +64,7 @@ CSS FOR LOG-IN & REGISTER HTML
   align-items: center;
   gap: 32px;
   width: 650px;
-  padding-block: 48px;
+  padding-block: 25px;
   background-color: white;
   border-radius: 30px;
 }
@@ -164,4 +172,31 @@ CSS FOR LOG-IN & REGISTER HTML
 }
 .rights-section p {
   cursor: pointer;
+}
+
+/* ========================
+CHECK PASSWORD REQUIREMENTS
+============================*/
+#Check_Requirements_Pop_Up {
+  display: none;
+  background-color: #29abe2;
+  position: fixed;
+  top: 0;
+  flex-direction: column;
+  border-radius: 0 0 20px 20px;
+  padding: 15px;
+}
+#Check_Requirements_Pop_Up h3 {
+  text-decoration: underline;
+}
+#Check_Requirements_Pop_Up span {
+  display: flex;
+  align-items: center;
+}
+.invalid {
+  color: #b01717;
+}
+.valid {
+  color: rgb(139, 194, 74);
+  font-weight: bold;
 }

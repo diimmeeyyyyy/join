@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
     <link rel="stylesheet" href="log_In_and_Register.css" />
+    <script src="register.js"></script>
   </head>
   <body>
-    <!-- JOIN-LOGO -->
+    <!--< JOIN-LOGO >-->
     <svg
       class="join-logo"
       width="101"
@@ -39,7 +40,7 @@
       />
     </svg>
     <!--------------->
-    <!------------ SIGN-UP WINDOW SECTION ------------>
+    <!------------< SIGN-UP WINDOW SECTION >------------>
     <section class="logIn-and-register-window-section">
       <span class="logIn-and-register-window-headline">
         <h1>Sign up</h1>
@@ -49,7 +50,16 @@
       <form class="form-body" onsubmit="registerUser(); return false">
         <input type="text" placeholder="Name" id="Name" required />
         <input type="email" placeholder="Email" id="Email" required />
-        <input type="password" placeholder="Password" id="Password" required />
+        <input
+          type="password"
+          placeholder="Password"
+          id="Password"
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          onfocus="displayPasswordRequirements()"
+          onblur="hidePasswordRequirements()"
+          onkeyup="checkPasswordRequirements()"
+        />
         <input
           type="password"
           placeholder="Confirm Password"
@@ -57,7 +67,12 @@
           required
         />
         <div class="checkbox-div">
-          <input type="checkbox" id="Privacy_Policy_Checkbox" />
+          <input
+            type="checkbox"
+            id="Privacy_Policy_Checkbox"
+            required
+            checked
+          />
           <label for="Privacy_Policy_Checkbox"
             >I accept the <a href="#">privacy policy</a></label
           >
@@ -67,11 +82,31 @@
       </form>
     </section>
 
-    <!------- PRIVACY POLICY & LEGAL NOTIVE CONTAINER ------->
+    <!-------< PRIVACY POLICY & LEGAL NOTIVE CONTAINER >------->
     <section class="rights-section">
       <p>Privacy policy</p>
       <p>Legal notice</p>
     </section>
     <!------------------------------------------------------->
+    <!------------< POP-UP WINDOW TO CHECK PASSWORD REQUIREMENTS >------------>
+    <div id="Check_Requirements_Pop_Up">
+      <h3>Password must contain the following:</h3>
+      <span id="Letter" class="invalid">
+        <img id="Letter_Img" src="./img/WrongPassword.png" />
+        <p><b>lowercase</b> letter</p>
+      </span>
+      <span id="Capital" class="invalid">
+        <img id="Capital_Letter_Img" src="./img/WrongPassword.png" />
+        <p><b>capital (uppercase)</b> letter</p>
+      </span>
+      <span id="Number" class="invalid">
+        <img id="Number_Img" src="./img/WrongPassword.png" />
+        <p>number</p>
+      </span>
+      <span id="Length" class="invalid">
+        <img id="Length_Img" src="./img/WrongPassword.png" />
+        <p>Minimum <b>8 characters</b></p>
+      </span>
+    </div>
   </body>
 </html>
