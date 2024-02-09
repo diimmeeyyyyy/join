@@ -38,7 +38,6 @@ function addNewSubtask() {
     let newSubtasksList = document.getElementById('add-task-subtasks-list');
     let subtask = document.getElementById('add_task_subtasks_inputfield');
   
-
     newSubtasksList.innerHTML += `      
         <li> ${subtask.value} <br></li>
     `
