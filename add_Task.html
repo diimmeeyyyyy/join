@@ -17,7 +17,7 @@
     <header w3-include-html="assets/templates/header.html"></header>
     <div>
 
-        <form onsubmit="addToTasks()"; return false; class="add-task-section">
+        <form onsubmit="addToTasks(); return false"; class="add-task-section">
             <div class="add-task-container">
                 <h1>Add Task</h1>
                 <span>Title<span class="add-task-highlight-red">*</span></span>
@@ -29,7 +29,7 @@
 
                 <span>Assigned to</span>
                 <select id="add_task_contacts_to_assign" class="add-task-inputfield">
-                    <option disabled selected hidden>Select contacts to assign</option> //NACHGUCKEN
+                    <option disabled selected hidden>Select contacts to assign</option> 
                     <option> (NAME 1) </option>
                     <option> (NAME 2) </option>
                     <option> (NAME 3) </option>
@@ -47,7 +47,7 @@
                 <input id="add_task_due_date" class="add-task-inputfield" required type="date">
 
                 <span>Prio</span>
-                <div class="add-task-inputfield">
+                <div class="add-task-inputfield" id="add_task_inputfield">
                     <button onclick="addPrioToTask('urgent'), changeButtonColor()" id="add_task_prio_button_urgent"
                         class="add-task-prio-button" type="button">Urgent</button>
                     <button onclick="addPrioToTask('medium'), changeButtonColor()" id="add_task_prio_button_medium"

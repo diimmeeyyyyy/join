@@ -49,32 +49,48 @@ function addNewSubtask() {
 
 async function addToTasks() {
     let title = document.getElementById('add_task_title');
-    let description = document.getElementById('add_task_description');
-    let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
     let dueDate = document.getElementById('add_task_due_date');
     let category = document.getElementById('add_task_categorie');
     
+    let description = document.getElementById('add_task_description');
+    let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
+
 
     let task = {
         "title": title.value,
-        "description": description.value,
-        "contactsToAssign": contactsToAssign.value,
         "dueDate": dueDate.value,
-        "prio": prio,
         "category": category.value,
-        "subtasks": subtasks
+        "prio": prio
         }
+
+        if (description.value.trim() !== '') {
+            task.description = description.value;
+        }
+
+        if (contactsToAssign.value !== "Select contacts to assign"){
+            task.contactsToAssign = contactsToAssign.value;
+        }
+
+        if (subtasks.length !== 0) {
+            task.subtasks = subtasks;
+        }
+
+        if (prio === '') {
+            task.prio = 'medium';
+        }
+
 
     tasks.push(task);
     console.log('tasks', tasks);
 
+    await setItem('task', task);
 
     title.value = '';
     description.value = '';
     contactsToAssign.value = '';
     dueDate.value = '';
     category.value = '';
-    subtasks.value = '';
+    subtasks = [];
 }
 
 
