@@ -1,6 +1,22 @@
-let registeredUser = [];
+let allRegisteredUsers = [];
 
-function registerUser() {
+async function initRegister() {
+  loadUsers();
+}
+
+async function loadUsers() {
+  try {
+    allRegisteredUsers = JSON.parse(await getItem("allRegisteredUsers"));
+  } catch {
+    console.info("COULD NOT LOAD USERS");
+  }
+}
+
+/* =======================
+ADDING NEW REGISTERED USER 
+==========================*/
+async function registerUser() {
+  document.getElementById("Register_Button").disabled = true;
   let name = document.getElementById("Name");
   let email = document.getElementById("Email");
   let password = document.getElementById("Password");
@@ -9,20 +25,39 @@ function registerUser() {
   if (password.value !== confirmPassword.value) {
     alert("Die Passwörter stimmen nicht überein");
   } else {
-    let user = {
+    allRegisteredUsers.push({
       name: name.value,
       email: email.value,
       password: password.value,
       confirmPassword: confirmPassword.value,
-    };
+    });
 
-    registeredUser.push(user);
-    console.log(registeredUser);
-    name.value = ``;
-    email.value = ``;
-    password.value = ``;
-    confirmPassword.value = ``;
+    await setItem("allRegisteredUsers", JSON.stringify(allRegisteredUsers));
+
+    resetForm(name, email, password, confirmPassword);
+    document.getElementById("Register_Button").disabled = false;
   }
+}
+
+async function getAllRegisteredUsers() {
+  //Array vom Backend-Server holen
+  let allRegisteredUsers;
+
+  try {
+    allRegisteredUsers = await getItem("allRegisteredUsers");
+  } catch (error) {
+    console.error("Array wurde nicht gefunden");
+    allRegisteredUsers = [];
+  }
+  return allRegisteredUsers;
+}
+
+function resetForm(name, email, password, confirmPassword) {
+  name.value = ``;
+  email.value = ``;
+  password.value = ``;
+  confirmPassword.value = ``;
+  Register_Button.disabled = false;
 }
 
 /* =========================================

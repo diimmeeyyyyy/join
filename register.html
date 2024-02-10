@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
+    <!-- LINKED FILES -->
     <link rel="stylesheet" href="log_In_and_Register.css" />
+    <script src="storage.js"></script>
+    <!-- WICHTIG, DASS STORAGE.JS ZUERST KOMMT -->
     <script src="register.js"></script>
+    <!------------------>
   </head>
-  <body>
+  <body onload="initRegister()">
     <!--< JOIN-LOGO >-->
     <svg
       class="join-logo"
@@ -78,7 +82,7 @@
           >
         </div>
 
-        <button class="register-button">Sign up</button>
+        <button class="register-button" id="Register_Button">Sign up</button>
       </form>
     </section>
 
