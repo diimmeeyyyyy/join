@@ -205,7 +205,7 @@ CHECK PASSWORD REQUIREMENTS
 SIGNED UP SUCCESSFULLY MESSAGE
 ==============================*/
 #Signed_Up_Successfully_Overlay {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;

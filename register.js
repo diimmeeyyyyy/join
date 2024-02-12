@@ -35,7 +35,6 @@ async function registerUser() {
     await setItem("allRegisteredUsers", JSON.stringify(allRegisteredUsers));
 
     resetForm(name, email, password, confirmPassword);
-
     signedUpSuccessfully();
     countdownToRedirect();
   }
