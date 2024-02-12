@@ -200,3 +200,36 @@ CHECK PASSWORD REQUIREMENTS
   color: rgb(139, 194, 74);
   font-weight: bold;
 }
+
+/* ===========================
+SIGNED UP SUCCESSFULLY MESSAGE
+==============================*/
+#Signed_Up_Successfully_Overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.signed-up-successfully-msg {
+  background-color: rgb(43, 54, 71);
+  border-radius: 20px;
+  color: white;
+  font-size: 24px;
+  padding: 25px;
+}
+.redirect-to-logIn-msg {
+  display: flex;
+  gap: 10px;
+  background-color: rgb(43, 54, 71);
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+}

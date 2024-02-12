@@ -35,7 +35,9 @@ async function registerUser() {
     await setItem("allRegisteredUsers", JSON.stringify(allRegisteredUsers));
 
     resetForm(name, email, password, confirmPassword);
-    document.getElementById("Register_Button").disabled = false;
+
+    signedUpSuccessfully();
+    countdownToRedirect();
   }
 }
 
@@ -57,9 +59,34 @@ function resetForm(name, email, password, confirmPassword) {
   email.value = ``;
   password.value = ``;
   confirmPassword.value = ``;
-  Register_Button.disabled = false;
+  document.getElementById("Register_Button").disabled = false;
 }
 
+function signedUpSuccessfully() {
+  let message = document.getElementById("Signed_Up_Successfully_Overlay");
+
+  message.style.display = "flex";
+
+  setTimeout(function () {
+    message.style.display = "none";
+  }, 4000);
+}
+
+function countdownToRedirect() {
+  let countDownElement = document.getElementById("Countdown_To_LogIn");
+  let countdownValue = 4;
+  countDownElement.innerText = countdownValue;
+
+  setInterval(function () {
+    countdownValue--;
+    countDownElement.innerText = countdownValue;
+
+    if (countdownValue === 0) {
+      //Weiterleitung zu LogIn Seite:
+      window.location.href = "log_In.html";
+    }
+  }, 1000);
+}
 /* =========================================
 POP-UP WINDOW TO CHECK PASSWORD REQUIREMENTS
 ============================================*/
