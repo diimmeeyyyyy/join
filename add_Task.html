@@ -17,7 +17,7 @@
     <header w3-include-html="assets/templates/header.html"></header>
     <div>
 
-        <form onsubmit="addToTasks(); return false"; class="add-task-section">
+        <form onsubmit="createTask(); return false"; class="add-task-section">
             <div class="add-task-container">
                 <h1>Add Task</h1>
                 <span>Title<span class="add-task-highlight-red">*</span></span>
@@ -47,20 +47,20 @@
                 <input id="add_task_due_date" class="add-task-inputfield" required type="date">
 
                 <span>Prio</span>
-                <div class="add-task-inputfield" id="add_task_inputfield">
-                    <button onclick="addPrioToTask('urgent'), changeButtonColor()" id="add_task_prio_button_urgent"
+                <div class="add-task-inputfield" id="add_task_inputfield">              
+                    <button onclick="setTaskPriority('urgent'); changeButtonColor()" id="add_task_prio_button_urgent"
                         class="add-task-prio-button" type="button">Urgent</button>
-                    <button onclick="addPrioToTask('medium'), changeButtonColor()" id="add_task_prio_button_medium"
-                        class="add-task-prio-button" type="button">Medium</button>
-                    <button onclick="addPrioToTask('low'), changeButtonColor()" id="add_task_prio_button_low"
+                    <button onclick="setTaskPriority('medium'); changeButtonColor()" id="add_task_prio_button_medium"
+                        class="add-task-prio-button add-task-prio-button-yellow" type="button">Medium</button>
+                    <button onclick="setTaskPriority('low'); changeButtonColor()" id="add_task_prio_button_low"
                         class="add-task-prio-button" type="button">Low</button>
                 </div>
 
                 <span>Category<span class="add-task-highlight-red">*</span></span>
                 <select id="add_task_categorie" class="add-task-inputfield" required> 
                     <option disabled selected hidden>Select task category</option>
-                    <option>Technical Task</option>
-                    <option>User Story</option>
+                    <option value="technicalTask">Technical Task</option>
+                    <option value="userStory">User Story</option>
                 </select>
 
                 <span>Subtasks</span>

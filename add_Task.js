@@ -1,9 +1,8 @@
-let tasks = [];
 let prio = '';
-let subtasks = []; 
+let subtasks = [];
 
 
-function addPrioToTask(priority) {
+function setTaskPriority(priority) {
     prio = priority;
     return prio;
 }
@@ -18,18 +17,21 @@ function changeButtonColor() {
         urgentButton.classList.toggle("add-task-prio-button-red");
         mediumButton.classList.remove("add-task-prio-button-yellow");
         lowButton.classList.remove("add-task-prio-button-green");
+        return;
     }
 
     if (prio === 'medium') {
         mediumButton.classList.toggle("add-task-prio-button-yellow");
         urgentButton.classList.remove('add-task-prio-button-red');
-        lowButton.classList.remove('add-task-prio-button-green')
+        lowButton.classList.remove('add-task-prio-button-green');
+        return;
     }
 
     if (prio === 'low') {
         lowButton.classList.toggle("add-task-prio-button-green");
         urgentButton.classList.remove('add-task-prio-button-red');
-        mediumButton.classList.remove('add-task-prio-button-yellow')
+        mediumButton.classList.remove('add-task-prio-button-yellow');
+        return;
     }
 }
 
@@ -37,7 +39,7 @@ function changeButtonColor() {
 function addNewSubtask() {
     let newSubtasksList = document.getElementById('add-task-subtasks-list');
     let subtask = document.getElementById('add_task_subtasks_inputfield');
-  
+
     newSubtasksList.innerHTML += `      
         <li> ${subtask.value} <br></li>
     `
@@ -47,11 +49,24 @@ function addNewSubtask() {
 }
 
 
-async function addToTasks() {
+async function createTask() {
+    let allTasks = [];
+    const allTasksResponse = await getItem('allTasks');                            //allTasks vom Server laden
+
+
+    if (allTasksResponse.status == 'success') {                                      // schauen, ob response den status success hat                 
+        const allTasksResponseAsArray = JSON.parse(allTasksResponse.data.value);    // falls ja, response.data.value mit JSON von String in Array umwandeln               
+
+        if (allTasksResponseAsArray instanceof Array) {                             //schauen, ob das, was mit JSON umgewandelt, ein Array ist                  
+            allTasks = allTasksResponseAsArray;                                    // falls allTasks ein Array ist: vorhandenes Array nutzen 
+        }
+    }
+
+
     let title = document.getElementById('add_task_title');
     let dueDate = document.getElementById('add_task_due_date');
     let category = document.getElementById('add_task_categorie');
-    
+
     let description = document.getElementById('add_task_description');
     let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
 
@@ -61,29 +76,28 @@ async function addToTasks() {
         "dueDate": dueDate.value,
         "category": category.value,
         "prio": prio
-        }
+    }
 
-        if (description.value.trim() !== '') {
-            task.description = description.value;
-        }
+    if (description.value.trim() !== '') {
+        task.description = description.value.trim();
+    }
 
-        if (contactsToAssign.value !== "Select contacts to assign"){
-            task.contactsToAssign = contactsToAssign.value;
-        }
+    if (contactsToAssign.value !== "Select contacts to assign") {
+        task.contactsToAssign = contactsToAssign.value;
+    }
 
-        if (subtasks.length !== 0) {
-            task.subtasks = subtasks;
-        }
+    if (subtasks.length !== 0) {
+        task.subtasks = subtasks;
+    }
 
-        if (prio === '') {
-            task.prio = 'medium';
-        }
+    if (prio === '') {
+        task.prio = 'medium';
+    }
 
 
-    tasks.push(task);
-    console.log('tasks', tasks);
+    allTasks.push(task);
 
-    await setItem('task', task);
+    await setItem('allTasks', allTasks);
 
     title.value = '';
     description.value = '';
