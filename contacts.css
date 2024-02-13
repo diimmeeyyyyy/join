@@ -1,4 +1,8 @@
 /* CONTACT-CONTAINER */
+body {
+  overflow-x: hidden;
+}
+
 .new-contacts {
   width: 456px;
   height: 101px;
@@ -6,7 +10,16 @@
   justify-content: center;
   align-items: center;
 }
+
+.person_add {
+  height: 32px;
+  width: 32px;
+}
+
 .button-contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(42, 54, 71, 1);
   color: white;
   width: 352px;
@@ -42,8 +55,10 @@
   font-size: 20px;
 
 }
-.mail{
+
+.mail {
   font-size: 19px;
+  color: rgb(0, 124, 238);
 }
 
 .button-name {
@@ -55,7 +70,8 @@
   font-size: 12px;
   border: white;
 }
-.create-contact{
+
+.create-contact {
   background-color: rgb(42, 54, 71, 1);
   color: white;
   width: 214px;
@@ -66,12 +82,18 @@
   gap: 4px;
   font-size: 21px;
   font-weight: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.create-contact:hover{
+
+
+.create-contact:hover {
   cursor: pointer;
   background-color: rgb(0, 204, 255);
 }
-.cancel{
+
+.cancel {
   height: 56px;
   width: 130px;
   border-radius: 10px;
@@ -80,12 +102,14 @@
   font-size: 24px;
   background-color: white;
 }
-.cancel:hover{
+
+.cancel:hover {
   cursor: pointer;
   color: rgb(0, 204, 255);
   border: 1px solid rgb(0, 204, 255);
 }
-.cancel-and-ceate{
+
+.cancel-and-ceate {
   display: flex;
   gap: 24px;
 }
@@ -178,6 +202,9 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1;
+  transform: translateX(2000px);
+  transition: all 225ms ease-in-out;
 }
 
 .add-contact {
@@ -192,10 +219,12 @@
   flex-direction: column;
   justify-content: center;
 }
-.add-contact h1{
+
+.add-contact h1 {
   font-size: 73px
 }
-.add-contact p{
+
+.add-contact p {
   font-size: 27px;
 }
 
@@ -211,7 +240,8 @@ form {
   top: 137px;
   left: 742px;
 }
-form input{
+
+form input {
   width: 422px;
   height: 50px;
   gap: 8px;
@@ -231,7 +261,83 @@ form input{
   border-bottom-right-radius: 30px;
   padding: 66px 48px 66px 48px;
 }
-.d-none{
-  display: none;
+
+
+.new-contact-push {
+  position: absolute;
+  width: 480px;
+  height: 364px;
+  top: 235px;
+  left: 555px;
+  gap: 21px;
+  z-index: 1;
+  transform: translateX(1400px);
+  transition: all 225ms ease-in-out;
 }
-/* CONTACT-CONTAINER */
+
+.animate {
+  transform: translateX(0px);
+}
+
+/* css für Kontakte die eingeblendet werden! */
+.contacts-list {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 54px;
+}
+
+.contacts-name {
+  font-family: Inter;
+  font-size: 47px;
+  font-weight: 500;
+  text-align: left;
+
+}
+
+.edit-delet {
+  display: flex;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.edit-delet img p {
+  width: 24px;
+  height: 24px;
+}
+
+.edit-delet p {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.button-name-contacts {
+  width: 120px;
+  height: 120px;
+  border-radius: 80px;
+  font-size: 47px;
+  color: white;
+  background-color: rgb(255, 122, 0);
+  border: none
+}
+
+.contact-information {
+  width: 207px;
+  height: 74px;
+  gap: 59px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+a {
+  color: rgb(0, 124, 238);
+}
+
+.name-email-phone {
+  font-size: 16px;
+  font-weight: 700;
+}

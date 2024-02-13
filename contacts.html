@@ -11,7 +11,7 @@
     <script src="contacts.js"></script>
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(); init()">
     <header w3-include-html="assets/templates/header.html"></header>
 
 
@@ -19,7 +19,7 @@
     <div class="all-container">
         <div class="container1">
             <div class="new-contacts">
-                <button class="button-contact" onclick="newContactOpen()">Add new contact <img src="" alt=""></button>
+                <button class="button-contact" onclick="newContactOpen()">Add new contact <img class="person_add" src="./img/person_add (1).png" alt=""></button>
             </div>
             <div id="newContacts">
                 <div class="name-letter">A</div>
@@ -31,7 +31,6 @@
                     <div class="names">
                         <p>Andreas Pflaum <br> <a href="">andy@gmail.com</a></p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -40,12 +39,34 @@
                 <h1>Contacts</h1>
                 <p class="parting-line">|</p>
                 <p>Better with a team</p>
-
-            </div>
-            <div id="push_contacts">
-
             </div>
 
+            <div id="push_contacts" class="new-contact-push">
+                <!-- <div class="contacts-list">
+                    <button class="button-name-contacts">AP</button>
+                    <div>
+                        <p class="contacts-name">Andreas Pflaum</p>
+                        <div class="edit-delet">
+                            <p><img src="./img/edit.png"> Edit </p>
+                            <p><img src="./img/delete.png"> Delete</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="contact-information">Contact Information</p>
+                </div>
+                <div class="email-phone">
+
+                    <p class="name-email-phone">Email</p> <br>
+                    <a href="">andy@gmail.com</a> <br> <br>
+
+
+                    <p class="name-email-phone"> Phone</p> <br>
+                    <p>0157733562</p>
+
+                </div> -->
+
+            </div>
         </div>
 
     </div>
@@ -60,7 +81,7 @@
                 </div>
                 <div class="picture-and-form-contact">
                     <div class="picture-new-contact">
-                        <img src="" alt="Bild Contact">
+                        <img src="./img/person.png" alt="Bild Contact">
                     </div>
                     <div>
                         <form onsubmit="">
@@ -70,7 +91,7 @@
 
                             <div class="cancel-and-ceate">
                                 <button onclick="closeContact()" class="cancel">Cancel x</button>
-                                <button class="create-contact">Create contact</button>
+                                <button class="create-contact">Create contact <img src="./img/check.png" alt=""></button>
                             </div>
                         </form>
                     </div>
