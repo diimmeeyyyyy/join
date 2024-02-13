@@ -36,9 +36,11 @@ BOARD
   display: flex;
   gap: 40px;
 }
+
 .board-section-header-find-task-div input {
   width: 250px;
 }
+
 .board-section-header-find-task-div input,
 aside {
   padding: 10px;
@@ -76,20 +78,85 @@ aside {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
 .board-mainContent-container {
   margin-right: 30px;
   display: flex;
   flex-direction: column;
 }
+
 .board-mainContent-titleDiv {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .noTasks-toDo {
   padding: 10px;
   border: 2px dotted black;
   border-radius: 10px;
   background-color: rgb(231, 231, 231);
   color: rgb(155, 155, 155);
+}
+
+
+.board-task-container-overview {
+  width: 252px;
+  height: 100%;
+  padding: 16px;
+  border-radius: 24px;
+  gap: 10px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px 3px #00000014;
+}
+
+.board-task-category {
+  width: 113px;
+  height: 27px;
+  padding: 4px, 16px, 4px, 16px;
+  border-radius: 8px;
+  background: #0038FF;
+  color: white;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-task-title-and-description {
+  width: 220px;
+  height: 65px;
+  /* gap: 8px */
+}
+
+.board-task-title {
+  width: 220px;
+  height: 19px;
+  /* font-family: Inter; */
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.board-task-description {
+/* font-family: Inter; */
+font-size: 16px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0em;
+text-align: left;
+color: #A8A8A8;
+}
+
+.board-task-container-contacts-and-prio {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 220px;
+  height: 32px;
 }

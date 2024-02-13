@@ -54,13 +54,11 @@ async function createTask() {
     const allTasksResponse = await getItem('allTasks');                            //allTasks vom Server laden
 
 
-    if (allTasksResponse.status == 'success') {                                      // schauen, ob response den status success hat                 
-        const allTasksResponseAsArray = JSON.parse(allTasksResponse.data.value);    // falls ja, response.data.value mit JSON von String in Array umwandeln               
 
-        if (allTasksResponseAsArray instanceof Array) {                             //schauen, ob das, was mit JSON umgewandelt, ein Array ist                  
-            allTasks = allTasksResponseAsArray;                                    // falls allTasks ein Array ist: vorhandenes Array nutzen 
-        }
+    if (allTasksResponse instanceof Array) {                             //schauen, ob das, was mit JSON umgewandelt, ein Array ist                  
+        allTasks = allTasksResponse;                                    // falls allTasks ein Array ist: vorhandenes Array nutzen 
     }
+
 
 
     let title = document.getElementById('add_task_title');
