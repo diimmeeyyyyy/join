@@ -21,9 +21,20 @@ async function registerUser() {
   let email = document.getElementById("Email");
   let password = document.getElementById("Password");
   let confirmPassword = document.getElementById("Confirm_Password");
+  let checkbox = document.getElementById("Privacy_Policy_Checkbox");
 
+  formValidation(name, email, password, confirmPassword, checkbox);
+  await setItem("allRegisteredUsers", JSON.stringify(allRegisteredUsers));
+  resetForm(name, email, password, confirmPassword);
+  signedUpSuccessfully();
+  countdownToRedirect();
+}
+
+function formValidation(name, email, password, confirmPassword, checkbox) {
   if (password.value !== confirmPassword.value) {
     alert("Die Passwörter stimmen nicht überein");
+  } else if (!checkbox.checked) {
+    alert("Privacy Policy must be accepted");
   } else {
     allRegisteredUsers.push({
       name: name.value,
@@ -31,26 +42,7 @@ async function registerUser() {
       password: password.value,
       confirmPassword: confirmPassword.value,
     });
-
-    await setItem("allRegisteredUsers", JSON.stringify(allRegisteredUsers));
-
-    resetForm(name, email, password, confirmPassword);
-    signedUpSuccessfully();
-    countdownToRedirect();
   }
-}
-
-async function getAllRegisteredUsers() {
-  //Array vom Backend-Server holen
-  let allRegisteredUsers;
-
-  try {
-    allRegisteredUsers = await getItem("allRegisteredUsers");
-  } catch (error) {
-    console.error("Array wurde nicht gefunden");
-    allRegisteredUsers = [];
-  }
-  return allRegisteredUsers;
 }
 
 function resetForm(name, email, password, confirmPassword) {
@@ -122,3 +114,21 @@ function check(input, pattern, imgID, classID) {
     document.getElementById(imgID).src = "./img/WrongPassword.png";
   }
 }
+
+/* ====================================================
+LET INPUTFIELD-ICON DISAPPEAR + BORDER AROUND INPUTFIELD
+========================================================*/
+document.addEventListener("click", function (event) {
+  let inputBoxes = document.querySelectorAll(".input-box");
+  inputBoxes.forEach(function (inputBox) {
+    let img = inputBox.querySelector("img");
+
+    if (inputBox.contains(event.target)) {
+      img.style.display = "none";
+      inputBox.style.borderColor = "#29abe2";
+    } else {
+      img.style.display = "block";
+      inputBox.style.borderColor = "#d1d1d1";
+    }
+  });
+});

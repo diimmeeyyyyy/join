@@ -28,7 +28,7 @@ CSS FOR LOG-IN & REGISTER HTML
 .register-button-section {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 20px;
   position: absolute;
   top: 60px;
   right: 80px;
@@ -52,13 +52,19 @@ CSS FOR LOG-IN & REGISTER HTML
 /* ========================
 ARROW BACK ON REGISTER.HTML
 ============================*/
-.go-back-arrow {
-  position: relative;
+.back-to-logIn-arrow {
+  position: absolute;
+  top: 75px;
+  left: 50px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
 }
 /* ==============================
   LOG-IN & REGISTER WINDOW SECTION
   ================================*/
 .logIn-and-register-window-section {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,37 +98,37 @@ ARROW BACK ON REGISTER.HTML
   gap: 20px;
   position: relative;
 }
-/* .form-body input {
-  height: 40px;
-  width: 300px;
-} */
 .input-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid #d1d1d1;
-  padding: 10px;
   border-radius: 10px;
   padding: 5px;
   cursor: pointer;
   font-size: 21px;
-  height: 40px;
-  width: 300px;
+  height: 30px;
+  width: 350px;
 }
 .input-box input {
   font-size: 21px;
-  height: 40px;
-  width: 300px;
+  height: 100%;
   border: none;
   flex-grow: 1;
+  outline: none;
+}
+.input-box input::placeholder {
+  color: #d1d1d1;
+  padding-left: 25px;
 }
 .input-box img {
-  width: 24px;
+  width: 19px;
   margin-right: 10px;
 }
 .form-body input::placeholder {
   font-size: 21px;
 }
+/*===================================*/
 .checkbox-div {
   display: flex;
   align-items: center;
@@ -146,14 +152,14 @@ ARROW BACK ON REGISTER.HTML
   text-decoration: none;
   color: #29abe2;
 }
-
+/*===================================*/
 .logIn-button-div {
   display: flex;
   gap: 35px;
 }
 .logIn-button-div button {
   border-radius: 8px;
-  padding: 10px;
+  padding: 5px 10px;
   cursor: pointer;
 }
 .logIn-button {
@@ -181,6 +187,17 @@ ARROW BACK ON REGISTER.HTML
   font-weight: 700;
   border: none;
   width: 125px;
+}
+
+/* ==========================
+BORDER-ANIMATION WHEN ONCLICK
+==============================*/
+.border-animation {
+  border: 1px solid #d1d1d1;
+  transition: border 1s ease-in-out;
+}
+.border-animation.active {
+  border-color: #29abe2;
 }
 
 /* ====================================
@@ -222,7 +239,7 @@ CHECK PASSWORD REQUIREMENTS
   }
 }
 #Check_Requirements_Pop_Up h3 {
-  color: whitesmoke;
+  color: #2a3647;
   border: 2px solid whitesmoke;
   border-radius: 10px;
   padding: 5px;
