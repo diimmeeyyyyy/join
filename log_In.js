@@ -2,7 +2,7 @@ async function logInUser() {
   let email = document.getElementById("Email");
   let password = document.getElementById("Password");
 
-  let getAllRegisteredUsers = JSON.parse(await getItem("allRegisteredUsers"));
+  let getAllRegisteredUsers = await getItem("allRegisteredUsers");
 
   let user = getAllRegisteredUsers.find(
     (u) => u.email == email.value && u.password == password.value

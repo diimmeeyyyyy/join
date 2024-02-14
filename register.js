@@ -6,7 +6,7 @@ async function initRegister() {
 
 async function loadUsers() {
   try {
-    allRegisteredUsers = JSON.parse(await getItem("allRegisteredUsers"));
+    allRegisteredUsers = await getItem("allRegisteredUsers");
   } catch {
     console.info("COULD NOT LOAD USERS");
   }
@@ -90,11 +90,15 @@ function countdownToRedirect() {
 POP-UP WINDOW TO CHECK PASSWORD REQUIREMENTS
 ============================================*/
 function displayPasswordRequirements() {
-  document.getElementById("Check_Requirements_Pop_Up").style.display = "flex";
+  document
+    .getElementById("Check_Requirements_Pop_Up")
+    .classList.add("slide-down");
 }
 
 function hidePasswordRequirements() {
-  document.getElementById("Check_Requirements_Pop_Up").style.display = "none";
+  document
+    .getElementById("Check_Requirements_Pop_Up")
+    .classList.remove("slide-down");
 }
 
 function checkPasswordRequirements() {

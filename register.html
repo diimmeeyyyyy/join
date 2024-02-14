@@ -52,24 +52,36 @@
       </span>
 
       <form class="form-body" onsubmit="registerUser(); return false">
-        <input type="text" placeholder="Name" id="Name" required />
-        <input type="email" placeholder="Email" id="Email" required />
-        <input
-          type="password"
-          placeholder="Password"
-          id="Password"
-          required
-          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-          onfocus="displayPasswordRequirements()"
-          onblur="hidePasswordRequirements()"
-          onkeyup="checkPasswordRequirements()"
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          id="Confirm_Password"
-          required
-        />
+        <div class="input-box">
+          <input type="text" placeholder="Name" id="Name" required />
+          <img src="./img/registerPerson.png" />
+        </div>
+        <div class="input-box">
+          <input type="email" placeholder="Email" id="Email" required />
+          <img src="./img/registerEmail.png" />
+        </div>
+        <div class="input-box">
+          <input
+            type="password"
+            placeholder="Password"
+            id="Password"
+            required
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            onfocus="displayPasswordRequirements()"
+            onblur="hidePasswordRequirements()"
+            onkeyup="checkPasswordRequirements()"
+          />
+          <img src="./img/registerLock.png" />
+        </div>
+        <div class="input-box">
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            id="Confirm_Password"
+            required
+          />
+          <img src="./img/registerLock.png" />
+        </div>
         <div class="checkbox-div">
           <input
             type="checkbox"
@@ -77,8 +89,8 @@
             required
             checked
           />
-          <label for="Privacy_Policy_Checkbox"
-            >I accept the <a href="#">privacy policy</a></label
+          <label for="Privacy_Policy_Checkbox">
+            <p>I accept the <a href="#">privacy policy</a></p></label
           >
         </div>
 

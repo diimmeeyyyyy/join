@@ -90,15 +90,35 @@ ARROW BACK ON REGISTER.HTML
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  position: relative;
 }
-.form-body input {
-  border-radius: 10px;
-  border: 1px solid #d1d1d1;
-  padding: 5px;
-  cursor: pointer;
+/* .form-body input {
   height: 40px;
   width: 300px;
+} */
+.input-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #d1d1d1;
+  padding: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
   font-size: 21px;
+  height: 40px;
+  width: 300px;
+}
+.input-box input {
+  font-size: 21px;
+  height: 40px;
+  width: 300px;
+  border: none;
+  flex-grow: 1;
+}
+.input-box img {
+  width: 24px;
+  margin-right: 10px;
 }
 .form-body input::placeholder {
   font-size: 21px;
@@ -106,18 +126,21 @@ ARROW BACK ON REGISTER.HTML
 .checkbox-div {
   display: flex;
   align-items: center;
-  margin-left: 39px;
-  gap: 8px;
+  gap: 10px;
   height: 24px;
 }
 .checkbox-div input {
   margin: unset;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 .checkbox-div label {
+  display: flex;
   font-size: 20px;
   font-weight: 400;
+}
+.checkbox-div label p {
+  color: rgb(168, 168, 168);
 }
 .checkbox-div label a {
   text-decoration: none;
@@ -178,16 +201,31 @@ ARROW BACK ON REGISTER.HTML
 CHECK PASSWORD REQUIREMENTS
 ============================*/
 #Check_Requirements_Pop_Up {
-  display: none;
+  display: flex;
   background-color: #29abe2;
   position: fixed;
   top: 0;
   flex-direction: column;
+  transform: translateY(-101%);
   border-radius: 0 0 20px 20px;
   padding: 15px;
 }
+.slide-down {
+  animation: slideDown 2s forwards;
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-101%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 #Check_Requirements_Pop_Up h3 {
-  text-decoration: underline;
+  color: whitesmoke;
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  padding: 5px;
 }
 #Check_Requirements_Pop_Up span {
   display: flex;
