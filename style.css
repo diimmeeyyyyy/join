@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(246, 247, 248);
-  }
+}
 
 h1,
 p {
@@ -31,3 +31,31 @@ HEADER
   background-color: rgb(43, 54, 71);
 }
 
+/* ========
+INDEX PAGE
+==========*/
+.index-page {
+  /*  position: relative; */
+  height: 100vh;
+}
+.index-page img {
+  position: absolute;
+  /* transform: translate(-50%, -50%); */
+  animation: swipe 3s forwards;
+}
+
+@keyframes swipe {
+  0% {
+    top: 50%;
+    left: 50%;
+    width: 275px;
+    height: 335px;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    top: 30px;
+    left: 80px;
+    width: 100px;
+    height: 120px;
+  }
+}
