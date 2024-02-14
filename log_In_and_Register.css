@@ -19,8 +19,9 @@ CSS FOR LOG-IN & REGISTER HTML
 ================================*/
 .join-logo {
   position: absolute;
-  top: 30px;
-  left: 80px;
+  top: clamp(10px, 3vw, 30px);
+  left: clamp(35px, 8vw, 80px);
+  width: clamp(65px, 10vw, 100px);
 }
 /* ====================================
   REGISTER BUTTON SECTION ON LOG-IN HTML
@@ -54,8 +55,8 @@ ARROW BACK ON REGISTER.HTML
 ============================*/
 .back-to-logIn-arrow {
   position: absolute;
-  top: 75px;
-  left: 50px;
+  top: clamp(30px, 6vw, 75px);
+  left: clamp(15px, 6vw, 50px);
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -68,9 +69,9 @@ ARROW BACK ON REGISTER.HTML
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
-  width: 650px;
-  padding-block: 25px;
+  gap: clamp(15px, 3vw, 31px);
+  width: clamp(360px, 60vw, 650px);
+  padding-block: clamp(10px, 3vw, 25px);
   background-color: white;
   border-radius: 30px;
 }
@@ -82,7 +83,7 @@ ARROW BACK ON REGISTER.HTML
   justify-content: center;
 }
 .logIn-and-register-window-headline h1 {
-  font-size: 61px;
+  font-size: clamp(40px, 4vw, 61px);
 }
 .dividing-line {
   height: 3px;
@@ -106,27 +107,24 @@ ARROW BACK ON REGISTER.HTML
   border-radius: 10px;
   padding: 5px;
   cursor: pointer;
-  font-size: 21px;
-  height: 30px;
-  width: 350px;
+  height: clamp(25px, 5vw, 30px);
+  width: clamp(290px, 50vw, 350px);
 }
 .input-box input {
-  font-size: 21px;
-  height: 100%;
+  font-size: clamp(18px, 3vw, 22px);
+  /* height: 100%; */
   border: none;
   flex-grow: 1;
   outline: none;
 }
 .input-box input::placeholder {
   color: #d1d1d1;
-  padding-left: 25px;
+  padding-left: 20px;
+  font-size: clamp(18px, 3vw, 22px);
 }
 .input-box img {
   width: 19px;
   margin-right: 10px;
-}
-.form-body input::placeholder {
-  font-size: 21px;
 }
 /*===================================*/
 .checkbox-div {
@@ -142,7 +140,7 @@ ARROW BACK ON REGISTER.HTML
 }
 .checkbox-div label {
   display: flex;
-  font-size: 20px;
+  font-size: clamp(16px, 3vw, 20px);
   font-weight: 400;
 }
 .checkbox-div label p {
@@ -219,7 +217,7 @@ CHECK PASSWORD REQUIREMENTS
 ============================*/
 #Check_Requirements_Pop_Up {
   display: flex;
-  background-color: #29abe2;
+  background-color: #2a3647;
   position: fixed;
   top: 0;
   flex-direction: column;
@@ -239,9 +237,8 @@ CHECK PASSWORD REQUIREMENTS
   }
 }
 #Check_Requirements_Pop_Up h3 {
-  color: #2a3647;
-  border: 2px solid whitesmoke;
-  border-radius: 10px;
+  color: #29abe2;
+  border-bottom: 1px solid whitesmoke;
   padding: 5px;
 }
 #Check_Requirements_Pop_Up span {
@@ -287,4 +284,21 @@ SIGNED UP SUCCESSFULLY MESSAGE
   color: white;
   font-size: 18px;
   padding: 10px;
+}
+
+/* ==========
+MEDIA-QUERIES
+==============*/
+@media (max-width: 680px) {
+  .logIn-button-div {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .register-button-section {
+    top: unset;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+  }
 }

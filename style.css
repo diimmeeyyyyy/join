@@ -35,12 +35,10 @@ HEADER
 INDEX PAGE
 ==========*/
 .index-page {
-  /*  position: relative; */
   height: 100vh;
 }
 .index-page img {
   position: absolute;
-  /* transform: translate(-50%, -50%); */
   animation: swipe 3s forwards;
 }
 
