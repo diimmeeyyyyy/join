@@ -17,7 +17,7 @@
     <header w3-include-html="assets/templates/header.html"></header>
     <div>
 
-        <form onsubmit="createTask(); return false"; class="add-task-section">
+        <form onsubmit="createTask(); return false;" class="add-task-section">
             <div class="add-task-container">
                 <h1>Add Task</h1>
                 <span>Title<span class="add-task-highlight-red">*</span></span>
@@ -44,7 +44,7 @@
             <div class="add-task-container">
 
                 <span>Due Date<span class="add-task-highlight-red">*</span></span>
-                <input id="add_task_due_date" class="add-task-inputfield" type="date">
+                <input id="add_task_due_date" class="add-task-inputfield" type="date" required>
 
                 <span>Prio</span>
                 <div class="add-task-inputfield" id="add_task_inputfield">              
@@ -58,9 +58,9 @@
 
                 <span>Category<span class="add-task-highlight-red">*</span></span>
                 <select id="add_task_categorie" class="add-task-inputfield" required> 
-                    <option disabled selected hidden>Select task category</option>
-                    <option value="technicalTask">Technical Task</option>
-                    <option value="userStory">User Story</option>
+                    <option value="" disabled selected hidden>Select task category</option>
+                    <option value="Technical Task">Technical Task</option>
+                    <option value="User Story">User Story</option>
                 </select>
 
                 <span>Subtasks</span>

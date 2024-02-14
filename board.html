@@ -8,11 +8,13 @@
   <!-- LINKED FILES -->
   <link rel="stylesheet" href="board.css" />
   <script src="board.js"></script>
+  <script src="add_Task.js"></script>
   <script src="utils.js"></script>
+  <script src="storage.js"></script>  
   <!------------------>
 </head>
 
-<body onload="includeHTML()">
+<body onload="init()">
   <header w3-include-html="assets/templates/header.html"></header>
 
   <main class="board">
@@ -24,7 +26,7 @@
 
         <div class="board-section-header-find-task-div">
           <input type="text" placeholder="Find Task" />
-          <aside class="add-task-button">
+          <a href="add_Task.html"><aside class="add-task-button">
             <p>Add task</p>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <mask id="mask0_131396_3931" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32"
@@ -37,7 +39,7 @@
                   fill="white" />
               </g>
             </svg>
-          </aside>
+          </aside></a>
         </div>
       </div>
     </section>
@@ -51,10 +53,13 @@
             <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
           </svg>
         </div>
-        <span class="noTasks-toDo">No tasks to do</span>
-        <span id="To_Do_Content"></span>
+       
+        <!-- <span id="To_Do_Content"></span>        wofür gedacht?  -->
+        <div id="to_do_container"> </div>
 
-     
+
+      
+
 
 
       </div>
@@ -67,6 +72,7 @@
             <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
           </svg>
         </div>
+        <span class="noTasks-toDo">No tasks to do</span>
         <span id="In_Progress_Content"></span>
       </div>
       <div class="board-mainContent-container">

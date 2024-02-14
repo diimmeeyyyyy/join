@@ -49,17 +49,20 @@ function addNewSubtask() {
 }
 
 
-async function createTask() {
-    let allTasks = [];
-    const allTasksResponse = await getItem('allTasks');                            //allTasks vom Server laden
+async function getTasks() {
+    const allTasksResponse = await getItem('allTasks');                 //allTasks vom Server laden
 
-
-
-    if (allTasksResponse instanceof Array) {                             //schauen, ob das, was mit JSON umgewandelt, ein Array ist                  
-        allTasks = allTasksResponse;                                    // falls allTasks ein Array ist: vorhandenes Array nutzen 
+    if (allTasksResponse instanceof Array) {                            //schauen, ob allTaksResponse ein Array ist                  
+        return allTasksResponse;                                       // falls allTasks ein Array ist: vorhandenes Array zurückgeben
+    } else {
+        return [];                                                     //wenn nicht: leeres Array zurückgeben
     }
+}
 
 
+async function createTask() {
+
+    const allTasks = await getTasks();                      
 
     let title = document.getElementById('add_task_title');
     let dueDate = document.getElementById('add_task_due_date');
@@ -103,6 +106,8 @@ async function createTask() {
     dueDate.value = '';
     category.value = '';
     subtasks = [];
+
+    window.location.href = "board.html";
 }
 
 
