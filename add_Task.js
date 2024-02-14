@@ -9,6 +9,7 @@ function setTaskPriority(priority) {
 
 
 function changeButtonColor() {
+    
     let urgentButton = document.getElementById('add_task_prio_button_urgent');
     let mediumButton = document.getElementById('add_task_prio_button_medium');
     let lowButton = document.getElementById('add_task_prio_button_low');
