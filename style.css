@@ -31,8 +31,8 @@ HEADER
   background-color: rgb(43, 54, 71);
 }
 
-/* ========
-INDEX PAGE
+/* =======
+INDEX.HTML
 ==========*/
 .index-page {
   height: 100vh;
@@ -56,4 +56,109 @@ INDEX PAGE
     width: 100px;
     height: 120px;
   }
+}
+
+/* ==========
+SUMMARY.HTML
+=============*/
+.summary-main {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+/* ===================
+TITLE & SLOGAN SECTION
+======================*/
+.summary-title-section {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.summary-title-section h1 {
+  font-size: 61px;
+}
+.dividing-line {
+  width: 4px;
+  height: 50px;
+  background-color: #29abe2;
+  border-radius: 10px;
+}
+.summary-slogan {
+  font-size: 27px;
+}
+/* =============================
+TASK OVERVIEW & GREETINGS SECTION
+================================*/
+.summary-task-section {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+}
+/*=================================================================*/
+.summary-task-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 560px;
+}
+/*=================================================================*/
+.summary-task-overview-toDo-and-done {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: aquamarine;
+}
+.summary-task-overview-toDo-and-done span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 30px;
+  width: 260px;
+  height: 170px;
+  gap: 15px;
+}
+.arrange-amount-and-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.amount-tasks {
+  font-size: 64px;
+}
+/*=================================================================*/
+.summary-task-overview-dueDates {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: navajowhite;
+  height: 170px;
+  border-radius: 30px;
+}
+.summary-task-overview-dueDates span {
+  display: flex;
+  align-items: center;
+}
+.dividing-line-task-overview-dueDates {
+  width: 3px;
+  height: 100px;
+  background-color: gray;
+}
+.summary-upcoming-deadline-div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.summary-upcoming-deadline-div p:first-of-type {
+  font-size: 21px;
+  font-weight: 700;
+}
+.summary-upcoming-deadline-div p:last-of-type {
+  font-size: 16px;
+  font-weight: 400;
+}
+/*=================================================================*/
+.summary-task-overview-information {
+  display: flex;
+  justify-content: space-between;
 }

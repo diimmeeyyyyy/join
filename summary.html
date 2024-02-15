@@ -1,15 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Summary</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="utils.js"></script>
     <script src="summary.js"></script>
-</head>
-<body onload="includeHTML()">
+  </head>
+  <body onload="includeHTML()">
     <header w3-include-html="assets/templates/header.html"></header>
-    
-</body>
+
+    <main class="summary-main">
+      <section class="summary-title-section">
+        <h1>JOIN 360</h1>
+        <p class="dividing-line"></p>
+        <p class="summary-slogan">Key Metrics at a Glance</p>
+      </section>
+
+      <section class="summary-task-section">
+        <div class="summary-task-overview">
+          <div class="summary-task-overview-toDo-and-done">
+            <span>
+              <img src="./assets/img/summaryPen.png" />
+              <div class="arrange-amount-and-status">
+                <p class="amount-tasks">4</p>
+                <p>TO DO</p>
+              </div>
+            </span>
+            <span>
+              <img src="./assets/img/summaryDoneTasks.png" />
+              <div class="arrange-amount-and-status">
+                <p class="amount-tasks">10</p>
+                <p>DONE</p>
+              </div>
+            </span>
+          </div>
+          <div class="summary-task-overview-dueDates">
+            <span>
+              <img src="./assets/img/summaryUrgency.png" />
+              <div class="arrange-amount-and-status">
+                <p class="amount-tasks">10</p>
+                <p>URGENT</p>
+              </div>
+            </span>
+            <p class="dividing-line-task-overview-dueDates"></p>
+            <div class="summary-upcoming-deadline-div">
+              <p>October 16,2024</p>
+              <p>Upcoming Deadline</p>
+            </div>
+          </div>
+          <div class="summary-task-overview-information">
+            <span>5 TASKS IN BOARD</span>
+            <span>2 TASKS IN PROGRESS</span>
+            <span>2 AWAITING FEEDBACK</span>
+          </div>
+        </div>
+        <span>
+          <h3>GOOD MORDNING</h3>
+          <h2>SOFIA</h2>
+        </span>
+      </section>
+    </main>
+  </body>
 </html>

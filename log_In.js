@@ -47,3 +47,10 @@ function rememberLogInData(userEmail, userPassword) {
     setItem("rememberLogIn", JSON.stringify(rememberLogIn));
   }
 }
+
+function guestLogIn() {
+  document.getElementById("Email").required = false;
+  document.getElementById("Password").required = false;
+
+  window.location.href = "summary.html";
+}
