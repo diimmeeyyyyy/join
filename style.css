@@ -2,9 +2,12 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(246, 247, 248);
+  overflow: hidden;
 }
 
 h1,
+h3,
+h2,
 p {
   margin-block-start: 0;
   margin-block-end: 0;
@@ -64,7 +67,10 @@ SUMMARY.HTML
 .summary-main {
   display: flex;
   flex-direction: column;
-  padding: 50px;
+  padding: clamp(5px, 2vw, 50px);
+}
+.summary-img-size {
+  width: clamp(40px, 7vw, 70px);
 }
 /* ===================
 TITLE & SLOGAN SECTION
@@ -75,7 +81,7 @@ TITLE & SLOGAN SECTION
   gap: 30px;
 }
 .summary-title-section h1 {
-  font-size: 61px;
+  font-size: clamp(40px, 5vw, 61px);
 }
 .dividing-line {
   width: 4px;
@@ -84,7 +90,7 @@ TITLE & SLOGAN SECTION
   border-radius: 10px;
 }
 .summary-slogan {
-  font-size: 27px;
+  font-size: clamp(20px, 5vw, 27px);
 }
 /* =============================
 TASK OVERVIEW & GREETINGS SECTION
@@ -93,20 +99,20 @@ TASK OVERVIEW & GREETINGS SECTION
   display: flex;
   align-items: center;
   padding-top: 20px;
+  gap: 100px;
 }
 /*=================================================================*/
 .summary-task-overview {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 560px;
+  gap: 15px;
+  width: clamp(340px, 90vw, 560px);
 }
 /*=================================================================*/
 .summary-task-overview-toDo-and-done {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  background-color: aquamarine;
+  gap: 30px;
 }
 .summary-task-overview-toDo-and-done span {
   display: flex;
@@ -115,7 +121,7 @@ TASK OVERVIEW & GREETINGS SECTION
   background-color: white;
   border-radius: 30px;
   width: 260px;
-  height: 170px;
+  height: clamp(110px, 26vw, 170px);
   gap: 15px;
 }
 .arrange-amount-and-status {
@@ -124,7 +130,10 @@ TASK OVERVIEW & GREETINGS SECTION
   align-items: center;
 }
 .amount-tasks {
-  font-size: 64px;
+  font-size: clamp(40px, 7vw, 64px);
+}
+.status-tasks {
+  font-size: clamp(14px, 3vw, 20px);
 }
 /*=================================================================*/
 .summary-task-overview-dueDates {
@@ -161,4 +170,32 @@ TASK OVERVIEW & GREETINGS SECTION
 .summary-task-overview-information {
   display: flex;
   justify-content: space-between;
+}
+.summary-task-overview-information div {
+  width: clamp(110px, 26vw, 170px);
+  height: clamp(110px, 26vw, 170px);
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.summary-task-overview-information div p:last-of-type {
+  font-size: clamp(14px, 4vw, 21px);
+  font-weight: 400;
+  text-align: center;
+}
+/*=================================================================*/
+.summary-greetings-div {
+  display: flex;
+  flex-direction: column;
+}
+.summary-greetings-div h3 {
+  font-size: 47px;
+  font-weight: 500;
+}
+.summary-greetings-div h2 {
+  font-size: 64px;
+  font-weight: 700;
+  color: #29abe2;
 }

@@ -27,6 +27,9 @@ async function logInUser() {
   );
 
   if (user) {
+    let currentUser = [];
+    currentUser.push(user);
+    await setItem("loggedInUser", JSON.stringify(currentUser));
     window.location.href = "summary.html";
   } else {
     alert("USER NICHT GEFUNDEN");

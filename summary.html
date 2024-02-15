@@ -4,11 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Summary</title>
+    <!-- LINKED FILES -->
     <link rel="stylesheet" href="style.css" />
+    <script src="storage.js"></script>
     <script src="utils.js"></script>
     <script src="summary.js"></script>
+    <!------------------>
   </head>
-  <body onload="includeHTML()">
+  <body onload="initSummary()">
     <header w3-include-html="assets/templates/header.html"></header>
 
     <main class="summary-main">
@@ -22,43 +25,69 @@
         <div class="summary-task-overview">
           <div class="summary-task-overview-toDo-and-done">
             <span>
-              <img src="./assets/img/summaryPen.png" />
+              <img src="./assets/img/summaryPen.png" class="summary-img-size" />
               <div class="arrange-amount-and-status">
                 <p class="amount-tasks">4</p>
-                <p>TO DO</p>
+                <p class="status-tasks">To-do</p>
               </div>
             </span>
             <span>
-              <img src="./assets/img/summaryDoneTasks.png" />
+              <img
+                src="./assets/img/summaryDoneTasks.png"
+                class="summary-img-size"
+              />
               <div class="arrange-amount-and-status">
                 <p class="amount-tasks">10</p>
-                <p>DONE</p>
+                <p class="status-tasks">Done</p>
               </div>
             </span>
           </div>
+          <!-------------------------------------------------------------------->
           <div class="summary-task-overview-dueDates">
             <span>
-              <img src="./assets/img/summaryUrgency.png" />
+              <img
+                src="./assets/img/summaryUrgency.png"
+                class="summary-img-size"
+              />
               <div class="arrange-amount-and-status">
                 <p class="amount-tasks">10</p>
-                <p>URGENT</p>
+                <p class="status-tasks">URGENT</p>
               </div>
             </span>
             <p class="dividing-line-task-overview-dueDates"></p>
             <div class="summary-upcoming-deadline-div">
-              <p>October 16,2024</p>
+              <p>October 16, 2024</p>
               <p>Upcoming Deadline</p>
             </div>
           </div>
+          <!-------------------------------------------------------------------->
           <div class="summary-task-overview-information">
-            <span>5 TASKS IN BOARD</span>
-            <span>2 TASKS IN PROGRESS</span>
-            <span>2 AWAITING FEEDBACK</span>
+            <div class="arrange-amount-and-status">
+              <p class="amount-tasks">5</p>
+              <p>
+                Tasks in <br />
+                Board
+              </p>
+            </div>
+            <div class="arrange-amount-and-status">
+              <p class="amount-tasks">3</p>
+              <p>
+                Tasks in <br />
+                progress
+              </p>
+            </div>
+            <div class="arrange-amount-and-status">
+              <p class="amount-tasks">8</p>
+              <p>
+                Awaiting <br />
+                Feedback
+              </p>
+            </div>
           </div>
         </div>
-        <span>
-          <h3>GOOD MORDNING</h3>
-          <h2>SOFIA</h2>
+        <span class="summary-greetings-div">
+          <h3>GOOD MORNING,</h3>
+          <h2 id="Greeting_Name">SOFIA</h2>
         </span>
       </section>
     </main>
