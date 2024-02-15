@@ -22,14 +22,14 @@
                 <button class="button-contact" onclick="newContactOpen()">Add new contact <img class="person_add" src="./img/person_add (1).png" alt=""></button>
             </div>
             <div id="newContacts">
-                <div class="name-letter">A</div>
+                <div class="name-letter"></div>
                 <div class="contact-parting-line">
                     <hr>
                 </div>
                 <div class="contacts">
                     <button class="button-name">AP</button>
                     <div class="names">
-                        <p>Andreas Pflaum <br> <a href="">andy@gmail.com</a></p>
+                    
                     </div>
                 </div>
             </div>
@@ -42,29 +42,7 @@
             </div>
 
             <div id="push_contacts" class="new-contact-push">
-                <!-- <div class="contacts-list">
-                    <button class="button-name-contacts">AP</button>
-                    <div>
-                        <p class="contacts-name">Andreas Pflaum</p>
-                        <div class="edit-delet">
-                            <p><img src="./img/edit.png"> Edit </p>
-                            <p><img src="./img/delete.png"> Delete</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <p class="contact-information">Contact Information</p>
-                </div>
-                <div class="email-phone">
-
-                    <p class="name-email-phone">Email</p> <br>
-                    <a href="">andy@gmail.com</a> <br> <br>
-
-
-                    <p class="name-email-phone"> Phone</p> <br>
-                    <p>0157733562</p>
-
-                </div> -->
+                
 
             </div>
         </div>
@@ -83,17 +61,17 @@
                     <div class="picture-new-contact">
                         <img src="./img/person.png" alt="Bild Contact">
                     </div>
-                    <div>
-                        <form onsubmit="">
-                            <input required type="text" placeholder="Name"> <br>
-                            <input required type="email" placeholder="Email"> <br>
-                            <input required type="number" placeholder="Phone"> <br>
+                    <div class="form">
+                        <!-- <form onsubmit=""> -->
+                            <input id="text" required type="text" placeholder="Name"> <br>
+                            <input id="email" required type="email" placeholder="Email"> <br>
+                            <input id="number" required type="number" placeholder="Phone"> <br>
 
                             <div class="cancel-and-ceate">
                                 <button onclick="closeContact()" class="cancel">Cancel x</button>
-                                <button class="create-contact">Create contact <img src="./img/check.png" alt=""></button>
+                                <button onclick="addContact()" class="create-contact">Create contact <img src="./img/check.png"></button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
 
                 </div>

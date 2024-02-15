@@ -5,29 +5,37 @@ let contacts = [
         "tel": "0157733562"
     },
     {
-        "name":'Lydia Lehnert',
-        "e-mail":'lydia@gmail.com',
-        "tel":'0157742434'
+        "name": 'Lydia Lehnert',
+        "e-mail": 'lydia@gmail.com',
+        "tel": '0157742434'
 
     },
     {
-        "name":'Dimitrios Kapetanis',
-        "e-mail":'dimi@gmail.com',
+        "name": 'Dimitrios Kapetanis',
+        "e-mail": 'dimi@gmail.com',
         "tel": '0157745677'
-    }
-    
+    }, 
+
 ];
-let contactName = contacts['name'];
+contacts.sort((a, b) => {
+    if (a.name < b.name) {
+        return -1;
+    }
+    if (a.name > b.name) {
+        return 1;
+    }
+    return 0;
+});
 
 let letters = contacts.map(contact => contact.name.charAt(0)); // Erster Buchstabe vom Array contacts['name'] wird übernommen!
 
-let twolettersName = contacts.map(contact =>{                   // Zwei Buchstaben werden übergeben zb. May Musstermann = MM !
+let twolettersName = contacts.map(contact => {                   // Zwei Buchstaben werden übergeben zb. Max Musstermann = MM !
     const nameSplit = contact.name.split(' ');
     const twoNummber = nameSplit.map(teil => teil.charAt(0));
     return twoNummber.join('');
 });
 
-function init(){
+function init() {
     contactList();
 }
 
@@ -42,12 +50,15 @@ function closeContact() {
     backround.classList.remove('animate');
 }
 
-function contactList(){
+function contactList() {
     let list = document.getElementById('newContacts');
+
+
     list.innerHTML = '';
-     for (let i = 0; i < contacts.length; i++) {
+    for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
-        list.innerHTML +=`
+        list.innerHTML += /*html*/`
+            
         <div>
         <div class="name-letter">${letters[i]}</div>
         <div class="contact-parting-line">
@@ -62,23 +73,18 @@ function contactList(){
         </div>
             
         </div>`;
-        
-        
-     }
-     
-     
+    }
 }
-function pushContact(i){
+function pushContact(i) {
     let pushContact = document.getElementById('push_contacts');
-    pushContact.innerHTML ='';
+    pushContact.innerHTML = '';
     transformNewContacts();
-    
-    
-    pushContact.innerHTML =`
+
+    pushContact.innerHTML = `
                 <div class="contacts-list">
                     <button class="button-name-contacts">${twolettersName[i]}</button>
                     <div>
-                        <p class="contacts-name">${contacts['name']}</p>
+                        <p class="contacts-name">${contacts[i]['name']}</p>
                         <div class="edit-delet">
                             <p><img src="./img/edit.png"> Edit </p>
                             <p><img src="./img/delete.png"> Delete</p>
@@ -91,25 +97,44 @@ function pushContact(i){
                 <div class="email-phone">
 
                     <p class="name-email-phone">Email</p> <br>
-                    <a href=""></a> <br> <br>
+                    <a href="">${contacts[i]['e-mail']}</a> <br> <br>
 
 
                     <p class="name-email-phone"> Phone</p> <br>
-                    <p></p>
+                    <p>${contacts[i]['tel']}</p>
 
                 </div>
 
             </div>
     `;
-    
+
 }
 
-function  transformNewContacts(){
+function transformNewContacts() {
     let pushContacts = document.getElementById('push_contacts');
     pushContacts.classList.add('animate');
 }
 
-function  transformCloseContacts(){
+function transformCloseContacts() {
     let pushContacts = document.getElementById('push_contacts');
     pushContacts.classList.remove('animate');
+}
+
+function addContact() {
+    let text = document.getElementById('text').value;
+    let email = document.getElementById('email').value;
+    let number = document.getElementById('number').value;
+
+    let newContact = {
+        "name": text,
+        "e-mail": email,
+        "tel": number
+    }
+
+
+    contacts.push(newContact);
+    document.getElementById('text').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('number').value = '';
+    init();
 }
