@@ -1,6 +1,6 @@
 async function initSummary() {
-  includeHTML();
   loadGreetingName();
+  includeHTML();
 }
 
 async function loadGreetingName() {
@@ -8,6 +8,18 @@ async function loadGreetingName() {
   console.log(user);
   let userName = user[0].name;
 
-  let inputfield = document.getElementById("Greeting_Name");
-  inputfield.innerHTML = userName;
+  if (window.innerWidth > 800) {
+    let inputfield = document.getElementById("Greeting_Name");
+    inputfield.innerHTML = userName;
+  } else {
+    let overlay = document.querySelector(".summary-mobile-position-content");
+    overlay.style.display = "flex";
+
+    let inputfieldMobile = document.getElementById("Greeting_Name_Mobile");
+    inputfieldMobile.innerHTML = userName;
+
+    setTimeout(() => {
+      overlay.style.display = "none";
+    }, 3000);
+  }
 }
