@@ -105,7 +105,6 @@ aside {
   height: auto;
   padding: 16px;
   border-radius: 24px;
-  gap: 10px;
   background: #FFFFFF;
   box-shadow: 0px 0px 10px 3px #00000014;
   margin-bottom: 16px;
@@ -126,37 +125,38 @@ aside {
   font-family: Inter;
   font-size: 16px;
   font-weight: 400;
-  line-height: 19px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.board-task-title-and-description {
-  width: 220px;
-  height: 65px;
-  /* gap: 8px */
-}
-
 .board-task-title {
   width: 220px;
-  height: 19px;
-  /* font-family: Inter; */
   font-size: 16px;
   font-weight: 700;
-  line-height: 19px;
-  letter-spacing: 0em;
-  text-align: left;
+  padding-top: 16px;
+    /* font-family: Inter; */
 }
 
 .board-task-description {
-  /* font-family: Inter; */
   font-size: 16px;
   font-weight: 400;
-  line-height: 19px;
-  letter-spacing: 0em;
-  text-align: left;
   color: #A8A8A8;
+  padding-top: 8px;
+  /* font-family: Inter; */
+}
+
+.board-task-subtask-container {
+  display: flex;
+  padding-top: 16px;
+  font-size: 13px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 10px;
+  width: 0%;
 }
 
 .board-task-container-contacts-and-prio {
@@ -165,6 +165,7 @@ aside {
   justify-content: space-between;
   width: 220px;
   height: 32px;
+  padding-top: 16px;
 }
 
 
@@ -184,7 +185,7 @@ aside {
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 36px;
   word-break: break-all;
 }
 
@@ -195,7 +196,7 @@ aside {
 
 #board_largeview_closebutton:hover {
   cursor: pointer;
-  background-color: lightgray;
+  background-color: rgb(246, 247, 248);
   border-radius: 32px;
 }
 
@@ -221,6 +222,16 @@ aside {
 
 .board-task-duedate-largeview {
   padding-top: 16px;
+  font-size: 20px;
+}
+
+.board-task-largeview-color {
+  color: rgb(125,136,156); 
+  padding-right: 24px;
+}
+
+.board-task-largeview-padding-right{
+  padding-right: 36px;
 }
 
 .board-task-priority-largeview {
@@ -236,8 +247,44 @@ aside {
 
 .board-task-assigned-to-largeview {
   padding-top: 16px;
+  font-size: 20px;
+}
+
+.board-task-subtasks-container-largeview {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-size: 20px;
 }
 
 .board-task-subtasks-largeview {
-  padding-top: 16px;
+  padding-top: 8px;
+  padding-left: 8px;
+  font-size: 16px;
+}
+
+/* 
+.board-task-subtask-checkbox{
+  color: rgb(82,92,106);
+  background-color: white;
+} */
+
+.board-task-delete-and-edit-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 16px;
+  padding-right: 8px;
+  gap: 16px;
+  font-size: 16px;
+}
+
+.board-task-largeview-icon{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+}
+
+.board-task-largeview-icon:hover {
+  cursor: pointer;
+  color: blue;
 }

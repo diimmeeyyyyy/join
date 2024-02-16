@@ -2,11 +2,6 @@ let prio = '';
 let subtasks = [];
 let _taskList = null;
 
-// function setCurrentDate(){
-//     document.getElementById('add_task_due_date').min = new Date().toISOString().split('T')[0];
-// }
-
-
 
 function setTaskPriority(priority) {
     prio = priority;
@@ -15,7 +10,6 @@ function setTaskPriority(priority) {
 
 
 function changeButtonColor() {
-    
     let urgentButton = document.getElementById('add_task_prio_button_urgent');
     let mediumButton = document.getElementById('add_task_prio_button_medium');
     let lowButton = document.getElementById('add_task_prio_button_low');
