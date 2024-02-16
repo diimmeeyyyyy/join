@@ -7,6 +7,7 @@
   <title>Board</title>
   <!-- LINKED FILES -->
   <link rel="stylesheet" href="board.css" />
+  <link rel="stylesheet" href="add_Task.css">
   <script src="board.js"></script>
   <script src="add_Task.js"></script>
   <script src="utils.js"></script>
@@ -16,6 +17,7 @@
 
 <body onload="init()">
   <header w3-include-html="assets/templates/header.html"></header>
+  <div w3-include-html="assets/templates/add_Task.html" id ="add_task_popup" class="add-task-popup"></div> 
 
   <main class="board" id="board">
     <section class="board-section-header">
@@ -26,7 +28,7 @@
 
         <div class="board-section-header-find-task-div">
           <input type="text" placeholder="Find Task" />
-          <a href="add_Task.html"><aside class="add-task-button">
+          <aside onclick = "openAddTaskPopUp()" class="add-task-button">
             <p>Add task</p>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <mask id="mask0_131396_3931" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32"
@@ -39,7 +41,7 @@
                   fill="white" />
               </g>
             </svg>
-          </aside></a>
+          </aside>
         </div>
       </div>
     </section>

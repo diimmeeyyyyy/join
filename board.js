@@ -4,26 +4,6 @@ function init() {
 }
 
 
-function addPrioIcon(task) {
-    switch (task.prio) {
-        case "urgent":
-            return '<img src="./assets/img/priorityUrgent.svg" class="board-task-prio-icon">';
-            break;
-
-        case "medium":
-            return '<img src="./assets/img/priorityMedium.svg" class="board-task-prio-icon">';
-            break;
-
-        case "low":
-            return '<img src="./assets/img/priorityLow.svg" class="board-task-prio-icon">';
-            break;
-
-        default:
-            return '';
-    }
-}
-
-
 async function renderTasks() {
     const allTasks = await getTasks()
 
@@ -56,6 +36,27 @@ async function renderTasks() {
     }
     toDoContainer.innerHTML = html
 }
+
+
+function addPrioIcon(task) {
+    switch (task.prio) {
+        case "urgent":
+            return '<img src="./assets/img/priorityUrgent.svg" class="board-task-prio-icon">';
+            break;
+
+        case "medium":
+            return '<img src="./assets/img/priorityMedium.svg" class="board-task-prio-icon">';
+            break;
+
+        case "low":
+            return '<img src="./assets/img/priorityLow.svg" class="board-task-prio-icon">';
+            break;
+
+        default:
+            return '';
+    }
+}
+
 
 async function renderTaskLargeview(i) {
     const allTasks = await getTasks();
@@ -117,4 +118,16 @@ function createSubtasklist(subtasks) {
 function closeLargeview() {
     let largeviewPopup = document.getElementById('board_task_container_largeview');
     largeviewPopup.remove();
+}
+
+
+function openAddTaskPopUp(){
+    let addTaskPopup = document.getElementById ('add_task_popup'); 
+    addTaskPopup.style.display = 'unset';
+}
+
+
+function closeAddTaskPopup() {
+    let addTaskPopup = document.getElementById ('add_task_popup'); 
+    addTaskPopup.style.display = 'none';
 }
