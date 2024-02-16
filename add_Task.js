@@ -1,5 +1,11 @@
 let prio = '';
 let subtasks = [];
+let _taskList = null;
+
+// function setCurrentDate(){
+//     document.getElementById('add_task_due_date').min = new Date().toISOString().split('T')[0];
+// }
+
 
 
 function setTaskPriority(priority) {
@@ -51,10 +57,15 @@ function addNewSubtask() {
 
 
 async function getTasks() {
+    if (_taskList != null){                                             
+        return _taskList;
+    }
+
     const allTasksResponse = await getItem('allTasks');                 //allTasks vom Server laden
 
-    if (allTasksResponse instanceof Array) {                            //schauen, ob allTaksResponse ein Array ist                  
-        return allTasksResponse;                                       // falls allTasks ein Array ist: vorhandenes Array zurückgeben
+    if (allTasksResponse instanceof Array) {                            //schauen, ob allTaksResponse ein Array ist            
+        _taskList = allTasksResponse;                                  // wenn allTasks ein Array ist: Array in globaler Variable Tasklist speichern
+        return allTasksResponse;                                        //  & vorhandenes Array zurückgeben    
     } else {
         return [];                                                     //wenn nicht: leeres Array zurückgeben
     }
@@ -100,6 +111,7 @@ async function createTask() {
     allTasks.push(task);
 
     await setItem('allTasks', allTasks);
+    _taskList = allTasks;
 
     title.value = '';
     description.value = '';
