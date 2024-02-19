@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="contacts.css">
     <script src="utils.js"></script>
     <script src="contacts.js"></script>
+    <!-- <script src="storage.js"></script> -->
 </head>
 
 <body onload="includeHTML(); init()">
@@ -19,19 +20,11 @@
     <div class="all-container">
         <div class="container1">
             <div class="new-contacts">
-                <button class="button-contact" onclick="newContactOpen()">Add new contact <img class="person_add" src="./img/person_add (1).png" alt=""></button>
+                <button class="button-contact" onclick="newContactOpen()">Add new contact <img class="person_add"
+                        src="./assets/img/person_add (1).png" alt=""></button>
             </div>
             <div id="newContacts">
-                <div class="name-letter"></div>
-                <div class="contact-parting-line">
-                    <hr>
-                </div>
-                <div class="contacts">
-                    <button class="button-name">AP</button>
-                    <div class="names">
-                    
-                    </div>
-                </div>
+
             </div>
         </div>
         <div>
@@ -42,36 +35,37 @@
             </div>
 
             <div id="push_contacts" class="new-contact-push">
-                
+
 
             </div>
         </div>
 
     </div>
     <div id="new-contact">
-        <div id="backround" class="backround-new-contact-container d-none">
+        <div id="backround" class="backround-new-contact-container">
             <div class="new-contact-container">
                 <div class="add-contact">
-                    <img src="" alt="Bild Join">
+                    <img class="join-png" src="./assets/img/join.png" alt="Bild Join">
                     <h1>Add contact</h1>
                     <p> Tasks are better with a team!</p>
                     <div class="parting-line"></div>
                 </div>
                 <div class="picture-and-form-contact">
                     <div class="picture-new-contact">
-                        <img src="./img/person.png" alt="Bild Contact">
+                        <img src="./assets/img/person.png" alt="Bild Contact">
                     </div>
                     <div class="form">
-                        <!-- <form onsubmit=""> -->
+                        <form onsubmit="addContact();return false;">
                             <input id="text" required type="text" placeholder="Name"> <br>
                             <input id="email" required type="email" placeholder="Email"> <br>
                             <input id="number" required type="number" placeholder="Phone"> <br>
 
                             <div class="cancel-and-ceate">
                                 <button onclick="closeContact()" class="cancel">Cancel x</button>
-                                <button onclick="addContact()" class="create-contact">Create contact <img src="./img/check.png"></button>
+                                <button class="create-contact">Create contact <img
+                                        src="./assets/img/check.png"></button>
                             </div>
-                        <!-- </form> -->
+                        </form>
                     </div>
 
                 </div>
@@ -79,6 +73,31 @@
             </div>
         </div>
 
+
+    </div>
+    <div id="edit_contact" class="edit-contact-background d-none" >
+        <div class="edit">
+
+            <div class="edit-one">
+                <img class="join-png" src="./assets/img/join.png" alt="Bild Join">
+
+                <p> Edit contact</p>
+                <div class="parting-line"></div>
+
+            </div>
+        </div>
+        <div class="edit-two">
+            <button class="edit-button-contact"></button>
+            
+                <form class="form input" action="">
+                <input id="text" required type="text" placeholder="Name"> <br>
+                <input id="email" required type="email" placeholder="Email"> <br>
+                <input id="number" required type="number" placeholder="Phone"> <br>
+                <div class="cancel-and-ceate">
+                    <button class="cancel">Delete</button> 
+                    <button class="create-contact">Save<img src="./assets/img/check.png"></button></div>
+                </form>
+        </div>
 
     </div>
 </body>
