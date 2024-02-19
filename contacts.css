@@ -1,6 +1,7 @@
 /* CONTACT-CONTAINER */
 body {
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .new-contacts {
@@ -45,6 +46,11 @@ body {
   gap: 35px;
   border-radius: 10px;
 }
+.contacts-onclick{
+  background-color: rgb(42, 54, 71, 1);
+  color: white;
+
+}
 
 .contacts:hover {
   background-color: rgb(209, 209, 209);
@@ -75,7 +81,6 @@ body {
 .create-contact {
   background-color: rgb(42, 54, 71, 1);
   color: white;
-  width: 214px;
   height: 57px;
   border: 1px solid;
   border-radius: 10px;
@@ -117,7 +122,7 @@ body {
 
 
 .container1 {
-  height: 928px;
+  height: 775px;
   width: 456px;
   top: 96px;
   left: 28px;
@@ -146,7 +151,7 @@ body {
   background-color: rgb(246, 247, 248);
   padding: 30px;
   height: 73px;
-  font-size: 40px;
+  font-size: 40px !important;
   box-shadow: 0px 0px 0px grey;
 
 }
@@ -161,8 +166,8 @@ body {
 
 .parting-line {
   color: rgb(93, 190, 231);
-  font-size: 73px;
-  height: 59px;
+  font-size: 65px !important;
+  height: 86px;
   border: 3px;
 
 }
@@ -203,6 +208,9 @@ body {
   right: 0;
   bottom: 0;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: translateX(2000px);
   transition: all 225ms ease-in-out;
 }
@@ -275,6 +283,7 @@ body {
 
 .animate {
   transform: translateX(0px);
+  
 }
 
 /* css für Kontakte die eingeblendet werden! */
@@ -297,6 +306,10 @@ body {
   display: flex;
   gap: 8px;
   font-size: 16px;
+}
+
+.edit-delet p:hover {
+  cursor: pointer;
 }
 
 .edit-delet img p {
@@ -338,4 +351,75 @@ a {
 .name-email-phone {
   font-size: 16px;
   font-weight: 700;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.join-png {
+  height: 66.48px;
+  width: 55.6px;
+}
+
+.edit-contact-background {
+  background-color: rgb(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit {
+  width: 467px;
+  height: 594px;
+  padding: 66px, 48px, 66px, 48px;
+  gap: 12px;
+  background-color: rgb(42, 54, 71);
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-one p {
+  color: white;
+  font-size: 61px;
+}
+
+.edit-one img {
+  width: 53.93px;
+  height: 66.48px;
+
+}
+
+.edit-two {
+  height: 594px;
+  width: 650px;
+  background-color: white;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding-left: 40px;
+  display: flex;
+  align-items: center;
+}
+.edit-button-contact{
+  width: 120px;
+  height: 120px;
+  border-radius: 80px;
+  font-size: 47px;
+  color: white;
+  background-color: rgb(255, 122, 0);
+  border: none;
+  
+}
+
+.d-none{
+  display: none;
 }
