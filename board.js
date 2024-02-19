@@ -161,7 +161,12 @@ function closeAddTaskPopup() {
     addTaskPopup.style.display = 'none';
 }
 
-
+async function deleteTask(i) {
+    _taskList.splice(i, 1);
+    await setItem('allTasks', _taskList);
+    closeLargeview();
+    renderTasks();
+}
 
 
 

@@ -55,13 +55,13 @@ async function getTasks() {
         return _taskList;
     }
 
-    const allTasksResponse = await getItem('allTasks');                 //allTasks vom Server laden
+    const allTasksResponse = await getItem('allTasks');              //allTasks vom Server laden
 
-    if (allTasksResponse instanceof Array) {                            //schauen, ob allTaksResponse ein Array ist            
-        _taskList = allTasksResponse;                                  // wenn allTasks ein Array ist: Array in globaler Variable Tasklist speichern
-        return allTasksResponse;                                        //  & vorhandenes Array zurückgeben    
+    if (allTasksResponse instanceof Array) {                         //schauen, ob allTaksResponse ein Array ist            
+        _taskList = allTasksResponse;                               // wenn allTasks ein Array ist: Array in globaler Variable Tasklist speichern
+        return allTasksResponse;                                    //  & vorhandenes Array zurückgeben    
     } else {
-        return [];                                                     //wenn nicht: leeres Array zurückgeben
+        return [];                                                  //wenn nicht: leeres Array zurückgeben
     }
 }
 
