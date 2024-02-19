@@ -59,6 +59,8 @@ function addPrioIcon(task) {
 
 
 async function renderTaskLargeview(i) {
+    let contacts = ["Max Mustermann", "Erika Mustermann", "Moritz Mustermann" ]; //übergangsweise bis Contacts von Andreas im backend gespeichert
+
     const allTasks = await getTasks();
     const task = allTasks[i];
     const board = document.getElementById('board');
@@ -66,6 +68,7 @@ async function renderTaskLargeview(i) {
     const description = task.description ? task.description : '';
     const dueDate = task.dueDate ? formatDate(task.dueDate) : '';
     let prio = addPrioIcon(task);
+    contacts = contacts ? createContactsList(contacts) : ''; 
     let subtasks = task.subtasks ? createSubtasklist(task.subtasks) : '';
 
     if (task.subtasks) {
@@ -80,7 +83,7 @@ async function renderTaskLargeview(i) {
             <div class = "board-task-description-largeview">${description} </div>
             <div class = "board-task-duedate-largeview"> <span class = "board-task-largeview-color">Due date: </span> ${dueDate} </div>
             <div class = "board-task-priority-largeview"> <span class = "board-task-largeview-color board-task-largeview-padding-right"> Priority: </span> ${task.prio} ${prio} </div>
-            <div class = "board-task-assigned-to-largeview"> <span class = "board-task-largeview-color"> Assigned To: </span>(contacts) </div>
+            <div class = "board-task-assigned-to-largeview"> <span class = "board-task-largeview-color"> Assigned To: </span>${contacts}</div>
             <div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks </span>${subtasks}</div>
             <div class = "board-task-delete-and-edit-container">
                 <div id = "board_task_delete_button" onclick = "deleteTask(${i})" class = "board-task-largeview-icon">
@@ -109,6 +112,22 @@ function formatDate(dateString) {
 }
 
 
+function createContactsList(contacts) {
+    let contactsList = ''
+
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        contactsList += ` 
+        <div class = "board-task-contacticon-and-name">
+            <span> MM </span>                               <!--übergangsweise bis Funktion von Andreas, um Anfangsbuchstaben-Icon zu erstellen -->         
+            <span>&nbsp ${contact}</span>
+        </div>
+        `; 
+    }
+    return contactsList;
+}
+
+
 function createSubtasklist(subtasks) {
     let subtasklist = '';
 
@@ -117,7 +136,7 @@ function createSubtasklist(subtasks) {
         subtasklist += `
         <div class = "board-task-subtasks-largeview">
              <input type="checkbox" class="board-task-subtask-checkbox">
-             <label for>${subtask}</label>
+             <label for> &nbsp ${subtask}</label>
         </div>
         `;
     };
@@ -143,9 +162,6 @@ function closeAddTaskPopup() {
 }
 
 
-// function deleteTask(i) {
-//     _taskList.splice(i, 1);
-//     closeAddTaskPopup();
-// }
+
 
 
