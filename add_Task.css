@@ -17,6 +17,11 @@ ADD TASK-SECTION
   margin: 32px;
 }
 
+.headline-and-close-button-container {
+  display:flex;
+  justify-content: space-between;
+}
+
 .add-task-inputfield {
   margin-top: 4px;
   margin-bottom: 24px;
@@ -86,4 +91,16 @@ border-radius: 32px;
 .add-task-clear-and-create-task-buttons {
   display: flex;
   justify-content: flex-end;
+}
+
+.add-task-popup {
+  display: none;
+  height: 80%;
+  width: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 24px;
 }

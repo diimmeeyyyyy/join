@@ -102,13 +102,17 @@ aside {
 
 .board-task-container-overview {
   width: 252px;
-  height: 263px;
+  height: auto;
   padding: 16px;
   border-radius: 24px;
-  gap: 10px;
   background: #FFFFFF;
   box-shadow: 0px 0px 10px 3px #00000014;
   margin-bottom: 16px;
+  word-break: break-all;
+}
+
+.board-task-container-overview:hover {
+  cursor: pointer;
 }
 
 .board-task-category {
@@ -121,37 +125,38 @@ aside {
   font-family: Inter;
   font-size: 16px;
   font-weight: 400;
-  line-height: 19px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.board-task-title-and-description {
-  width: 220px;
-  height: 65px;
-  /* gap: 8px */
-}
-
 .board-task-title {
   width: 220px;
-  height: 19px;
-  /* font-family: Inter; */
   font-size: 16px;
   font-weight: 700;
-  line-height: 19px;
-  letter-spacing: 0em;
-  text-align: left;
+  padding-top: 16px;
+    /* font-family: Inter; */
 }
 
 .board-task-description {
-/* font-family: Inter; */
-font-size: 16px;
-font-weight: 400;
-line-height: 19px;
-letter-spacing: 0em;
-text-align: left;
-color: #A8A8A8;
+  font-size: 16px;
+  font-weight: 400;
+  color: #A8A8A8;
+  padding-top: 8px;
+  /* font-family: Inter; */
+}
+
+.board-task-subtask-container {
+  display: flex;
+  padding-top: 16px;
+  font-size: 13px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 10px;
+  width: 0%;
 }
 
 .board-task-container-contacts-and-prio {
@@ -160,4 +165,133 @@ color: #A8A8A8;
   justify-content: space-between;
   width: 220px;
   height: 32px;
+  padding-top: 16px;
+}
+
+
+/* ============== 
+  BOARD-LARGEVIEW-CONTAINER
+  ==================*/
+
+.board-task-container-largeview {
+  background-color: white;
+  width: 320px;
+  height: auto;
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 0px #00000029;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  padding: 36px;
+  word-break: break-all;
+}
+
+.board-task-category-and-closebutton-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#board_largeview_closebutton:hover {
+  cursor: pointer;
+  background-color: rgb(246, 247, 248);
+  border-radius: 32px;
+}
+
+.board-task-category-largeview {
+  font-size: 20px;
+  width: 128px;
+  height: 32px;
+}
+
+.board-task-title-largeview {
+  font-size: 56px;
+  font-weight: 700;
+  padding-top: 16px;
+    /* font-family: Inter; */
+}
+
+.board-task-description-largeview {
+  font-size: 20px;
+  font-weight: 400;
+  padding-top: 16px;
+    /* font-family: Inter; */
+}
+
+.board-task-duedate-largeview {
+  padding-top: 16px;
+  font-size: 20px;
+}
+
+.board-task-largeview-color {
+  color: rgb(125,136,156); 
+  padding-right: 24px;
+}
+
+.board-task-largeview-padding-right{
+  padding-right: 36px;
+}
+
+.board-task-priority-largeview {
+  font-size: 20px;
+  font-weight: 400;
+  padding-top: 16px;
+    /* font-family: inter; */
+}
+
+.board-task-prio-icon {
+  padding-left: 4px;
+}
+
+.board-task-assigned-to-largeview {
+  padding-top: 16px;
+  font-size: 20px;
+}
+
+.board-task-contacticon-and-name {
+  padding-top: 24px;
+  padding-left: 16px;
+}
+
+.board-task-subtasks-container-largeview {
+  padding-top: 24px;
+  padding-bottom: 16px;
+  font-size: 20px;
+}
+
+.board-task-subtasks-largeview {
+  display: flex;
+  align-items: center;
+  padding-top: 8px;
+  padding-left: 8px;
+  font-size: 16px;
+}
+
+/* 
+.board-task-subtask-checkbox{
+  color: rgb(82,92,106);
+  background-color: white;
+} */
+
+.board-task-delete-and-edit-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 16px;
+  padding-right: 8px;
+  gap: 16px;
+  font-size: 16px;
+}
+
+.board-task-largeview-icon{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+}
+
+.board-task-largeview-icon:hover {
+  cursor: pointer;
+  color: blue;
 }

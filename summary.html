@@ -1,15 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Summary</title>
+    <!-- LINKED FILES -->
+    <link rel="stylesheet" href="style.css" />
+    <script src="storage.js"></script>
     <script src="utils.js"></script>
     <script src="summary.js"></script>
-</head>
-<body onload="includeHTML()">
+    <!------------------>
+  </head>
+  <body onload="initSummary()">
     <header w3-include-html="assets/templates/header.html"></header>
-    
-</body>
+
+    <main class="summary-main">
+      <section class="summary-title-section">
+        <h1>JOIN 360</h1>
+        <p class="dividing-line"></p>
+        <p class="summary-slogan">Key Metrics at a Glance</p>
+      </section>
+
+      <section class="summary-task-section">
+        <div class="summary-task-overview">
+          <div class="summary-task-overview-toDo-and-done">
+            <span>
+              <img src="./assets/img/summaryPen.png" class="summary-img-size" />
+              <div class="arrange-amount-and-status">
+                <p class="amount-tasks">4</p>
+                <p class="status-tasks">To-do</p>
+              </div>
+            </span>
+            <span>
+              <img
+                src="./assets/img/summaryDoneTasks.png"
+                class="summary-img-size"
+              />
+              <div class="arrange-amount-and-status">
+                <p class="amount-tasks">10</p>
+                <p class="status-tasks">Done</p>
+              </div>
+            </span>
+          </div>
+          <!-------------------------------------------------------------------->
+          <div class="summary-task-overview-dueDates">
+            <span>
+              <img
+                src="./assets/img/summaryUrgency.png"
+                class="summary-img-size"
+              />
+              <div class="arrange-amount-and-status">
+                <p class="amount-tasks">10</p>
+                <p class="status-tasks">Urgent</p>
+              </div>
+            </span>
+            <p class="dividing-line-task-overview-dueDates"></p>
+            <div class="summary-upcoming-deadline-div">
+              <p>October 16, 2024</p>
+              <p>Upcoming Deadline</p>
+            </div>
+          </div>
+          <!-------------------------------------------------------------------->
+          <div class="summary-task-overview-information">
+            <div class="arrange-amount-and-status">
+              <p class="amount-tasks">5</p>
+              <p>
+                Tasks in <br />
+                Board
+              </p>
+            </div>
+            <div class="arrange-amount-and-status">
+              <p class="amount-tasks">3</p>
+              <p>
+                Tasks in <br />
+                progress
+              </p>
+            </div>
+            <div class="arrange-amount-and-status">
+              <p class="amount-tasks">8</p>
+              <p>
+                Awaiting <br />
+                Feedback
+              </p>
+            </div>
+          </div>
+        </div>
+        <span class="summary-greetings-div">
+          <h3 class="summary-greeting">Good morning,</h3>
+          <h2 class="summary-greeting-name" id="Greeting_Name">SOFIA</h2>
+        </span>
+      </section>
+    </main>
+
+    <div class="summary-mobile-position-content">
+        <span class="summary-greetings-div-mobile">
+          <h3 class="summary-greeting">Good morning,</h3>
+          <h2 class="summary-greeting-name" id="Greeting_Name_Mobile"></h2>
+        </span>
+      </div>
+
+
+
+  </body>
 </html>

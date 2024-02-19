@@ -2,9 +2,12 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(246, 247, 248);
+  overflow: hidden;
 }
 
 h1,
+h3,
+h2,
 p {
   margin-block-start: 0;
   margin-block-end: 0;
@@ -13,9 +16,7 @@ p {
 /* ====
 HEADER 
 =======*/
-
 .header-container {
-  width: 100%;
   height: 80px;
   background-color: white;
   display: flex;
@@ -31,8 +32,8 @@ HEADER
   background-color: rgb(43, 54, 71);
 }
 
-/* ========
-INDEX PAGE
+/* =======
+INDEX.HTML
 ==========*/
 .index-page {
   height: 100vh;
@@ -55,5 +56,204 @@ INDEX PAGE
     left: 80px;
     width: 100px;
     height: 120px;
+  }
+}
+
+/* ==========
+SUMMARY.HTML
+=============*/
+.summary-main {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(15px, 2vw, 50px);
+}
+.summary-img-size {
+  width: clamp(40px, 7vw, 70px);
+}
+/* ===================
+TITLE & SLOGAN SECTION
+======================*/
+.summary-title-section {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 4vw, 30px);
+}
+.summary-title-section h1 {
+  font-size: clamp(40px, 5vw, 61px);
+}
+.dividing-line {
+  width: 4px;
+  height: 50px;
+  background-color: #29abe2;
+  border-radius: 10px;
+}
+.summary-slogan {
+  font-size: clamp(20px, 5vw, 27px);
+}
+/* =============================
+TASK OVERVIEW & GREETINGS SECTION
+================================*/
+.summary-task-section {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+  gap: clamp(50px, 8vw, 100px);
+}
+/*=================================================================*/
+.summary-task-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: clamp(340px, 90vw, 560px);
+}
+/*=================================================================*/
+.summary-task-overview-toDo-and-done {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+.summary-task-overview-toDo-and-done span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 30px;
+  width: 260px;
+  height: clamp(110px, 26vw, 170px);
+  gap: 15px;
+}
+.arrange-amount-and-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.amount-tasks {
+  font-size: clamp(40px, 7vw, 64px);
+}
+.status-tasks {
+  font-size: clamp(14px, 3vw, 20px);
+}
+/*=================================================================*/
+.summary-task-overview-dueDates {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: navajowhite;
+  height: clamp(110px, 26vw, 170px);
+  border-radius: 30px;
+}
+.summary-task-overview-dueDates span {
+  display: flex;
+  align-items: center;
+}
+.dividing-line-task-overview-dueDates {
+  width: 3px;
+  height: clamp(68px, 15vw, 100px);
+  background-color: gray;
+}
+.summary-upcoming-deadline-div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.summary-upcoming-deadline-div p:first-of-type {
+  font-size: clamp(16px, 3vw, 21px);
+  font-weight: 700;
+}
+.summary-upcoming-deadline-div p:last-of-type {
+  font-size: clamp(14px, 3vw, 16px);
+  font-weight: 400;
+}
+/*=================================================================*/
+.summary-task-overview-information {
+  display: flex;
+  justify-content: space-between;
+}
+.summary-task-overview-information div {
+  width: clamp(110px, 26vw, 170px);
+  height: clamp(110px, 26vw, 170px);
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.summary-task-overview-information div p:last-of-type {
+  font-size: clamp(14px, 4vw, 21px);
+  font-weight: 400;
+  text-align: center;
+}
+/*=================================================================*/
+.summary-greetings-div {
+  display: flex;
+  flex-direction: column;
+}
+.summary-greeting {
+  font-size: clamp(36px, 5vw, 47px);
+  font-weight: 500;
+}
+.summary-greeting-name {
+  font-size: clamp(47px, 7vw, 64px);
+  font-weight: 700;
+  color: #29abe2;
+}
+/* ===========
+MOBILE VERSION
+===============*/
+.summary-mobile-position-content {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  z-index: 999;
+  animation: fadeOut 3s ease-out forwards;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.summary-greetings-div-mobile {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===========
+MEDIA-QUERIES
+===============*/
+@media (max-width: 800px) {
+  .summary-title-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summary-title-section h1 {
+    order: 1;
+  }
+
+  .summary-title-section .dividing-line {
+    order: 3;
+    height: 2px;
+    width: 50px;
+  }
+
+  .summary-title-section .summary-slogan {
+    order: 2;
+  }
+  .summary-greetings-div {
+    display: none;
   }
 }

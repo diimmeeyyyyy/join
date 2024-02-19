@@ -1,5 +1,6 @@
 let prio = '';
 let subtasks = [];
+let _taskList = null;
 
 
 function setTaskPriority(priority) {
@@ -9,7 +10,6 @@ function setTaskPriority(priority) {
 
 
 function changeButtonColor() {
-    
     let urgentButton = document.getElementById('add_task_prio_button_urgent');
     let mediumButton = document.getElementById('add_task_prio_button_medium');
     let lowButton = document.getElementById('add_task_prio_button_low');
@@ -51,12 +51,17 @@ function addNewSubtask() {
 
 
 async function getTasks() {
-    const allTasksResponse = await getItem('allTasks');                 //allTasks vom Server laden
+    if (_taskList != null){                                             
+        return _taskList;
+    }
 
-    if (allTasksResponse instanceof Array) {                            //schauen, ob allTaksResponse ein Array ist                  
-        return allTasksResponse;                                       // falls allTasks ein Array ist: vorhandenes Array zurückgeben
+    const allTasksResponse = await getItem('allTasks');              //allTasks vom Server laden
+
+    if (allTasksResponse instanceof Array) {                         //schauen, ob allTaksResponse ein Array ist            
+        _taskList = allTasksResponse;                               // wenn allTasks ein Array ist: Array in globaler Variable Tasklist speichern
+        return allTasksResponse;                                    //  & vorhandenes Array zurückgeben    
     } else {
-        return [];                                                     //wenn nicht: leeres Array zurückgeben
+        return [];                                                  //wenn nicht: leeres Array zurückgeben
     }
 }
 
@@ -100,6 +105,7 @@ async function createTask() {
     allTasks.push(task);
 
     await setItem('allTasks', allTasks);
+    _taskList = allTasks;
 
     title.value = '';
     description.value = '';

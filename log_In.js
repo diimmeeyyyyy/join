@@ -20,13 +20,14 @@ async function logInUser() {
 
   rememberLogInData(email, password);
 
-  let getAllRegisteredUsers = await getItem("allRegisteredUsers");
-
+  /* let getAllRegisteredUsers = await getItem("allRegisteredUsers");
   let user = getAllRegisteredUsers.find(
     (u) => u.email == email.value && u.password == password.value
-  );
+  ); */
+  let user = await findUser(email.value, password.value);
 
   if (user) {
+    await storeLoggedInUser(user);
     window.location.href = "summary.html";
   } else {
     alert("USER NICHT GEFUNDEN");
@@ -46,4 +47,25 @@ function rememberLogInData(userEmail, userPassword) {
     rememberLogIn = []; //Array leeren
     setItem("rememberLogIn", JSON.stringify(rememberLogIn));
   }
+}
+
+async function findUser(email, password) {
+  let getAllRegisteredUsers = await getItem("allRegisteredUsers");
+  let user = getAllRegisteredUsers.find(
+    (u) => u.email == email && u.password == password
+  );
+  return user;
+}
+
+function guestLogIn() {
+  document.getElementById("Email").required = false;
+  document.getElementById("Password").required = false;
+
+  window.location.href = "summary.html";
+}
+
+async function storeLoggedInUser(user) {
+  let currentUser = [];
+  currentUser.push(user);
+  await setItem("loggedInUser", JSON.stringify(currentUser));
 }
