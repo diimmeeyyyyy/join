@@ -14,21 +14,23 @@ async function renderTasks() {
     for (let i = 0; i < allTasks.length; i++) {
         const task = allTasks[i];
         const description = task.description ? task.description : '';
-        const subtasksCount = (task.subtasks instanceof Array) ? task.subtasks.length + " Subtasks" : '';
+        const subtasksCount = (task.subtasks instanceof Array) ? "0/" + task.subtasks.length + " Subtasks" : '';
         let prio = addPrioIcon(task);
 
 
         html += `
-            <div id="board_task_container_overwiew" onclick="renderTaskLargeview(${i})" class="board-task-container-overview">
-                <div id="board_task_category" class="board-task-category">${task.category}</div>
-                <div id="board_task_title" class="board-task-title">${task.title}</div>
-                <div id="board-task-description" class="board-task-description">${description}</div>
+            <div id="board_task_container_overwiew${i}" onclick="renderTaskLargeview(${i})" class="board-task-container-overview">
+                <div id="board_task_category${i}" class="board-task-category">${task.category}</div>
+                <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
+                <div id="board-task-description${i}" class="board-task-description">${description}</div>
                 <div class= "board-task-subtask-container">
-                    <div class="progress-bar"></div>
-                    <span>${subtasksCount}</span>
+                    <div class="board-task-progress" role="progressbar">
+                        <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
+                    </div>
+                    <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
                 </div>
                 <div class="board-task-container-contacts-and-prio">
-                    <div id="board-task-contact-icons">(contact-icons)</div>
+                    <div id="board-task-contact-icons${i}">(contact-icons)</div>
                      <span>${prio}</span>
                 </div>
             </div>
@@ -58,18 +60,18 @@ function addPrioIcon(task) {
 }
 
 
-async function renderTaskLargeview(i) {
-    let contacts = ["Max Mustermann", "Erika Mustermann", "Moritz Mustermann" ]; //übergangsweise bis Contacts von Andreas im backend gespeichert
+async function renderTaskLargeview(taskIndex) {
+    let contacts = ["Max Mustermann", "Erika Mustermann", "Moritz Mustermann"]; //übergangsweise bis Contacts von Andreas im backend gespeichert
 
     const allTasks = await getTasks();
-    const task = allTasks[i];
+    const task = allTasks[taskIndex];
     const board = document.getElementById('board');
 
     const description = task.description ? task.description : '';
     const dueDate = task.dueDate ? formatDate(task.dueDate) : '';
     let prio = addPrioIcon(task);
-    contacts = contacts ? createContactsList(contacts) : ''; 
-    let subtasks = task.subtasks ? createSubtasklist(task.subtasks) : '';
+    contacts = contacts ? createContactsList(contacts) : '';
+    let subtasks = task.subtasks ? createSubtasklist(task.subtasks, taskIndex) : '';
 
     if (task.subtasks) {
 
@@ -86,10 +88,13 @@ async function renderTaskLargeview(i) {
             <div class = "board-task-assigned-to-largeview"> <span class = "board-task-largeview-color"> Assigned To: </span>${contacts}</div>
             <div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks </span>${subtasks}</div>
             <div class = "board-task-delete-and-edit-container">
-                <div id = "board_task_delete_button" onclick = "deleteTask(${i})" class = "board-task-largeview-icon">
+                <div id = "board_task_delete_button" onclick = "deleteTask(${taskIndex})" class = "board-task-largeview-icon">
                     <img src = "assets/img/delete.png">
                     <span> Delete </span>
                 </div>
+                <svg height="20" width="1">
+                    <line x1="0" y1="0" x2="0" y2="200" style="stroke:black; stroke-width:0.5" />
+                </svg>
                 <div id = "board_task_edit_button" class = "board-task-largeview-icon">
                      <img src = "assets/img/edit.png">
                      <span> Edit </span>
@@ -122,20 +127,36 @@ function createContactsList(contacts) {
             <span> MM </span>                               <!--übergangsweise bis Funktion von Andreas, um Anfangsbuchstaben-Icon zu erstellen -->         
             <span>&nbsp ${contact}</span>
         </div>
-        `; 
+        `;
     }
     return contactsList;
 }
 
 
-function createSubtasklist(subtasks) {
+async function updateProgress(taskIndex) {
+    let checkboxes = document.querySelectorAll('.board-task-subtask-checkbox'); // alle Checkboxelemente auswählen
+    let checkedCount = 0;                                                      //Variable, um die Anzahl der ausgewählten Checkboxen zu speichern
+
+    for (let i = 0; i < checkboxes.length; i++) {                        
+        if (checkboxes[i].checked) {                            
+            checkedCount++;                                              //wenn eine Checkbox ausgewählt wurde, wird checkedCount erhöht
+        }
+    }
+
+    let percent = (checkedCount /checkboxes.length)*100;                
+    document.getElementById(`board_task_progress_bar${taskIndex}`).style.width = `${percent}%`;
+    document.getElementById(`board_task_number_of_subtasks${taskIndex}`).innerHTML = `${checkedCount}`+ "/" +`${checkboxes.length}` + "Subtasks";
+}
+
+
+function createSubtasklist(subtasks, taskIndex) {
     let subtasklist = '';
 
     for (let i = 0; i < subtasks.length; i++) {
         const subtask = subtasks[i];
         subtasklist += `
         <div class = "board-task-subtasks-largeview">
-             <input type="checkbox" class="board-task-subtask-checkbox">
+             <input onclick = updateProgress(${taskIndex}); type="checkbox" class="board-task-subtask-checkbox">
              <label for> &nbsp ${subtask}</label>
         </div>
         `;
@@ -160,6 +181,7 @@ function closeAddTaskPopup() {
     let addTaskPopup = document.getElementById('add_task_popup');
     addTaskPopup.style.display = 'none';
 }
+
 
 async function deleteTask(i) {
     _taskList.splice(i, 1);

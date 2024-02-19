@@ -148,15 +148,24 @@ aside {
 
 .board-task-subtask-container {
   display: flex;
+  align-items: center;
   padding-top: 16px;
   font-size: 13px;
+  gap: 16px;
 }
 
-.progress-bar {
-  height: 100%;
-  background-color: #4caf50;
-  border-radius: 10px;
-  width: 0%;
+.board-task-progress {
+  width: 60%;
+  height: 8px;
+  background-color: rgb(244,244,244);
+  border-radius: 32px;
+}
+
+.board-task-progress-bar{
+  background-color: #0038FF;
+  height: 8px;
+  width: 0;
+  border-radius: 32px;
 }
 
 .board-task-container-contacts-and-prio {
@@ -253,6 +262,7 @@ aside {
 .board-task-contacticon-and-name {
   padding-top: 24px;
   padding-left: 16px;
+  font-size: 20px;
 }
 
 .board-task-subtasks-container-largeview {
@@ -269,12 +279,6 @@ aside {
   font-size: 16px;
 }
 
-/* 
-.board-task-subtask-checkbox{
-  color: rgb(82,92,106);
-  background-color: white;
-} */
-
 .board-task-delete-and-edit-container {
   display: flex;
   justify-content: flex-end;
@@ -283,6 +287,7 @@ aside {
   gap: 16px;
   font-size: 16px;
 }
+
 
 .board-task-largeview-icon{
   display: flex;
@@ -293,5 +298,4 @@ aside {
 
 .board-task-largeview-icon:hover {
   cursor: pointer;
-  color: blue;
 }

@@ -45,7 +45,6 @@ function addNewSubtask() {
         <li> ${subtask.value} <br></li>
     `
     subtasks.push(subtask.value);
-    console.log('subtasks', subtasks)
     subtask.value = '';
 }
 
