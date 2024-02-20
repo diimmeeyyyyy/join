@@ -7,7 +7,6 @@ async function renderTasks() {
   const allTasks = await getTasks();
 
   let toDoContainer = document.getElementById("to_do_container");
-  let html = "";
 
   for (let i = 0; i < allTasks.length; i++) {
     const task = allTasks[i];
@@ -18,14 +17,13 @@ async function renderTasks() {
         : "";
     let prio = addPrioIcon(task);
 
-    html += getTaskHTML(task, subtasksCount, prio, description, i);
+    toDoContainer.innerHTML += generateTaskHTML(task, subtasksCount, prio, description, i);
   }
-  toDoContainer.innerHTML = html;
 }
 
-function getTaskHTML(task, subtasksCount, prio, description, i) {
+function generateTaskHTML(task, subtasksCount, prio, description, i) {
   return /*html*/ `
-        <div
+ <div
   id="board_task_container_overwiew${i}"
   onclick="renderTaskLargeview(${i})"
   class="board-task-container-overview"
@@ -209,4 +207,16 @@ let board = {
   done: [],
 };
 
-function updateHTML() {}
+function updateHTML() {
+    let toDos = board['toDo'];
+    
+    document.getElementById("to_do_container").innerHTML = "";
+
+    for (let i = 0; i < toDos.length; i++) {
+        const oneTodo = toDos[i];
+        document.getElementById("to_do_container").innerHTML += generateTaskHTML();
+    }
+
+
+
+}
