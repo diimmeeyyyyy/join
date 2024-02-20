@@ -7,8 +7,7 @@ HEADLINE
 .headline-and-close-button-container {
   display: flex;
   justify-content: space-between;
-  padding-top: 40px;
-  margin-inline: 40px;
+  padding: 40px;
 }
 .headline-and-close-button-container h1 {
   font-size: clamp(40px, 8vw, 61px);
@@ -18,7 +17,7 @@ INPUT & CONTENT
 ===============*/
 .add-task-input-section {
   display: flex;
-  padding: 40px;
+  padding-inline: 40px;
   justify-content: space-between;
 }
 
@@ -28,7 +27,7 @@ INPUT & CONTENT
 }
 .arrange-add-task-form input,
 select {
-  width: clamp(300px, 30vw, 400px);
+  width: clamp(250px, 24vw, 400px);
   height: 30px;
   border-radius: 8px;
   padding-left: 10px;
@@ -43,7 +42,7 @@ select {
 }
 .add-task-input-section-column textarea {
   height: 130px;
-  width: clamp(300px, 30vw, 400px);
+  width: clamp(250px, 24vw, 400px);
   padding: 10px;
   border-radius: 10px;
 }
@@ -95,6 +94,7 @@ ADD NEW SUBTASK
   padding: 5px;
   cursor: pointer;
   height: 30px;
+  width: clamp(250px, 24vw, 400px);
 }
 #add_task_subtasks_inputfield {
   outline: none;
@@ -120,7 +120,7 @@ LEGEND & BUTTONS
 .add-task-legend-and-buttons-section {
   display: flex;
   justify-content: space-between;
-  padding-inline: 40px;
+  padding: 40px;
 }
 .add-task-clear-and-create-task-buttons {
   display: flex;
@@ -128,7 +128,6 @@ LEGEND & BUTTONS
 
 .add-task-popup {
   display: none;
-  height: 80%;
   width: 80%;
   position: absolute;
   top: 50%;
