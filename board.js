@@ -153,12 +153,12 @@ function createSubtasklist(subtasks, taskIndex) {
 
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
-    subtasklist += `
-        <div class = "board-task-subtasks-largeview">
-             <input onclick = updateProgress(${taskIndex}); type="checkbox" class="board-task-subtask-checkbox">
-             <label for> &nbsp ${subtask}</label>
+    subtasklist += /*html*/ `
+         <div class = "board-task-subtasks-largeview">
+             <input onclick = updateProgress(${taskIndex}); id="Board_Task_Subtask_Checkbox${i}" type="checkbox" class="board-task-subtask-checkbox">
+             <label for="Board_Task_Subtask_Checkbox${i}"> &nbsp ${subtask}</label>
         </div>
-        `;
+    `;
   }
   return subtasklist;
 }

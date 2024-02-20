@@ -30,6 +30,9 @@ HEADER
   gap: 10px;
   color: white;
   background-color: rgb(43, 54, 71);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 /* =======
