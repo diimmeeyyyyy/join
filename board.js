@@ -214,7 +214,7 @@ function updateHTML() {
 
     for (let i = 0; i < toDos.length; i++) {
         const oneTodo = toDos[i];
-        document.getElementById("to_do_container").innerHTML += generateTaskHTML();
+        document.getElementById("to_do_container").innerHTML += generateTaskHTML(oneTodo);
     }
 
 
