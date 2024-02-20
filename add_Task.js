@@ -41,8 +41,9 @@ function addNewSubtask() {
     let newSubtasksList = document.getElementById('add-task-subtasks-list');
     let subtask = document.getElementById('add_task_subtasks_inputfield');
 
-    newSubtasksList.innerHTML += `      
-        <li> ${subtask.value} <br></li>
+    newSubtasksList.innerHTML += ` 
+         
+        /<li> ${subtask.value} <br></li>
     `
     subtasks.push(subtask.value);
     subtask.value = '';
@@ -72,10 +73,8 @@ async function createTask() {
     let title = document.getElementById('add_task_title');
     let dueDate = document.getElementById('add_task_due_date');
     let category = document.getElementById('add_task_categorie');
-
     let description = document.getElementById('add_task_description');
     let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
-
 
     let task = {
         "title": title.value,
@@ -100,7 +99,7 @@ async function createTask() {
         task.prio = 'medium';
     }
 
-
+    
     allTasks.push(task);
 
     await setItem('allTasks', allTasks);

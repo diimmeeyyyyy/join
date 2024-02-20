@@ -24,11 +24,11 @@ async function renderTasks() {
                 <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
                 <div id="board-task-description${i}" class="board-task-description">${description}</div>
                 <div class= "board-task-subtask-container">
-                    <div class="board-task-progress" role="progressbar">
-                        <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
-                    </div>
-                    <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
-                </div>
+                <div id="board_task_progress${i}" class="board-task-progress" role="progressbar">
+                          <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
+                           </div>
+                            <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
+                            </div>
                 <div class="board-task-container-contacts-and-prio">
                     <div id="board-task-contact-icons${i}">(contact-icons)</div>
                      <span>${prio}</span>
@@ -38,6 +38,7 @@ async function renderTasks() {
   }
   toDoContainer.innerHTML = html;
 }
+
 
 function addPrioIcon(task) {
   switch (task.prio) {
@@ -73,8 +74,7 @@ async function renderTaskLargeview(taskIndex) {
     ? createSubtasklist(task.subtasks, taskIndex)
     : "";
 
-  if (task.subtasks) {
-    board.innerHTML += /*html*/ `
+    board.innerHTML += `
             <div id="board_task_container_largeview" class="board-task-container-largeview">
             <div class = "board-task-category-and-closebutton-container">
                 <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
@@ -101,8 +101,8 @@ async function renderTaskLargeview(taskIndex) {
             </div>
         </div>
         `;
-  }
 }
+
 
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
@@ -141,19 +141,23 @@ async function updateProgress(taskIndex) {
 
   let percent = (checkedCount / checkboxes.length) * 100;
   document.getElementById(
+    `board_task_progress${taskIndex}`
+  ).style.width = "60%";
+  document.getElementById(
     `board_task_progress_bar${taskIndex}`
   ).style.width = `${percent}%`;
   document.getElementById(
     `board_task_number_of_subtasks${taskIndex}`
   ).innerHTML = `${checkedCount}` + "/" + `${checkboxes.length}` + "Subtasks";
-}
+  }
+
 
 function createSubtasklist(subtasks, taskIndex) {
   let subtasklist = "";
 
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
-    subtasklist += /*html*/ `
+    subtasklist += `
          <div class = "board-task-subtasks-largeview">
              <input onclick = updateProgress(${taskIndex}); id="Board_Task_Subtask_Checkbox${i}" type="checkbox" class="board-task-subtask-checkbox">
              <label for="Board_Task_Subtask_Checkbox${i}"> &nbsp ${subtask}</label>
