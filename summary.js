@@ -4,6 +4,9 @@ async function initSummary() {
 }
 
 async function loadGreetingName() {
+  let overlay = document.querySelector(".summary-mobile-position-content");
+  overlay.style.display = "flex";
+
   let user = await getItem("loggedInUser");
   console.log(user);
   let userName = user[0].name;
@@ -12,9 +15,6 @@ async function loadGreetingName() {
     let inputfield = document.getElementById("Greeting_Name");
     inputfield.innerHTML = userName;
   } else {
-    let overlay = document.querySelector(".summary-mobile-position-content");
-    overlay.style.display = "flex";
-
     let inputfieldMobile = document.getElementById("Greeting_Name_Mobile");
     inputfieldMobile.innerHTML = userName;
 

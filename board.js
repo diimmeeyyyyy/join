@@ -1,24 +1,24 @@
 function init() {
-    includeHTML();
-    renderTasks();
+  includeHTML();
+  renderTasks();
 }
 
-
 async function renderTasks() {
-    const allTasks = await getTasks()
+  const allTasks = await getTasks();
 
-    let toDoContainer = document.getElementById("to_do_container");
-    let html = '';
+  let toDoContainer = document.getElementById("to_do_container");
+  let html = "";
 
+  for (let i = 0; i < allTasks.length; i++) {
+    const task = allTasks[i];
+    const description = task.description ? task.description : "";
+    const subtasksCount =
+      task.subtasks instanceof Array
+        ? "0/" + task.subtasks.length + " Subtasks"
+        : "";
+    let prio = addPrioIcon(task);
 
-    for (let i = 0; i < allTasks.length; i++) {
-        const task = allTasks[i];
-        const description = task.description ? task.description : '';
-        const subtasksCount = (task.subtasks instanceof Array) ? "0/" + task.subtasks.length + " Subtasks" : '';
-        let prio = addPrioIcon(task);
-
-
-        html += `
+    html += `
             <div id="board_task_container_overwiew${i}" onclick="renderTaskLargeview(${i})" class="board-task-container-overview">
                 <div id="board_task_category${i}" class="board-task-category">${task.category}</div>
                 <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
@@ -35,48 +35,47 @@ async function renderTasks() {
                 </div>
             </div>
     `;
-    }
-    toDoContainer.innerHTML = html
+  }
+  toDoContainer.innerHTML = html;
 }
-
 
 function addPrioIcon(task) {
-    switch (task.prio) {
-        case "urgent":
-            return '<img src="./assets/img/priorityUrgent.svg" class="board-task-prio-icon">';
-            break;
+  switch (task.prio) {
+    case "urgent":
+      return '<img src="./assets/img/priorityUrgent.svg" class="board-task-prio-icon">';
+      break;
 
-        case "medium":
-            return '<img src="./assets/img/priorityMedium.svg" class="board-task-prio-icon">';
-            break;
+    case "medium":
+      return '<img src="./assets/img/priorityMedium.svg" class="board-task-prio-icon">';
+      break;
 
-        case "low":
-            return '<img src="./assets/img/priorityLow.svg" class="board-task-prio-icon">';
-            break;
+    case "low":
+      return '<img src="./assets/img/priorityLow.svg" class="board-task-prio-icon">';
+      break;
 
-        default:
-            return '';
-    }
+    default:
+      return "";
+  }
 }
 
-
 async function renderTaskLargeview(taskIndex) {
-    let contacts = ["Max Mustermann", "Erika Mustermann", "Moritz Mustermann"]; //übergangsweise bis Contacts von Andreas im backend gespeichert
+  let contacts = ["Max Mustermann", "Erika Mustermann", "Moritz Mustermann"]; //übergangsweise bis Contacts von Andreas im backend gespeichert
 
-    const allTasks = await getTasks();
-    const task = allTasks[taskIndex];
-    const board = document.getElementById('board');
+  const allTasks = await getTasks();
+  const task = allTasks[taskIndex];
+  const board = document.getElementById("board");
 
-    const description = task.description ? task.description : '';
-    const dueDate = task.dueDate ? formatDate(task.dueDate) : '';
-    let prio = addPrioIcon(task);
-    contacts = contacts ? createContactsList(contacts) : '';
-    let subtasks = task.subtasks ? createSubtasklist(task.subtasks, taskIndex) : '';
+  const description = task.description ? task.description : "";
+  const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
+  let prio = addPrioIcon(task);
+  contacts = contacts ? createContactsList(contacts) : "";
+  let subtasks = task.subtasks
+    ? createSubtasklist(task.subtasks, taskIndex)
+    : "";
 
-    if (task.subtasks) {
-
-        board.innerHTML += `
-        <div id="board_task_container_largeview" class="board-task-container-largeview">
+  if (task.subtasks) {
+    board.innerHTML += /*html*/ `
+            <div id="board_task_container_largeview" class="board-task-container-largeview">
             <div class = "board-task-category-and-closebutton-container">
                 <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
                 <img id = "board_largeview_closebutton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
@@ -101,94 +100,89 @@ async function renderTaskLargeview(taskIndex) {
                 </div>
             </div>
         </div>
-    `;
-    }
+        `;
+  }
 }
-
 
 function formatDate(dateString) {
-    const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring 
-    let day = date.getDate();        // Tag, Monat & Jahr werden aus dem Date-Objekt extrahiert
-    day = day < 10 ? '0' + day : day;
-    let month = date.getMonth() + 1;   // da die Monate in Javascript nullbasiert sind (Januar = 0, Februar = 1,..), wird 1 zum zurückgegeben Monat addiert
-    month = month < 10 ? '0' + month : month;
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`
+  const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
+  let day = date.getDate(); // Tag, Monat & Jahr werden aus dem Date-Objekt extrahiert
+  day = day < 10 ? "0" + day : day;
+  let month = date.getMonth() + 1; // da die Monate in Javascript nullbasiert sind (Januar = 0, Februar = 1,..), wird 1 zum zurückgegeben Monat addiert
+  month = month < 10 ? "0" + month : month;
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 }
 
-
 function createContactsList(contacts) {
-    let contactsList = ''
+  let contactsList = "";
 
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        contactsList += ` 
+  for (let i = 0; i < contacts.length; i++) {
+    const contact = contacts[i];
+    contactsList += ` 
         <div class = "board-task-contacticon-and-name">
             <span> MM </span>                               <!--übergangsweise bis Funktion von Andreas, um Anfangsbuchstaben-Icon zu erstellen -->         
             <span>&nbsp ${contact}</span>
         </div>
         `;
-    }
-    return contactsList;
+  }
+  return contactsList;
 }
-
 
 async function updateProgress(taskIndex) {
-    let checkboxes = document.querySelectorAll('.board-task-subtask-checkbox'); // alle Checkboxelemente auswählen
-    let checkedCount = 0;                                                      //Variable, um die Anzahl der ausgewählten Checkboxen zu speichern
+  let checkboxes = document.querySelectorAll(".board-task-subtask-checkbox"); // alle Checkboxelemente auswählen
+  let checkedCount = 0; //Variable, um die Anzahl der ausgewählten Checkboxen zu speichern
 
-    for (let i = 0; i < checkboxes.length; i++) {                        
-        if (checkboxes[i].checked) {                            
-            checkedCount++;                                              //wenn eine Checkbox ausgewählt wurde, wird checkedCount erhöht
-        }
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      checkedCount++; //wenn eine Checkbox ausgewählt wurde, wird checkedCount erhöht
     }
+  }
 
-    let percent = (checkedCount /checkboxes.length)*100;                
-    document.getElementById(`board_task_progress_bar${taskIndex}`).style.width = `${percent}%`;
-    document.getElementById(`board_task_number_of_subtasks${taskIndex}`).innerHTML = `${checkedCount}`+ "/" +`${checkboxes.length}` + "Subtasks";
+  let percent = (checkedCount / checkboxes.length) * 100;
+  document.getElementById(
+    `board_task_progress_bar${taskIndex}`
+  ).style.width = `${percent}%`;
+  document.getElementById(
+    `board_task_number_of_subtasks${taskIndex}`
+  ).innerHTML = `${checkedCount}` + "/" + `${checkboxes.length}` + "Subtasks";
 }
 
-
 function createSubtasklist(subtasks, taskIndex) {
-    let subtasklist = '';
+  let subtasklist = "";
 
-    for (let i = 0; i < subtasks.length; i++) {
-        const subtask = subtasks[i];
-        subtasklist += `
+  for (let i = 0; i < subtasks.length; i++) {
+    const subtask = subtasks[i];
+    subtasklist += `
         <div class = "board-task-subtasks-largeview">
              <input onclick = updateProgress(${taskIndex}); type="checkbox" class="board-task-subtask-checkbox">
              <label for> &nbsp ${subtask}</label>
         </div>
         `;
-    };
-    return subtasklist;
+  }
+  return subtasklist;
 }
-
 
 function closeLargeview() {
-    let largeviewPopup = document.getElementById('board_task_container_largeview');
-    largeviewPopup.remove();
+  let largeviewPopup = document.getElementById(
+    "board_task_container_largeview"
+  );
+  largeviewPopup.remove();
 }
-
 
 function openAddTaskPopUp() {
-    let addTaskPopup = document.getElementById('add_task_popup');
-    addTaskPopup.style.display = 'unset';
+  let addTaskPopup = document.getElementById("add_task_popup");
+  addTaskPopup.style.display = "unset";
 }
-
 
 function closeAddTaskPopup() {
-    let addTaskPopup = document.getElementById('add_task_popup');
-    addTaskPopup.style.display = 'none';
+  let addTaskPopup = document.getElementById("add_task_popup");
+  addTaskPopup.style.display = "none";
 }
-
 
 async function deleteTask(i) {
-    _taskList.splice(i, 1);
-    await setItem('allTasks', _taskList);
-    closeLargeview();
-    renderTasks();
+  _taskList.splice(i, 1);
+  await setItem("allTasks", _taskList);
+  closeLargeview();
+  renderTasks();
 }
-
-
-

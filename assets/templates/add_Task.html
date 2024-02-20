@@ -1,75 +1,127 @@
-<div>
+<main>
+  <section class="headline-and-close-button-container">
+    <h1>Add Task</h1>
+    <img
+      id="board_largeview_closebutton"
+      onclick="closeAddTaskPopup()"
+      src="./assets/img/close.svg"
+    />
+  </section>
 
-    <form onsubmit="createTask(); return false;" class="add-task-section">
-        <div class="headline-and-close-button-container">
-            <h1>Add Task</h1>
-            <img id="board_largeview_closebutton" onclick="closeAddTaskPopup()" src="./assets/img/close.svg">
-        </div>
-        <div class="add-task-container">
-            <span>Title<span class="add-task-highlight-red">*</span></span>
-            <input id="add_task_title" class="add-task-inputfield" required placeholder="Enter a title">
+  <form onsubmit="createTask(); return false;" class="arrange-add-task-form">
+    <section class="add-task-input-section">
+      <div class="add-task-input-section-column">
+        <span>
+            <p>Title<span class="add-task-highlight-red">*</span></p>
+          <p class="add-task-highlight-red">
+            <input
+              id="add_task_title"
+              class="add-task-inputfield"
+              required
+              placeholder="Enter a title"
+            /></p
+        ></span>
 
-            <span>Description</span>
-            <textarea id="add_task_description" class="add-task-inputfield"
-                placeholder="Enter a Description"></textarea>
+        <span>
+          <p>Description</p>
+          <textarea
+            id="add_task_description"
+            class="add-task-inputfield"
+            placeholder="Enter a Description"
+          ></textarea>
+        </span>
+        <span>
+          <p>Assigned to</p>
+          <select id="add_task_contacts_to_assign" class="add-task-inputfield">
+            <option disabled selected hidden>Select contacts to assign</option>
+            <option>(CONTACT 1)</option>
+            <option>(CONTACT 2)</option>
+            <option>(CONTACT 3)</option>
+          </select>
+        </span>
+      </div>
 
-            <span>Assigned to</span>
-            <select id="add_task_contacts_to_assign" class="add-task-inputfield">
-                <option disabled selected hidden>Select contacts to assign</option>
-                <option> (CONTACT 1) </option>
-                <option> (CONTACT 2) </option>
-                <option> (CONTACT 3) </option>
-            </select>
+      <div class="dividing-line"></div>
 
-            <span class="add-task-legend"><span class="add-task-highlight-red">*</span>This field is
-                requiered</span>
-
-        </div>
-
-
-        <div class="add-task-container">
-
-            <span>Due Date<span class="add-task-highlight-red">*</span></span>
-            <input id="add_task_due_date" class="add-task-inputfield" type="date" required>
-
-            <span>Prio</span>
+      <div class="add-task-input-section-column">
+        <span>
+            <p>Due Date<span class="add-task-highlight-red">*</span></p>
+            <input
+          id="add_task_due_date"
+          class="add-task-inputfield"
+          type="date"
+          required
+            />
+        </span>
+        <span>
+            <p>Prio</p>
             <div class="add-task-inputfield" id="add_task_inputfield">
-                <button onclick="setTaskPriority('urgent'); changeButtonColor()" id="add_task_prio_button_urgent"
-                    class="add-task-prio-button" type="button">Urgent
-                    <img src="./assets/img/priorityUrgent.svg"></button>
-                <button onclick="setTaskPriority('medium'); changeButtonColor()" id="add_task_prio_button_medium"
-                    class="add-task-prio-button add-task-prio-button-yellow" type="button">Medium
-                    <img src="./assets/img/priorityMedium.svg"></button>
-                <button onclick="setTaskPriority('low'); changeButtonColor()" id="add_task_prio_button_low"
-                    class="add-task-prio-button" type="button">Low
-                    <img src="./assets/img/priorityLow.svg"></button>
+                <button
+                 onclick="setTaskPriority('urgent'); changeButtonColor()"
+                    id="add_task_prio_button_urgent"
+                 class="add-task-prio-button"
+                 type="button"
+                 >
+                    Urgent <img src="./assets/img/priorityUrgent.svg" />
+                </button>
+                <button
+                    onclick="setTaskPriority('medium'); changeButtonColor()"
+                 id="add_task_prio_button_medium"
+                 class="add-task-prio-button add-task-prio-button-yellow"
+                    type="button"
+                >
+                    Medium <img src="./assets/img/priorityMedium.svg" />
+                </button>
+                <button
+                    onclick="setTaskPriority('low'); changeButtonColor()"
+                    id="add_task_prio_button_low"
+                    class="add-task-prio-button"
+                    type="button"
+                >
+                    Low <img src="./assets/img/priorityLow.svg" />
+                </button>
             </div>
-
-            <span>Category<span class="add-task-highlight-red">*</span></span>
-            <select id="add_task_categorie" class="add-task-inputfield" required>
-                <option value="" disabled selected hidden>Select task category</option>
+        </span>
+        <span>
+                <p>Category<span class="add-task-highlight-red">*</span></p>
+             <select id="add_task_categorie" class="add-task-inputfield" required>
+                <option value="" disabled selected hidden>
+                  Select task category
+                 </option>
                 <option value="Technical Task">Technical Task</option>
-                <option value="User Story">User Story</option>
-            </select>
+                 <option value="User Story">User Story</option>
+             </select>
+         </span>
+         <span>
+             <p>Subtasks</p>
+                <div class="add-task-subtasks-container">
+                 <input
+                 id="add_task_subtasks_inputfield"
+                 class="add-task-inputfield"
+                 placeholder="Add new subtask"
+                />
+                <img
+                 onclick="addNewSubtask()"
+                 id="add_task_subtask_plus_button"
+                 src="./assets/img/plus.svg"
+                />
+                </div>
+                 <div id="add_task_new_subtasks_container">
+                     <ul id="add-task-subtasks-list"></ul>
+                </div>
+         </span>
+    </section>
 
-            <span>Subtasks</span>
-            <div class="add-task-subtasks-container">
-                <input id="add_task_subtasks_inputfield" class="add-task-inputfield" placeholder="Add new subtask">
-                <img onclick="addNewSubtask()" id="add_task_subtask_plus_button" src="./assets/img/plus.svg">
-            </div>
+    <section class="add-task-legend-and-buttons-section">
+      <span class="add-task-legend"
+        ><span class="add-task-highlight-red">*</span>This field is
+        requiered</span
+      >
 
-            <div id="add_task_new_subtasks_container">
-                <ul id="add-task-subtasks-list">
-                </ul>
-
-            </div>
-
-            <div class="add-task-clear-and-create-task-buttons">
-                <button type="reset">Clear</button>
-                <button type="submit" class="add-task-button">Create Task</button>
-            </div>
-        </div>
-    </form>
-
-
-</div>
+      <div class="add-task-clear-and-create-task-buttons">
+        <button type="reset">Clear</button>
+        <button type="submit" class="add-task-button">Create Task</button>
+      </div>
+    </section>
+  </form>
+</main>
