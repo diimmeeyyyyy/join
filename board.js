@@ -17,6 +17,7 @@ async function renderTasks() {
         ? "0/" + task.subtasks.length + " Subtasks"
         : "";
     let prio = addPrioIcon(task);
+    // let showProgressBar = await showProgressBar(task);
 
     html += `
             <div id="board_task_container_overwiew${i}" onclick="renderTaskLargeview(${i})" class="board-task-container-overview">
@@ -24,7 +25,7 @@ async function renderTasks() {
                 <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
                 <div id="board-task-description${i}" class="board-task-description">${description}</div>
                 <div class= "board-task-subtask-container">
-                <div id="board_task_progress${i}" class="board-task-progress" role="progressbar">
+                <div class="board-task-progress" role="progressbar">
                           <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
                            </div>
                             <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
@@ -38,6 +39,21 @@ async function renderTasks() {
   }
   toDoContainer.innerHTML = html;
 }
+
+
+// async function showProgressBar(task) {
+//     if (task.subtask) {
+//         return `
+//              <div class= "board-task-subtask-container">
+//              <div class="board-task-progress" role="progressbar">
+//                 <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
+//              </div>
+//              <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
+//              </div>
+//         `;
+//     } else { ''
+//     }
+// }
 
 
 function addPrioIcon(task) {
@@ -140,9 +156,7 @@ async function updateProgress(taskIndex) {
   }
 
   let percent = (checkedCount / checkboxes.length) * 100;
-  document.getElementById(
-    `board_task_progress${taskIndex}`
-  ).style.width = "60%";
+  
   document.getElementById(
     `board_task_progress_bar${taskIndex}`
   ).style.width = `${percent}%`;

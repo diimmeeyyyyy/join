@@ -80,7 +80,8 @@ async function createTask() {
         "title": title.value,
         "dueDate": dueDate.value,
         "category": category.value,
-        "prio": prio
+        "prio": prio,
+        "category": toDo
     }
 
     if (description.value.trim() !== '') {
