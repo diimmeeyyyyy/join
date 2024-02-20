@@ -18,25 +18,40 @@ async function renderTasks() {
         : "";
     let prio = addPrioIcon(task);
 
-    html += `
-            <div id="board_task_container_overwiew${i}" onclick="renderTaskLargeview(${i})" class="board-task-container-overview">
-                <div id="board_task_category${i}" class="board-task-category">${task.category}</div>
-                <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
-                <div id="board-task-description${i}" class="board-task-description">${description}</div>
-                <div class= "board-task-subtask-container">
-                    <div class="board-task-progress" role="progressbar">
-                        <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
-                    </div>
-                    <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
-                </div>
-                <div class="board-task-container-contacts-and-prio">
-                    <div id="board-task-contact-icons${i}">(contact-icons)</div>
-                     <span>${prio}</span>
-                </div>
-            </div>
-    `;
+    html += getTaskHTML(task, subtasksCount, prio, description, i);
   }
   toDoContainer.innerHTML = html;
+}
+
+function getTaskHTML(task, subtasksCount, prio, description, i) {
+  return /*html*/ `
+        <div
+  id="board_task_container_overwiew${i}"
+  onclick="renderTaskLargeview(${i})"
+  class="board-task-container-overview"
+>
+  <div id="board_task_category${i}" class="board-task-category">
+    ${task.category}
+  </div>
+  <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
+  <div id="board-task-description${i}" class="board-task-description">
+    ${description}
+  </div>
+  <div class="board-task-subtask-container">
+    <div class="board-task-progress" role="progressbar">
+      <div
+        id="board_task_progress_bar${i}"
+        class="board-task-progress-bar w-75"
+      ></div>
+    </div>
+    <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
+  </div>
+  <div class="board-task-container-contacts-and-prio">
+    <div id="board-task-contact-icons${i}">(contact-icons)</div>
+    <span>${prio}</span>
+  </div>
+</div>
+    `;
 }
 
 function addPrioIcon(task) {
@@ -186,3 +201,12 @@ async function deleteTask(i) {
   closeLargeview();
   renderTasks();
 }
+
+let board = {
+  toDo: [],
+  inProgress: [],
+  awaitFeedback: [],
+  done: [],
+};
+
+function updateHTML() {}
