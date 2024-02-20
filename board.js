@@ -7,7 +7,6 @@ async function renderTasks() {
   const allTasks = await getTasks();
 
   let toDoContainer = document.getElementById("to_do_container");
-  let html = "";
 
   for (let i = 0; i < allTasks.length; i++) {
     const task = allTasks[i];
@@ -19,6 +18,7 @@ async function renderTasks() {
     let prio = addPrioIcon(task);
     // let showProgressBar = await showProgressBar(task);
 
+<<<<<<< HEAD
     html += `
             <div id="board_task_container_overwiew${i}" onclick="renderTaskLargeview(${i})" class="board-task-container-overview">
                 <div id="board_task_category${i}" class="board-task-category">${task.category}</div>
@@ -36,8 +36,41 @@ async function renderTasks() {
                 </div>
             </div>
     `;
+=======
+    toDoContainer.innerHTML += generateTaskHTML(task, subtasksCount, prio, description, i);
+>>>>>>> 1820c386c764d3c3c686a5404a4316dde6a0dbce
   }
-  toDoContainer.innerHTML = html;
+}
+
+function generateTaskHTML(task, subtasksCount, prio, description, i) {
+  return /*html*/ `
+ <div
+  id="board_task_container_overwiew${i}"
+  onclick="renderTaskLargeview(${i})"
+  class="board-task-container-overview"
+>
+  <div id="board_task_category${i}" class="board-task-category">
+    ${task.category}
+  </div>
+  <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
+  <div id="board-task-description${i}" class="board-task-description">
+    ${description}
+  </div>
+  <div class="board-task-subtask-container">
+    <div class="board-task-progress" role="progressbar">
+      <div
+        id="board_task_progress_bar${i}"
+        class="board-task-progress-bar w-75"
+      ></div>
+    </div>
+    <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
+  </div>
+  <div class="board-task-container-contacts-and-prio">
+    <div id="board-task-contact-icons${i}">(contact-icons)</div>
+    <span>${prio}</span>
+  </div>
+</div>
+    `;
 }
 
 
@@ -203,4 +236,25 @@ async function deleteTask(i) {
   await setItem("allTasks", _taskList);
   closeLargeview();
   renderTasks();
+}
+
+let board = {
+  toDo: [],
+  inProgress: [],
+  awaitFeedback: [],
+  done: [],
+};
+
+function updateHTML() {
+    let toDos = board['toDo'];
+    
+    document.getElementById("to_do_container").innerHTML = "";
+
+    for (let i = 0; i < toDos.length; i++) {
+        const oneTodo = toDos[i];
+        document.getElementById("to_do_container").innerHTML += generateTaskHTML();
+    }
+
+
+
 }
