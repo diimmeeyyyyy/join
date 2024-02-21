@@ -1,11 +1,7 @@
 <main>
   <section class="headline-and-close-button-container">
-    <h1>Add Task</h1>
-    <img
-      id="board_largeview_closebutton"
-      onclick="closeAddTaskPopup()"
-      src="./assets/img/close.svg"
-    />
+      <h1>Add Task</h1>
+         <img id="board_largeview_closebutton" onclick="closeAddTaskPopup()" src="./assets/img/close.svg"/>
   </section>
 
   <form onsubmit="createTask(); return false;" class="arrange-add-task-form">
@@ -34,9 +30,9 @@
           <p>Assigned to</p>
           <select id="add_task_contacts_to_assign" class="add-task-inputfield">
             <option disabled selected hidden>Select contacts to assign</option>
-            <option>(CONTACT 1)</option>
-            <option>(CONTACT 2)</option>
-            <option>(CONTACT 3)</option>
+            <option></option>
+            <option></option>
+            <option></option>
           </select>
         </span>
       </div>

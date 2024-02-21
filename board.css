@@ -138,7 +138,7 @@ BOARD
 }
 
 .board-task-progress {
-  width: 60%;
+  width: 0;
   height: 8px;
   background-color: rgb(244, 244, 244);
   border-radius: 32px;
