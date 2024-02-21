@@ -230,7 +230,6 @@ function closeAddTaskPopup() {
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "none";
 }
-
 async function deleteTask(i) {
   _taskList.splice(i, 1);
   await setItem("allTasks", _taskList);
