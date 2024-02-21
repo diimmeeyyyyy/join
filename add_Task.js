@@ -1,11 +1,12 @@
 let prio = '';
 let subtasks = [];
 let _taskList = null;
+let taskIdCounter = 0;
 
 
-function init() {
+function initAddTask() {
     includeHTML();
-    // showContacts();
+   
 }
 
 
@@ -80,22 +81,23 @@ async function getTasks() {
 
 
 async function createTask() {
-
     const allTasks = await getTasks();                      
-
     let title = document.getElementById('add_task_title');
     let dueDate = document.getElementById('add_task_due_date');
     let category = document.getElementById('add_task_categorie');
     let description = document.getElementById('add_task_description');
     let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
-
+   
     let task = {
+        "id": "task-" + taskIdCounter,
         "title": title.value,
         "dueDate": dueDate.value,
         "category": category.value,
         "prio": prio,
         "status": "toDo"
     }
+
+    taskIdCounter++;
 
     if (description.value.trim() !== '') {
         task.description = description.value.trim();
@@ -126,7 +128,23 @@ async function createTask() {
     category.value = '';
     subtasks = [];
 
-    window.location.href = "board.html";
+    showTaskAddedPopup();
+    const animationDuration = 200; 
+    const extraDelay = 500; 
+    setTimeout(() => {
+        window.location.href = "board.html";
+    }, animationDuration + extraDelay);
 }
 
 
+function showTaskAddedPopup() {
+    let mainContainer = document.getElementById ('main_container'); 
+    mainContainer.innerHTML += `
+        <div id = "add-task-popup-container">
+            <div class="add-task-popup-task-added">
+                <span> Task added to board </span>
+                <img class= "add-task-board-icon" src="./assets/img/board.svg"
+            </div>
+        </div >
+    `;
+}
