@@ -18,7 +18,6 @@ async function renderTasks() {
     let prio = addPrioIcon(task);
     // let showProgressBar = await showProgressBar(task);
 
-<<<<<<< HEAD
     html += `
             <div id="board_task_container_overwiew${i}" onclick="renderTaskLargeview(${i})" class="board-task-container-overview">
                 <div id="board_task_category${i}" class="board-task-category">${task.category}</div>
@@ -36,9 +35,6 @@ async function renderTasks() {
                 </div>
             </div>
     `;
-=======
-    toDoContainer.innerHTML += generateTaskHTML(task, subtasksCount, prio, description, i);
->>>>>>> 1820c386c764d3c3c686a5404a4316dde6a0dbce
   }
 }
 

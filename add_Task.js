@@ -3,6 +3,19 @@ let subtasks = [];
 let _taskList = null;
 
 
+function init() {
+    includeHTML();
+    // showContacts();
+}
+
+
+// async function showContacts() {
+//     await getContacts();
+    
+
+// }
+
+
 function setTaskPriority(priority) {
     prio = priority;
     return prio;
