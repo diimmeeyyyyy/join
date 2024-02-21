@@ -128,7 +128,7 @@ async function createTask() {
     category.value = '';
     subtasks = [];
 
-    showTaskAddedPopup();
+    showPopupTaskAdded();
     const animationDuration = 200; 
     const extraDelay = 500; 
     setTimeout(() => {
@@ -137,7 +137,7 @@ async function createTask() {
 }
 
 
-function showTaskAddedPopup() {
+function showPopupTaskAdded() {
     let mainContainer = document.getElementById ('main_container'); 
     mainContainer.innerHTML += `
         <div id = "add-task-popup-container">
