@@ -1,15 +1,6 @@
 let contacts = [];
-const buttonColors = [];
 
-contacts.sort((a, b) => {
-    if (a.name < b.name) {
-        return -1;
-    }
-    if (a.name > b.name) {
-        return 1;
-    }
-    return 0;
-});
+
 
 let letters = contacts.map(contact => contact.name.charAt(0)); // Erster Buchstabe vom Array contacts['name'] wird übernommen!
 
@@ -18,9 +9,27 @@ let twolettersName = contacts.map(contact => {                   // Zwei Buchsta
     const nameSplit = contact.name.split(' ');
     const twoNummber = nameSplit.map(teil => teil.charAt(0));
     return twoNummber.join('');
-});
+})
 
-function addContact() {
+
+async function init() {
+    await loadContacts();
+    await contactsSort();
+    updateLettersAndTwoLettersName();
+    await contactList();
+    
+}
+
+async function loadContacts() {
+    try {
+        contacts = await getItem('allContacts');
+    } catch (e) {
+        console.info('Not load Contacts')
+    }
+
+}
+
+async function addContact() {
     let text = document.getElementById('text').value;
     let email = document.getElementById('email').value;
     let number = document.getElementById('number').value;
@@ -33,6 +42,7 @@ function addContact() {
     };
 
     contacts.push(newContact);
+    await setItem('allContacts', contacts);
     contactsSort();
     updateLettersAndTwoLettersName();
     valueToEmpty();
@@ -58,14 +68,12 @@ function closeContact() {
     backround.classList.remove('animate');
 }
 
-function contactList() {
+async function contactList() {
+
     let list = document.getElementById('newContacts');
-    // let newColorContact= document.getElementById('newColorContact');
-    // newColorContact.classList.add('contacts-onclick')
 
     list.innerHTML = '';
     let previousLetter = null; // Variable, um den vorherigen Buchstaben zu speichern
-
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
         const currentLetter = letters[i];
@@ -81,21 +89,22 @@ function contactList() {
         }
 
         list.innerHTML += /*html*/`
-            <div id="newColorContact" class="contacts" onclick="pushContact(${i})" >
+            <div id="newColorContact(${i})" class="contacts" onclick="pushContact(${i})" >
                 <button class="button-name"style="background-color: ${contact.color};">${twolettersName[i]}</button>
                 <div class="names">
                     <p>${contact['name']} <br> <p class="mail">${contact['e-mail']}</p>
                 </div>
             </div>`;
+
     }
+
+
 }
 
 function pushContact(i) {
     let pushContact = document.getElementById('push_contacts');
     pushContact.innerHTML = '';
-
     transformNewContacts();
-
     const contact = contacts[i]; // Den Kontakt mit dem Index 'i' abrufen
     const buttonColor = contact.color; // Hintergrundfarbe aus dem Kontaktobjekt
 
@@ -127,6 +136,7 @@ function pushContact(i) {
 
             </div>
     `;
+
 }
 
 function transformNewContacts() {
@@ -140,16 +150,14 @@ function transformCloseContacts() {
 }
 
 
-function delet(i) {
-    let pushContacts = document.getElementById('push_contacts');
-    pushContacts.classList.remove('animate');
+async function delet(i) {
+    transformCloseContacts();
 
     contacts.splice(i, 1);  // Kontakt aus dem Array löschen
     letters.splice(i, 1);   // Entsprechenden Eintrag aus dem 'letters'-Array entfernen
     twolettersName.splice(i, 1);  // Entsprechenden Eintrag aus dem 'twolettersName'-Array entfernen
-
+    await setItem('allContacts', contacts);
     updateLettersAndTwoLettersName();  // Aktualisieren der 'letters' und 'twolettersName' Arrays
-
     contactList();  // Kontaktliste aktualisieren
 }
 
@@ -190,44 +198,38 @@ function edit_contact(i) {
     let editContact = document.getElementById('edit_contact');
     editContact.classList.remove('d-none');
     editContact.classList.add('edit-contact-background')
-    
+
     const contact = contacts[i]; // Den Kontakt mit dem Index 'i' abrufen
     const buttonColor = contact.color; // Hintergrundfarbe aus dem Kontaktobjekt
-    
     const name = contact['name'];
     const email = contact['e-mail'];
     const tel = contact['tel'];
 
-    edit.innerHTML ='';
+    edit.innerHTML = '';
     edit.innerHTML = /*html*/`
-         <div class="edit">
-
-            <div class="edit-one">
+          <div class="edit">
+        <div class="edit-one">
             <img class="join-png" src="./assets/img/join.png" alt="Bild Join">
-
             <p> Edit contact</p>
             <div class="parting-line"></div>
-
-            </div>
         </div>
-        <div class="edit-two">
-            <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
-
-            <form class="form input" id="editForm" onsubmit="saveContact(${i}); return false;">
+    </div>
+    <div class="edit-two">
+        <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
+        <form class="form input" id="editForm" onsubmit="saveContact(${i}); return false;">
             <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
             <input id="editEmail" required type="email" placeholder="Email" value="${email}"> <br>
             <input id="editNumber" required type="number" placeholder="Phone" value="${tel}"> <br>
             <div class="cancel-and-ceate">
-                <button onclick=" delet(i)" class="cancel">Delete</button> 
-                <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img src="./assets/img/check.png"></button></div>
-            </form>
-        </div>
+                <button onclick="closeEditContactDelete(${i})"type="button" class="cancel">Delete</button> 
+                <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img src="./assets/img/check.png"></button>
+            </div>
+        </form>
+    </div>`;
 
-    `;
-    
 }
 
-function saveContact(i) {
+async function saveContact(i) {
     const newName = document.getElementById('editText').value;
     const newEmail = document.getElementById('editEmail').value;
     const newTel = document.getElementById('editNumber').value;
@@ -238,25 +240,33 @@ function saveContact(i) {
     contacts[i]['tel'] = newTel;
 
     // Kontaktliste aktualisieren
-    updateLettersAndTwoLettersName()
+    await setItem('allContacts', contacts);
+    updateLettersAndTwoLettersName();
     transformCloseContacts();
-    contactList();
     contactsSort();
-}
-
-function closeSaveContact(){
-    let editContact = document.getElementById('edit_contact');
-    editContact.classList.add('d-none');   
-}
-
-function closeEditContactDelete(i){
+    contactList();
     
+
+}
+
+function closeSaveContact() {
+    let editContact = document.getElementById('edit_contact');
+    editContact.classList.add('d-none');
+}
+
+function closeEditContactDelete(i) {
+    transformCloseContacts();
+
     contacts.splice(i, 1);  // Kontakt aus dem Array löschen
     letters.splice(i, 1);   // Entsprechenden Eintrag aus dem 'letters'-Array entfernen
     twolettersName.splice(i, 1);  // Entsprechenden Eintrag aus dem 'twolettersName'-Array entfernen
 
-    updateLettersAndTwoLettersName();  // Aktualisieren der 'letters' und 'twolettersName' Arrays
-
     contactList();  // Kontaktliste aktualisieren
+    closeSaveContact();
+}
+
+function pushBackroundColor() {
+    let newColorContact = document.getElementById('newColorContact(i)');
+    newColorContact.classList.add('contacts-onclick');
 
 }

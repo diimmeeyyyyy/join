@@ -3,47 +3,48 @@ async function init() {
   await renderTasks();
 }
 
+let currentDraggedElement;
+
 async function renderTasks() {
-    let allTasks = await getItem("allTasks");
-    let toDos = allTasks.filter((task) => task.status === "toDo");
-    let inProgress = allTasks.filter((task) => task.status === "inProgress");
-    let awaitFeedback = allTasks.filter(
-      (task) => task.status === "awaitFeedback"
-    );
-    let done = allTasks.filter((task) => task.status === "done");
-    let tasks = [toDos, inProgress, awaitFeedback, done];
-    let containerIds = [
-      "to_do_container",
-      "In_Progress_Content",
-      "Await_Feedback_Content",
-      "Done_Content",
-    ];
-  
-    for (let i = 0; i < tasks.length; i++) {
-      let taskList = tasks[i];
-      let containerId = containerIds[i];
-      let container = document.getElementById(containerId);
-      container.innerHTML = "";
-  
-      for (let j = 0; j < taskList.length; j++) {
-        const task = taskList[j];
-        const description = task.description ? task.description : "";
-        const subtasksCount =
-          task.subtasks instanceof Array
-            ? "0/" + task.subtasks.length + " Subtasks"
-            : "";
-        let prio = addPrioIcon(task);
-        container.innerHTML += generateTaskHTML(
-          task,
-          subtasksCount,
-          prio,
-          description,
-          j
-        );
-      }
+  let allTasks = await getItem("allTasks");
+  let toDos = allTasks.filter((task) => task.status === "toDo");
+  let inProgress = allTasks.filter((task) => task.status === "inProgress");
+  let awaitFeedback = allTasks.filter(
+    (task) => task.status === "awaitFeedback"
+  );
+  let done = allTasks.filter((task) => task.status === "done");
+  let tasks = [toDos, inProgress, awaitFeedback, done];
+  let containerIds = [
+    "to_do_container",
+    "In_Progress_Content",
+    "Await_Feedback_Content",
+    "Done_Content",
+  ];
+
+  for (let i = 0; i < tasks.length; i++) {
+    let taskList = tasks[i];
+    let containerId = containerIds[i];
+    let container = document.getElementById(containerId);
+    container.innerHTML = "";
+
+    for (let j = 0; j < taskList.length; j++) {
+      const task = taskList[j];
+      const description = task.description ? task.description : "";
+      const subtasksCount =
+        task.subtasks instanceof Array
+          ? "0/" + task.subtasks.length + " Subtasks"
+          : "";
+      let prio = addPrioIcon(task);
+      container.innerHTML += generateTaskHTML(
+        task,
+        subtasksCount,
+        prio,
+        description,
+        j
+      );
     }
   }
-  
+}
 
 function generateTaskHTML(task, subtasksCount, prio, description, i) {
   return /*html*/ `
@@ -52,6 +53,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
   onclick="renderTaskLargeview(${i})"
   class="board-task-container-overview"
   draggable = "true"
+  ondragstart = "startDragging(${i})"
 >
   <div id="board_task_category${i}" class="board-task-category">
     ${task.category}
@@ -77,6 +79,24 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
     `;
 }
 
+/* ================
+DRAG & DROP FUNCTIONS
+===================*/
+function startDragging(i) {
+  currentDraggedElement = i;
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+async function moveTo(status) {
+  let allTasks = await getItem("allTasks");
+  allTasks[currentDraggedElement]["status"] = status;
+  await setItem("allTasks", allTasks);
+
+  renderTasks();
+}
 // async function showProgressBar(task) {
 //     if (task.subtask) {
 //         return `
@@ -125,8 +145,28 @@ async function renderTaskLargeview(taskIndex) {
     ? createSubtasklist(task.subtasks, taskIndex)
     : "";
 
-  board.innerHTML += `
-            <div id="board_task_container_largeview" class="board-task-container-largeview">
+  board.innerHTML += generateTaskLargeViewHTML(
+    task,
+    description,
+    dueDate,
+    prio,
+    subtasks,
+    contacts,
+    taskIndex
+  );
+}
+
+function generateTaskLargeViewHTML(
+  task,
+  description,
+  dueDate,
+  prio,
+  subtasks,
+  contacts,
+  taskIndex
+) {
+  return /*html*/ `
+    <div id="board_task_container_largeview" class="board-task-container-largeview">
             <div class = "board-task-category-and-closebutton-container">
                 <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
                 <img id = "board_largeview_closebutton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
@@ -151,7 +191,7 @@ async function renderTaskLargeview(taskIndex) {
                 </div>
             </div>
         </div>
-        `;
+`;
 }
 
 function formatDate(dateString) {

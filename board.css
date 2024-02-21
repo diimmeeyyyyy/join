@@ -159,11 +159,15 @@ BOARD
   height: 32px;
   padding-top: 16px;
 }
-
-/* ============== 
+#to_do_container,
+#In_Progress_Content,
+#Await_Feedback_Content,
+#Done_Content {
+  height: 100%;
+}
+/* ========================
   BOARD-LARGEVIEW-CONTAINER
-  ==================*/
-
+  =========================*/
 .board-task-container-largeview {
   background-color: white;
   width: 320px;
