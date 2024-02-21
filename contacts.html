@@ -9,13 +9,11 @@
     <link rel="stylesheet" href="contacts.css">
     <script src="utils.js"></script>
     <script src="contacts.js"></script>
-    <!-- <script src="storage.js"></script> -->
+    <script src="storage.js"></script>
 </head>
 
-<body onload="includeHTML(); init()">
+<body onload="includeHTML();init()";>
     <header w3-include-html="assets/templates/header.html"></header>
-
-
 
     <div class="all-container">
         <div class="container1">
@@ -55,12 +53,8 @@
                         <img src="./assets/img/person.png" alt="Bild Contact">
                     </div>
                     <div class="form">
-<<<<<<< HEAD
-                        <form onsubmit="addContact();return false;">
-=======
-                        <form onsubmit="">
->>>>>>> 7635cfbbe7183821ef49c658319991c3f4b1c4cf
-                            <input id="text" required type="text" placeholder="Name"> <br>
+                         <form onsubmit="addContact();return false;">
+                        <input id="text" required type="text" placeholder="Name"> <br>
                             <input id="email" required type="email" placeholder="Email"> <br>
                             <input id="number" required type="number" placeholder="Phone"> <br>
 
