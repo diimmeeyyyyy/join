@@ -1,18 +1,17 @@
 let prio = '';
 let subtasks = [];
 let _taskList = null;
-let taskIdCounter = 0;
 
 
 function initAddTask() {
     includeHTML();
-   
+
 }
 
 
 // async function showContacts() {
 //     await getContacts();
-    
+
 
 // }
 
@@ -65,7 +64,7 @@ function addNewSubtask() {
 
 
 async function getTasks() {
-    if (_taskList != null){                                             
+    if (_taskList != null) {
         return _taskList;
     }
 
@@ -80,14 +79,99 @@ async function getTasks() {
 }
 
 
+// async function getTaskIdCounter(taskIdCounter) {
+//     const taskIdCounterResponse = await getItem('taskIdCounter');
+
+//     if (taskIdCounterResponse instanceof Array) {
+//         taskIdCounter = taskIdCounterResponse;
+//         return taskIdCounterResponse;
+//     } else {
+//         return [];
+//     }
+// }
+
+
+// async function createTask() {
+//     const allTasks = await getTasks();
+//     let taskIdCounter = await getTaskIdCounter(taskIdCounter);
+//     let title = document.getElementById('add_task_title');
+//     let dueDate = document.getElementById('add_task_due_date');
+//     let category = document.getElementById('add_task_categorie');
+//     let description = document.getElementById('add_task_description');
+//     let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
+
+//     taskIdCounter++; 
+
+//     let task = {
+//         "id": "task-" + taskIdCounter,
+//         "title": title.value,
+//         "dueDate": dueDate.value,
+//         "category": category.value,
+//         "prio": prio,
+//         "status": "toDo"
+//     }
+
+//     if (description.value.trim() !== '') {
+//         task.description = description.value.trim();
+//     }
+
+//     if (contactsToAssign.value !== "Select contacts to assign") {
+//         task.contactsToAssign = contactsToAssign.value;
+//     }
+
+//     if (subtasks.length !== 0) {
+//         task.subtasks = subtasks;
+//     }
+
+//     if (prio === '') {
+//         task.prio = 'medium';
+//     }
+
+//     allTasks.push(task);
+
+//     await setItem('allTasks', allTasks);
+//     _taskList = allTasks;
+//     await setItem('taskIdCounter', taskIdCounter);
+
+//     title.value = '';
+//     description.value = '';
+//     contactsToAssign.value = '';
+//     dueDate.value = '';
+//     category.value = '';
+//     subtasks = [];
+
+
+//     showPopupTaskAdded();
+//     const animationDuration = 200;
+//     const extraDelay = 500;
+//     setTimeout(() => {
+//         window.location.href = "board.html";
+//     }, animationDuration + extraDelay);
+// }
+
+
+async function getTaskIdCounter() {
+    const taskIdCounterResponse = await getItem('taskIdCounter');
+
+    if (taskIdCounterResponse != null) {
+        return parseInt(taskIdCounterResponse); 
+    } else {
+        return 0; 
+    }
+}
+
 async function createTask() {
-    const allTasks = await getTasks();                      
+    const allTasks = await getTasks();
+    let taskIdCounter = await getTaskIdCounter(); 
+
+    taskIdCounter++; 
+
     let title = document.getElementById('add_task_title');
     let dueDate = document.getElementById('add_task_due_date');
     let category = document.getElementById('add_task_categorie');
     let description = document.getElementById('add_task_description');
     let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
-   
+
     let task = {
         "id": "task-" + taskIdCounter,
         "title": title.value,
@@ -96,8 +180,6 @@ async function createTask() {
         "prio": prio,
         "status": "toDo"
     }
-
-    taskIdCounter++;
 
     if (description.value.trim() !== '') {
         task.description = description.value.trim();
@@ -115,11 +197,11 @@ async function createTask() {
         task.prio = 'medium';
     }
 
-    
     allTasks.push(task);
 
     await setItem('allTasks', allTasks);
     _taskList = allTasks;
+    await setItem('taskIdCounter', taskIdCounter);
 
     title.value = '';
     description.value = '';
@@ -129,16 +211,17 @@ async function createTask() {
     subtasks = [];
 
     showPopupTaskAdded();
-    const animationDuration = 200; 
-    const extraDelay = 500; 
+    const animationDuration = 200;
+    const extraDelay = 500;
     setTimeout(() => {
         window.location.href = "board.html";
     }, animationDuration + extraDelay);
 }
 
 
+
 function showPopupTaskAdded() {
-    let mainContainer = document.getElementById ('main_container'); 
+    let mainContainer = document.getElementById('main_container');
     mainContainer.innerHTML += `
         <div id = "add-task-popup-container">
             <div class="add-task-popup-task-added">
