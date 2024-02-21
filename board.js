@@ -1,42 +1,49 @@
-function init() {
+async function init() {
   includeHTML();
-  renderTasks();
+  await renderTasks();
 }
 
 async function renderTasks() {
-  const allTasks = await getTasks();
-
-  let toDoContainer = document.getElementById("to_do_container");
-
-  for (let i = 0; i < allTasks.length; i++) {
-    const task = allTasks[i];
-    const description = task.description ? task.description : "";
-    const subtasksCount =
-      task.subtasks instanceof Array
-        ? "0/" + task.subtasks.length + " Subtasks"
-        : "";
-    let prio = addPrioIcon(task);
-    // let showProgressBar = await showProgressBar(task);
-
-    html += `
-            <div id="board_task_container_overwiew${i}" onclick="renderTaskLargeview(${i})" class="board-task-container-overview">
-                <div id="board_task_category${i}" class="board-task-category">${task.category}</div>
-                <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
-                <div id="board-task-description${i}" class="board-task-description">${description}</div>
-                <div class= "board-task-subtask-container">
-                <div class="board-task-progress" role="progressbar">
-                          <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
-                           </div>
-                            <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
-                            </div>
-                <div class="board-task-container-contacts-and-prio">
-                    <div id="board-task-contact-icons${i}">(contact-icons)</div>
-                     <span>${prio}</span>
-                </div>
-            </div>
-    `;
+    let allTasks = await getItem("allTasks");
+    let toDos = allTasks.filter((task) => task.status === "toDo");
+    let inProgress = allTasks.filter((task) => task.status === "inProgress");
+    let awaitFeedback = allTasks.filter(
+      (task) => task.status === "awaitFeedback"
+    );
+    let done = allTasks.filter((task) => task.status === "done");
+    let tasks = [toDos, inProgress, awaitFeedback, done];
+    let containerIds = [
+      "to_do_container",
+      "In_Progress_Content",
+      "Await_Feedback_Content",
+      "Done_Content",
+    ];
+  
+    for (let i = 0; i < tasks.length; i++) {
+      let taskList = tasks[i];
+      let containerId = containerIds[i];
+      let container = document.getElementById(containerId);
+      container.innerHTML = "";
+  
+      for (let j = 0; j < taskList.length; j++) {
+        const task = taskList[j];
+        const description = task.description ? task.description : "";
+        const subtasksCount =
+          task.subtasks instanceof Array
+            ? "0/" + task.subtasks.length + " Subtasks"
+            : "";
+        let prio = addPrioIcon(task);
+        container.innerHTML += generateTaskHTML(
+          task,
+          subtasksCount,
+          prio,
+          description,
+          j
+        );
+      }
+    }
   }
-}
+  
 
 function generateTaskHTML(task, subtasksCount, prio, description, i) {
   return /*html*/ `
@@ -44,6 +51,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
   id="board_task_container_overwiew${i}"
   onclick="renderTaskLargeview(${i})"
   class="board-task-container-overview"
+  draggable = "true"
 >
   <div id="board_task_category${i}" class="board-task-category">
     ${task.category}
@@ -69,7 +77,6 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
     `;
 }
 
-
 // async function showProgressBar(task) {
 //     if (task.subtask) {
 //         return `
@@ -83,7 +90,6 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
 //     } else { ''
 //     }
 // }
-
 
 function addPrioIcon(task) {
   switch (task.prio) {
@@ -119,7 +125,7 @@ async function renderTaskLargeview(taskIndex) {
     ? createSubtasklist(task.subtasks, taskIndex)
     : "";
 
-    board.innerHTML += `
+  board.innerHTML += `
             <div id="board_task_container_largeview" class="board-task-container-largeview">
             <div class = "board-task-category-and-closebutton-container">
                 <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
@@ -147,7 +153,6 @@ async function renderTaskLargeview(taskIndex) {
         </div>
         `;
 }
-
 
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
@@ -185,15 +190,14 @@ async function updateProgress(taskIndex) {
   }
 
   let percent = (checkedCount / checkboxes.length) * 100;
-  
+
   document.getElementById(
     `board_task_progress_bar${taskIndex}`
   ).style.width = `${percent}%`;
   document.getElementById(
     `board_task_number_of_subtasks${taskIndex}`
   ).innerHTML = `${checkedCount}` + "/" + `${checkboxes.length}` + "Subtasks";
-  }
-
+}
 
 function createSubtasklist(subtasks, taskIndex) {
   let subtasklist = "";
@@ -232,25 +236,4 @@ async function deleteTask(i) {
   await setItem("allTasks", _taskList);
   closeLargeview();
   renderTasks();
-}
-
-let board = {
-  toDo: [],
-  inProgress: [],
-  awaitFeedback: [],
-  done: [],
-};
-
-function updateHTML() {
-    let toDos = board['toDo'];
-    
-    document.getElementById("to_do_container").innerHTML = "";
-
-    for (let i = 0; i < toDos.length; i++) {
-        const oneTodo = toDos[i];
-        document.getElementById("to_do_container").innerHTML += generateTaskHTML();
-    }
-
-
-
 }
