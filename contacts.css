@@ -46,7 +46,8 @@ body {
   gap: 35px;
   border-radius: 10px;
 }
-.contacts-onclick{
+
+.contacts-onclick {
   background-color: rgb(42, 54, 71, 1);
   color: white;
 
@@ -78,7 +79,7 @@ body {
   border-color: white;
   border-width: 2px;
   border-style: solid;
-  
+
 }
 
 .create-contact {
@@ -276,8 +277,7 @@ body {
 
 .new-contact-push {
   position: absolute;
-  top: 235px;
-  left: 555px;
+  padding-left: 35px;
   gap: 21px;
   z-index: 1;
   transform: translateX(1400px);
@@ -286,7 +286,7 @@ body {
 
 .animate {
   transform: translateX(0px);
-  
+
 }
 
 /* css für Kontakte die eingeblendet werden! */
@@ -412,7 +412,8 @@ a {
   display: flex;
   align-items: center;
 }
-.edit-button-contact{
+
+.edit-button-contact {
   width: 120px;
   height: 120px;
   border-radius: 80px;
@@ -420,9 +421,78 @@ a {
   color: white;
   background-color: rgb(255, 122, 0);
   border: none;
-  
+
 }
 
-.d-none{
+.d-none {
   display: none;
+}
+
+/* css für Media */
+
+@media (max-width:1170px) {
+  .edit {
+    width: 338px;
+    height: 480px;
+  }
+
+  .edit-two {
+    width: auto;
+    height: 480px;
+    padding-left: 2px;
+  }
+
+  .form input {
+    width: auto;
+  }
+}
+
+@media (max-width:750px) {
+  /* .edit-one {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .edit-one p {
+    text-align: center;
+  }
+}
+
+@media (max-width:650px) {
+  .edit-contact-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .edit {
+    width: 340px;
+    height: 290px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 0px;
+  }
+
+  .edit-two {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 340px;
+    height: 450px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 30px;
+
+  }
+
+  .edit-one img {
+    display: none;
+  }
+
+  .edit-button-contact {
+    margin-top: -66px;
+  }
+  .edit-one p{
+    font-size: 47px;
+  } */
 }
