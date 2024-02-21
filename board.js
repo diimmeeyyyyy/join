@@ -4,30 +4,46 @@ async function init() {
 }
 
 async function renderTasks() {
-  const allTasks = await getTasks();
-
-  let toDoContainer = document.getElementById("to_do_container");
-  toDoContainer.innerHTML = ``;
-
-  for (let i = 0; i < allTasks.length; i++) {
-    const task = allTasks[i];
-    const description = task.description ? task.description : "";
-    const subtasksCount =
-      task.subtasks instanceof Array
-        ? "0/" + task.subtasks.length + " Subtasks"
-        : "";
-    let prio = addPrioIcon(task);
-    // let showProgressBar = await showProgressBar(task);
-
-    toDoContainer.innerHTML += generateTaskHTML(
-      task,
-      subtasksCount,
-      prio,
-      description,
-      i
+    let allTasks = await getItem("allTasks");
+    let toDos = allTasks.filter((task) => task.status === "toDo");
+    let inProgress = allTasks.filter((task) => task.status === "inProgress");
+    let awaitFeedback = allTasks.filter(
+      (task) => task.status === "awaitFeedback"
     );
+    let done = allTasks.filter((task) => task.status === "done");
+    let tasks = [toDos, inProgress, awaitFeedback, done];
+    let containerIds = [
+      "to_do_container",
+      "In_Progress_Content",
+      "Await_Feedback_Content",
+      "Done_Content",
+    ];
+  
+    for (let i = 0; i < tasks.length; i++) {
+      let taskList = tasks[i];
+      let containerId = containerIds[i];
+      let container = document.getElementById(containerId);
+      container.innerHTML = "";
+  
+      for (let j = 0; j < taskList.length; j++) {
+        const task = taskList[j];
+        const description = task.description ? task.description : "";
+        const subtasksCount =
+          task.subtasks instanceof Array
+            ? "0/" + task.subtasks.length + " Subtasks"
+            : "";
+        let prio = addPrioIcon(task);
+        container.innerHTML += generateTaskHTML(
+          task,
+          subtasksCount,
+          prio,
+          description,
+          j
+        );
+      }
+    }
   }
-}
+  
 
 function generateTaskHTML(task, subtasksCount, prio, description, i) {
   return /*html*/ `
@@ -221,22 +237,3 @@ async function deleteTask(i) {
   closeLargeview();
   renderTasks();
 }
-
-/* let board = {
-  toDo: [],
-  inProgress: [],
-  awaitFeedback: [],
-  done: [],
-}; */
-
-/* function updateHTML() {
-  let toDos = board["toDo"];
-
-  document.getElementById("to_do_container").innerHTML = "";
-
-  for (let i = 0; i < toDos.length; i++) {
-    const oneTodo = toDos[i];
-    document.getElementById("to_do_container").innerHTML +=
-      generateTaskHTML(oneTodo);
-  }
-} */
