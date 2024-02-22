@@ -53,7 +53,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
   onclick="renderTaskLargeview(${i})"
   class="board-task-container-overview"
   draggable = "true"
-  ondragstart = "startDragging(${task.id})"
+  ondragstart = "startDragging('${task.id}')"
 >
   <div id="board_task_category${i}" class="board-task-category">
     ${task.category}
