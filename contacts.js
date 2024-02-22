@@ -46,6 +46,8 @@ async function addContact() {
     contactsSort();
     updateLettersAndTwoLettersName();
     valueToEmpty();
+    saveAnimat();
+    
 }
 
 function valueToEmpty() { // Value leeren!
@@ -69,7 +71,6 @@ function closeContact() {
 }
 
 async function contactList() {
-
     let list = document.getElementById('newContacts');
 
     list.innerHTML = '';
@@ -89,21 +90,20 @@ async function contactList() {
         }
 
         list.innerHTML += /*html*/`
-            <div id="newColorContact(${i})" class="contacts" onclick="pushContact(${i})" >
-                <button class="button-name"style="background-color: ${contact.color};">${twolettersName[i]}</button>
+            <div id="newColorContact${i}" class="contacts" onclick="pushContact(${i})">
+                <button class="button-name" style="background-color: ${contact.color};">${twolettersName[i]}</button>
                 <div class="names">
                     <p>${contact['name']} <br> <p class="mail">${contact['e-mail']}</p>
                 </div>
             </div>`;
-
     }
-
-
+    
 }
 
 function pushContact(i) {
     let pushContact = document.getElementById('push_contacts');
     pushContact.innerHTML = '';
+    contactListColor(i);
     transformNewContacts();
     const contact = contacts[i]; // Den Kontakt mit dem Index 'i' abrufen
     const buttonColor = contact.color; // Hintergrundfarbe aus dem Kontaktobjekt
@@ -216,7 +216,7 @@ function edit_contact(i) {
     </div>
     <div class="edit-two">
         <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
-        <form class="form input" id="editForm" onsubmit="saveContact(${i}); return false;">
+        <form class="form" id="editForm" onsubmit="saveContact(${i}); return false;">
             <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
             <input id="editEmail" required type="email" placeholder="Email" value="${email}"> <br>
             <input id="editNumber" required type="number" placeholder="Phone" value="${tel}"> <br>
@@ -269,4 +269,23 @@ function pushBackroundColor() {
     let newColorContact = document.getElementById('newColorContact(i)');
     newColorContact.classList.add('contacts-onclick');
 
+}
+
+function contactListColor(i) {
+    // Alle Kontaktelemente auswählen
+    let allContacts = document.querySelectorAll('.contacts');
+
+    // Schleife durch alle Kontaktelemente, um die Klasse 'contacts-onclick' zu entfernen
+    allContacts.forEach(contact => {
+        contact.classList.remove('contacts-onclick');
+    });
+
+    // Dem angeklickten Element die Klasse 'contacts-onclick' hinzufügen
+    let newColorContact = document.getElementById('newColorContact' + i);
+    newColorContact.classList.add('contacts-onclick');
+}
+
+function saveAnimat(){
+    let backround = document.getElementById('backround');
+    backround.classList.remove('animate');
 }

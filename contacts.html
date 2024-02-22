@@ -24,11 +24,12 @@
             <div id="newContacts">
 
             </div>
+            <button onclick="newContactOpen()" class="mobile-contacts"><img src="./assets/img/mobileContact.png" alt=""></button>
         </div>
-        <div>
+        <div class="container-and-new-contact-push">
             <div class="container2">
                 <h1>Contacts</h1>
-                <p class="parting-line">|</p>
+                <p class="parting-line-main-page"></p>
                 <p>Better with a team</p>
             </div>
 
@@ -41,11 +42,12 @@
     </div>
     <div id="new-contact">
         <div id="backround" class="backround-new-contact-container">
-            <div class="new-contact-container">
+           
                 <div class="add-contact">
                     <img class="join-png" src="./assets/img/join.png" alt="Bild Join">
                     <h1>Add contact</h1>
                     <p> Tasks are better with a team!</p>
+                    <img onclick="closeContact()" class="close-mobile" src="./assets/img/close.png" alt="">
                     <div class="parting-line"></div>
                 </div>
                 <div class="picture-and-form-contact">
@@ -53,14 +55,14 @@
                         <img src="./assets/img/person.png" alt="Bild Contact">
                     </div>
                     <div class="form">
-                         <form onsubmit="addContact();return false;">
+                         <form class="form" onsubmit="addContact();return false;">
                         <input id="text" required type="text" placeholder="Name"> <br>
                             <input id="email" required type="email" placeholder="Email"> <br>
                             <input id="number" required type="number" placeholder="Phone"> <br>
 
                             <div class="cancel-and-ceate">
                                 <button onclick="closeContact()" class="cancel">Cancel x</button>
-                                <button class="create-contact">Create contact <img
+                                <button type="submit" class="create-contact">Create contact <img
                                         src="./assets/img/check.png"></button>
                             </div>
                         </form>
@@ -68,7 +70,7 @@
 
                 </div>
 
-            </div>
+            
         </div>
 
 
@@ -93,7 +95,7 @@
                 <input id="number" required type="number" placeholder="Phone"> <br>
                 <div class="cancel-and-ceate">
                     <button class="cancel">Delete</button> 
-                    <button class="create-contact">Save<img src="./assets/img/check.png"></button></div>
+                    <button type="submit" class="create-contact">Save<img src="./assets/img/check.png"></button></div>
                 </form>
         </div>
 
