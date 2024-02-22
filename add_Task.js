@@ -5,15 +5,20 @@ let _taskList = null;
 
 function initAddTask() {
     includeHTML();
-
+    // showContacts();
 }
 
 
-// async function showContacts() {
-//     await getContacts();
+async function renderContactsInAddTask() {
+    // await getContacts();
+    let contactsContainer = document.getElementById('add_task_contacts_content');
+    contactsContainer.innerHTML += `
+    <div class="add-task-contacts-container"> 
+    </div>
+    `;
+}
 
 
-// }
 
 
 function setTaskPriority(priority) {
@@ -79,77 +84,6 @@ async function getTasks() {
 }
 
 
-// async function getTaskIdCounter(taskIdCounter) {
-//     const taskIdCounterResponse = await getItem('taskIdCounter');
-
-//     if (taskIdCounterResponse instanceof Array) {
-//         taskIdCounter = taskIdCounterResponse;
-//         return taskIdCounterResponse;
-//     } else {
-//         return [];
-//     }
-// }
-
-
-// async function createTask() {
-//     const allTasks = await getTasks();
-//     let taskIdCounter = await getTaskIdCounter(taskIdCounter);
-//     let title = document.getElementById('add_task_title');
-//     let dueDate = document.getElementById('add_task_due_date');
-//     let category = document.getElementById('add_task_categorie');
-//     let description = document.getElementById('add_task_description');
-//     let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
-
-//     taskIdCounter++; 
-
-//     let task = {
-//         "id": "task-" + taskIdCounter,
-//         "title": title.value,
-//         "dueDate": dueDate.value,
-//         "category": category.value,
-//         "prio": prio,
-//         "status": "toDo"
-//     }
-
-//     if (description.value.trim() !== '') {
-//         task.description = description.value.trim();
-//     }
-
-//     if (contactsToAssign.value !== "Select contacts to assign") {
-//         task.contactsToAssign = contactsToAssign.value;
-//     }
-
-//     if (subtasks.length !== 0) {
-//         task.subtasks = subtasks;
-//     }
-
-//     if (prio === '') {
-//         task.prio = 'medium';
-//     }
-
-//     allTasks.push(task);
-
-//     await setItem('allTasks', allTasks);
-//     _taskList = allTasks;
-//     await setItem('taskIdCounter', taskIdCounter);
-
-//     title.value = '';
-//     description.value = '';
-//     contactsToAssign.value = '';
-//     dueDate.value = '';
-//     category.value = '';
-//     subtasks = [];
-
-
-//     showPopupTaskAdded();
-//     const animationDuration = 200;
-//     const extraDelay = 500;
-//     setTimeout(() => {
-//         window.location.href = "board.html";
-//     }, animationDuration + extraDelay);
-// }
-
-
 async function getTaskIdCounter() {
     const taskIdCounterResponse = await getItem('taskIdCounter');
 
@@ -159,6 +93,7 @@ async function getTaskIdCounter() {
         return 0; 
     }
 }
+
 
 async function createTask() {
     const allTasks = await getTasks();
@@ -217,7 +152,6 @@ async function createTask() {
         window.location.href = "board.html";
     }, animationDuration + extraDelay);
 }
-
 
 
 function showPopupTaskAdded() {
