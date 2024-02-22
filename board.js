@@ -53,7 +53,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
   onclick="renderTaskLargeview(${i})"
   class="board-task-container-overview"
   draggable = "true"
-  ondragstart = "startDragging(${i})"
+  ondragstart = "startDragging(${task.id})"
 >
   <div id="board_task_category${i}" class="board-task-category">
     ${task.category}
@@ -82,8 +82,8 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
 /* ================
 DRAG & DROP FUNCTIONS
 ===================*/
-function startDragging(i) {
-  currentDraggedElement = i;
+function startDragging(id) {
+  currentDraggedElement = id;
 }
 
 function allowDrop(ev) {
@@ -92,11 +92,17 @@ function allowDrop(ev) {
 
 async function moveTo(status) {
   let allTasks = await getItem("allTasks");
-  allTasks[currentDraggedElement]["status"] = status;
-  await setItem("allTasks", allTasks);
-
+  //Element mit der id = currentDraggedElement finden
+  let task = allTasks.find((task) => task.id === currentDraggedElement);
+  if (task) {
+    task.status = status;
+    await setItem("allTasks", allTasks);
+  } else {
+    console.error(`Kein Task mit der ID ${currentDraggedElement} gefunden.`);
+  }
   renderTasks();
 }
+
 // async function showProgressBar(task) {
 //     if (task.subtask) {
 //         return `
