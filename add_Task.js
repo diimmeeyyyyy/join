@@ -4,22 +4,24 @@ let _taskList = null;
 
 function initAddTask() {
     includeHTML();
-
+    // showContacts();
 }
 
 
-// async function showContacts() {
-//     await getContacts();
-
-
-// }
+async function renderContactsInAddTask() {
+    // await getContacts();
+    let contactsContainer = document.getElementById('add_task_contacts_content');
+    contactsContainer.innerHTML += `
+    <div class="add-task-contacts-container"> 
+    </div>
+    `;
+}
 
 
 function setTaskPriority(priority) {
   prio = priority;
   return prio;
 }
-
 
 function changeButtonColor() {
   let urgentButton = document.getElementById("add_task_prio_button_urgent");
@@ -48,7 +50,6 @@ function changeButtonColor() {
   }
 }
 
-
 function addNewSubtask() {
   let newSubtasksList = document.getElementById("add-task-subtasks-list");
   let subtask = document.getElementById("add_task_subtasks_inputfield");
@@ -60,7 +61,6 @@ function addNewSubtask() {
   subtasks.push(subtask.value);
   subtask.value = "";
 }
-
 
 async function getTasks() {
   if (_taskList != null) {
@@ -146,8 +146,6 @@ async function createTask() {
     window.location.href = "board.html";
   }, animationDuration + extraDelay);
 }
-
-
 
 function showPopupTaskAdded() {
   let mainContainer = document.getElementById("main_container");

@@ -23,6 +23,7 @@ async function init() {
 async function loadContacts() {
     try {
         contacts = await getItem('allContacts');
+        return contacts;
     } catch (e) {
         console.info('Not load Contacts')
     }

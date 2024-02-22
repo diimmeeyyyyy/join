@@ -1,5 +1,22 @@
-.main-container {
-    height: 100vh;
-    background-color: white
-  }
 
+  .add-task-popup {
+    display: none;
+    height: 90%;
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 24px;
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+  
+  #board_largeview_closebutton {
+    margin-right: 56px;
+}
+  
+/* #board_largeview_closebutton:hover {
+  
+} */
