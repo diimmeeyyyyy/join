@@ -53,7 +53,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
   onclick="renderTaskLargeview(${i})"
   class="board-task-container-overview"
   draggable = "true"
-  ondragstart = "startDragging(${i})"
+  ondragstart = "startDragging(${task.id})"
 >
   <div id="board_task_category${i}" class="board-task-category">
     ${task.category}
@@ -82,8 +82,12 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
 /* ================
 DRAG & DROP FUNCTIONS
 ===================*/
-function startDragging(i) {
-  currentDraggedElement = i;
+function startDragging(id) {
+  currentDraggedElement = id;
+}
+
+/* function startDragging(id) {
+  currentDraggedElement = id;
 }
 
 function allowDrop(ev) {
@@ -96,7 +100,7 @@ async function moveTo(status) {
   await setItem("allTasks", allTasks);
 
   renderTasks();
-}
+} */
 // async function showProgressBar(task) {
 //     if (task.subtask) {
 //         return `

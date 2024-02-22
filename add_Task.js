@@ -173,7 +173,7 @@ async function createTask() {
     let contactsToAssign = document.getElementById('add_task_contacts_to_assign');
 
     let task = {
-        "id": "task-" + taskIdCounter,
+        "id": taskIdCounter,
         "title": title.value,
         "dueDate": dueDate.value,
         "category": category.value,
