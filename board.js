@@ -86,10 +86,6 @@ function startDragging(id) {
   currentDraggedElement = id;
 }
 
-/* function startDragging(id) {
-  currentDraggedElement = id;
-}
-
 function allowDrop(ev) {
   ev.preventDefault();
 }
@@ -100,7 +96,7 @@ async function moveTo(status) {
   await setItem("allTasks", allTasks);
 
   renderTasks();
-} */
+} 
 // async function showProgressBar(task) {
 //     if (task.subtask) {
 //         return `
