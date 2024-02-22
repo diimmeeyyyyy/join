@@ -103,6 +103,14 @@ async function moveTo(status) {
   renderTasks();
 }
 
+function hightlight(id) {
+  document.getElementById(id).classList.add("drag-area-hightlight");
+}
+
+function removeHightlight(id) {
+  document.getElementById(id).classList.remove("drag-area-hightlight");
+}
+
 // async function showProgressBar(task) {
 //     if (task.subtask) {
 //         return `

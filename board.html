@@ -72,12 +72,12 @@
               src="./assets/img/plusButton.svg"
             />
           </div>
-          <!-- <span id="To_Do_Content"></span> -->
-          <!-- why 2 tho -->
           <div
             id="to_do_container"
-            ondrop="moveTo('toDo')"
-            ondragover="allowDrop(event)"
+            ondrop="moveTo('toDo');removeHightlight('to_do_container')"
+            ondragover="allowDrop(event);hightlight('to_do_container')"
+            ondragend="removeHightlight('to_do_container')"
+            ondragleave="removeHightlight('to_do_container')"
           ></div>
         </div>
         <div class="board-mainContent-container">
@@ -91,8 +91,10 @@
           <span class="noTasks-toDo">No tasks to do</span>
           <span
             id="In_Progress_Content"
-            ondrop="moveTo('inProgress')"
-            ondragover="allowDrop(event)"
+            ondrop="moveTo('inProgress');removeHightlight('In_Progress_Content')"
+            ondragover="allowDrop(event);hightlight('In_Progress_Content')"
+            ondragend="removeHightlight('In_Progress_Content')"
+            ondragleave="removeHightlight('In_Progress_Content')"
           ></span>
         </div>
         <div class="board-mainContent-container">
@@ -105,8 +107,10 @@
           </div>
           <span
             id="Await_Feedback_Content"
-            ondrop="moveTo('awaitFeedback')"
-            ondragover="allowDrop(event)"
+            ondrop="moveTo('awaitFeedback');removeHightlight('Await_Feedback_Content')"
+            ondragover="allowDrop(event);hightlight('Await_Feedback_Content')"
+            ondragend="removeHightlight('Await_Feedback_Content')"
+            ondragleave="removeHightlight('Await_Feedback_Content')"
           ></span>
         </div>
         <div class="board-mainContent-container">
@@ -115,8 +119,10 @@
           </div>
           <span
             id="Done_Content"
-            ondrop="moveTo('done')"
-            ondragover="allowDrop(event)"
+            ondrop="moveTo('done');removeHightlight('Done_Content')"
+            ondragover="allowDrop(event);hightlight('Done_Content')"
+            ondragend="removeHightlight('Done_Content')"
+            ondragleave="removeHightlight('Done_Content')"
           ></span>
         </div>
       </section>
