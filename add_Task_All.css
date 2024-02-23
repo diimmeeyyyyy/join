@@ -3,50 +3,63 @@ ADD TASK-SECTION
 =======*/
 .main-container {
   height: 100vh;
-}
-
-.add-task-section {
-  display: flex;
- flex-direction: column;
   margin-left: 32px;
   margin-right: 32px;
-  font-size: 20px;
 }
 
 .add-task-inputfield-container {
   display: flex;
+  justify-content: center; 
+  gap: 32px; 
   align-items: flex-start;
-  }
+  font-size: 20px;
+}
 
 .add-task-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: calc(100% / 2);
-  margin: 32px;
+  max-width: 400px;
+  margin: 40px;
 }
 
 .headline-and-close-button-container {
-  display:flex;
+  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   padding-top: 80px;
   padding-left: 64px;
 }
 
+.headline-and-close-button-container h1 {
+  font-size: clamp(40px, 8vw, 61px);
+}
+
+/* ====
+INPUTFIELDS
+=======*/
+
 .add-task-inputfield {
   margin-top: 4px;
   margin-bottom: 24px;
-  width: 400px; 
+  width: 400px;
   height: 32px;
-  border-radius: 8px;
   display: flex;
-  border-width: 1px;
-  padding-left: 8px; 
-  padding-right: 8px;
+  border-style: solid;
+  border-radius: 8px;
+  border-width: 0.1px;
+  border-color: rgb(178, 177, 177);
+  outline: none;
+  /* outline-color: rgb(64,170,248); */
 }
 
-.add-task-inputfield:hover{
-cursor: pointer;
+.add-task-inputfield::placeholder {
+  color: rgb(178, 177, 177) !important; 
+  padding-left: 8px;
+}
+
+.add-task-inputfield:hover {
+  cursor: pointer;
 }
 
 .add-task-highlight-red {
@@ -55,44 +68,75 @@ cursor: pointer;
 
 #add_task_description {
   height: 104px;
+  resize: none;
 }
+
+#add_task_description::placeholder {
+  height: 104px;
+  resize: none;
+}
+
+/* ====
+CONTACTS
+=======*/
 
 .add-task-inputfield-contacts {
   background-color: white;
   align-items: center;
   justify-content: space-between;
   border-style: solid;
-  border-color:rgb(220,220,220);
+  border-color: rgb(209, 209, 209);
   margin-bottom: 0;
-  }
+}
+
+.add-task-placeholder {
+  color: rgb(178, 177, 177);
+  padding-left: 8px;
+}
+
+#add_task_contacts_content {
+  margin-top: 24px;
+  width: 400px;
+  height: 100px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 .add-task-contacts-container {
   background-color: white;
   width: 400px;
   height: 200px;
-  padding-left: 8px; 
+  padding-left: 8px;
   padding-right: 8px;
 }
 
-.add-task-legend {
-  font-weight: 8px;
-}
+.add-task-dividing-line {
+  width: 2px;
+  height: 320px;
+  background-color: lightgray;
+} 
+
+/* ====
+PRIO-BUTTONS
+=======*/
 
 .add-task-prio-button-container {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  margin-bottom: 24px;
 }
 
-.add-task-prio-button {
-  width: calc(416px/3);
+.add-task-prio-button  {
+  width: 130px;
   height: 48px;
-  border: none;
-  border-radius: 4px;
   color: black;
   font-size: 18px;
   background-color: white;
-  padding: 8px;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: rgb(178, 177, 177);
+  border-radius: 8px;
+  border-width: 0.1px;
 }
 
 .add-task-prio-button-red {
@@ -107,10 +151,14 @@ cursor: pointer;
   background-color: green;
 }
 
+/* ====
+SUBTASKS
+=======*/
+
 .add-task-subtasks-container {
   position: relative;
   display: inline-block;
-  width: 400px; 
+  width: 400px;
   height: 30px;
 }
 
@@ -125,34 +173,30 @@ cursor: pointer;
 }
 
 #add_task_subtask_plus_button:hover {
-background-color: lightgray;
-border-radius: 32px;
+  background-color: rgb(209, 209, 209);
+  border-radius: 32px;
 }
 
-#add_task_new_subtasks_container{
+#add_task_new_subtasks_container {
   margin-top: 24px;
-  width: 400px; 
+  width: 400px;
   height: 100px;
-  overflow: auto; 
+  overflow: auto;
 }
+
+/* ====
+FORM-BUTTONS & LEGEND
+=======*/
 
 .add-task-clear-and-create-task-buttons {
   display: flex;
   justify-content: flex-end;
 }
 
-.add-task-popup {
-  display: none;
-  height: 80%;
-  width: 80%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border-radius: 24px;
+.add-task-legend {
+  font-weight: 8px;
+  align-items: flex-start; 
 }
-
 
 .add-task-popup-container {
   position: fixed;
@@ -186,6 +230,7 @@ border-radius: 32px;
     opacity: 0;
     transform: translate(-50%, 150%);
   }
+
   10% {
     opacity: 1;
     transform: translate(-50%, -50%);

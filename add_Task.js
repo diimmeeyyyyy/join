@@ -3,13 +3,20 @@ let subtasks = [];
 let _taskList = null;
 
 function initAddTask() {
-  includeHTML();
+    includeHTML();
+    // showContacts();
 }
 
-// async function showContacts() {
-//     await getContacts();
 
-// }
+async function renderContactsInAddTask() {
+    // await getContacts();
+    let contactsContainer = document.getElementById('add_task_contacts_content');
+    contactsContainer.innerHTML += `
+    <div class="add-task-contacts-container"> 
+    </div>
+    `;
+}
+
 
 function setTaskPriority(priority) {
   prio = priority;
