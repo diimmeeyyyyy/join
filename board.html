@@ -7,7 +7,8 @@
     <!-- LINKED FILES -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="board.css" />
-    <link rel="stylesheet" href="add_Task.css" />
+    <link rel="stylesheet" href="add_Task_All.css" />
+    <link rel="stylesheet" href="add_Task_Popup.css" />
     <script src="board.js"></script>
     <script src="add_Task.js"></script>
     <script src="utils.js"></script>
@@ -72,6 +73,7 @@
               src="./assets/img/plusButton.svg"
             />
           </div>
+          <span id="No_Task_To_Do" class="noTasks-toDo">No tasks to do</span>
           <div
             id="to_do_container"
             ondrop="moveTo('toDo');removeHightlight('to_do_container')"
@@ -88,7 +90,7 @@
               src="./assets/img/plusButton.svg"
             />
           </div>
-          <span class="noTasks-toDo">No tasks to do</span>
+          <span id="No_Task_In_Progress" class="noTasks-toDo">No tasks in progress</span>
           <span
             id="In_Progress_Content"
             ondrop="moveTo('inProgress');removeHightlight('In_Progress_Content')"
@@ -105,6 +107,7 @@
               src="./assets/img/plusButton.svg"
             />
           </div>
+          <span id="No_Task_Await_Feedback" class="noTasks-toDo">No tasks await feedback</span>
           <span
             id="Await_Feedback_Content"
             ondrop="moveTo('awaitFeedback');removeHightlight('Await_Feedback_Content')"
@@ -117,6 +120,7 @@
           <div class="board-mainContent-titleDiv">
             <h3>Done</h3>
           </div>
+          <span id="No_Task_Done" class="noTasks-toDo">No tasks done</span>
           <span
             id="Done_Content"
             ondrop="moveTo('done');removeHightlight('Done_Content')"

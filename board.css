@@ -64,7 +64,7 @@ BOARD
 }
 
 .board-mainContent-container {
-  margin-right: 30px;
+  padding-right: 30px;
   display: flex;
   flex-direction: column;
 }
