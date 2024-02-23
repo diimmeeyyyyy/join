@@ -32,7 +32,7 @@
           </span>
 
           <div class="board-section-header-find-task-div">
-            <input type="text" placeholder="Find Task" />
+            <input type="text" placeholder="Find Task" id="Find_Task" oninput="findTask()" />
             <aside onclick="openAddTaskPopUp()" class="add-task-button">
               <p>Add task</p>
               <svg
@@ -64,7 +64,7 @@
           </div>
         </div>
       </section>
-      <section class="board-section-mainContent">
+      <section id="Board_Section_Main_Content" class="board-section-mainContent">
         <div class="board-mainContent-container">
           <div class="board-mainContent-titleDiv">
             <h3>To-do</h3>

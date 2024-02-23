@@ -141,7 +141,6 @@ async function createTask() {
   setTimeout(() => {
     window.location.href = "board.html";
   }, animationDuration + extraDelay);
-  
 }
 
 function showPopupTaskAdded() {

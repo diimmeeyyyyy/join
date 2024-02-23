@@ -63,7 +63,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
   <div id="board_task_category${i}" class="board-task-category">
     ${task.category}
   </div>
-  <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
+  <h2 id="board_task_title${i}" class="board-task-title">${task.title}</h2>
   <div id="board-task-description${i}" class="board-task-description">
     ${description}
   </div>
@@ -138,7 +138,6 @@ async function noTaskToDoNotification() {
       taskCounts[status]++;
     }
   }
-
   setDisplayStatus(document.getElementById("No_Task_To_Do"), taskCounts.toDo);
   setDisplayStatus(
     document.getElementById("No_Task_In_Progress"),
@@ -153,6 +152,32 @@ async function noTaskToDoNotification() {
 
 function setDisplayStatus(container, taskCount) {
   container.style.display = taskCount > 0 ? "none" : "flex";
+}
+
+/* ========
+FIND TASKS
+==========*/
+function findTask() {
+  let inputfield = document.getElementById("Find_Task");
+  let input = inputfield.value.toLowerCase();
+
+  let boardSection = document.getElementById("Board_Section_Main_Content");
+  let tasks = boardSection.getElementsByClassName(
+    "board-task-container-overview"
+  );
+
+  for (const oneTask of tasks) {
+    oneTask.style.display = "none";
+  }
+
+  for (let i = 0; i < tasks.length; i++) {
+    const oneTaskName = tasks[i]
+      .getElementsByTagName("h2")[0]
+      .innerText.toLowerCase();
+    if (oneTaskName.includes(input)) {
+      tasks[i].style.display = "block";
+    }
+  }
 }
 
 // async function showProgressBar(task) {
