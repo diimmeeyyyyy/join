@@ -3,6 +3,10 @@ async function init() {
   await renderTasks();
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  noTaskToDoNotification();
+});
+
 let currentDraggedElement;
 
 async function renderTasks() {
@@ -43,8 +47,8 @@ async function renderTasks() {
         j
       );
     }
-    noTaskToDoNotification();
   }
+  await noTaskToDoNotification();
 }
 
 function generateTaskHTML(task, subtasksCount, prio, description, i) {
@@ -121,7 +125,7 @@ async function noTaskToDoNotification() {
   let allTasks = await getItem("allTasks");
 
   let taskCounts = {
-    toDos: 0,
+    toDo: 0,
     inProgress: 0,
     awaitFeedback: 0,
     done: 0,
@@ -135,7 +139,7 @@ async function noTaskToDoNotification() {
     }
   }
 
-  setDisplayStatus(document.getElementById("No_Task_To_Do"), taskCounts.toDos);
+  setDisplayStatus(document.getElementById("No_Task_To_Do"), taskCounts.toDo);
   setDisplayStatus(
     document.getElementById("No_Task_In_Progress"),
     taskCounts.inProgress
@@ -147,8 +151,8 @@ async function noTaskToDoNotification() {
   setDisplayStatus(document.getElementById("No_Task_Done"), taskCounts.done);
 }
 
-function setDisplayStatus(element, taskCount) {
-  element.style.display = taskCount > 0 ? "none" : "flex";
+function setDisplayStatus(container, taskCount) {
+  container.style.display = taskCount > 0 ? "none" : "flex";
 }
 
 // async function showProgressBar(task) {

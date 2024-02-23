@@ -3,20 +3,18 @@ let subtasks = [];
 let _taskList = null;
 
 function initAddTask() {
-    includeHTML();
-    // showContacts();
+  includeHTML();
+  // showContacts();
 }
 
-
 async function renderContactsInAddTask() {
-    // await getContacts();
-    let contactsContainer = document.getElementById('add_task_contacts_content');
-    contactsContainer.innerHTML += `
+  // await getContacts();
+  let contactsContainer = document.getElementById("add_task_contacts_content");
+  contactsContainer.innerHTML += `
     <div class="add-task-contacts-container"> 
     </div>
     `;
 }
-
 
 function setTaskPriority(priority) {
   prio = priority;
@@ -143,8 +141,7 @@ async function createTask() {
   setTimeout(() => {
     window.location.href = "board.html";
   }, animationDuration + extraDelay);
-
-    noTaskToDoNotification();
+  
 }
 
 function showPopupTaskAdded() {
