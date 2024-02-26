@@ -160,21 +160,24 @@ FIND TASKS
 function findTask() {
   let inputfield = document.getElementById("Find_Task");
   let input = inputfield.value.toLowerCase();
+  let inputfieldSmallScreen = document.getElementById("Find_Task_SmallScreen");
+  let inputSmallScreen = inputfieldSmallScreen.value.toLowerCase();
 
   let boardSection = document.getElementById("Board_Section_Main_Content");
   let tasks = boardSection.getElementsByClassName(
     "board-task-container-overview"
   );
-
   for (const oneTask of tasks) {
     oneTask.style.display = "none";
   }
-
   for (let i = 0; i < tasks.length; i++) {
     const oneTaskName = tasks[i]
       .getElementsByTagName("h2")[0]
       .innerText.toLowerCase();
-    if (oneTaskName.includes(input)) {
+    if (
+      (window.innerWidth > 650 && oneTaskName.includes(input)) ||
+      (window.innerWidth <= 650 && oneTaskName.includes(inputSmallScreen))
+    ) {
       tasks[i].style.display = "block";
     }
   }
