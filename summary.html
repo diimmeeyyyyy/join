@@ -12,94 +12,98 @@
     <!------------------>
   </head>
   <body onload="initSummary()">
-    <header w3-include-html="assets/templates/header.html"></header>
+    <div class="sidebar-and-mainContent">
+      <div w3-include-html="assets/templates/sidebar.html"></div>
+      <div class="header-and-mainContent">
+        <header w3-include-html="assets/templates/header.html"></header>
+        <main class="summary-main">
+          <section class="summary-title-section">
+            <h1>JOIN 360</h1>
+            <p class="dividing-line"></p>
+            <p class="summary-slogan">Key Metrics at a Glance</p>
+          </section>
 
-    <main class="summary-main">
-      <section class="summary-title-section">
-        <h1>JOIN 360</h1>
-        <p class="dividing-line"></p>
-        <p class="summary-slogan">Key Metrics at a Glance</p>
-      </section>
-
-      <section class="summary-task-section">
-        <div class="summary-task-overview">
-          <div class="summary-task-overview-toDo-and-done">
-            <span>
-              <img src="./assets/img/summaryPen.png" class="summary-img-size" />
-              <div class="arrange-amount-and-status">
-                <p class="amount-tasks">4</p>
-                <p class="status-tasks">To-do</p>
+          <section class="summary-task-section">
+            <div class="summary-task-overview">
+              <div class="summary-task-overview-toDo-and-done">
+                <span>
+                  <img
+                    src="./assets/img/summaryPen.png"
+                    class="summary-img-size"
+                  />
+                  <div class="arrange-amount-and-status">
+                    <p class="amount-tasks">4</p>
+                    <p class="status-tasks">To-do</p>
+                  </div>
+                </span>
+                <span>
+                  <img
+                    src="./assets/img/summaryDoneTasks.png"
+                    class="summary-img-size"
+                  />
+                  <div class="arrange-amount-and-status">
+                    <p class="amount-tasks">10</p>
+                    <p class="status-tasks">Done</p>
+                  </div>
+                </span>
               </div>
-            </span>
-            <span>
-              <img
-                src="./assets/img/summaryDoneTasks.png"
-                class="summary-img-size"
-              />
-              <div class="arrange-amount-and-status">
-                <p class="amount-tasks">10</p>
-                <p class="status-tasks">Done</p>
+              <!-------------------------------------------------------------------->
+              <div class="summary-task-overview-dueDates">
+                <span>
+                  <img
+                    src="./assets/img/summaryUrgency.png"
+                    class="summary-img-size"
+                  />
+                  <div class="arrange-amount-and-status">
+                    <p class="amount-tasks">10</p>
+                    <p class="status-tasks">Urgent</p>
+                  </div>
+                </span>
+                <p class="dividing-line-task-overview-dueDates"></p>
+                <div class="summary-upcoming-deadline-div">
+                  <p>October 16, 2024</p>
+                  <p>Upcoming Deadline</p>
+                </div>
               </div>
-            </span>
-          </div>
-          <!-------------------------------------------------------------------->
-          <div class="summary-task-overview-dueDates">
-            <span>
-              <img
-                src="./assets/img/summaryUrgency.png"
-                class="summary-img-size"
-              />
-              <div class="arrange-amount-and-status">
-                <p class="amount-tasks">10</p>
-                <p class="status-tasks">Urgent</p>
+              <!-------------------------------------------------------------------->
+              <div class="summary-task-overview-information">
+                <div class="arrange-amount-and-status">
+                  <p class="amount-tasks">5</p>
+                  <p>
+                    Tasks in <br />
+                    Board
+                  </p>
+                </div>
+                <div class="arrange-amount-and-status">
+                  <p class="amount-tasks">3</p>
+                  <p>
+                    Tasks in <br />
+                    progress
+                  </p>
+                </div>
+                <div class="arrange-amount-and-status">
+                  <p class="amount-tasks">8</p>
+                  <p>
+                    Awaiting <br />
+                    Feedback
+                  </p>
+                </div>
               </div>
+            </div>
+            <span class="summary-greetings-div" id="Greetings_Large_Screen">
+              <h3 class="summary-greeting">Good morning,</h3>
+              <h2 class="summary-greeting-name" id="Greeting_Name"></h2>
             </span>
-            <p class="dividing-line-task-overview-dueDates"></p>
-            <div class="summary-upcoming-deadline-div">
-              <p>October 16, 2024</p>
-              <p>Upcoming Deadline</p>
-            </div>
-          </div>
-          <!-------------------------------------------------------------------->
-          <div class="summary-task-overview-information">
-            <div class="arrange-amount-and-status">
-              <p class="amount-tasks">5</p>
-              <p>
-                Tasks in <br />
-                Board
-              </p>
-            </div>
-            <div class="arrange-amount-and-status">
-              <p class="amount-tasks">3</p>
-              <p>
-                Tasks in <br />
-                progress
-              </p>
-            </div>
-            <div class="arrange-amount-and-status">
-              <p class="amount-tasks">8</p>
-              <p>
-                Awaiting <br />
-                Feedback
-              </p>
-            </div>
-          </div>
-        </div>
-        <span class="summary-greetings-div">
-          <h3 class="summary-greeting">Good morning,</h3>
-          <h2 class="summary-greeting-name" id="Greeting_Name">SOFIA</h2>
-        </span>
-      </section>
-    </main>
+          </section>
+        </main>
+      </div>
+    </div>
 
     <div class="summary-mobile-position-content">
-        <span class="summary-greetings-div-mobile">
-          <h3 class="summary-greeting">Good morning,</h3>
-          <h2 class="summary-greeting-name" id="Greeting_Name_Mobile"></h2>
-        </span>
-      </div>
-
-
-
+      <span class="summary-greetings-div-mobile">
+        <h3 class="summary-greeting">Good morning,</h3>
+        <h2 class="summary-greeting-name" id="Greeting_Name_Mobile"></h2>
+      </span>
+    </div>
   </body>
 </html>

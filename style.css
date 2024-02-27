@@ -19,6 +19,20 @@ p {
   margin-block-end: 0;
 }
 
+/* ============================
+TO ADD SIDEBAR + HEADER TO HTML
+================================*/
+.sidebar-and-mainContent {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+.header-and-mainContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+}
 /* ====
 HEADER 
 =======*/
@@ -116,7 +130,7 @@ TASK OVERVIEW & GREETINGS SECTION
   display: flex;
   align-items: center;
   padding-top: 20px;
-  gap: clamp(50px, 8vw, 100px);
+  gap: clamp(25px, 2vw, 100px);
 }
 
 /*=================================================================*/
@@ -249,7 +263,7 @@ MOBILE VERSION
   justify-content: center;
   align-items: center;
   background-color: whitesmoke;
-  z-index: 999;
+ /*  z-index: -1; */
   animation: fadeOut 3s ease-out forwards;
 }
 
@@ -275,7 +289,7 @@ MOBILE VERSION
 /* ===========
 MEDIA-QUERIES
 ===============*/
-@media (max-width: 800px) {
+@media (max-width: 605px) {
   .summary-title-section {
     flex-direction: column;
     align-items: flex-start;
@@ -294,7 +308,9 @@ MEDIA-QUERIES
   .summary-title-section .summary-slogan {
     order: 2;
   }
+}
 
+@media (max-width: 1050px) {
   .summary-greetings-div {
     display: none;
   }
@@ -322,7 +338,7 @@ SIDEBAR NAVIGATION
 .task-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: clamp(10px, 2vw, 25px);
   cursor: pointer;
   padding-top: 60px;
   width: 100%;
@@ -332,8 +348,8 @@ SIDEBAR NAVIGATION
 }
 
 .task-sidebar img {
-  width: 30px;
-  height: 30px;
+  width: clamp(20px, 5vw, 35px);
+  height: clamp(20px, 5vw, 35px);
   padding-right: 8px;
 }
 
@@ -377,6 +393,7 @@ a {
     right: 0;
     height: 80px;
     width: auto;
+    flex-direction: unset;
   }
   .join-sidebar-img {
     display: none;
