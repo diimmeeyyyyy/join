@@ -11,3 +11,27 @@ async function includeHTML() {
     }
   }
 }
+
+/* ========================
+TO FOCUS CLICKED MENU-POINT
+===========================*/
+/* let links = document.querySelectorAll('.task-sidebar a');
+
+links.forEach((link) => {
+  link.addEventListener('click', function() {
+    links.forEach((link) => link.classList.remove('active')); //CSS-Klasse "activ" bei allen antfernen  
+    this.classList.add('active'); // CSS-Klasse zum geklickten Element hinzufügen
+  });
+}); */
+
+document.addEventListener("DOMContentLoaded", function () {
+  let links = document.querySelectorAll(".task-sidebar a");
+
+  links.forEach((link) => {
+    link.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent the link from being followed
+      links.forEach((link) => link.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+});

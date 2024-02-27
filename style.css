@@ -274,22 +274,26 @@ SIDEBAR NAVIGATION
   overflow: auto;
   position: sticky;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .join-sidebar-img {
-  height: 121.97px;
-  width: 100.03px;
   padding-top: 64px;
-  padding-left: 50px;
 }
 
 .task-sidebar {
-  color: rgb(205, 205, 205);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 25px;
   cursor: pointer;
-  margin: 50px;
+  padding-top: 60px;
+  width: 100%;
+}
+.task-sidebar a.active {
+  background-color: rgb(1, 17, 63);
+  color: white;
 }
 
 .task-sidbar img {
@@ -303,6 +307,8 @@ SIDEBAR NAVIGATION
   align-items: center;
   color: rgb(205, 205, 205);
   gap: 10px;
+  padding-left: 55px;
+  padding-block: 10px;
 }
 a {
   text-decoration: none;
@@ -326,10 +332,6 @@ a {
 .impressum span:hover {
   cursor: pointer;
   color: rgb(0, 204, 255);
-}
-
-.backround-sidebar {
-  background-color: rgb(9, 25, 49);
 }
 
 @media (max-width: 850px) {
