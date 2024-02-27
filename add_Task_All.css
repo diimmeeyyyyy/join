@@ -3,14 +3,12 @@ ADD TASK-SECTION
 =======*/
 .main-container {
   height: 100vh;
-  margin-left: 32px;
-  margin-right: 32px;
 }
 
 .add-task-inputfield-container {
   display: flex;
-  justify-content: center; 
   gap: 32px; 
+  margin-top: 32px;
   align-items: flex-start;
   font-size: 20px;
 }
@@ -18,17 +16,14 @@ ADD TASK-SECTION
 .add-task-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 400px;
-  margin: 40px;
+  width: 400px;
 }
 
 .headline-and-close-button-container {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding-top: 80px;
-  padding-left: 64px;
+  margin-top: 80px;
 }
 
 .headline-and-close-button-container h1 {
@@ -76,6 +71,15 @@ INPUTFIELDS
   resize: none;
 }
 
+#add_task_due_date {
+  display: block;
+}
+
+input[type=date]:invalid::-webkit-datetime-edit {
+  color: rgb(178, 177, 177);
+  padding-left: 8px;
+}
+
 /* ====
 CONTACTS
 =======*/
@@ -89,25 +93,44 @@ CONTACTS
   margin-bottom: 0;
 }
 
+.add-task-inputfield-arrow {
+  padding-right: 4px;
+
+}
+
 .add-task-placeholder {
   color: rgb(178, 177, 177);
   padding-left: 8px;
 }
 
 #add_task_contacts_content {
-  margin-top: 24px;
   width: 400px;
-  height: 100px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  height: 156px;
 }
 
 .add-task-contacts-container {
   background-color: white;
   width: 400px;
   height: 200px;
-  padding-left: 8px;
-  padding-right: 8px;
+  position: absolute; 
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;;
+}
+
+.add-task-contact-checkbox {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 8px;
+}
+
+.add-task-contact-icon-and-name {
+  display: flex;
+  gap: 8px;
+  width: 80%;
 }
 
 .add-task-dividing-line {
@@ -140,15 +163,15 @@ PRIO-BUTTONS
 }
 
 .add-task-prio-button-red {
-  background-color: red;
+  background-color: rgb(255,61,0);
 }
 
 .add-task-prio-button-yellow {
-  background-color: yellow;
+  background-color: rgb(255,168,0);
 }
 
 .add-task-prio-button-green {
-  background-color: green;
+  background-color: rgb(122,226,41);
 }
 
 /* ====
