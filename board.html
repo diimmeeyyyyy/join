@@ -7,7 +7,8 @@
     <!-- LINKED FILES -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="board.css" />
-    <link rel="stylesheet" href="add_Task.css" />
+    <link rel="stylesheet" href="add_Task_All.css" />
+    <link rel="stylesheet" href="add_Task_Popup.css" />
     <script src="board.js"></script>
     <script src="add_Task.js"></script>
     <script src="utils.js"></script>
@@ -23,47 +24,52 @@
       class="add-task-popup"
     ></div>
 
-    <main class="board" id="board">
+    <main class="board" id="Board">
       <section class="board-section-header">
         <div class="board-section-header-div">
           <span>
             <h1>Board</h1>
           </span>
 
-          <div class="board-section-header-find-task-div">
-            <input type="text" placeholder="Find Task" />
-            <aside onclick="openAddTaskPopUp()" class="add-task-button">
+          <div class="board-section-header-find-and-add-task-div">
+            <div class="input-box-largeScreen" id="Find_Task_Input_Wrapper">
+              <input
+                type="text"
+                placeholder="Find Task"
+                id="Find_Task"
+                oninput="findTask()"
+              />
+              <img src="./assets/img/findTaskImg.png" />
+            </div>
+            <button
+              onclick="openAddTaskPopUp()"
+              class="add-task-button hide-add-task-button-largeScreen"
+            >
               <p>Add task</p>
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <mask
-                  id="mask0_131396_3931"
-                  style="mask-type: alpha"
-                  maskUnits="userSpaceOnUse"
-                  x="0"
-                  y="0"
-                  width="32"
-                  height="32"
-                >
-                  <rect width="32" height="32" fill="#D9D9D9" />
-                </mask>
-                <g mask="url(#mask0_131396_3931)">
-                  <path
-                    d="M14.666 17.3327H6.66602V14.666H14.666V6.66602H17.3327V14.666H25.3327V17.3327H17.3327V25.3327H14.666V17.3327Z"
-                    fill="white"
-                  />
-                </g>
-              </svg>
-            </aside>
+              <img src="./assets/img/add.png" />
+            </button>
+            <img
+              src="./assets/img/plus add task mobile.png"
+              class="add-task-mobile"
+              onclick="openAddTaskPopUp()"
+            />
           </div>
         </div>
+        <div class="input-box-smallScreen">
+          <input
+            type="text"
+            placeholder="Find Task"
+            id="Find_Task_SmallScreen"
+            oninput="findTask()"
+          />
+          <img src="./assets/img/findTaskImg.png" />
+        </div>
       </section>
-      <section class="board-section-mainContent">
+
+      <section
+        id="Board_Section_Main_Content"
+        class="board-section-mainContent"
+      >
         <div class="board-mainContent-container">
           <div class="board-mainContent-titleDiv">
             <h3>To-do</h3>
@@ -72,12 +78,13 @@
               src="./assets/img/plusButton.svg"
             />
           </div>
-          <!-- <span id="To_Do_Content"></span> -->
-          <!-- why 2 tho -->
+          <span id="No_Task_To_Do" class="noTasks-toDo">No tasks to do</span>
           <div
             id="to_do_container"
-            ondrop="moveTo('toDo')"
-            ondragover="allowDrop(event)"
+            ondrop="moveTo('toDo');removeHightlight('to_do_container')"
+            ondragover="allowDrop(event);hightlight('to_do_container')"
+            ondragend="removeHightlight('to_do_container')"
+            ondragleave="removeHightlight('to_do_container')"
           ></div>
         </div>
         <div class="board-mainContent-container">
@@ -88,11 +95,15 @@
               src="./assets/img/plusButton.svg"
             />
           </div>
-          <span class="noTasks-toDo">No tasks to do</span>
+          <span id="No_Task_In_Progress" class="noTasks-toDo"
+            >No tasks in progress</span
+          >
           <span
             id="In_Progress_Content"
-            ondrop="moveTo('inProgress')"
-            ondragover="allowDrop(event)"
+            ondrop="moveTo('inProgress');removeHightlight('In_Progress_Content')"
+            ondragover="allowDrop(event);hightlight('In_Progress_Content')"
+            ondragend="removeHightlight('In_Progress_Content')"
+            ondragleave="removeHightlight('In_Progress_Content')"
           ></span>
         </div>
         <div class="board-mainContent-container">
@@ -103,23 +114,32 @@
               src="./assets/img/plusButton.svg"
             />
           </div>
+          <span id="No_Task_Await_Feedback" class="noTasks-toDo"
+            >No tasks await feedback</span
+          >
           <span
             id="Await_Feedback_Content"
-            ondrop="moveTo('awaitFeedback')"
-            ondragover="allowDrop(event)"
+            ondrop="moveTo('awaitFeedback');removeHightlight('Await_Feedback_Content')"
+            ondragover="allowDrop(event);hightlight('Await_Feedback_Content')"
+            ondragend="removeHightlight('Await_Feedback_Content')"
+            ondragleave="removeHightlight('Await_Feedback_Content')"
           ></span>
         </div>
         <div class="board-mainContent-container">
           <div class="board-mainContent-titleDiv">
             <h3>Done</h3>
           </div>
+          <span id="No_Task_Done" class="noTasks-toDo">No tasks done</span>
           <span
             id="Done_Content"
-            ondrop="moveTo('done')"
-            ondragover="allowDrop(event)"
+            ondrop="moveTo('done');removeHightlight('Done_Content')"
+            ondragover="allowDrop(event);hightlight('Done_Content')"
+            ondragend="removeHightlight('Done_Content')"
+            ondragleave="removeHightlight('Done_Content')"
           ></span>
         </div>
       </section>
     </main>
   </body>
 </html>
+

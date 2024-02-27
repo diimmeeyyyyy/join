@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: auto;
+  min-height: 100vh;
 }
 
 h1,
@@ -15,9 +16,8 @@ BOARD
 =======*/
 .board {
   padding-top: 40px;
-  padding-inline: 60px;
+  padding-inline: clamp(20px, 5vw, 60px);
   background-color: rgb(246, 247, 248);
-  min-height: 100vh;
 }
 
 /* ==========
@@ -26,27 +26,40 @@ BOARD
 .board-section-header-div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-bottom: 25px;
 }
 
-.board-section-header-div1 h1 {
-  font-size: 35px;
+.board-section-header-div h1 {
+  font-size: clamp(45px, 5vw, 61px);
 }
 
-.board-section-header-find-task-div {
+.board-section-header-find-and-add-task-div {
   display: flex;
   gap: 40px;
 }
-
-.board-section-header-find-task-div input {
-  width: 250px;
-}
-
-.board-section-header-find-task-div input {
-  padding: 10px;
+.input-box-largeScreen {
+  width: clamp(250px, 25vw, 300px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #a8a8a8;
   border-radius: 10px;
   cursor: pointer;
+  background-color: white;
+  padding: 10px;
+}
+
+.input-box-largeScreen input {
+  font-size: 20px;
+  cursor: pointer;
   border: none;
+  border-right: 2px solid #a8a8a8;
+  flex-grow: 1;
+}
+
+.input-box-largeScreen img {
+  padding-left: 15px;
 }
 
 .board-section-header-div2 {
@@ -54,19 +67,49 @@ BOARD
   justify-content: space-between;
   margin-right: 150px;
 }
-
+/* ===========
+MOBILE HEADER
+==============*/
+.add-task-mobile {
+  display: none;
+  height: clamp(30px, 8vw, 50px);
+  width: clamp(30px, 8vw, 50px);
+}
+.input-box-smallScreen {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #a8a8a8;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: white;
+  padding: 10px;
+  margin-block: 20px;
+}
+.input-box-smallScreen input {
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  border-right: 2px solid #a8a8a8;
+  flex-grow: 1;
+}
+.input-box-smallScreen img {
+  padding-left: 20px;
+}
 /* ===============
   BOARD-MAIN-CONTENT
   ==================*/
 .board-section-mainContent {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 30px;
 }
 
 .board-mainContent-container {
-  margin-right: 30px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  min-height: 150px;
 }
 
 .board-mainContent-titleDiv {
@@ -84,14 +127,13 @@ BOARD
 }
 
 .board-task-container-overview {
-  width: 252px;
   height: auto;
   padding: 16px;
   border-radius: 24px;
   background: #ffffff;
   box-shadow: 0px 0px 10px 3px #00000014;
-  margin-bottom: 16px;
   word-break: break-all;
+  margin-bottom: 5px;
 }
 
 .board-task-container-overview:hover {
@@ -153,10 +195,7 @@ BOARD
 
 .board-task-container-contacts-and-prio {
   display: flex;
-  align-items: flex-end;
   justify-content: space-between;
-  width: 220px;
-  height: 32px;
   padding-top: 16px;
 }
 #to_do_container,
@@ -164,6 +203,12 @@ BOARD
 #Await_Feedback_Content,
 #Done_Content {
   height: 100%;
+}
+
+.drag-area-hightlight {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px dashed black;
+  border-radius: 20px;
 }
 /* ========================
   BOARD-LARGEVIEW-CONTAINER
@@ -189,7 +234,7 @@ BOARD
   justify-content: space-between;
 }
 
-#board_largeview_closebutton:hover {
+#Board_Largeview_Closebutton:hover {
   cursor: pointer;
   background-color: rgb(246, 247, 248);
   border-radius: 32px;
@@ -205,48 +250,46 @@ BOARD
   font-size: 56px;
   font-weight: 700;
   padding-top: 16px;
-  /* font-family: Inter; */
 }
 
 .board-task-description-largeview {
   font-size: 20px;
   font-weight: 400;
   padding-top: 16px;
-  /* font-family: Inter; */
 }
 
-.board-task-duedate-largeview {
-  padding-top: 16px;
+/* =================
+DUE DATE + PRIORITY
+===================*/
+.board-task-dueDate-and-priority {
+  display: flex;
+  gap: 30px;
+  padding-block: 15px;
   font-size: 20px;
 }
-
+.arrange-dueDate-and-priority {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .board-task-largeview-color {
   color: rgb(125, 136, 156);
-  padding-right: 24px;
 }
-
-.board-task-largeview-padding-right {
-  padding-right: 36px;
-}
-
-.board-task-priority-largeview {
-  font-size: 20px;
-  font-weight: 400;
-  padding-top: 16px;
-  /* font-family: inter; */
-}
-
 .board-task-prio-icon {
   padding-left: 4px;
 }
 
+/* ========
+ASSIGNED TO
+===========*/
 .board-task-assigned-to-largeview {
-  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   font-size: 20px;
 }
 
 .board-task-contacticon-and-name {
-  padding-top: 24px;
   padding-left: 16px;
   font-size: 20px;
 }
@@ -282,4 +325,43 @@ BOARD
 
 .board-task-largeview-icon:hover {
   cursor: pointer;
+}
+
+/* ==========
+MEDIA-QUERIES 
+=============*/
+@media (max-width: 1170px) {
+  .board-section-mainContent {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 780px) {
+  .hide-add-task-button-largeScreen {
+    display: none;
+  }
+  .add-task-mobile {
+    display: flex;
+  }
+  .board-section-header-find-and-add-task-div {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  .board-section-header-div {
+    padding-bottom: unset;
+  }
+  .board-section-mainContent {
+    grid-template-columns: 1fr;
+  }
+  .input-box-largeScreen {
+    display: none;
+  }
+  .input-box-smallScreen {
+    display: flex;
+  }
+  .board-task-container-overview {
+    width: 250px;
+  }
 }

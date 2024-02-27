@@ -3,6 +3,10 @@ async function init() {
   await renderTasks();
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  noTaskToDoNotification();
+});
+
 let currentDraggedElement;
 
 async function renderTasks() {
@@ -40,39 +44,40 @@ async function renderTasks() {
         subtasksCount,
         prio,
         description,
-        j
+        task.id
       );
     }
   }
+  await noTaskToDoNotification();
 }
 
-function generateTaskHTML(task, subtasksCount, prio, description, i) {
+function generateTaskHTML(task, subtasksCount, prio, description, id) {
   return /*html*/ `
  <div
-  id="board_task_container_overwiew${i}"
-  onclick="renderTaskLargeview(${i})"
+  id="board_task_container_overwiew${id}"
+  onclick="renderTaskLargeview(${id - 1})"
   class="board-task-container-overview"
   draggable = "true"
   ondragstart = "startDragging(${task.id})"
 >
-  <div id="board_task_category${i}" class="board-task-category">
+  <div id="board_task_category${id}" class="board-task-category">
     ${task.category}
   </div>
-  <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
-  <div id="board-task-description${i}" class="board-task-description">
+  <h2 id="board_task_title${id}" class="board-task-title">${task.title}</h2>
+  <div id="board-task-description${id}" class="board-task-description">
     ${description}
   </div>
   <div class="board-task-subtask-container">
     <div class="board-task-progress" role="progressbar">
       <div
-        id="board_task_progress_bar${i}"
+        id="board_task_progress_bar${id}"
         class="board-task-progress-bar w-75"
       ></div>
     </div>
-    <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
+    <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div id="board-task-contact-icons${i}">(contact-icons)</div>
+    <div id="board-task-contact-icons${id}">(contact-icons)</div>
     <span>${prio}</span>
   </div>
 </div>
@@ -92,6 +97,7 @@ function allowDrop(ev) {
 
 async function moveTo(status) {
   let allTasks = await getItem("allTasks");
+  console.log(allTasks);
   //Element mit der id = currentDraggedElement finden
   let task = allTasks.find((task) => task.id === currentDraggedElement);
   if (task) {
@@ -100,22 +106,96 @@ async function moveTo(status) {
   } else {
     console.error(`Kein Task mit der ID ${currentDraggedElement} gefunden.`);
   }
+  noTaskToDoNotification();
   renderTasks();
 }
 
-// async function showProgressBar(task) {
-//     if (task.subtask) {
-//         return `
-//              <div class= "board-task-subtask-container">
-//              <div class="board-task-progress" role="progressbar">
-//                 <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
-//              </div>
-//              <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
-//              </div>
-//         `;
-//     } else { ''
-//     }
-// }
+function hightlight(id) {
+  document.getElementById(id).classList.add("drag-area-hightlight");
+}
+
+function removeHightlight(id) {
+  document.getElementById(id).classList.remove("drag-area-hightlight");
+}
+
+/* ==============================
+SHOW "NO TASK TO DO" NOTIFICATION
+==================================*/
+async function noTaskToDoNotification() {
+  let allTasks = await getItem("allTasks");
+
+  let taskCounts = {
+    toDo: 0,
+    inProgress: 0,
+    awaitFeedback: 0,
+    done: 0,
+  };
+
+  for (let i = 0; i < allTasks.length; i++) {
+    const status = allTasks[i]["status"];
+    if (taskCounts.hasOwnProperty(status)) {
+      //hasOwnProperty um zu überprüfen, ob das Objekt eine Eigenschaft mit Namen des aktuellen Status hat
+      taskCounts[status]++;
+    }
+  }
+  setDisplayStatus(document.getElementById("No_Task_To_Do"), taskCounts.toDo);
+  setDisplayStatus(
+    document.getElementById("No_Task_In_Progress"),
+    taskCounts.inProgress
+  );
+  setDisplayStatus(
+    document.getElementById("No_Task_Await_Feedback"),
+    taskCounts.awaitFeedback
+  );
+  setDisplayStatus(document.getElementById("No_Task_Done"), taskCounts.done);
+}
+
+function setDisplayStatus(container, taskCount) {
+  container.style.display = taskCount > 0 ? "none" : "flex";
+}
+
+/* ========
+FIND TASKS
+==========*/
+function findTask() {
+  let inputfield = document.getElementById("Find_Task");
+  let input = inputfield.value.toLowerCase();
+  let inputfieldSmallScreen = document.getElementById("Find_Task_SmallScreen");
+  let inputSmallScreen = inputfieldSmallScreen.value.toLowerCase();
+
+  let boardSection = document.getElementById("Board_Section_Main_Content");
+  let tasks = boardSection.getElementsByClassName(
+    "board-task-container-overview"
+  );
+  for (const oneTask of tasks) {
+    oneTask.style.display = "none";
+  }
+  for (let i = 0; i < tasks.length; i++) {
+    const oneTaskName = tasks[i]
+      .getElementsByTagName("h2")[0]
+      .innerText.toLowerCase();
+    if (
+      (window.innerWidth > 650 && oneTaskName.includes(input)) ||
+      (window.innerWidth <= 650 && oneTaskName.includes(inputSmallScreen))
+    ) {
+      tasks[i].style.display = "block";
+    }
+  }
+}
+
+/*  async function showProgressBar(task) {
+     if (task.subtask) {
+         return `
+              <div class= "board-task-subtask-container">
+              <div class="board-task-progress" role="progressbar">
+                 <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
+              </div>
+              <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
+              </div>
+         `;
+     } else { ''
+     }
+ } */
 
 function addPrioIcon(task) {
   switch (task.prio) {
@@ -136,12 +216,16 @@ function addPrioIcon(task) {
   }
 }
 
+/* ========================
+SHOW LARGE VIEW OF ONE TASK
+===========================*/
 async function renderTaskLargeview(taskIndex) {
   let contacts = ["Max Mustermann", "Erika Mustermann", "Moritz Mustermann"]; //übergangsweise bis Contacts von Andreas im backend gespeichert
 
   const allTasks = await getTasks();
+  console.log(allTasks);
   const task = allTasks[taskIndex];
-  const board = document.getElementById("board");
+  const board = document.getElementById("Board");
 
   const description = task.description ? task.description : "";
   const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
@@ -172,34 +256,43 @@ function generateTaskLargeViewHTML(
   taskIndex
 ) {
   return /*html*/ `
-    <div id="board_task_container_largeview" class="board-task-container-largeview">
+    <div id="Board_Task_Container_Largeview" class="board-task-container-largeview">
             <div class = "board-task-category-and-closebutton-container">
                 <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
-                <img id = "board_largeview_closebutton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
+                <img id = "Board_Largeview_Closebutton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
             </div>
-            <div class = "board-task-title-largeview">${task.title} </div>
-            <div class = "board-task-description-largeview">${description} </div>
-            <div class = "board-task-duedate-largeview"> <span class = "board-task-largeview-color">Due date: </span> ${dueDate} </div>
-            <div class = "board-task-priority-largeview"> <span class = "board-task-largeview-color board-task-largeview-padding-right"> Priority: </span> ${task.prio} ${prio} </div>
+            <div class = "board-task-title-largeview">${task.title}</div>
+            <div class = "board-task-description-largeview">${description}</div>
+            <div class="board-task-dueDate-and-priority">
+                <div class="arrange-dueDate-and-priority"> <span>Due date: </span><span>Priority:</span> </div>
+                <div class="arrange-dueDate-and-priority"> <span>${dueDate}</span><span>${task.prio} ${prio}</span> </div>
+            </div>
             <div class = "board-task-assigned-to-largeview"> <span class = "board-task-largeview-color"> Assigned To: </span>${contacts}</div>
-            <div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks </span>${subtasks}</div>
+            <div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>
             <div class = "board-task-delete-and-edit-container">
-                <div id = "board_task_delete_button" onclick = "deleteTask(${taskIndex})" class = "board-task-largeview-icon">
+                <div id = "Board_Task_Delete_Button" onclick = "deleteTask(${taskIndex})" class = "board-task-largeview-icon">
                     <img src = "assets/img/delete.png">
                     <span> Delete </span>
                 </div>
                 <svg height="20" width="1">
                     <line x1="0" y1="0" x2="0" y2="200" style="stroke:black; stroke-width:0.5" />
                 </svg>
-                <div id = "board_task_edit_button" class = "board-task-largeview-icon">
+                <div id = "Board_Task_Edit_Button" class = "board-task-largeview-icon">
                      <img src = "assets/img/edit.png">
-                     <span> Edit </span>
+                     <span onclick="editTask(${taskIndex})"> Edit </span>
                 </div>
             </div>
         </div>
 `;
 }
 
+async function editTask(taskIndex){
+  const allTasks = await getTasks();
+
+  
+
+
+}
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
   let day = date.getDate(); // Tag, Monat & Jahr werden aus dem Date-Objekt extrahiert
@@ -262,7 +355,7 @@ function createSubtasklist(subtasks, taskIndex) {
 
 function closeLargeview() {
   let largeviewPopup = document.getElementById(
-    "board_task_container_largeview"
+    "Board_Task_Container_Largeview"
   );
   largeviewPopup.remove();
 }
@@ -280,5 +373,6 @@ async function deleteTask(i) {
   _taskList.splice(i, 1);
   await setItem("allTasks", _taskList);
   closeLargeview();
+  noTaskToDoNotification();
   renderTasks();
 }
