@@ -44,40 +44,40 @@ async function renderTasks() {
         subtasksCount,
         prio,
         description,
-        j
+        task.id
       );
     }
   }
   await noTaskToDoNotification();
 }
 
-function generateTaskHTML(task, subtasksCount, prio, description, i) {
+function generateTaskHTML(task, subtasksCount, prio, description, id) {
   return /*html*/ `
  <div
-  id="board_task_container_overwiew${i}"
-  onclick="renderTaskLargeview(${i})"
+  id="board_task_container_overwiew${id}"
+  onclick="renderTaskLargeview(${id - 1})"
   class="board-task-container-overview"
   draggable = "true"
   ondragstart = "startDragging(${task.id})"
 >
-  <div id="board_task_category${i}" class="board-task-category">
+  <div id="board_task_category${id}" class="board-task-category">
     ${task.category}
   </div>
-  <h2 id="board_task_title${i}" class="board-task-title">${task.title}</h2>
-  <div id="board-task-description${i}" class="board-task-description">
+  <h2 id="board_task_title${id}" class="board-task-title">${task.title}</h2>
+  <div id="board-task-description${id}" class="board-task-description">
     ${description}
   </div>
   <div class="board-task-subtask-container">
     <div class="board-task-progress" role="progressbar">
       <div
-        id="board_task_progress_bar${i}"
+        id="board_task_progress_bar${id}"
         class="board-task-progress-bar w-75"
       ></div>
     </div>
-    <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
+    <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div id="board-task-contact-icons${i}">(contact-icons)</div>
+    <div id="board-task-contact-icons${id}">(contact-icons)</div>
     <span>${prio}</span>
   </div>
 </div>
@@ -183,19 +183,19 @@ function findTask() {
   }
 }
 
-// async function showProgressBar(task) {
-//     if (task.subtask) {
-//         return `
-//              <div class= "board-task-subtask-container">
-//              <div class="board-task-progress" role="progressbar">
-//                 <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
-//              </div>
-//              <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
-//              </div>
-//         `;
-//     } else { ''
-//     }
-// }
+/*  async function showProgressBar(task) {
+     if (task.subtask) {
+         return `
+              <div class= "board-task-subtask-container">
+              <div class="board-task-progress" role="progressbar">
+                 <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
+              </div>
+              <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
+              </div>
+         `;
+     } else { ''
+     }
+ } */
 
 function addPrioIcon(task) {
   switch (task.prio) {
@@ -216,12 +216,16 @@ function addPrioIcon(task) {
   }
 }
 
+/* ========================
+SHOW LARGE VIEW OF ONE TASK
+===========================*/
 async function renderTaskLargeview(taskIndex) {
   let contacts = ["Max Mustermann", "Erika Mustermann", "Moritz Mustermann"]; //übergangsweise bis Contacts von Andreas im backend gespeichert
 
   const allTasks = await getTasks();
+  console.log(allTasks);
   const task = allTasks[taskIndex];
-  const board = document.getElementById("board");
+  const board = document.getElementById("Board");
 
   const description = task.description ? task.description : "";
   const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
@@ -252,34 +256,43 @@ function generateTaskLargeViewHTML(
   taskIndex
 ) {
   return /*html*/ `
-    <div id="board_task_container_largeview" class="board-task-container-largeview">
+    <div id="Board_Task_Container_Largeview" class="board-task-container-largeview">
             <div class = "board-task-category-and-closebutton-container">
                 <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
-                <img id = "board_largeview_closebutton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
+                <img id = "Board_Largeview_Closebutton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
             </div>
-            <div class = "board-task-title-largeview">${task.title} </div>
-            <div class = "board-task-description-largeview">${description} </div>
-            <div class = "board-task-duedate-largeview"> <span class = "board-task-largeview-color">Due date: </span> ${dueDate} </div>
-            <div class = "board-task-priority-largeview"> <span class = "board-task-largeview-color board-task-largeview-padding-right"> Priority: </span> ${task.prio} ${prio} </div>
+            <div class = "board-task-title-largeview">${task.title}</div>
+            <div class = "board-task-description-largeview">${description}</div>
+            <div class="board-task-dueDate-and-priority">
+                <div class="arrange-dueDate-and-priority"> <span>Due date: </span><span>Priority:</span> </div>
+                <div class="arrange-dueDate-and-priority"> <span>${dueDate}</span><span>${task.prio} ${prio}</span> </div>
+            </div>
             <div class = "board-task-assigned-to-largeview"> <span class = "board-task-largeview-color"> Assigned To: </span>${contacts}</div>
-            <div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks </span>${subtasks}</div>
+            <div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>
             <div class = "board-task-delete-and-edit-container">
-                <div id = "board_task_delete_button" onclick = "deleteTask(${taskIndex})" class = "board-task-largeview-icon">
+                <div id = "Board_Task_Delete_Button" onclick = "deleteTask(${taskIndex})" class = "board-task-largeview-icon">
                     <img src = "assets/img/delete.png">
                     <span> Delete </span>
                 </div>
                 <svg height="20" width="1">
                     <line x1="0" y1="0" x2="0" y2="200" style="stroke:black; stroke-width:0.5" />
                 </svg>
-                <div id = "board_task_edit_button" class = "board-task-largeview-icon">
+                <div id = "Board_Task_Edit_Button" class = "board-task-largeview-icon">
                      <img src = "assets/img/edit.png">
-                     <span> Edit </span>
+                     <span onclick="editTask(${taskIndex})"> Edit </span>
                 </div>
             </div>
         </div>
 `;
 }
 
+async function editTask(taskIndex){
+  const allTasks = await getTasks();
+
+  
+
+
+}
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
   let day = date.getDate(); // Tag, Monat & Jahr werden aus dem Date-Objekt extrahiert
@@ -342,7 +355,7 @@ function createSubtasklist(subtasks, taskIndex) {
 
 function closeLargeview() {
   let largeviewPopup = document.getElementById(
-    "board_task_container_largeview"
+    "Board_Task_Container_Largeview"
   );
   largeviewPopup.remove();
 }
