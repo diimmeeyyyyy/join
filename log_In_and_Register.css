@@ -302,3 +302,56 @@ MEDIA-QUERIES
     width: max-content;
   }
 }
+
+
+/* =====================
+GREETING OVER ALL SCREEN
+========================*/
+.summary-mobile-position-content {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  /*  z-index: -1; */
+  animation: fadeOut 4s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.summary-greetings-div-mobile {
+  display: flex;
+  flex-direction: column;
+}
+.summary-greetings-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-greeting {
+  font-size: clamp(36px, 5vw, 47px);
+  font-weight: 500;
+}
+
+.summary-greeting-name {
+  font-size: clamp(47px, 7vw, 64px);
+  font-weight: 700;
+  color: #29abe2;
+}

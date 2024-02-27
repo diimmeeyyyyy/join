@@ -19,17 +19,53 @@ p {
   margin-block-end: 0;
 }
 
+/* ============================
+TO ADD SIDEBAR + HEADER TO HTML
+================================*/
+.sidebar-and-mainContent {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+.header-and-mainContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+}
 /* ====
 HEADER 
 =======*/
 .header-container {
-  height: 80px;
+  height: 100px;
   background-color: white;
   display: flex;
   align-items: center;
-  padding-left: 80px;
+  justify-content: space-between;
+  padding-inline: clamp(20px, 6vw, 80px);
 }
-
+.help-and-initials-div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.circle {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid black;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(40, 171, 226);
+  font-weight: bold;
+  font-size: 25px;
+}
+.summary-join-logo-header {
+  display: none;
+}
 .add-task-button {
   display: flex;
   align-items: center;
@@ -116,7 +152,7 @@ TASK OVERVIEW & GREETINGS SECTION
   display: flex;
   align-items: center;
   padding-top: 20px;
-  gap: clamp(50px, 8vw, 100px);
+  gap: clamp(25px, 2vw, 100px);
 }
 
 /*=================================================================*/
@@ -234,48 +270,10 @@ TASK OVERVIEW & GREETINGS SECTION
   font-weight: 700;
   color: #29abe2;
 }
-
-/* ===========
-MOBILE VERSION
-===============*/
-.summary-mobile-position-content {
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background-color: whitesmoke;
-  z-index: 999;
-  animation: fadeOut 3s ease-out forwards;
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-
-  60% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-.summary-greetings-div-mobile {
-  display: flex;
-  flex-direction: column;
-}
-
 /* ===========
 MEDIA-QUERIES
 ===============*/
-@media (max-width: 800px) {
+@media (max-width: 605px) {
   .summary-title-section {
     flex-direction: column;
     align-items: flex-start;
@@ -294,7 +292,21 @@ MEDIA-QUERIES
   .summary-title-section .summary-slogan {
     order: 2;
   }
+}
 
+@media (max-width: 850px) {
+  .header-container span {
+    display: none;
+  }
+  .summary-join-logo-header {
+    display: flex;
+  }
+  .help-and-initials-div img {
+    display: none;
+  }
+}
+
+@media (max-width: 1050px) {
   .summary-greetings-div {
     display: none;
   }
@@ -322,7 +334,7 @@ SIDEBAR NAVIGATION
 .task-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: clamp(10px, 2vw, 25px);
   cursor: pointer;
   padding-top: 60px;
   width: 100%;
@@ -332,8 +344,8 @@ SIDEBAR NAVIGATION
 }
 
 .task-sidebar img {
-  width: 30px;
-  height: 30px;
+  width: clamp(20px, 5vw, 35px);
+  height: clamp(20px, 5vw, 35px);
   padding-right: 8px;
 }
 
@@ -377,6 +389,7 @@ a {
     right: 0;
     height: 80px;
     width: auto;
+    flex-direction: unset;
   }
   .join-sidebar-img {
     display: none;

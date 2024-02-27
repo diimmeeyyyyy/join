@@ -37,6 +37,19 @@ function updateMenuPoint(activeLinkIndex) {
   let links = document.querySelectorAll(".task-sidebar a");
 
   if (activeLinkIndex !== null) {
-    links[activeLinkIndex].style.backgroundColor = "rgb(1, 17, 63)";
+    links[activeLinkIndex].style.backgroundColor = "rgb(8,25,49)";
   }
+}
+
+
+/* ========================
+GET USER INITIALS FOR HEADER
+============================*/
+async function loadUserInitials() {
+  let user = await getItem("loggedInUser");
+  console.log(user);
+  let userName = user[0].name;
+  console.log(userName.charAt(0));
+
+  document.getElementById("User_Initials").innerHTML = userName.charAt(0);
 }
