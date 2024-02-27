@@ -17,129 +17,136 @@
   </head>
 
   <body onload="init()">
-    <header w3-include-html="assets/templates/header.html"></header>
+
     <div
       w3-include-html="assets/templates/add_Task.html"
       id="add_task_popup"
       class="add-task-popup"
     ></div>
 
-    <main class="board" id="Board">
-      <section class="board-section-header">
-        <div class="board-section-header-div">
-          <span>
-            <h1>Board</h1>
-          </span>
+    <div class="sidebar-and-mainContent">
+      <div w3-include-html="assets/templates/sidebar.html"></div>
+      <div class="header-and-mainContent">
+        <header w3-include-html="assets/templates/header.html"></header>
+        <main class="board" id="Board">
+          <section class="board-section-header">
+            <div class="board-section-header-div">
+              <span>
+                <h1>Board</h1>
+              </span>
 
-          <div class="board-section-header-find-and-add-task-div">
-            <div class="input-box-largeScreen" id="Find_Task_Input_Wrapper">
+              <div class="board-section-header-find-and-add-task-div">
+                <div class="input-box-largeScreen" id="Find_Task_Input_Wrapper">
+                  <input
+                    type="text"
+                    placeholder="Find Task"
+                    id="Find_Task"
+                    oninput="findTask()"
+                  />
+                  <img src="./assets/img/findTaskImg.png" />
+                </div>
+                <button
+                  onclick="openAddTaskPopUp()"
+                  class="add-task-button hide-add-task-button-largeScreen"
+                >
+                  <p>Add task</p>
+                  <img src="./assets/img/add.png" />
+                </button>
+                <img
+                  src="./assets/img/plus add task mobile.png"
+                  class="add-task-mobile"
+                  onclick="openAddTaskPopUp()"
+                />
+              </div>
+            </div>
+            <div class="input-box-smallScreen">
               <input
                 type="text"
                 placeholder="Find Task"
-                id="Find_Task"
+                id="Find_Task_SmallScreen"
                 oninput="findTask()"
               />
               <img src="./assets/img/findTaskImg.png" />
             </div>
-            <button
-              onclick="openAddTaskPopUp()"
-              class="add-task-button hide-add-task-button-largeScreen"
-            >
-              <p>Add task</p>
-              <img src="./assets/img/add.png" />
-            </button>
-            <img
-              src="./assets/img/plus add task mobile.png"
-              class="add-task-mobile"
-              onclick="openAddTaskPopUp()"
-            />
-          </div>
-        </div>
-        <div class="input-box-smallScreen">
-          <input
-            type="text"
-            placeholder="Find Task"
-            id="Find_Task_SmallScreen"
-            oninput="findTask()"
-          />
-          <img src="./assets/img/findTaskImg.png" />
-        </div>
-      </section>
+          </section>
 
-      <section
-        id="Board_Section_Main_Content"
-        class="board-section-mainContent"
-      >
-        <div class="board-mainContent-container">
-          <div class="board-mainContent-titleDiv">
-            <h3>To-do</h3>
-            <img
-              onclick="openAddTaskPopUp()"
-              src="./assets/img/plusButton.svg"
-            />
-          </div>
-          <span id="No_Task_To_Do" class="noTasks-toDo">No tasks to do</span>
-          <div
-            id="to_do_container"
-            ondrop="moveTo('toDo');removeHightlight('to_do_container')"
-            ondragover="allowDrop(event);hightlight('to_do_container')"
-            ondragend="removeHightlight('to_do_container')"
-            ondragleave="removeHightlight('to_do_container')"
-          ></div>
-        </div>
-        <div class="board-mainContent-container">
-          <div class="board-mainContent-titleDiv">
-            <h3>In Progress</h3>
-            <img
-              onclick="openAddTaskPopUp()"
-              src="./assets/img/plusButton.svg"
-            />
-          </div>
-          <span id="No_Task_In_Progress" class="noTasks-toDo"
-            >No tasks in progress</span
+          <section
+            id="Board_Section_Main_Content"
+            class="board-section-mainContent"
           >
-          <span
-            id="In_Progress_Content"
-            ondrop="moveTo('inProgress');removeHightlight('In_Progress_Content')"
-            ondragover="allowDrop(event);hightlight('In_Progress_Content')"
-            ondragend="removeHightlight('In_Progress_Content')"
-            ondragleave="removeHightlight('In_Progress_Content')"
-          ></span>
-        </div>
-        <div class="board-mainContent-container">
-          <div class="board-mainContent-titleDiv">
-            <h3>Await Feedback</h3>
-            <img
-              onclick="openAddTaskPopUp()"
-              src="./assets/img/plusButton.svg"
-            />
-          </div>
-          <span id="No_Task_Await_Feedback" class="noTasks-toDo"
-            >No tasks await feedback</span
-          >
-          <span
-            id="Await_Feedback_Content"
-            ondrop="moveTo('awaitFeedback');removeHightlight('Await_Feedback_Content')"
-            ondragover="allowDrop(event);hightlight('Await_Feedback_Content')"
-            ondragend="removeHightlight('Await_Feedback_Content')"
-            ondragleave="removeHightlight('Await_Feedback_Content')"
-          ></span>
-        </div>
-        <div class="board-mainContent-container">
-          <div class="board-mainContent-titleDiv">
-            <h3>Done</h3>
-          </div>
-          <span id="No_Task_Done" class="noTasks-toDo">No tasks done</span>
-          <span
-            id="Done_Content"
-            ondrop="moveTo('done');removeHightlight('Done_Content')"
-            ondragover="allowDrop(event);hightlight('Done_Content')"
-            ondragend="removeHightlight('Done_Content')"
-            ondragleave="removeHightlight('Done_Content')"
-          ></span>
-        </div>
-      </section>
-    </main>
+            <div class="board-mainContent-container">
+              <div class="board-mainContent-titleDiv">
+                <h3>To-do</h3>
+                <img
+                  onclick="openAddTaskPopUp()"
+                  src="./assets/img/plusButton.svg"
+                />
+              </div>
+              <span id="No_Task_To_Do" class="noTasks-toDo"
+                >No tasks to do</span
+              >
+              <div
+                id="to_do_container"
+                ondrop="moveTo('toDo');removeHightlight('to_do_container')"
+                ondragover="allowDrop(event);hightlight('to_do_container')"
+                ondragend="removeHightlight('to_do_container')"
+                ondragleave="removeHightlight('to_do_container')"
+              ></div>
+            </div>
+            <div class="board-mainContent-container">
+              <div class="board-mainContent-titleDiv">
+                <h3>In Progress</h3>
+                <img
+                  onclick="openAddTaskPopUp()"
+                  src="./assets/img/plusButton.svg"
+                />
+              </div>
+              <span id="No_Task_In_Progress" class="noTasks-toDo"
+                >No tasks in progress</span
+              >
+              <span
+                id="In_Progress_Content"
+                ondrop="moveTo('inProgress');removeHightlight('In_Progress_Content')"
+                ondragover="allowDrop(event);hightlight('In_Progress_Content')"
+                ondragend="removeHightlight('In_Progress_Content')"
+                ondragleave="removeHightlight('In_Progress_Content')"
+              ></span>
+            </div>
+            <div class="board-mainContent-container">
+              <div class="board-mainContent-titleDiv">
+                <h3>Await Feedback</h3>
+                <img
+                  onclick="openAddTaskPopUp()"
+                  src="./assets/img/plusButton.svg"
+                />
+              </div>
+              <span id="No_Task_Await_Feedback" class="noTasks-toDo"
+                >No tasks await feedback</span
+              >
+              <span
+                id="Await_Feedback_Content"
+                ondrop="moveTo('awaitFeedback');removeHightlight('Await_Feedback_Content')"
+                ondragover="allowDrop(event);hightlight('Await_Feedback_Content')"
+                ondragend="removeHightlight('Await_Feedback_Content')"
+                ondragleave="removeHightlight('Await_Feedback_Content')"
+              ></span>
+            </div>
+            <div class="board-mainContent-container">
+              <div class="board-mainContent-titleDiv">
+                <h3>Done</h3>
+              </div>
+              <span id="No_Task_Done" class="noTasks-toDo">No tasks done</span>
+              <span
+                id="Done_Content"
+                ondrop="moveTo('done');removeHightlight('Done_Content')"
+                ondragover="allowDrop(event);hightlight('Done_Content')"
+                ondragend="removeHightlight('Done_Content')"
+                ondragleave="removeHightlight('Done_Content')"
+              ></span>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
   </body>
 </html>
-
