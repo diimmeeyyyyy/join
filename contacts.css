@@ -5,7 +5,8 @@ body {
   position: relative;
 
 }
-.parting-line-main-page{
+
+.parting-line-main-page {
   border: 1px solid rgb(93, 190, 231);
   height: 40px;
 }
@@ -132,7 +133,7 @@ body {
 
 
 .container1 {
-  height: 775px;
+  height: 766px;
   width: 456px;
   top: 96px;
   left: 28px;
@@ -145,6 +146,7 @@ body {
   align-content: center;
   align-items: center;
   overflow: auto;
+  margin-left: 232px;
 
 }
 
@@ -161,6 +163,7 @@ body {
   background-color: rgb(246, 247, 248);
   padding: 30px;
   height: 73px;
+  width: 100%;
   font-size: 40px !important;
   box-shadow: 0px 0px 0px grey;
 
@@ -245,7 +248,7 @@ body {
   gap: 10px;
   width: 366px;
   border: 1px lightgrey;
-  
+
 }
 
 .form input {
@@ -271,6 +274,8 @@ body {
 
 
 .new-contact-push {
+  width: 480px;
+  background-color: rgb(246, 247, 248);
   position: absolute;
   padding-left: 35px;
   gap: 21px;
@@ -324,7 +329,7 @@ body {
 .button-name-contacts {
   width: 120px;
   height: 120px;
-  border-radius: 80px;
+  border-radius: 70px;
   font-size: 47px;
   color: white;
   background-color: rgb(255, 122, 0);
@@ -423,19 +428,28 @@ a {
   display: none;
 }
 
+.container-and-new-contact-push {
+  background-color: rgb(246, 247, 248);
+}
+
+
+
 /* css für Media */
 
 @media (max-width:1170px) {
   .picture-and-form-contact {
     padding: 0px 0px 0px 0px;
   }
-  .add-contact{
-    
+
+  .add-contact {
+
     padding: 0px 0px 0px 30px;
   }
-  .form{
+
+  .form {
     padding-left: 0px;
   }
+
   .edit {
     width: 338px;
     height: 480px;
@@ -450,31 +464,117 @@ a {
   .form input {
     width: auto;
   }
-}
 
-@media (max-width:990px) {
-  .contact-parting-line {
-    width: 330px;
-  }
-}
-
-@media (max-width:950px) {
   .button-contact {
     width: 250px;
   }
 
   .contact-parting-line {
-    width: 220px;
+    width: 200px;
+  }
 
+  .contacts {
+    gap: 15px;
+    width: 200px;
+  }
+
+  .new-contact-push {
+    padding-left: 15px;
   }
 }
 
+@media (max-width:1007px) {
+  .container-and-new-contact-push {
+   position: absolute;
+   left: 232px;
+   height: 835px;
+   width: 578px;
+   transform: translateX(0px);
+    transition: all 225ms ease-in-out;
+
+  }
+  .d-none-mobile {
+    display: none;
+  
+  }
+  .mobile-back{
+    position: absolute;
+    top: 110px;
+    right: 80px;
+    cursor: pointer;
+    position: fixed;
+  }
+  
+
+  .button-contact {
+    width: 352px;
+  }
+
+  .contact-parting-line {
+    width: 330px;
+  }
+
+  .contacts {
+    width: 300px;
+  }
+
+}
+@media (max-width:850px){
+  .container2 h1 {
+    font-size: 47px;
+}
+.container2 p {
+  font-size: 24px;
+  
+}
+.contacts-list {
+  padding-right: 60px;
+}
+.container2{
+  height: 88px;
+  width: 213px;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 0;
+}
+.parting-line-main-page{
+  display: none;
+}
+}
+
 @media (max-width:810px) {
+
   /* add Contact */
-  .backround-new-contact-container{
+  .backround-new-contact-container {
     display: flex;
     flex-direction: column;
   }
+  .edit-contact-background{
+    flex-direction: column;
+    
+  }
+  .edit{
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 30px;
+    height: 300px;
+    width: 396px;
+    position: relative;
+  }
+  .edit-two{
+    width: 396px;
+    flex-direction: column;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 30px;
+  }
+  .edit-button-contact{
+    margin-top: -70px;
+    z-index: 5;
+  }
+
+  .container-and-new-contact-push {
+    width: 578px;
+  }
+
   .add-contact {
     position: relative;
     width: 396px;
@@ -482,6 +582,7 @@ a {
     border-top-right-radius: 30px;
     height: 300px;
   }
+
   .picture-and-form-contact {
     flex-direction: column;
     border-top-right-radius: 0px;
@@ -491,26 +592,27 @@ a {
     height: 490px;
     z-index: 1;
   }
-.picture-new-contact{
-  margin-top: -70px;
-}
-.cancel{
-display: none;
-}
-.form{
-  align-items: center;
-}
-  .container-and-new-contact-push {
-    display: none;
-    
+
+  .picture-new-contact {
+    margin-top: -70px;
   }
-  .close-mobile{
+
+  .cancel {
+    display: none;
+  }
+
+  .form {
+    align-items: center;
+  }
+
+  .close-mobile {
     position: absolute;
     top: 20px;
     right: 20px;
     cursor: pointer;
   }
-/* add Contact */
+
+  /* add Contact */
   .button-contact {
     display: none;
   }
@@ -518,12 +620,22 @@ display: none;
   .mobile-contacts {
     position: absolute;
     right: 60px;
-    bottom: 60px;
+    bottom: 85px;
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
     cursor: pointer;
+    position: fixed;
     
 
+
+  }
+  .mobil-edit-close{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    height: 30px !important;
+    width: 30px !important;
+    cursor: pointer;
   }
 
   .button-contact {
@@ -536,25 +648,97 @@ display: none;
 
   .container1 {
     width: 790px;
-    height: 807px;
+
     padding: 0px 24px 32px 24px;
+  }
+
+  .contacts {
+    width: 320px;
+  }
+}
+@media (max-width:735px){
+  .container-and-new-contact-push {
+    width: 503px;
+}
+.new-contact-push {
+  padding-left: 5px;
+}
+}
+
+@media (max-width:670px) {
+  .contacts {
+    width: 205px;
+  }
+  .contacts-list {
+    padding-right: 136px;
+}
+
+  .contact-parting-line {
+    width: 205px;
+  }
+  .contacts-name{
+    font-size: 36px;
+  }
+  .button-name-contacts{
+    font-size: 27px;
+    height: 80px;
+    width: 80px;
+  }
+  .mobile-back{
+    right: 60px;
   }
 }
 
+@media (max-width:570px) {
+
+  .container1 {
+    margin-left: 0px;
+
+  }
+
+  .header-container {
+    margin-left: 0px;
+  }
+  .container-and-new-contact-push{
+    left: 0px;
+    height: 766px;
+    width: 100%;
+  }
+  .contacts-list {
+    gap: 0px;
+    padding-right: 187px;
+}
+
+  
+}
+
 @media (max-width:440px) {
+  /* .edit{
+    width: 300px;
+  }
+  .edit-two{
+    width: 300px;
+  } */
   .add-contact h1 {
     font-size: 47px;
-    
-}
-.add-contact p {
-  font-size: 24px;
-}
-.join-png{
-  display: none;
-}
-.add-contact {
-  width: 300px
-}
+
+  }
+  .edit-one p{
+    font-size: 47px;
+  }
+
+  .add-contact p {
+    font-size: 24px;
+  }
+
+  .join-png {
+    display: none;
+  }
+
+  .add-contact {
+    width: 300px
+  }
+
   .button-contact {
     width: 270px;
   }
@@ -563,11 +747,20 @@ display: none;
     width: 250px;
     padding-left: 0px;
   }
+
   .picture-and-form-contact {
     width: 300px
   }
-  .form{
+
+  .form {
     width: 0px;
+  }
+}
+
+@media(min-width:1007px){
+  .mobile-back{
+    display: none;
+
   }
 }
 
@@ -575,7 +768,8 @@ display: none;
   .mobile-contacts {
     display: none;
   }
-  .close-mobile{
+
+  .close-mobile {
     display: none;
   }
 }

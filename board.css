@@ -106,10 +106,10 @@ MOBILE HEADER
 }
 
 .board-mainContent-container {
-  /* padding-right: 30px; */
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 150px;
 }
 
 .board-mainContent-titleDiv {
@@ -208,6 +208,7 @@ MOBILE HEADER
 .drag-area-hightlight {
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px dashed black;
+  border-radius: 20px;
 }
 /* ========================
   BOARD-LARGEVIEW-CONTAINER
@@ -233,7 +234,7 @@ MOBILE HEADER
   justify-content: space-between;
 }
 
-#board_largeview_closebutton:hover {
+#Board_Largeview_Closebutton:hover {
   cursor: pointer;
   background-color: rgb(246, 247, 248);
   border-radius: 32px;
@@ -249,48 +250,46 @@ MOBILE HEADER
   font-size: 56px;
   font-weight: 700;
   padding-top: 16px;
-  /* font-family: Inter; */
 }
 
 .board-task-description-largeview {
   font-size: 20px;
   font-weight: 400;
   padding-top: 16px;
-  /* font-family: Inter; */
 }
 
-.board-task-duedate-largeview {
-  padding-top: 16px;
+/* =================
+DUE DATE + PRIORITY
+===================*/
+.board-task-dueDate-and-priority {
+  display: flex;
+  gap: 30px;
+  padding-block: 15px;
   font-size: 20px;
 }
-
+.arrange-dueDate-and-priority {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .board-task-largeview-color {
   color: rgb(125, 136, 156);
-  padding-right: 24px;
 }
-
-.board-task-largeview-padding-right {
-  padding-right: 36px;
-}
-
-.board-task-priority-largeview {
-  font-size: 20px;
-  font-weight: 400;
-  padding-top: 16px;
-  /* font-family: inter; */
-}
-
 .board-task-prio-icon {
   padding-left: 4px;
 }
 
+/* ========
+ASSIGNED TO
+===========*/
 .board-task-assigned-to-largeview {
-  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   font-size: 20px;
 }
 
 .board-task-contacticon-and-name {
-  padding-top: 24px;
   padding-left: 16px;
   font-size: 20px;
 }

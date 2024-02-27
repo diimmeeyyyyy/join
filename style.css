@@ -22,6 +22,7 @@ HEADER
   display: flex;
   align-items: center;
   padding-left: 80px;
+  margin-left: 232px;
 }
 
 .add-task-button {
@@ -261,4 +262,120 @@ MEDIA-QUERIES
   .summary-greetings-div {
     display: none;
   }
+}
+
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 232px;
+  background-color: rgb(42, 54, 71);
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: hidden;
+}
+
+
+
+.join-sidbar {
+  height: 121.97px;
+  width: 100.03px;
+  padding-top: 64px;
+}
+
+.task-sidbar {
+  color: rgb(205, 205, 205);
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.task-sidbar img {
+  width: 30px;
+  height: 30px;
+  padding-right: 8px;
+}
+
+.span-sidebar {
+  display: flex;
+  align-items: center;
+  width: 232px;
+  padding-left: 130px;
+  color:rgb(205, 205, 205);
+  
+
+}
+a{
+  text-decoration: none;
+}
+
+.span-sidebar:hover {
+  background-color: rgb(1, 17, 63);
+}
+
+.impressum {
+  color: rgb(205, 205, 205);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  height: 317px;
+  margin-bottom: 110px;
+
+}
+
+.impressum span:hover {
+  cursor: pointer;
+  color: rgb(0, 204, 255);
+}
+
+.backround-sidebar {
+  background-color: rgb(9, 25, 49);
+}
+
+@media (max-width:570px) {
+  .sidebar {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 80px !important;
+      width: auto !important;
+
+  }
+
+  .span-sidebar {
+      width: 80px !important;
+      height: 76px;
+      padding-left: 0px !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .join-sidbar {
+      display: none;
+  }
+
+  .task-sidbar {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+
+  }
+
+  .impressum {
+      display: none !important;
+  }
+  .span-sidebar:hover {
+  background-color: rgb(1, 17, 63);
+  border-radius: 16px;
+}
 }

@@ -90,8 +90,6 @@ async function getTaskIdCounter() {
 
 async function createTask() {
   const allTasks = await getTasks();
-  let taskIdCounter = await getTaskIdCounter();
-  taskIdCounter++;
 
   let title = document.getElementById("add_task_title");
   let dueDate = document.getElementById("add_task_due_date");
@@ -100,7 +98,7 @@ async function createTask() {
   // let contactsToAssign = document.getElementById("add_task_contacts_to_assign");
 
   let task = {
-    id: taskIdCounter,
+    id: allTasks.length + 1,
     title: title.value,
     dueDate: dueDate.value,
     category: category.value,
@@ -128,7 +126,7 @@ async function createTask() {
 
   await setItem("allTasks", allTasks);
   _taskList = allTasks;
-  await setItem("taskIdCounter", taskIdCounter);
+  await setItem("taskIdCounter", task.id);
 
   title.value = "";
   description.value = "";
