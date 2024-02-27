@@ -23,12 +23,11 @@ async function init() {
 async function loadContacts() {
     try {
         contacts = await getItem('allContacts');
+        return contacts;
     } catch (e) {
         console.info('Not load Contacts')
     }
-
 }
-
 async function addContact() {
     let text = document.getElementById('text').value;
     let email = document.getElementById('email').value;
@@ -136,6 +135,7 @@ function pushContact(i) {
 
             </div>
     `;
+     mobileBackRemove();
 
 }
 
@@ -163,7 +163,15 @@ async function delet(i) {
 
 
 function updateLettersAndTwoLettersName() {
+    oneLetterGenerator();
+    twoLetterGenerator();
+}
+
+function oneLetterGenerator(){
     letters = contacts.map(contact => contact.name.charAt(0));
+}
+
+function twoLetterGenerator(){
     twolettersName = contacts.map(contact => {
         const nameSplit = contact.name.split(' ');
         const twoNummber = nameSplit.map(teil => teil.charAt(0));
@@ -210,6 +218,7 @@ function edit_contact(i) {
           <div class="edit">
         <div class="edit-one">
             <img class="join-png" src="./assets/img/join.png" alt="Bild Join">
+            <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
             <p> Edit contact</p>
             <div class="parting-line"></div>
         </div>
@@ -289,3 +298,17 @@ function saveAnimat(){
     let backround = document.getElementById('backround');
     backround.classList.remove('animate');
 }
+
+function mobileBack(){
+    let mobileBack = document.getElementById('mobileBack');
+    mobileBack.classList.add('d-none-mobile')
+}
+
+function mobileBackRemove(){
+    let mobileBack = document.getElementById('mobileBack');
+    mobileBack.classList.remove('d-none-mobile')
+}
+ function mobil_edit_contact(){
+    let editContact = document.getElementById('edit_contact');
+    editContact.classList.add('d-none');
+ }
