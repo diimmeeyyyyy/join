@@ -1,6 +1,8 @@
 async function initSummary() {
+  await includeHTML();
   loadGreetingName();
-  includeHTML();
+  await loadUserInitials();
+  updateMenuPoint(0);
 }
 
 async function loadGreetingName() {
@@ -23,3 +25,12 @@ async function loadGreetingName() {
     inputfield.innerHTML = userName;
   }
 }
+
+/* async function loadUserInitials() {
+  let user = await getItem("loggedInUser");
+  console.log(user);
+  let userName = user[0].name;
+  console.log(userName.charAt(0));
+
+  document.getElementById("User_Initials").innerHTML = userName.charAt(0);
+} */

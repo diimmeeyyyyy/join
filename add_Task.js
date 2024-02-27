@@ -2,18 +2,35 @@ let prio = "";
 let subtasks = [];
 let _taskList = null;
 
+
 function initAddTask() {
   includeHTML();
   // showContacts();
 }
 
 async function renderContactsInAddTask() {
-  // await getContacts();
+  let allContacts = await loadContacts();
+  // let contactIcon = oneLetterGenerator();
   let contactsContainer = document.getElementById("add_task_contacts_content");
   contactsContainer.innerHTML += `
-    <div class="add-task-contacts-container"> 
+    <div id="add_task_contacts_container" class="add-task-contacts-container"> 
     </div>
     `;
+
+    
+  let contactList = document.getElementById('add_task_contacts_container');
+  for (let i = 0; i < allContacts.length; i++) {
+    const contact = allContacts[i];
+    contactList.innerHTML += `
+      <div class="add-task-contact-checkbox"> 
+        <div class = "add-task-contact-icon-and-name">
+            <div>CI</div>
+            <div>${contact.name}</div>
+        </div>
+        <input type = "checkbox">
+      </div>
+    `;
+  }
 }
 
 function setTaskPriority(priority) {
@@ -48,17 +65,19 @@ function changeButtonColor() {
   }
 }
 
+
 function addNewSubtask() {
   let newSubtasksList = document.getElementById("add-task-subtasks-list");
   let subtask = document.getElementById("add_task_subtasks_inputfield");
 
   newSubtasksList.innerHTML += ` 
          
-        /<li> ${subtask.value} <br></li>
+        <li> ${subtask.value} <br></li>
     `;
   subtasks.push(subtask.value);
   subtask.value = "";
 }
+
 
 async function getTasks() {
   if (_taskList != null) {

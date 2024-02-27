@@ -2,6 +2,7 @@ async function initBoard() {
   includeHTML();
   await renderTasks();
   updateMenuPoint(2);
+  await loadUserInitials();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
