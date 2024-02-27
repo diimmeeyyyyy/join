@@ -1,6 +1,7 @@
-async function init() {
+async function initBoard() {
   includeHTML();
   await renderTasks();
+  updateMenuPoint(2);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -286,12 +287,8 @@ function generateTaskLargeViewHTML(
 `;
 }
 
-async function editTask(taskIndex){
+async function editTask(taskIndex) {
   const allTasks = await getTasks();
-
-  
-
-
 }
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring

@@ -15,23 +15,28 @@ async function includeHTML() {
 /* ========================
 TO FOCUS CLICKED MENU-POINT
 ===========================*/
-/* let links = document.querySelectorAll('.task-sidebar a');
-
-links.forEach((link) => {
-  link.addEventListener('click', function() {
-    links.forEach((link) => link.classList.remove('active')); //CSS-Klasse "activ" bei allen antfernen  
-    this.classList.add('active'); // CSS-Klasse zum geklickten Element hinzufügen
-  });
-}); */
-
-document.addEventListener("DOMContentLoaded", function () {
+function changeMenuPointFocus(clickedLink) {
   let links = document.querySelectorAll(".task-sidebar a");
 
-  links.forEach((link) => {
-    link.addEventListener("click", function (event) {
-      event.preventDefault(); // Prevent the link from being followed
-      links.forEach((link) => link.classList.remove("active"));
-      this.classList.add("active");
-    });
-  });
-});
+  for (let i = 0; i < links.length; i++) {
+    const link = links[i];
+
+    if (link === clickedLink) {
+      link.style.backgroundColor = "rgb(1, 17, 63)";
+      localStorage.setItem("activeLink", i);
+    } else {
+      link.style.backgroundColor = "";
+    }
+  }
+}
+
+/* ======================
+UPDATE CLICKED MENU-POINT
+=========================*/
+function updateMenuPoint(activeLinkIndex) {
+  let links = document.querySelectorAll(".task-sidebar a");
+
+  if (activeLinkIndex !== null) {
+    links[activeLinkIndex].style.backgroundColor = "rgb(1, 17, 63)";
+  }
+}

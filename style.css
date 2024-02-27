@@ -2,15 +2,14 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(246, 247, 248);
-  font-family: 'Inter',sans-serif;
-  
+  font-family: "Inter", sans-serif;
 }
- @font-face {
-  font-family: 'Inter';
+@font-face {
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  src: url('fonts/Inter-VariableFont_slnt\,wght.ttf') format('ttf');
- }
+  src: url("fonts/Inter-VariableFont_slnt\,wght.ttf") format("ttf");
+}
 
 h1,
 h3,
@@ -309,7 +308,6 @@ SIDEBAR NAVIGATION
   padding: 0;
   width: 232px;
   background-color: rgb(42, 54, 71);
-  overflow: auto;
   position: sticky;
   height: 100vh;
   display: flex;
@@ -329,9 +327,8 @@ SIDEBAR NAVIGATION
   padding-top: 60px;
   width: 100%;
 }
-.task-sidebar a.active {
+.active {
   background-color: rgb(1, 17, 63);
-  color: white;
 }
 
 .task-sidebar img {
@@ -360,7 +357,7 @@ a {
   color: rgb(205, 205, 205);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   position: absolute;
   bottom: 50px;
   left: 50%;
@@ -378,35 +375,29 @@ a {
     left: 0;
     bottom: 0;
     right: 0;
-    height: 80px !important;
-    width: auto !important;
+    height: 80px;
+    width: auto;
   }
-
+  .join-sidebar-img {
+    display: none;
+  }
   .span-sidebar {
     width: 80px;
-    padding-left: 0px !important;
+    padding-left: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-
-  .join-sidbar {
-    display: none;
-  }
-
-  .task-sidebar {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 100%;
-  }
-
-  .impressum {
-    display: none !important;
-  }
-
   .span-sidebar:hover {
     background-color: rgb(1, 17, 63);
-    border-radius: 16px;
+    border-radius: unset;
+  }
+  .task-sidebar {
+    flex-direction: unset;
+    padding-top: unset;
+    justify-content: space-evenly;
+  }
+  .impressum {
+    display: none;
   }
 }
