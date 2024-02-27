@@ -28,6 +28,8 @@ async function loadContacts() {
         console.info('Not load Contacts')
     }
 }
+
+
 async function addContact() {
     let text = document.getElementById('text').value;
     let email = document.getElementById('email').value;
@@ -167,8 +169,14 @@ function updateLettersAndTwoLettersName() {
     twoLetterGenerator();
 }
 
-function oneLetterGenerator(){
-    letters = contacts.map(contact => contact.name.charAt(0));
+// function oneLetterGenerator(){
+//     letters = contacts.map(contact => contact.name.charAt(0));
+// }
+
+function getIconForContact(contact) {
+    const splitName = contact.name.split(' ');
+    const initials = splitName.map(part => part[0]).join('');
+    return `<button class="button-name" style="background-color: ${contact.color};">${initials}</button>`;
 }
 
 function twoLetterGenerator(){

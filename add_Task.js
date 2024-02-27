@@ -8,6 +8,27 @@ function initAddTask() {
   // showContacts();
 }
 
+let contactsRendered = false;
+let contactsDropdownOpen = false;
+
+async function toggleContactDropdownInAddTask() {
+  if(!contactsRendered) {
+    await renderContactsInAddTask();
+    contactsRendered = true;
+  }
+
+  const contactsContainer = document.getElementById("add_task_contacts_content");
+
+  if(contactsDropdownOpen === true) {
+    contactsContainer.style.display = 'none';
+    contactsDropdownOpen = false;
+  }
+  else {
+    contactsContainer.style.display = 'block';
+    contactsDropdownOpen = true;
+  }
+}
+
 async function renderContactsInAddTask() {
   let allContacts = await loadContacts();
   // let contactIcon = oneLetterGenerator();
@@ -17,21 +38,21 @@ async function renderContactsInAddTask() {
     </div>
     `;
 
-    
   let contactList = document.getElementById('add_task_contacts_container');
   for (let i = 0; i < allContacts.length; i++) {
     const contact = allContacts[i];
     contactList.innerHTML += `
       <div class="add-task-contact-checkbox"> 
-        <div class = "add-task-contact-icon-and-name">
-            <div>CI</div>
+        <div class="add-task-contact-icon-and-name">
+            <div>${getIconForContact(contact)}</div>
             <div>${contact.name}</div>
         </div>
-        <input type = "checkbox">
+        <input type="checkbox" onclick="onContactChanged(this.checked, '${contact.name.replace('"', '')}')">
       </div>
     `;
   }
 }
+
 
 function setTaskPriority(priority) {
   prio = priority;
