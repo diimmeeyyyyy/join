@@ -3,6 +3,10 @@ async function init() {
   await renderTasks();
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  noTaskToDoNotification();
+});
+
 let currentDraggedElement;
 
 async function renderTasks() {
@@ -44,6 +48,7 @@ async function renderTasks() {
       );
     }
   }
+  await noTaskToDoNotification();
 }
 
 function generateTaskHTML(task, subtasksCount, prio, description, i) {
@@ -58,7 +63,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, i) {
   <div id="board_task_category${i}" class="board-task-category">
     ${task.category}
   </div>
-  <div id="board_task_title${i}" class="board-task-title">${task.title}</div>
+  <h2 id="board_task_title${i}" class="board-task-title">${task.title}</h2>
   <div id="board-task-description${i}" class="board-task-description">
     ${description}
   </div>
@@ -92,6 +97,7 @@ function allowDrop(ev) {
 
 async function moveTo(status) {
   let allTasks = await getItem("allTasks");
+  console.log(allTasks);
   //Element mit der id = currentDraggedElement finden
   let task = allTasks.find((task) => task.id === currentDraggedElement);
   if (task) {
@@ -100,7 +106,81 @@ async function moveTo(status) {
   } else {
     console.error(`Kein Task mit der ID ${currentDraggedElement} gefunden.`);
   }
+  noTaskToDoNotification();
   renderTasks();
+}
+
+function hightlight(id) {
+  document.getElementById(id).classList.add("drag-area-hightlight");
+}
+
+function removeHightlight(id) {
+  document.getElementById(id).classList.remove("drag-area-hightlight");
+}
+
+/* ==============================
+SHOW "NO TASK TO DO" NOTIFICATION
+==================================*/
+async function noTaskToDoNotification() {
+  let allTasks = await getItem("allTasks");
+
+  let taskCounts = {
+    toDo: 0,
+    inProgress: 0,
+    awaitFeedback: 0,
+    done: 0,
+  };
+
+  for (let i = 0; i < allTasks.length; i++) {
+    const status = allTasks[i]["status"];
+    if (taskCounts.hasOwnProperty(status)) {
+      //hasOwnProperty um zu überprüfen, ob das Objekt eine Eigenschaft mit Namen des aktuellen Status hat
+      taskCounts[status]++;
+    }
+  }
+  setDisplayStatus(document.getElementById("No_Task_To_Do"), taskCounts.toDo);
+  setDisplayStatus(
+    document.getElementById("No_Task_In_Progress"),
+    taskCounts.inProgress
+  );
+  setDisplayStatus(
+    document.getElementById("No_Task_Await_Feedback"),
+    taskCounts.awaitFeedback
+  );
+  setDisplayStatus(document.getElementById("No_Task_Done"), taskCounts.done);
+}
+
+function setDisplayStatus(container, taskCount) {
+  container.style.display = taskCount > 0 ? "none" : "flex";
+}
+
+/* ========
+FIND TASKS
+==========*/
+function findTask() {
+  let inputfield = document.getElementById("Find_Task");
+  let input = inputfield.value.toLowerCase();
+  let inputfieldSmallScreen = document.getElementById("Find_Task_SmallScreen");
+  let inputSmallScreen = inputfieldSmallScreen.value.toLowerCase();
+
+  let boardSection = document.getElementById("Board_Section_Main_Content");
+  let tasks = boardSection.getElementsByClassName(
+    "board-task-container-overview"
+  );
+  for (const oneTask of tasks) {
+    oneTask.style.display = "none";
+  }
+  for (let i = 0; i < tasks.length; i++) {
+    const oneTaskName = tasks[i]
+      .getElementsByTagName("h2")[0]
+      .innerText.toLowerCase();
+    if (
+      (window.innerWidth > 650 && oneTaskName.includes(input)) ||
+      (window.innerWidth <= 650 && oneTaskName.includes(inputSmallScreen))
+    ) {
+      tasks[i].style.display = "block";
+    }
+  }
 }
 
 // async function showProgressBar(task) {
@@ -280,5 +360,6 @@ async function deleteTask(i) {
   _taskList.splice(i, 1);
   await setItem("allTasks", _taskList);
   closeLargeview();
+  noTaskToDoNotification();
   renderTasks();
 }
