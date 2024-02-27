@@ -2,8 +2,15 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(246, 247, 248);
-  overflow: hidden;
+  font-family: 'Inter',sans-serif;
+  
 }
+ @font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Inter-VariableFont_slnt\,wght.ttf') format('ttf');
+ }
 
 h1,
 h3,
@@ -44,6 +51,7 @@ INDEX.HTML
 .index-page {
   height: 100vh;
 }
+
 .index-page img {
   position: absolute;
   animation: swipe 3s forwards;
@@ -57,6 +65,7 @@ INDEX.HTML
     height: 335px;
     transform: translate(-50%, -50%);
   }
+
   100% {
     top: 30px;
     left: 80px;
@@ -73,9 +82,11 @@ SUMMARY.HTML
   flex-direction: column;
   padding: clamp(15px, 2vw, 50px);
 }
+
 .summary-img-size {
   width: clamp(40px, 7vw, 70px);
 }
+
 /* ===================
 TITLE & SLOGAN SECTION
 ======================*/
@@ -84,18 +95,22 @@ TITLE & SLOGAN SECTION
   align-items: center;
   gap: clamp(10px, 4vw, 30px);
 }
+
 .summary-title-section h1 {
   font-size: clamp(40px, 5vw, 61px);
 }
+
 .dividing-line {
   width: 4px;
   height: 50px;
   background-color: #29abe2;
   border-radius: 10px;
 }
+
 .summary-slogan {
   font-size: clamp(20px, 5vw, 27px);
 }
+
 /* =============================
 TASK OVERVIEW & GREETINGS SECTION
 ================================*/
@@ -105,6 +120,7 @@ TASK OVERVIEW & GREETINGS SECTION
   padding-top: 20px;
   gap: clamp(50px, 8vw, 100px);
 }
+
 /*=================================================================*/
 .summary-task-overview {
   display: flex;
@@ -112,12 +128,14 @@ TASK OVERVIEW & GREETINGS SECTION
   gap: 15px;
   width: clamp(340px, 90vw, 560px);
 }
+
 /*=================================================================*/
 .summary-task-overview-toDo-and-done {
   display: flex;
   justify-content: space-between;
   gap: 30px;
 }
+
 .summary-task-overview-toDo-and-done span {
   display: flex;
   align-items: center;
@@ -128,17 +146,21 @@ TASK OVERVIEW & GREETINGS SECTION
   height: clamp(110px, 26vw, 170px);
   gap: 15px;
 }
+
 .arrange-amount-and-status {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .amount-tasks {
   font-size: clamp(40px, 7vw, 64px);
 }
+
 .status-tasks {
   font-size: clamp(14px, 3vw, 20px);
 }
+
 /*=================================================================*/
 .summary-task-overview-dueDates {
   display: flex;
@@ -148,33 +170,40 @@ TASK OVERVIEW & GREETINGS SECTION
   height: clamp(110px, 26vw, 170px);
   border-radius: 30px;
 }
+
 .summary-task-overview-dueDates span {
   display: flex;
   align-items: center;
 }
+
 .dividing-line-task-overview-dueDates {
   width: 3px;
   height: clamp(68px, 15vw, 100px);
   background-color: gray;
 }
+
 .summary-upcoming-deadline-div {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
+
 .summary-upcoming-deadline-div p:first-of-type {
   font-size: clamp(16px, 3vw, 21px);
   font-weight: 700;
 }
+
 .summary-upcoming-deadline-div p:last-of-type {
   font-size: clamp(14px, 3vw, 16px);
   font-weight: 400;
 }
+
 /*=================================================================*/
 .summary-task-overview-information {
   display: flex;
   justify-content: space-between;
 }
+
 .summary-task-overview-information div {
   width: clamp(110px, 26vw, 170px);
   height: clamp(110px, 26vw, 170px);
@@ -184,25 +213,30 @@ TASK OVERVIEW & GREETINGS SECTION
   justify-content: center;
   align-items: center;
 }
+
 .summary-task-overview-information div p:last-of-type {
   font-size: clamp(14px, 4vw, 21px);
   font-weight: 400;
   text-align: center;
 }
+
 /*=================================================================*/
 .summary-greetings-div {
   display: flex;
   flex-direction: column;
 }
+
 .summary-greeting {
   font-size: clamp(36px, 5vw, 47px);
   font-weight: 500;
 }
+
 .summary-greeting-name {
   font-size: clamp(47px, 7vw, 64px);
   font-weight: 700;
   color: #29abe2;
 }
+
 /* ===========
 MOBILE VERSION
 ===============*/
@@ -220,13 +254,16 @@ MOBILE VERSION
   z-index: 999;
   animation: fadeOut 3s ease-out forwards;
 }
+
 @keyframes fadeOut {
   0% {
     opacity: 1;
   }
+
   60% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
@@ -259,6 +296,7 @@ MEDIA-QUERIES
   .summary-title-section .summary-slogan {
     order: 2;
   }
+
   .summary-greetings-div {
     display: none;
   }
@@ -297,7 +335,7 @@ MEDIA-QUERIES
   cursor: pointer;
 }
 
-.task-sidbar img {
+.task-sidebar img {
   width: 30px;
   height: 30px;
   padding-right: 8px;
@@ -308,11 +346,12 @@ MEDIA-QUERIES
   align-items: center;
   width: 232px;
   padding-left: 130px;
-  color:rgb(205, 205, 205);
-  
+  color: rgb(205, 205, 205);
+
 
 }
-a{
+
+a {
   text-decoration: none;
 }
 
@@ -328,7 +367,13 @@ a{
   gap: 8px;
   height: 317px;
   margin-bottom: 110px;
-
+}
+.impressum a{
+  text-decoration: none;
+  color: rgb(205, 205, 205);
+}
+.impressum a:hover{
+  color: rgb(0, 204, 255);
 }
 
 .impressum span:hover {
@@ -342,40 +387,54 @@ a{
 
 @media (max-width:570px) {
   .sidebar {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      height: 80px !important;
-      width: auto !important;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 80px !important;
+    width: auto !important;
 
   }
 
   .span-sidebar {
-      width: 80px !important;
-      height: 76px;
-      padding-left: 0px !important;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    width: 80px !important;
+    height: 76px;
+    padding-left: 0px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .join-sidbar {
-      display: none;
+    display: none;
   }
 
   .task-sidbar {
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: center !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
 
   }
 
   .impressum {
-      display: none !important;
+    display: none !important;
   }
+
   .span-sidebar:hover {
-  background-color: rgb(1, 17, 63);
-  border-radius: 16px;
+    background-color: rgb(1, 17, 63);
+    border-radius: 16px;
+  }
 }
+
+/* Inpressum */
+.inpressum-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  margin-left: 232px;
+  padding-left: 20px;
+  height: 100%;
+  
 }
+
+/* impressum */
