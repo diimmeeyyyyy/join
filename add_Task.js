@@ -2,6 +2,7 @@ let prio = "";
 let subtasks = [];
 let _taskList = null;
 
+
 function initAddTask() {
     includeHTML();
     // showContacts();
@@ -56,11 +57,12 @@ function addNewSubtask() {
 
   newSubtasksList.innerHTML += ` 
          
-        /<li> ${subtask.value} <br></li>
+        <li> ${subtask.value} <br></li>
     `;
   subtasks.push(subtask.value);
   subtask.value = "";
 }
+
 
 async function getTasks() {
   if (_taskList != null) {
