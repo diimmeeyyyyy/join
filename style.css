@@ -2,15 +2,14 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(246, 247, 248);
-  font-family: 'Inter',sans-serif;
-  
+  font-family: "Inter", sans-serif;
 }
- @font-face {
-  font-family: 'Inter';
+@font-face {
+  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  src: url('fonts/Inter-VariableFont_slnt\,wght.ttf') format('ttf');
- }
+  src: url("fonts/Inter-VariableFont_slnt\,wght.ttf") format("ttf");
+}
 
 h1,
 h3,
@@ -20,18 +19,53 @@ p {
   margin-block-end: 0;
 }
 
+/* ============================
+TO ADD SIDEBAR + HEADER TO HTML
+================================*/
+.sidebar-and-mainContent {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+.header-and-mainContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+}
 /* ====
 HEADER 
 =======*/
 .header-container {
-  height: 80px;
+  height: 100px;
   background-color: white;
   display: flex;
   align-items: center;
-  padding-left: 80px;
-  margin-left: 232px;
+  justify-content: space-between;
+  padding-inline: clamp(20px, 6vw, 80px);
 }
-
+.help-and-initials-div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.circle {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid black;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(40, 171, 226);
+  font-weight: bold;
+  font-size: 25px;
+}
+.summary-join-logo-header {
+  display: none;
+}
 .add-task-button {
   display: flex;
   align-items: center;
@@ -118,7 +152,7 @@ TASK OVERVIEW & GREETINGS SECTION
   display: flex;
   align-items: center;
   padding-top: 20px;
-  gap: clamp(50px, 8vw, 100px);
+  gap: clamp(25px, 2vw, 100px);
 }
 
 /*=================================================================*/
@@ -236,48 +270,10 @@ TASK OVERVIEW & GREETINGS SECTION
   font-weight: 700;
   color: #29abe2;
 }
-
-/* ===========
-MOBILE VERSION
-===============*/
-.summary-mobile-position-content {
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background-color: whitesmoke;
-  z-index: 999;
-  animation: fadeOut 3s ease-out forwards;
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-
-  60% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-.summary-greetings-div-mobile {
-  display: flex;
-  flex-direction: column;
-}
-
 /* ===========
 MEDIA-QUERIES
 ===============*/
-@media (max-width: 800px) {
+@media (max-width: 605px) {
   .summary-title-section {
     flex-direction: column;
     align-items: flex-start;
@@ -296,61 +292,71 @@ MEDIA-QUERIES
   .summary-title-section .summary-slogan {
     order: 2;
   }
+}
 
+@media (max-width: 850px) {
+  .header-container span {
+    display: none;
+  }
+  .summary-join-logo-header {
+    display: flex;
+  }
+  .help-and-initials-div img {
+    display: none;
+  }
+}
+
+@media (max-width: 1050px) {
   .summary-greetings-div {
     display: none;
   }
 }
 
-
+/* ============
+SIDEBAR NAVIGATION
+===============*/
 .sidebar {
   margin: 0;
   padding: 0;
   width: 232px;
   background-color: rgb(42, 54, 71);
-  position: fixed;
-  height: 100%;
-  overflow: auto;
+  position: sticky;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  overflow-x: hidden;
 }
 
-
-
-.join-sidbar {
-  height: 121.97px;
-  width: 100.03px;
+.join-sidebar-img {
   padding-top: 64px;
 }
 
-.task-sidbar {
-  color: rgb(205, 205, 205);
+.task-sidebar {
   display: flex;
   flex-direction: column;
-  height: 150px;
-  gap: 15px;
+  gap: clamp(10px, 2vw, 25px);
   cursor: pointer;
+  padding-top: 60px;
+  width: 100%;
+}
+.active {
+  background-color: rgb(1, 17, 63);
 }
 
 .task-sidebar img {
-  width: 30px;
-  height: 30px;
+  width: clamp(20px, 5vw, 35px);
+  height: clamp(20px, 5vw, 35px);
   padding-right: 8px;
 }
 
 .span-sidebar {
   display: flex;
   align-items: center;
-  width: 232px;
-  padding-left: 130px;
   color: rgb(205, 205, 205);
-
-
+  gap: 10px;
+  padding-left: 55px;
+  padding-block: 10px;
 }
-
 a {
   text-decoration: none;
 }
@@ -363,17 +369,11 @@ a {
   color: rgb(205, 205, 205);
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 8px;
-  height: 317px;
-  margin-bottom: 110px;
-}
-.impressum a{
-  text-decoration: none;
-  color: rgb(205, 205, 205);
-}
-.impressum a:hover{
-  color: rgb(0, 204, 255);
+  gap: 10px;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .impressum span:hover {
@@ -381,61 +381,36 @@ a {
   color: rgb(0, 204, 255);
 }
 
-.backround-sidebar {
-  background-color: rgb(9, 25, 49);
-}
-
-@media (max-width:570px) {
+@media (max-width: 850px) {
   .sidebar {
     position: fixed;
     left: 0;
     bottom: 0;
     right: 0;
-    height: 80px !important;
-    width: auto !important;
-
+    height: 80px;
+    width: auto;
+    flex-direction: unset;
   }
-
+  .join-sidebar-img {
+    display: none;
+  }
   .span-sidebar {
-    width: 80px !important;
-    height: 76px;
-    padding-left: 0px !important;
+    width: 80px;
+    padding-left: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-
-  .join-sidbar {
-    display: none;
-  }
-
-  .task-sidbar {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-
-  }
-
-  .impressum {
-    display: none !important;
-  }
-
   .span-sidebar:hover {
     background-color: rgb(1, 17, 63);
-    border-radius: 16px;
+    border-radius: unset;
+  }
+  .task-sidebar {
+    flex-direction: unset;
+    padding-top: unset;
+    justify-content: space-evenly;
+  }
+  .impressum {
+    display: none;
   }
 }
-
-/* Inpressum */
-.inpressum-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 35px;
-  margin-left: 232px;
-  padding-left: 20px;
-  padding-right: 20px;
-  height: 100%;
-  
-}
-
-/* impressum */

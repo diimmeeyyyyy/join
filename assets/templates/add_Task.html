@@ -1,13 +1,16 @@
 <main id="main_container" class="main-container">
 
-    <div class="headline-and-close-button-container">
-        <h1>Add Task</h1>
-        <img id="board_largeview_closebutton" onclick="closeAddTaskPopup()" src="./assets/img/close.svg">
-    </div>
-
     <form onsubmit="createTask(); return false;">
+        <div class="headline-and-close-button-container">
+        <div>
+            <h1>Add Task</h1>        
+        </div>
+        <div>
+          <img id="board_largeview_closebutton" onclick="closeAddTaskPopup()" src="./assets/img/close.svg">
+        </div>
+    </div>
         <div class="add-task-inputfield-container">
-            <div class="add-task-container">
+                <div class="add-task-container">
                 <span>Title<span class="add-task-highlight-red">*</span></span>
                 <input id="add_task_title" class="add-task-inputfield" required placeholder="Enter a title">
 
@@ -16,9 +19,9 @@
                     placeholder="Enter a Description"></textarea>
 
                 <span>Assigned to</span>
-                <div onclick="renderContactsInAddTask()" class="add-task-inputfield add-task-inputfield-contacts">
+                <div onclick="toggleContactDropdownInAddTask()" class="add-task-inputfield add-task-inputfield-contacts">
                     <span class="add-task-placeholder"> Select contacts to assign </span>
-                    <img src="./assets/img/arrow_drop_down.svg">
+                    <img class = "add-task-inputfield-arrow" src="./assets/img/arrow_drop_down.svg">
                 </div>
                 <div id="add_task_contacts_content"></div>
                 <span class="add-task-legend">
