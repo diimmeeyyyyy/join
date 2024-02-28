@@ -169,9 +169,9 @@ function updateLettersAndTwoLettersName() {
     twoLetterGenerator();
 }
 
-// function oneLetterGenerator(){
-//     letters = contacts.map(contact => contact.name.charAt(0));
-// }
+function oneLetterGenerator(){
+    letters = contacts.map(contact => contact.name.charAt(0));
+}
 
 function getIconForContact(contact) {
     const splitName = contact.name.split(' ');
