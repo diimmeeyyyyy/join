@@ -374,3 +374,72 @@ async function deleteTask(i) {
   noTaskToDoNotification();
   renderTasks();
 }
+
+/* ====================================
+WHEN SCREEN < 1090, SHOW OR HIDE ARROWS
+=======================================*/
+window.addEventListener("load", function () {
+  let container = [
+    "to_do_container",
+    "In_Progress_Content",
+    "Await_Feedback_Content",
+    "Done_Content",
+  ];
+
+  let arrowRight = [
+    "To_Do_Container_Arrow_Right",
+    "In_Progress_Container_Arrow_Right",
+    "Await_Feedback_Arrow_Right",
+    "Done_Arrow_Right",
+  ];
+
+  let arrowLeft = [
+    "To_Do_Container_Arrow_Left",
+    "In_Progress_Container_Arrow_Left",
+    "Await_Feedback_Arrow_Left",
+    "Done_Arrow_Left",
+  ];
+
+  function checkScroll() {
+    for (let i = 0; i < container.length; i++) {
+      let subContainer = document.getElementById(container[i]);
+      let rightArrow = document.getElementById(arrowRight[i]);
+
+      if (subContainer.scrollWidth > subContainer.clientWidth) {
+        rightArrow.style.display = "flex";
+      } else {
+        rightArrow.style.display = "none";
+      }
+    }
+  }
+
+  function checkScrollEnd() {
+    for (let i = 0; i < container.length; i++) {
+      let subContainer = document.getElementById(container[i]);
+      let rightArrow = document.getElementById(arrowRight[i]);
+      let leftArrow = document.getElementById(arrowLeft[i]);
+
+      let scrollRight =
+        subContainer.scrollWidth -
+        subContainer.scrollLeft -
+        subContainer.clientWidth;
+      if (scrollRight <= 40) {
+        rightArrow.style.display = "none";
+      } else {
+        rightArrow.style.display = "flex";
+      }
+
+      if (subContainer.scrollLeft >= 100) {
+        leftArrow.style.display = "flex";
+      } else {
+        leftArrow.style.display = "none";
+      }
+    }
+  }
+  setTimeout(checkScroll, 100);
+  window.addEventListener("resize", checkScroll);
+  for (let i = 0; i < container.length; i++) {
+    const subContainer = document.getElementById(container[i]);
+    subContainer.addEventListener("scroll", checkScrollEnd);
+  }
+});

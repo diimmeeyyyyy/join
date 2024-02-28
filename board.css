@@ -215,6 +215,7 @@ MOBILE HEADER
 #Await_Feedback_Content,
 #Done_Content {
   height: 100%;
+  position: relative;
 }
 
 .drag-area-hightlight {
@@ -339,6 +340,33 @@ ASSIGNED TO
   cursor: pointer;
 }
 
+/* ================================
+ARROWS WHEN CONTAINER HAS MANY TASKS
+====================================*/
+.arrow-right {
+  display: none;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.arrow-left {
+  display: none;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.d-none {
+  display: none;
+}
 /* ==========
 MEDIA-QUERIES 
 =============*/
@@ -367,6 +395,7 @@ MEDIA-QUERIES
   }
   .board-mainContent-container {
     overflow-x: hidden;
+    position: relative;
   }
   #to_do_container,
   #In_Progress_Content,

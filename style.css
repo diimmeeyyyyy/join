@@ -391,6 +391,7 @@ a {
     height: auto;
     width: auto;
     flex-direction: unset;
+    z-index: 5;
   }
   .join-sidebar-img {
     display: none;
