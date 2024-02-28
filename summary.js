@@ -6,12 +6,10 @@ async function initSummary() {
 }
 
 async function loadSummaryGreeting() {
-  let user = await getItem("loggedInUser");
-  let userName = user[0].name;
+  let user = await getCurrentUser();
 
   if (window.innerWidth > 1050) {
     let inputfield = document.getElementById("Greeting_Name");
-    inputfield.innerHTML = userName;
+    inputfield.innerHTML = user.name;
   }
 }
-

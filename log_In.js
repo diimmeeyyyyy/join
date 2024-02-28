@@ -58,22 +58,6 @@ async function storeLoggedInUser(user) {
 }
 
 async function loadWelcomeGreeting(user) {
-  /*  let userEmailAsText = localStorage.getItem('userEmail');
-  if(userEmailAsText){
-   let userEmail = JSON.parse(userEmailAsText);
-
-    let allUsersJson = await getItem("allRegisteredUsers");
-    let allUsers = JSON.parse(allUsersJson);
-
-    let loggedInUser = allUsers.find(u=>u.email === userEmail);
-
-    if(loggedInUser){
-      console.log(loggedInUser.name);
-    }else{
-      alert("KEIN USER GEFUNDEN")
-    }
-  } */
-
   let inputfieldMobile = document.getElementById("Greeting_Name_Mobile");
   inputfieldMobile.innerHTML = user.name;
 

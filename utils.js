@@ -29,7 +29,6 @@ TO FOCUS CLICKED MENU-POINT
     }
   }
 } */
-
 /* ======================
 UPDATE CLICKED MENU-POINT
 =========================*/
@@ -45,7 +44,14 @@ function updateMenuPoint(activeLinkIndex) {
 GET USER INITIALS FOR HEADER
 ============================*/
 async function loadUserInitials() {
-  let userName;
+  let user = await getCurrentUser();
+  if (user) {
+    console.log(user.name);
+    document.getElementById("User_Initials").innerHTML = user.name.charAt(0);
+  }
+}
+
+async function getCurrentUser() {
   let userEmailAsText = localStorage.getItem("userEmail");
   if (userEmailAsText) {
     let userEmail = JSON.parse(userEmailAsText);
@@ -54,10 +60,6 @@ async function loadUserInitials() {
     let allRegisteredUsers = await getItem("allRegisteredUsers");
 
     let user = allRegisteredUsers.find((u) => u.email === userEmail);
-
-    if (user) {
-      console.log(user.name);
-      document.getElementById("User_Initials").innerHTML = user.name.charAt(0);
-    }
+    return user;
   }
 }
