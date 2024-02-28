@@ -62,6 +62,7 @@ HEADER
   color: rgb(40, 171, 226);
   font-weight: bold;
   font-size: 25px;
+  cursor: pointer;
 }
 .summary-join-logo-header {
   display: none;
@@ -127,7 +128,7 @@ TITLE & SLOGAN SECTION
 .summary-title-section {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 4vw, 30px);
+  gap: clamp(10px, 3vw, 30px);
 }
 
 .summary-title-section h1 {
@@ -387,7 +388,7 @@ a {
     left: 0;
     bottom: 0;
     right: 0;
-    height: 80px;
+    height: auto;
     width: auto;
     flex-direction: unset;
   }
