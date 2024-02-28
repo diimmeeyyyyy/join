@@ -55,7 +55,7 @@ async function renderContactsInAddTask() {
 }
 
 
-function saveCheckedContacts(isChecked, contactName) {  // 2 Argumente: Status der Checkbox und Name des Kontakts
+function saveCheckedContacts(isChecked, contactName) {  
   if (isChecked === true) {
     contactsForNewTask.push(contactName);
   } else {
@@ -64,8 +64,6 @@ function saveCheckedContacts(isChecked, contactName) {  // 2 Argumente: Status d
       contactsForNewTask.splice(index, 1)
     }
   }
-
-  console.log('Contactsarray:', contactsForNewTask);
 }
 
 
