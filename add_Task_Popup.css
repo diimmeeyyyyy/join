@@ -1,7 +1,8 @@
   .add-task-popup {
     display: none;
-    height: 70%;
-    width: 60%;
+    max-width: 1000px;
+    min-width: 800px;
+    height: 75%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -23,7 +24,7 @@
 
   .add-task-inputfield-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding-left: 32px;
     padding-right: 32px;
     gap: 80px;
@@ -33,3 +34,11 @@
   /* #board_largeview_closebutton:hover {
   
 } */
+
+.add-task-legend-and-form-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-bottom: 64px;
+}

@@ -5,6 +5,7 @@ let _taskList = null;
 
 function initAddTask() {
   includeHTML();
+  updateMenuPoint(1);
   // showContacts();
 }
 

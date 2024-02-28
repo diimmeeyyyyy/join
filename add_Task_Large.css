@@ -1,9 +1,8 @@
-
 .main-container {
-    margin-left: 320px;
-  }
+  height: 100vh;
+  margin-left: 320px;
+}
 
 #board_largeview_closebutton {
-    display: none; 
+  display: none;
 }
-  

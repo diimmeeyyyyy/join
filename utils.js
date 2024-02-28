@@ -15,7 +15,7 @@ async function includeHTML() {
 /* ========================
 TO FOCUS CLICKED MENU-POINT
 ===========================*/
-function changeMenuPointFocus(clickedLink) {
+/* function changeMenuPointFocus(clickedLink) {
   let links = document.querySelectorAll(".task-sidebar a");
 
   for (let i = 0; i < links.length; i++) {
@@ -28,8 +28,7 @@ function changeMenuPointFocus(clickedLink) {
       link.style.backgroundColor = "";
     }
   }
-}
-
+} */
 /* ======================
 UPDATE CLICKED MENU-POINT
 =========================*/
@@ -41,15 +40,26 @@ function updateMenuPoint(activeLinkIndex) {
   }
 }
 
-
 /* ========================
 GET USER INITIALS FOR HEADER
 ============================*/
 async function loadUserInitials() {
-  let user = await getItem("loggedInUser");
-  console.log(user);
-  let userName = user[0].name;
-  console.log(userName.charAt(0));
+  let user = await getCurrentUser();
+  if (user) {
+    console.log(user.name);
+    document.getElementById("User_Initials").innerHTML = user.name.charAt(0);
+  }
+}
 
-  document.getElementById("User_Initials").innerHTML = userName.charAt(0);
+async function getCurrentUser() {
+  let userEmailAsText = localStorage.getItem("userEmail");
+  if (userEmailAsText) {
+    let userEmail = JSON.parse(userEmailAsText);
+    console.log(userEmail);
+
+    let allRegisteredUsers = await getItem("allRegisteredUsers");
+
+    let user = allRegisteredUsers.find((u) => u.email === userEmail);
+    return user;
+  }
 }

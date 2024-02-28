@@ -350,7 +350,8 @@ MEDIA-QUERIES
 
 @media (max-width: 1090px) {
   .board-section-mainContent {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    overflow-x: auto;
   }
   .hide-add-task-button-largeScreen {
     display: none;
@@ -360,6 +361,24 @@ MEDIA-QUERIES
   }
   .board-section-header-find-and-add-task-div {
     gap: 15px;
+  }
+  .board-task-container-overview {
+    width: 250px;
+  }
+  .board-mainContent-container {
+    overflow-x: hidden;
+  }
+  #to_do_container,
+  #In_Progress_Content,
+  #Await_Feedback_Content,
+  #Done_Content {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-block: 10px;
+  }
+  .board-task-container-overview {
+    margin-bottom: unset;
   }
 }
 
@@ -372,8 +391,5 @@ MEDIA-QUERIES
   }
   .input-box-smallScreen {
     display: flex;
-  }
-  .board-task-container-overview {
-    width: 250px;
   }
 }
