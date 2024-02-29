@@ -11,7 +11,6 @@ async function logInUser() {
   if (user) {
     await storeLoggedInUser(user);
     await loadWelcomeGreeting(user);
-    window.location.href = "summary.html";
   } else {
     alert("USER NICHT GEFUNDEN");
   }
@@ -64,8 +63,9 @@ async function loadWelcomeGreeting(user) {
   let overlay = document.querySelector(".summary-mobile-position-content");
   overlay.style.display = "flex";
 
-  setTimeout(() => {
+  overlay.addEventListener('animationend', () => {
+    window.location.href = "summary.html";
     overlay.style.display = "none";
     overlay.style.zIndex = "-1";
-  }, 4000);
+  });
 }

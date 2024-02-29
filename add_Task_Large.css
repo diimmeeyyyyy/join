@@ -1,6 +1,7 @@
 .main-container {
   height: 100vh;
-  margin-left: 320px;
+  margin-left: 80px;
+  margin-bottom: 80px;
 }
 
 #board_largeview_closebutton {
