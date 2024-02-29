@@ -41,23 +41,34 @@ async function renderTasks() {
           ? "0/" + task.subtasks.length + " Subtasks"
           : "";
       let prio = addPrioIcon(task);
+      /* let contacts = task.contactsForNewTask
+        ? await createContactsList(task.contactsForNewTask, task.id)
+        : ""; */
       container.innerHTML += generateTaskHTML(
         task,
         subtasksCount,
         prio,
         description,
         task.id
+        /* contacts */
       );
     }
   }
   await noTaskToDoNotification();
 }
 
-function generateTaskHTML(task, subtasksCount, prio, description, id) {
+function generateTaskHTML(
+  task,
+  subtasksCount,
+  prio,
+  description,
+  id
+  /* contacts */
+) {
   return /*html*/ `
  <div
   id="board_task_container_overwiew${id}"
-  onclick="renderTaskLargeview(${id - 1})"
+  onclick="renderTaskLargeview(${id})"
   class="board-task-container-overview"
   draggable = "true"
   ondragstart = "startDragging(${task.id})"
@@ -79,7 +90,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, id) {
     <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div id="board-task-contact-icons${id}">CONTACT-ICONS</div>
+    <div id="board-task-contact-icons${id}">($CONTACTS-VAR)</div>
     <span>${prio}</span>
   </div>
 </div>
@@ -230,9 +241,9 @@ async function renderTaskLargeview(taskIndex) {
   const description = task.description ? task.description : "";
   const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
   let prio = addPrioIcon(task);
-  let contacts = task.contactsForNewTask 
-    ? (await createContactsList(task.contactsForNewTask, taskIndex))
-     : "";
+  let contacts = task.contactsForNewTask
+    ? await createContactsList(task.contactsForNewTask, taskIndex)
+    : "";
   let subtasks = task.subtasks
     ? createSubtasklist(task.subtasks, taskIndex)
     : "";
@@ -305,25 +316,32 @@ async function createContactsList(contactNames) {
   let contactsList = "";
   const allContacts = await loadContacts();
 
-  for (let i = 0; i < contactNames.length; i++) {       
-    const contactName = contactNames[i];  
-    const filteredContacts = allContacts.filter(function(contactElementInArray) {  // in add task ausgewählte Elemente aus Array filtern
+  for (let i = 0; i < contactNames.length; i++) {
+    const contactName = contactNames[i];
+    const filteredContacts = allContacts.filter(function (
+      contactElementInArray
+    ) {
+      // in add task ausgewählte Elemente aus Array filtern
       return contactElementInArray.name === contactName;
     });
     const contact = filteredContacts[0];
 
-    if(!filteredContacts) {
+    if (!filteredContacts) {
       continue;
     }
-
-    contactsList += ` 
-        <div class = "board-task-contacticon-and-name">
-            <span>${getIconForContact(contact)}</span>                                        
-            <span>&nbsp ${contact.name}</span>
-        </div>
-        `;
+    contactsList += generateContactListHTML(contact);
   }
   return contactsList;
+}
+
+function generateContactListHTML(contact) {
+  return /*html*/ `
+    <div class="board-task-contacticon-and-name">
+      <span>${getIconForContact(contact)}</span>
+      <span>&nbsp ${contact.name}</span>
+  </div>
+
+  `;
 }
 
 async function updateProgress(taskIndex) {
@@ -377,14 +395,20 @@ function closeAddTaskPopup() {
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "none";
 }
+
 async function deleteTask(i) {
   _taskList.splice(i, 1);
+  reassignTaskIds(_taskList);
   await setItem("allTasks", _taskList);
   closeLargeview();
   noTaskToDoNotification();
   renderTasks();
 }
-
+function reassignTaskIds(tasks) {
+  for (let i = 0; i < tasks.length; i++) {
+    tasks[i].id = i;
+  }
+}
 /* ====================================
 WHEN SCREEN < 1090, SHOW OR HIDE ARROWS
 =======================================*/

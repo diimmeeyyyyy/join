@@ -336,7 +336,6 @@ SIDEBAR NAVIGATION
   display: flex;
   flex-direction: column;
   gap: clamp(10px, 2vw, 25px);
-  cursor: pointer;
   padding-top: 60px;
   width: 100%;
 }
