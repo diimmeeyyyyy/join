@@ -230,9 +230,9 @@ async function renderTaskLargeview(taskIndex) {
   const description = task.description ? task.description : "";
   const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
   let prio = addPrioIcon(task);
-  let contacts = task.contactsForNewTask 
-    ? (await createContactsList(task.contactsForNewTask, taskIndex))
-     : "";
+  let contacts = task.contactsForNewTask
+    ? await createContactsList(task.contactsForNewTask, taskIndex)
+    : "";
   let subtasks = task.subtasks
     ? createSubtasklist(task.subtasks, taskIndex)
     : "";
@@ -305,20 +305,25 @@ async function createContactsList(contactNames) {
   let contactsList = "";
   const allContacts = await loadContacts();
 
-  for (let i = 0; i < contactNames.length; i++) {       
-    const contactName = contactNames[i];  
-    const filteredContacts = allContacts.filter(function(contactElementInArray) {  // in add task ausgewählte Elemente aus Array filtern
+  for (let i = 0; i < contactNames.length; i++) {
+    const contactName = contactNames[i];
+    const filteredContacts = allContacts.filter(function (
+      contactElementInArray
+    ) {
+      // in add task ausgewählte Elemente aus Array filtern
       return contactElementInArray.name === contactName;
     });
     const contact = filteredContacts[0];
 
-    if(!filteredContacts) {
+    if (!filteredContacts) {
       continue;
     }
 
     contactsList += ` 
         <div class = "board-task-contacticon-and-name">
-            <span>${getIconForContact(contact)}</span>                                        
+            <span>${getIconForContact(
+              contact
+            )}</span>                                        
             <span>&nbsp ${contact.name}</span>
         </div>
         `;
@@ -379,12 +384,17 @@ function closeAddTaskPopup() {
 }
 async function deleteTask(i) {
   _taskList.splice(i, 1);
+  reassignTaskIds(_taskList);
   await setItem("allTasks", _taskList);
   closeLargeview();
   noTaskToDoNotification();
   renderTasks();
 }
-
+function reassignTaskIds(tasks) {
+  for (let i = 0; i < tasks.length; i++) {
+    tasks[i].id = i + 1;
+  }
+}
 /* ====================================
 WHEN SCREEN < 1090, SHOW OR HIDE ARROWS
 =======================================*/
