@@ -41,19 +41,30 @@ async function renderTasks() {
           ? "0/" + task.subtasks.length + " Subtasks"
           : "";
       let prio = addPrioIcon(task);
+      /* let contacts = task.contactsForNewTask
+        ? await createContactsList(task.contactsForNewTask, task.id)
+        : ""; */
       container.innerHTML += generateTaskHTML(
         task,
         subtasksCount,
         prio,
         description,
         task.id
+        /* contacts */
       );
     }
   }
   await noTaskToDoNotification();
 }
 
-function generateTaskHTML(task, subtasksCount, prio, description, id) {
+function generateTaskHTML(
+  task,
+  subtasksCount,
+  prio,
+  description,
+  id
+  /* contacts */
+) {
   return /*html*/ `
  <div
   id="board_task_container_overwiew${id}"
@@ -79,7 +90,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, id) {
     <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div id="board-task-contact-icons${id}">CONTACT-ICONS</div>
+    <div id="board-task-contact-icons${id}">($CONTACTS-VAR)</div>
     <span>${prio}</span>
   </div>
 </div>
@@ -318,17 +329,19 @@ async function createContactsList(contactNames) {
     if (!filteredContacts) {
       continue;
     }
-
-    contactsList += ` 
-        <div class = "board-task-contacticon-and-name">
-            <span>${getIconForContact(
-              contact
-            )}</span>                                        
-            <span>&nbsp ${contact.name}</span>
-        </div>
-        `;
+    contactsList += generateContactListHTML(contact);
   }
   return contactsList;
+}
+
+function generateContactListHTML(contact) {
+  return /*html*/ `
+    <div class="board-task-contacticon-and-name">
+      <span>${getIconForContact(contact)}</span>
+      <span>&nbsp ${contact.name}</span>
+  </div>
+
+  `;
 }
 
 async function updateProgress(taskIndex) {

@@ -149,7 +149,7 @@ async function createTask() {
   let description = document.getElementById("add_task_description");
 
   let task = {
-    id: allTasks.length + 1,
+    id: allTasks.length,
     title: title.value,
     dueDate: dueDate.value,
     category: category.value,

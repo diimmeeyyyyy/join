@@ -386,6 +386,7 @@ MEDIA-QUERIES
   }
   .add-task-mobile {
     display: flex;
+    cursor: pointer;
   }
   .board-section-header-find-and-add-task-div {
     gap: 15px;
