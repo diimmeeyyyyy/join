@@ -32,12 +32,12 @@ INPUTFIELDS
 =======*/
 
 .add-task-inputfield {
+  display: flex;
   margin-top: 4px;
   margin-bottom: 24px;
   width: 400px;
   height: 32px;
   padding-left: 16px;
-  display: flex;
   border-style: solid;
   border-radius: 8px;
   border-width: 0.1px;
@@ -140,12 +140,13 @@ PRIO-BUTTONS
 
 .add-task-prio-button-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin-bottom: 24px;
+  width: 420px;
 }
 
 .add-task-prio-button {
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 16px;
