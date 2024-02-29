@@ -57,7 +57,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, id) {
   return /*html*/ `
  <div
   id="board_task_container_overwiew${id}"
-  onclick="renderTaskLargeview(${id - 1})"
+  onclick="renderTaskLargeview(${id})"
   class="board-task-container-overview"
   draggable = "true"
   ondragstart = "startDragging(${task.id})"
@@ -382,6 +382,7 @@ function closeAddTaskPopup() {
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "none";
 }
+
 async function deleteTask(i) {
   _taskList.splice(i, 1);
   reassignTaskIds(_taskList);
@@ -392,7 +393,7 @@ async function deleteTask(i) {
 }
 function reassignTaskIds(tasks) {
   for (let i = 0; i < tasks.length; i++) {
-    tasks[i].id = i + 1;
+    tasks[i].id = i;
   }
 }
 /* ====================================
