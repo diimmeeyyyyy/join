@@ -18,6 +18,8 @@ async function init() {
     updateLettersAndTwoLettersName();
     await contactList();
     updateMenuPoint(3);
+    window.onload = hideOnSmallScreens;
+    window.onresize = hideOnSmallScreens;
 }
 
 async function loadContacts() {
@@ -138,6 +140,7 @@ function pushContact(i) {
             </div>
     `;
      mobileBackRemove();
+     
 
 }
 
@@ -308,16 +311,34 @@ function saveAnimat(){
     backround.classList.remove('animate');
 }
 
-function mobileBack(){
-    let mobileBack = document.getElementById('mobileBack');
-    mobileBack.classList.add('d-none-mobile')
+function mobileBack() {
+    // Verstecke das Element mit der ID "mobileBack"
+    let mobileBackElement = document.getElementById("mobileBack");
+    if (mobileBackElement) {
+        mobileBackElement.style.display = "none";
+    }
 }
 
 function mobileBackRemove(){
     let mobileBack = document.getElementById('mobileBack');
     mobileBack.classList.remove('d-none-mobile')
+    var mobileBackElement = document.getElementById("mobileBack");
+    if (mobileBackElement) {
+        mobileBackElement.style.display = "block";
+}
 }
  function mobil_edit_contact(){
     let editContact = document.getElementById('edit_contact');
     editContact.classList.add('d-none');
  }
+
+ function hideOnSmallScreens() {
+    // Überprüfe die Bildschirmbreite
+    if (window.innerWidth <= 1009) {
+        // Wenn die Bildschirmbreite kleiner oder gleich 1009px ist, verstecke das Element mit der ID "mobileBack"
+        let mobileBackElement = document.getElementById("mobileBack");
+        if (mobileBackElement) {
+            mobileBackElement.style.display = "none";
+        }
+    }
+}

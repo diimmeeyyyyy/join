@@ -285,7 +285,6 @@ body {
 /* css für Kontakte die eingeblendet werden! */
 .contacts-list {
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
   gap: 54px;
 }
@@ -327,6 +326,7 @@ body {
   color: white;
   background-color: rgb(255, 122, 0);
   border: none
+  
 }
 
 .contact-information {
@@ -431,6 +431,7 @@ a {
 }
 
 
+
 /* css für Media */
 @media (max-width:1260px) {
   .contact-parting-line {
@@ -488,12 +489,21 @@ a {
     padding-left: 15px;
   }
 }
-@media (max-width:1060px){
+
+@media (max-width:1060px) {
   .container2 h1 {
     font-size: 60px;
+  }
+  .contacts-name{
+    font-size: 43px;
+  }
+  .button-name-contacts{
+    margin-right: -40px;
+  }
+
 }
-}
-@media (max-width:1007px) {
+
+@media (max-width:1008px) {
   .container-and-new-contact-push {
     position: absolute;
     width: 100%;
@@ -505,6 +515,9 @@ a {
   .d-none-mobile {
     display: none;
 
+  }
+  .d-block{
+    display: block;
   }
 
   .mobile-back {
@@ -527,6 +540,18 @@ a {
   .contacts {
     width: 300px;
   }
+  .menu-mobile {
+    position: fixed;
+    bottom: 60px;
+    right: 260px;
+    cursor: pointer;
+    border-radius: 80px;
+  }
+  .container1 {
+    width: 100%;
+    
+  }
+ 
 
 }
 
@@ -627,6 +652,12 @@ a {
     top: 20px;
     right: 20px;
     cursor: pointer;
+    background-color: none;
+  }
+
+ 
+  .mobile-back {
+    right: 60px;
   }
 
   /* add Contact */
@@ -642,10 +673,7 @@ a {
     border: none;
     cursor: pointer;
     position: fixed;
-
-
-
-  }
+}
 
   .mobil-edit-close {
     position: absolute;
@@ -655,6 +683,14 @@ a {
     width: 30px !important;
     cursor: pointer;
   }
+  .menu-mobile {
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    cursor: pointer;
+    border-radius: 80px;
+  }
+
 
   .button-contact {
     width: 352px;
@@ -731,13 +767,6 @@ a {
     width: 100%;
     overflow-x: hidden;
   }
-
-  .contacts-list {
-    gap: 10px;
-    padding-right: 187px;
-  }
-
-
 }
 
 @media (max-width:440px) {
@@ -780,10 +809,12 @@ a {
   }
 }
 
-@media(min-width:1007px) {
+@media(min-width:1008px) {
   .mobile-back {
     display: none;
-
+}
+  .menu-mobile{
+    display: none;
   }
 }
 
