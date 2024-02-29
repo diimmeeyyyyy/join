@@ -267,7 +267,7 @@ body {
 
 
 .new-contact-push {
-  width: 480px;
+  width: auto;
   background-color: rgb(246, 247, 248);
   position: absolute;
   padding-left: 35px;
@@ -326,7 +326,6 @@ body {
   color: white;
   background-color: rgb(255, 122, 0);
   border: none
-  
 }
 
 .contact-information {
@@ -423,7 +422,7 @@ a {
 .container-and-new-contact-push {
   background-color: rgb(246, 247, 248);
   height: calc(100vh - 100px);
-  overflow-y: auto;
+
 }
 
 .header-and-mainContent {
@@ -494,16 +493,18 @@ a {
   .container2 h1 {
     font-size: 60px;
   }
-  .contacts-name{
+
+  .contacts-name {
     font-size: 43px;
   }
-  .button-name-contacts{
+
+  .button-name-contacts {
     margin-right: -40px;
   }
 
 }
 
-@media (max-width:1008px) {
+@media (max-width:1009px) {
   .container-and-new-contact-push {
     position: absolute;
     width: 100%;
@@ -516,7 +517,8 @@ a {
     display: none;
 
   }
-  .d-block{
+
+  .d-block {
     display: block;
   }
 
@@ -540,6 +542,7 @@ a {
   .contacts {
     width: 300px;
   }
+
   .menu-mobile {
     position: fixed;
     bottom: 60px;
@@ -547,14 +550,35 @@ a {
     cursor: pointer;
     border-radius: 80px;
   }
+
   .container1 {
     width: 100%;
-    
+
   }
- 
+  .mobile-animate{
+    transform: translateX(0px);
+  }
 
+  .edit-delet {
+    background-color: white;
+    padding: 14px;
+    width: fit-content;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    position: fixed;
+    flex-direction: column;
+    bottom: -240px;
+    right: -250px;
+    
+
+  }
 }
-
+@media (max-width:920px){
+  .edit-delet{
+    right: -150px;
+  }
+}
 @media (max-width:850px) {
   .container2 h1 {
     font-size: 47px;
@@ -565,12 +589,9 @@ a {
 
   }
 
-  .contacts-list {
-    padding-right: 60px;
-  }
-
   .container1 {
     height: calc(100vh - 210px);
+    padding: 0px 24px 32px 15px;
   }
 
   .container2 {
@@ -614,9 +635,6 @@ a {
     margin-top: -70px;
     z-index: 5;
   }
-
-
-
   .add-contact {
     position: relative;
     width: 396px;
@@ -655,7 +673,6 @@ a {
     background-color: none;
   }
 
- 
   .mobile-back {
     right: 60px;
   }
@@ -673,16 +690,17 @@ a {
     border: none;
     cursor: pointer;
     position: fixed;
-}
+  }
 
-  .mobil-edit-close {
+  /* .mobil-edit-close {
     position: absolute;
     top: 30px;
     right: 30px;
     height: 30px !important;
     width: 30px !important;
     cursor: pointer;
-  }
+  } */
+
   .menu-mobile {
     position: fixed;
     bottom: 60px;
@@ -700,12 +718,6 @@ a {
     width: 352px;
   }
 
-  .container1 {
-    width: 790px;
-
-    padding: 0px 24px 32px 15px;
-  }
-
   .contacts {
     width: 320px;
   }
@@ -713,22 +725,22 @@ a {
   .container-and-new-contact-push {
     height: calc(100vh - 180px);
   }
+  .edit-delet{
+    right: -350px;
+    bottom: -175px;
+  }
 }
 
 
-@media (max-width:810px) {
-
-  /* add Contact */
-
+@media (max-width:780px) {
+.edit-delet{
+  right: -244px;
+}
 }
 
 @media (max-width:670px) {
   .contacts {
     width: 280px;
-  }
-
-  .contacts-list {
-    padding-right: 136px;
   }
 
   .contact-parting-line {
@@ -749,7 +761,11 @@ a {
     right: 60px;
   }
 }
-
+@media (max-width:590px){
+  .edit-delet{
+  right: -60px;
+}
+}
 @media (max-width:570px) {
 
   .container1 {
@@ -796,7 +812,7 @@ a {
   }
 
   .contact-parting-line {
-    width: 250px;
+    width: 270px;
     padding-left: 0px;
   }
 
@@ -809,16 +825,28 @@ a {
   }
 }
 
+@media (max-width:440px) {
+  .contacts {
+    padding: 0px;
+  }
+}
+@media (max-width:405px){
+  .edit-delet{
+    right: 20px;
+  }
+}
+
 @media(min-width:1008px) {
   .mobile-back {
     display: none;
-}
-  .menu-mobile{
+  }
+
+  .menu-mobile {
     display: none;
   }
 }
 
-@media(min-width:810px) {
+@media(min-width:850px) {
   .mobile-contacts {
     display: none;
   }

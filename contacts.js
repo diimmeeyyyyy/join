@@ -125,6 +125,7 @@ function pushContact(i) {
                             <p onclick="edit_contact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
                             <p onclick="delet(${i})"><img src="./assets/img/delete.png"> Delete</p>
                         </div>
+                        
                     </div>
                 </div>
                 <div>
@@ -144,7 +145,7 @@ function pushContact(i) {
             </div>
     `;
      mobileBackRemove();
-     
+     mobilEdit(i);
 
 }
 
@@ -273,6 +274,18 @@ async function saveContact(i) {
     
 
 }
+// function mobileEditDelete() {
+//     let element = document.getElementById("menu_mobile");
+//     if (element) {
+//         if (element.style.display === "none") {
+//             element.style.display = "block";
+//         } else {
+//             element.style.display = "none";
+//         }
+//     }
+// }
+
+
 
 function closeSaveContact() {
     let editContact = document.getElementById('edit_contact');
