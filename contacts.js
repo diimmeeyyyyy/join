@@ -17,7 +17,7 @@ async function init() {
     await contactsSort();
     updateLettersAndTwoLettersName();
     await contactList();
-    
+    updateMenuPoint(3);
 }
 
 async function loadContacts() {
@@ -169,9 +169,9 @@ function updateLettersAndTwoLettersName() {
     twoLetterGenerator();
 }
 
-// function oneLetterGenerator(){
-//     letters = contacts.map(contact => contact.name.charAt(0));
-// }
+function oneLetterGenerator(){
+    letters = contacts.map(contact => contact.name.charAt(0));
+}
 
 function getIconForContact(contact) {
     const splitName = contact.name.split(' ');
@@ -243,7 +243,7 @@ function edit_contact(i) {
             </div>
         </form>
     </div>`;
-
+twoLetterGenerator();
 }
 
 async function saveContact(i) {
@@ -262,6 +262,7 @@ async function saveContact(i) {
     transformCloseContacts();
     contactsSort();
     contactList();
+    init();
     
 
 }

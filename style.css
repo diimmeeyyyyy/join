@@ -376,10 +376,15 @@ a {
   left: 50%;
   transform: translateX(-50%);
 }
-
+.impressum-color{
+  color:rgb(205, 205, 205);
+}
 .impressum span:hover {
   cursor: pointer;
   color: rgb(0, 204, 255);
+}
+.impressum-sidebar{
+  padding: 20px;
 }
 
 @media (max-width: 850px) {
