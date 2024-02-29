@@ -195,7 +195,7 @@ async function createTask() {
 }
 
 function showPopupTaskAdded() {
-  let mainContainer = document.getElementById("main_container");
+  let mainContainer = document.getElementById("Board");
   mainContainer.innerHTML += `
         <div id = "add-task-popup-container">
             <div class="add-task-popup-task-added">
