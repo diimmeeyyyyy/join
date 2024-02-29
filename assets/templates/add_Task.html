@@ -23,7 +23,7 @@
                             placeholder="Enter a Description"></textarea>
 
                         <span>Assigned to</span>
-                        <div onclick="toggleContactDropdownInAddTask()"
+                        <div onclick="toggleContactsDropdown()"
                             class="add-task-inputfield add-task-inputfield-contacts">
                             <span class="add-task-placeholder"> Select contacts to assign </span>
                             <img class="add-task-inputfield-arrow" src="./assets/img/arrow_drop_down.svg">
@@ -82,8 +82,14 @@
                         <span class="add-task-highlight-red">*</span>This field is required
                     </span>
                     <div class="add-task-clear-and-create-task-buttons">
-                        <button type="reset" class="add-task-clear-button">Clear</button>
-                        <button type="submit" class="add-task-button">Create Task</button>
+                        <button type="reset" class="add-task-clear-button">
+                            <span>Clear</span>
+                            <img src="./assets/img/closeBlue.svg">
+                        </button>
+                        <button type="submit" class="add-task-button">
+                            <span> Create Task</span>
+                            <img src="./assets/img/check.png">
+                        </button>
                     </div>
                 </div>
             </form>

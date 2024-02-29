@@ -36,18 +36,19 @@ INPUTFIELDS
   margin-bottom: 24px;
   width: 400px;
   height: 32px;
+  padding-left: 16px;
   display: flex;
   border-style: solid;
   border-radius: 8px;
   border-width: 0.1px;
   border-color: rgb(178, 177, 177);
+  font-size: 18px;
   outline: none;
   /* outline-color: rgb(64,170,248); */
 }
 
 .add-task-inputfield::placeholder {
   color: rgb(178, 177, 177) !important; 
-  padding-left: 8px;
 }
 
 .add-task-inputfield:hover {
@@ -95,11 +96,6 @@ CONTACTS
 
 }
 
-.add-task-placeholder {
-  color: rgb(178, 177, 177);
-  padding-left: 8px;
-}
-
 #add_task_contacts_content {
   width: 400px;
   height: 156px;
@@ -126,7 +122,8 @@ CONTACTS
 
 .add-task-contact-icon-and-name {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 16px;
   width: 80%;
 }
 
@@ -212,7 +209,7 @@ FORM-BUTTONS & LEGEND
 .add-task-legend-and-form-buttons {
   display: flex;
   justify-content: space-between;
-  max-width: 1000px;
+  max-width: 870px;
 }
 
 .add-task-legend {
@@ -226,9 +223,15 @@ FORM-BUTTONS & LEGEND
   gap: 16px;
 }
 
-/* .add-task-clear-button {
-  background-color: rgb(246, 247, 248);
-  } */
+.add-task-clear-button {
+  width: 110px;
+  color: rgb(43, 54, 71);
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 21px);
+  border-color: rgb(43, 54, 71);
+  border-radius: 10px;
+  cursor: pointer;
+  }
 
 
 .add-task-popup-container {

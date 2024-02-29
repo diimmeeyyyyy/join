@@ -1,38 +1,38 @@
 let prio = "";
 let subtasks = [];
+let contactsForNewTask = [];
 let _taskList = null;
+
+let contactsRendered = false;           // keine Kontakte geladen
+let contactsDropdownOpen = false;       // Dropdownmenü nicht geöffnet
 
 
 function initAddTask() {
   includeHTML();
   updateMenuPoint(1);
-  // showContacts();
 }
 
-let contactsRendered = false;
-let contactsDropdownOpen = false;
 
-async function toggleContactDropdownInAddTask() {
-  if(!contactsRendered) {
+async function toggleContactsDropdown() {
+  if (!contactsRendered) {
     await renderContactsInAddTask();
     contactsRendered = true;
   }
 
   const contactsContainer = document.getElementById("add_task_contacts_content");
 
-  if(contactsDropdownOpen === true) {
+  if (contactsDropdownOpen === true) {
     contactsContainer.style.display = 'none';
     contactsDropdownOpen = false;
-  }
-  else {
+  } else {
     contactsContainer.style.display = 'block';
     contactsDropdownOpen = true;
   }
 }
 
+
 async function renderContactsInAddTask() {
   let allContacts = await loadContacts();
-  // let contactIcon = oneLetterGenerator();
   let contactsContainer = document.getElementById("add_task_contacts_content");
   contactsContainer.innerHTML += `
     <div id="add_task_contacts_container" class="add-task-contacts-container"> 
@@ -48,9 +48,21 @@ async function renderContactsInAddTask() {
             <div>${getIconForContact(contact)}</div>
             <div>${contact.name}</div>
         </div>
-        <input type="checkbox" onclick="onContactChanged(this.checked, '${contact.name.replace('"', '')}')">
+        <input type="checkbox" onclick="saveCheckedContacts(this.checked, '${contact.name.replace('"', '')}')">
       </div>
     `;
+  }
+}
+
+
+function saveCheckedContacts(isChecked, contactName) {  
+  if (isChecked === true) {
+    contactsForNewTask.push(contactName);
+  } else {
+    const index = contactsForNewTask.indexOf(contactName);
+    if (index !== -1) {
+      contactsForNewTask.splice(index, 1)
+    }
   }
 }
 
@@ -59,6 +71,7 @@ function setTaskPriority(priority) {
   prio = priority;
   return prio;
 }
+
 
 function changeButtonColor() {
   let urgentButton = document.getElementById("add_task_prio_button_urgent");
@@ -134,7 +147,6 @@ async function createTask() {
   let dueDate = document.getElementById("add_task_due_date");
   let category = document.getElementById("add_task_categorie");
   let description = document.getElementById("add_task_description");
-  // let contactsToAssign = document.getElementById("add_task_contacts_to_assign");
 
   let task = {
     id: allTasks.length + 1,
@@ -149,9 +161,9 @@ async function createTask() {
     task.description = description.value.trim();
   }
 
-  // if (contactsToAssign.value !== "Select contacts to assign") {
-  //   task.contactsToAssign = contactsToAssign.value;
-  // }
+  if (contactsForNewTask.length !== 0) {
+    task.contactsForNewTask = contactsForNewTask;
+  }
 
   if (subtasks.length !== 0) {
     task.subtasks = subtasks;

@@ -6,3 +6,7 @@
 #board_largeview_closebutton {
   display: none;
 }
+
+.add-task-clear-button {
+  background-color: rgb(246, 247, 248);;
+}
