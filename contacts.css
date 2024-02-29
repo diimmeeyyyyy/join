@@ -435,7 +435,7 @@ a {
 /* css für Media */
 @media (max-width:1260px) {
   .contact-parting-line {
-    width: 255px;
+    width: 290px;
   }
 
   .container1 {
@@ -477,12 +477,12 @@ a {
   }
 
   .contact-parting-line {
-    width: 200px;
+    width: 280px;
   }
 
   .contacts {
     gap: 15px;
-    width: 200px;
+    width: 280px;
   }
 
   .new-contact-push {
@@ -724,7 +724,7 @@ a {
 
 @media (max-width:670px) {
   .contacts {
-    width: 205px;
+    width: 280px;
   }
 
   .contacts-list {
@@ -732,7 +732,7 @@ a {
   }
 
   .contact-parting-line {
-    width: 205px;
+    width: 280px;
   }
 
   .contacts-name {
