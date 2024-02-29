@@ -208,6 +208,7 @@ MOBILE HEADER
 .board-task-container-contacts-and-prio {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-top: 16px;
 }
 #to_do_container,
@@ -422,4 +423,21 @@ MEDIA-QUERIES
   .input-box-smallScreen {
     display: flex;
   }
+}
+
+/* ==============
+ASSIGNED CONTACTS
+=================*/
+.board-task-contact-icons {
+  display: flex;
+  /* position: relative; */
+}
+.initialCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
 }

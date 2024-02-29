@@ -41,16 +41,15 @@ async function renderTasks() {
           ? "0/" + task.subtasks.length + " Subtasks"
           : "";
       let prio = addPrioIcon(task);
-      /* let contacts = task.contactsForNewTask
-        ? await createContactsList(task.contactsForNewTask, task.id)
-        : ""; */
+      let contacts = assignedContactsForNewTask(task);
+
       container.innerHTML += generateTaskHTML(
         task,
         subtasksCount,
         prio,
         description,
-        task.id
-        /* contacts */
+        task.id,
+        contacts
       );
     }
   }
@@ -62,8 +61,8 @@ function generateTaskHTML(
   subtasksCount,
   prio,
   description,
-  id
-  /* contacts */
+  id,
+  assignedPersons
 ) {
   return /*html*/ `
  <div
@@ -87,14 +86,37 @@ function generateTaskHTML(
         class="board-task-progress-bar w-75"
       ></div>
     </div>
-    <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
+    <span id="board_task_number_of_subtasks">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div id="board-task-contact-icons${id}">($CONTACTS-VAR)</div>
+    <div class="board-task-contact-icons">${assignedPersons}</div>
     <span>${prio}</span>
   </div>
 </div>
     `;
+}
+
+function assignedContactsForNewTask(task) {
+  let assignedContactsArray = task.contactsForNewTask;
+
+  let initialLetters = assignedContactsArray.map((contact) => {
+    let words = contact.split(" ");
+    return words
+      .slice(0, 2)
+      .map((word) => word.charAt(0))
+      .join(""); //Join-Funktion, um Array in einen einzigen String zu konvertieren;
+  });
+  let assignedContactsHTML = generateAssignedContactsHTML(initialLetters);
+  return assignedContactsHTML;
+}
+
+function generateAssignedContactsHTML(initialLetters) {
+  let assignedContactsHTML = initialLetters.map((initials) => {
+    return /*html*/ `
+    <div class="initialCircle">${initials}</div>
+  `;
+  });
+  return assignedContactsHTML.join("");
 }
 
 /* ================
