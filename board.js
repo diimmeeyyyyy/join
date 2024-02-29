@@ -79,7 +79,7 @@ function generateTaskHTML(task, subtasksCount, prio, description, id) {
     <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div id="board-task-contact-icons${id}">(contact-icons)</div>
+    <div id="board-task-contact-icons${id}">CONTACT-ICONS</div>
     <span>${prio}</span>
   </div>
 </div>
@@ -222,8 +222,6 @@ function addPrioIcon(task) {
 SHOW LARGE VIEW OF ONE TASK
 ===========================*/
 async function renderTaskLargeview(taskIndex) {
-  let contacts = ["Max Mustermann", "Erika Mustermann", "Moritz Mustermann"]; //übergangsweise bis Contacts von Andreas im backend gespeichert
-
   const allTasks = await getTasks();
   console.log(allTasks);
   const task = allTasks[taskIndex];
@@ -232,7 +230,9 @@ async function renderTaskLargeview(taskIndex) {
   const description = task.description ? task.description : "";
   const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
   let prio = addPrioIcon(task);
-  contacts = contacts ? createContactsList(contacts) : "";
+  let contacts = task.contactsForNewTask 
+    ? (await createContactsList(task.contactsForNewTask, taskIndex))
+     : "";
   let subtasks = task.subtasks
     ? createSubtasklist(task.subtasks, taskIndex)
     : "";
@@ -301,15 +301,25 @@ function formatDate(dateString) {
   return `${day}/${month}/${year}`;
 }
 
-function createContactsList(contacts) {
+async function createContactsList(contactNames) {
   let contactsList = "";
+  const allContacts = await loadContacts();
 
-  for (let i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];
+  for (let i = 0; i < contactNames.length; i++) {       
+    const contactName = contactNames[i];  
+    const filteredContacts = allContacts.filter(function(contactElementInArray) {  // in add task ausgewählte Elemente aus Array filtern
+      return contactElementInArray.name === contactName;
+    });
+    const contact = filteredContacts[0];
+
+    if(!filteredContacts) {
+      continue;
+    }
+
     contactsList += ` 
         <div class = "board-task-contacticon-and-name">
-            <span> MM </span>                               <!--übergangsweise bis Funktion von Andreas, um Anfangsbuchstaben-Icon zu erstellen -->         
-            <span>&nbsp ${contact}</span>
+            <span>${getIconForContact(contact)}</span>                                        
+            <span>&nbsp ${contact.name}</span>
         </div>
         `;
   }

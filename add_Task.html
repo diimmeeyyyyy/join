@@ -18,4 +18,15 @@
 </head>
 
 <body onload="initAddTask()">
-<div w3-include-html="assets/templates/add_Task.html"></div> 
+    <div class="sidebar-and-mainContent">
+        <div w3-include-html="assets/templates/sidebar.html"></div>
+        <div class="header-and-mainContent">
+            <header w3-include-html="assets/templates/header.html"></header>
+            <main id="main_container" class="main-container">
+            <div w3-include-html="assets/templates/add_Task.html"></div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
