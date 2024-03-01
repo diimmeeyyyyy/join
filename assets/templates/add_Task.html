@@ -41,28 +41,28 @@
                         <button onclick="setTaskPriority('urgent'); changeButtonColor()"
                             id="add_task_prio_button_urgent" class="add-task-prio-button" type="button">
                             <span> Urgent </span>
-                            <img src="./assets/img/priorityUrgent.svg">
+                            <img id="add_task_prio_icon_urgent" src="./assets/img/priorityUrgent.svg">
                         </button>
                         <button onclick="setTaskPriority('medium'); changeButtonColor()"
                             id="add_task_prio_button_medium" class="add-task-prio-button add-task-prio-button-yellow"
                             type="button">
                             <span> Medium </span>
-                            <img src="./assets/img/priorityMedium.svg">
+                            <img id="add_task_prio_icon_medium" src="./assets/img/priorityMedium.svg">
                         </button>
                         <button onclick="setTaskPriority('low'); changeButtonColor()" id="add_task_prio_button_low"
                             class="add-task-prio-button" type="button">
                             <span> Low </span>
-                            <img src="./assets/img/priorityLow.svg">
+                            <img id="add_task_prio_icon_low" src="./assets/img/priorityLow.svg">
                         </button>
                     </div>
 
                 </div>
                 <div id="add_task_category_container">
                     <span>Category<span class="add-task-highlight-red">*</span></span>
-                    <select id="add_task_categorie" class="add-task-inputfield" required>
+                    <select id="add_task_category" class="add-task-inputfield" required>
                         <option class="add-task-placeholder" value="" disabled selected hidden>Select task category
                         </option>
-                        <option value="Technical Task">Technical Task</option>
+                        <option class="add-task-category-option" value="Technical Task">Technical Task</option>
                         <option value="User Story">User Story</option>
                     </select>
                 </div>

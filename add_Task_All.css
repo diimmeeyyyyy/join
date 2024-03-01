@@ -120,8 +120,13 @@ CONTACTS
 .add-task-contact-checkbox {
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
   margin: 8px;
+}
+
+.add-task-contact-checkbox:hover {
+  cursor: pointer;
+  background-color: rgb(209, 209, 209);
 }
 
 .add-task-contact-icon-and-name {
@@ -129,6 +134,10 @@ CONTACTS
   align-items: center;
   gap: 16px;
   width: 80%;
+}
+
+.add-task-contact-check {
+  margin-right: 32px;
 }
 
 /* ====
@@ -170,24 +179,35 @@ PRIO-BUTTONS
 
 .add-task-prio-button-red {
   background-color: rgb(255, 61, 0);
+  color: white;
 }
 
 .add-task-prio-button-yellow {
   background-color: rgb(255, 168, 0);
+  color: white;
 }
 
 .add-task-prio-button-green {
   background-color: rgb(122, 226, 41);
+  color: white;
 }
 
+.add-task-prio-icon-white {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7457%) hue-rotate(260deg) brightness(96%) contrast(102%);
+}
 
 /* ====
 CATEGORY
 =======*/
 
-#add_task_categorie {
+#add_task_category {
   width: 100%;
 }
+
+/* #add_task_category:hover option:hover {
+  background-color: grey;
+  cursor: pointer; 
+} */
 
 /* ====
 SUBTASKS
@@ -206,12 +226,14 @@ SUBTASKS
 
 #add_task_subtask_plus_button {
   display: flex;
+  align-items: center;
   width: 24px;
   height: 24px;
   position: absolute;
   top: 10px;
   right: 0;
   cursor: pointer;
+  padding-right: 8px;
 }
 
 #add_task_subtask_plus_button:hover {

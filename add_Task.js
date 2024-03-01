@@ -51,7 +51,7 @@ async function renderContactsInAddTask() {
             <div>${getIconForContact(contact)}</div>
             <div>${contact.name}</div>
         </div>
-        <input type="checkbox" onclick="saveCheckedContacts(this.checked, '${contact.name.replace('"', '')}')">
+        <input class="add-task-contact-check" type="checkbox" onclick="saveCheckedContacts(this.checked, '${contact.name.replace('"', '')}')">
       </div>
     `;
   }
@@ -86,32 +86,48 @@ function setTaskPriority(priority) {
 
 function changeButtonColor() {
   let urgentButton = document.getElementById("add_task_prio_button_urgent");
+  let urgentIcon = document.getElementById("add_task_prio_icon_urgent");
   let mediumButton = document.getElementById("add_task_prio_button_medium");
+  let mediumIcon = document.getElementById("add_task_prio_icon_medium");
   let lowButton = document.getElementById("add_task_prio_button_low");
+  let lowIcon = document.getElementById("add_task_prio_icon_low");
+
 
   switch (prio) {
     case "urgent":
       urgentButton.classList.add("add-task-prio-button-red");
+      urgentIcon.classList.add("add-task-prio-icon-white");
       mediumButton.classList.remove("add-task-prio-button-yellow");
+      mediumIcon.classList.remove("add-task-prio-icon-white");
       lowButton.classList.remove("add-task-prio-button-green");
+      lowIcon.classList.remove("add-task-prio-icon-white");
       break;
 
     case "medium":
       mediumButton.classList.add("add-task-prio-button-yellow");
+      mediumIcon.classList.add("add-task-prio-icon-white");
       urgentButton.classList.remove("add-task-prio-button-red");
+      urgentIcon.classList.remove("add-task-prio-icon-white");
       lowButton.classList.remove("add-task-prio-button-green");
+      lowIcon.classList.remove("add-task-prio-icon-white");
       break;
 
     case "low":
       lowButton.classList.add("add-task-prio-button-green");
+      lowIcon.classList.add("add-task-prio-icon-white");
       urgentButton.classList.remove("add-task-prio-button-red");
+      urgentIcon.classList.remove("add-task-prio-icon-white");
       mediumButton.classList.remove("add-task-prio-button-yellow");
+      mediumIcon.classList.remove("add-task-prio-icon-white");
       break;
 
     default:
-      lowButton.classList.remove("add-task-prio-button-green");
       urgentButton.classList.remove("add-task-prio-button-red");
+      urgentIcon.classList.remove("add-task-prio-icon-white");
       mediumButton.classList.remove("add-task-prio-button-yellow");
+      mediumIcon.classList.remove("add-task-prio-icon-white"); 
+      lowButton.classList.remove("add-task-prio-button-green");
+      lowIcon.classList.remove("add-task-prio-icon-white");
   }
 }
 
@@ -180,7 +196,7 @@ async function createTask() {
 
   let title = document.getElementById("add_task_title");
   let dueDate = document.getElementById("add_task_due_date");
-  let category = document.getElementById("add_task_categorie");
+  let category = document.getElementById("add_task_category");
   let description = document.getElementById("add_task_description");
 
   let task = {
