@@ -274,16 +274,16 @@ async function saveContact(i) {
 
 
 }
-// function mobileEditDelete() {
-//     let element = document.getElementById("menu_mobile");
-//     if (element) {
-//         if (element.style.display === "none") {
-//             element.style.display = "block";
-//         } else {
-//             element.style.display = "none";
-//         }
-//     }
-// }
+function mobileEditDelete() {
+    let element = document.getElementById("menu_mobile");
+    if (element) {
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
+    }
+}
 
 
 
@@ -355,7 +355,7 @@ function hideOnSmallScreens() {
         mobileBackElement.style.display = (window.innerWidth <= 1009) ? "none" : "block";
     }
 }
-function mobilmenu() {
+function mobilMenu() {
     let editDelet = document.getElementById('edit_delet');
 
     if (editDelet.style.display === "none") {

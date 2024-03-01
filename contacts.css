@@ -425,16 +425,15 @@ a {
 
 }
 
-/* .header-and-mainContent {
+.all-container-contacts {
   overflow-y: hidden;
-} */
-
-
+}
 
 /* css für Media */
 @media (max-width:1260px) {
   .contact-parting-line {
     width: 290px;
+    width: clamp(290px 2vw 352px);
   }
 
   .container1 {
@@ -472,7 +471,7 @@ a {
   }
 
   .button-contact {
-    width: 250px;
+    width: clamp(250px, 27vw, 500px);
   }
 
   .contact-parting-line {
@@ -510,6 +509,7 @@ a {
     width: 100%;
     transform: translateX(0px);
     transition: all 225ms ease-in-out;
+    display: none;
 
   }
 
@@ -813,7 +813,7 @@ a {
   }
 
   .contact-parting-line {
-    width: 270px;
+    width: clamp(270px 50vw 440px);
     padding-left: 0px;
   }
 
@@ -845,10 +845,7 @@ a {
   .menu-mobile {
     display: none;
   }
-  .mobile-contacts {
-    display: none;
-  }
-
+  
 }
 
 @media(min-width:850px) {
@@ -859,4 +856,8 @@ a {
   .mobil-edit-close {
     display: none;
 }
+.mobile-contacts {
+  display: none;
+}
+
 }
