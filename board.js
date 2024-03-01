@@ -41,7 +41,7 @@ async function renderTasks() {
           ? "0/" + task.subtasks.length + " Subtasks"
           : "";
       let prio = addPrioIcon(task);
-      let contacts = assignedContactsForNewTask(task);
+      /* let contacts = assignedContactsForNewTask(task); */
 
       container.innerHTML += generateTaskHTML(
         task,
@@ -49,7 +49,7 @@ async function renderTasks() {
         prio,
         description,
         task.id,
-        contacts
+        /* contacts */
       );
     }
   }
@@ -89,35 +89,28 @@ function generateTaskHTML(
     <span id="board_task_number_of_subtasks">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div class="board-task-contact-icons">${assignedPersons}</div>
+    <div class="board-task-contact-icons">CONTACTS</div>
     <span>${prio}</span>
   </div>
 </div>
     `;
 }
-
+/* 
 function assignedContactsForNewTask(task) {
   let assignedContactsArray = task.contactsForNewTask;
 
-  let initialLetters = assignedContactsArray.map((contact) => {
-    let words = contact.split(" ");
-    return words
-      .slice(0, 2)
-      .map((word) => word.charAt(0))
-      .join(""); //Join-Funktion, um Array in einen einzigen String zu konvertieren;
-  });
-  let assignedContactsHTML = generateAssignedContactsHTML(initialLetters);
-  return assignedContactsHTML;
-}
+  console.log(assignedContactsArray);
 
-function generateAssignedContactsHTML(initialLetters) {
-  let assignedContactsHTML = initialLetters.map((initials) => {
-    return /*html*/ `
-    <div class="initialCircle">${initials}</div>
-  `;
-  });
-  return assignedContactsHTML.join("");
-}
+  let assignedContactIcons = [];
+
+  for (let i = 0; i < assignedContactsArray.length; i++) {
+    const oneName = assignedContactsArray[i];
+    let assignedContactIcon = getIconForContact(oneName);
+    assignedContactIcons.push(assignedContactIcon);
+  }
+
+  return assignedContactIcons;
+} */
 
 /* ================
 DRAG & DROP FUNCTIONS
@@ -362,7 +355,6 @@ function generateContactListHTML(contact) {
       <span>${getIconForContact(contact)}</span>
       <span>&nbsp ${contact.name}</span>
   </div>
-
   `;
 }
 
