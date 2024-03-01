@@ -207,6 +207,17 @@ SUBTASKS
   overflow: auto;
 }
 
+.add-task-subtask-and-delete-icon {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 16px;
+}
+
+.add-task-subtask-bin {
+  cursor: pointer; 
+}
+
+
 /* ====
 FORM-BUTTONS & LEGEND
 =======*/

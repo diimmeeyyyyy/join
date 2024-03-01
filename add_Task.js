@@ -126,10 +126,21 @@ function addNewSubtask() {
 
   newSubtasksList.innerHTML += ` 
          
-        <li> ${subtask.value} <br></li>
+        <li id="add_task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
+            <span>${subtask.value}</span>
+            <img onclick="deleteSubtask()" src="./assets/img/delete.svg" class="add-task-subtask-bin">
+         </li>
     `;
   subtasks.push(subtask.value);
   subtask.value = "";
+}
+
+function deleteSubtask() {
+  let subtask = document.getElementById('add_task_subtask_and_delete_icon'); 
+  indexOfSubtask = subtasks.indexOf("subtask.value");
+  subtasks.splice(indexOfSubtask,1);
+  subtask.remove();
+  console.log('subtasks', subtasks)
 }
 
 /* ================
