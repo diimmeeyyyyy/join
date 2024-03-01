@@ -41,7 +41,9 @@ async function renderTasks() {
           ? "0/" + task.subtasks.length + " Subtasks"
           : "";
       let prio = addPrioIcon(task);
-      /* let contacts = assignedContactsForNewTask(task); */
+      let contacts = task.contactsForNewTask
+        ? await createContactsList(task.contactsForNewTask, false)
+        : "";
 
       container.innerHTML += generateTaskHTML(
         task,
@@ -49,7 +51,7 @@ async function renderTasks() {
         prio,
         description,
         task.id,
-        /* contacts */
+        contacts
       );
     }
   }
@@ -89,28 +91,12 @@ function generateTaskHTML(
     <span id="board_task_number_of_subtasks">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div class="board-task-contact-icons">CONTACTS</div>
+    <div class="board-task-contact-icons">${assignedPersons}</div>
     <span>${prio}</span>
   </div>
 </div>
     `;
 }
-/* 
-function assignedContactsForNewTask(task) {
-  let assignedContactsArray = task.contactsForNewTask;
-
-  console.log(assignedContactsArray);
-
-  let assignedContactIcons = [];
-
-  for (let i = 0; i < assignedContactsArray.length; i++) {
-    const oneName = assignedContactsArray[i];
-    let assignedContactIcon = getIconForContact(oneName);
-    assignedContactIcons.push(assignedContactIcon);
-  }
-
-  return assignedContactIcons;
-} */
 
 /* ================
 DRAG & DROP FUNCTIONS
@@ -257,7 +243,7 @@ async function renderTaskLargeview(taskIndex) {
   const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
   let prio = addPrioIcon(task);
   let contacts = task.contactsForNewTask
-    ? await createContactsList(task.contactsForNewTask, taskIndex)
+    ? await createContactsList(task.contactsForNewTask, true)
     : "";
   let subtasks = task.subtasks
     ? createSubtasklist(task.subtasks, taskIndex)
@@ -327,7 +313,7 @@ function formatDate(dateString) {
   return `${day}/${month}/${year}`;
 }
 
-async function createContactsList(contactNames) {
+async function createContactsList(contactNames, showName) {
   let contactsList = "";
   const allContacts = await loadContacts();
 
@@ -344,18 +330,23 @@ async function createContactsList(contactNames) {
     if (!filteredContacts) {
       continue;
     }
-    contactsList += generateContactListHTML(contact);
+    contactsList += generateContactListHTML(contact, showName);
   }
   return contactsList;
 }
 
-function generateContactListHTML(contact) {
-  return /*html*/ `
+function generateContactListHTML(contact, showName) {
+  if (showName) {
+    return /*html*/ `
     <div class="board-task-contacticon-and-name">
       <span>${getIconForContact(contact)}</span>
       <span>&nbsp ${contact.name}</span>
   </div>
   `;
+  } else {
+    return /*html*/ `
+      <span>${getIconForContact(contact)}</span>`;
+  }
 }
 
 async function updateProgress(taskIndex) {
