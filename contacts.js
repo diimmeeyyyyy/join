@@ -233,7 +233,7 @@ function edit_contact(i) {
     edit.innerHTML = /*html*/`
           <div class="edit">
         <div class="edit-one">
-            <img class="join-png" src="./assets/img/join.png" alt="Bild Join">
+            <img class="join-png" src="./assets/img/join-mobile.png" alt="Bild Join">
             <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
             <p> Edit contact</p>
             <div class="parting-line"></div>

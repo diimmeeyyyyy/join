@@ -428,9 +428,6 @@ a {
 .header-and-mainContent {
   overflow-y: hidden;
 }
-
-
-
 /* css für Media */
 @media (max-width:1260px) {
   .contact-parting-line {
@@ -693,14 +690,14 @@ a {
 
   
 
-  /* .mobil-edit-close {
+  .mobil-edit-close {
     position: absolute;
     top: 30px;
     right: 30px;
     height: 30px !important;
     width: 30px !important;
     cursor: pointer;
-  } */
+  }
 
   .menu-mobile {
     position: fixed;
@@ -856,4 +853,7 @@ a {
   .close-mobile {
     display: none;
   }
+  .mobil-edit-close {
+    display: none;
+}
 }
