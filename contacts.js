@@ -22,8 +22,8 @@ async function initContacts() {
     await loadUserInitials();
     window.onload = hideOnSmallScreens;
     window.onresize = hideOnSmallScreens;
-    
-    
+
+
 }
 
 async function loadContacts() {
@@ -54,7 +54,7 @@ async function addContact() {
     updateLettersAndTwoLettersName();
     valueToEmpty();
     saveAnimat();
-    
+
 }
 
 function valueToEmpty() { // Value leeren!
@@ -104,7 +104,7 @@ async function contactList() {
                 </div>
             </div>`;
     }
-    
+
 }
 
 function pushContact(i) {
@@ -121,7 +121,7 @@ function pushContact(i) {
                     <button class="button-name-contacts" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
                     <div>
                         <p class="contacts-name">${contacts[i]['name']}</p>
-                        <div class="edit-delet">
+                        <div class="edit-delet" id="edit_delet">
                             <p onclick="edit_contact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
                             <p onclick="delet(${i})"><img src="./assets/img/delete.png"> Delete</p>
                         </div>
@@ -144,8 +144,8 @@ function pushContact(i) {
 
             </div>
     `;
-     mobileBackRemove();
-     mobilEdit(i);
+    mobileBackRemove();
+    mobilEdit(i);
 
 }
 
@@ -177,7 +177,7 @@ function updateLettersAndTwoLettersName() {
     twoLetterGenerator();
 }
 
-function oneLetterGenerator(){
+function oneLetterGenerator() {
     letters = contacts.map(contact => contact.name.charAt(0));
 }
 
@@ -187,7 +187,7 @@ function getIconForContact(contact) {
     return `<button class="button-name" style="background-color: ${contact.color};">${initials}</button>`;
 }
 
-function twoLetterGenerator(){
+function twoLetterGenerator() {
     twolettersName = contacts.map(contact => {
         const nameSplit = contact.name.split(' ');
         const twoNummber = nameSplit.map(teil => teil.charAt(0));
@@ -233,7 +233,7 @@ function edit_contact(i) {
     edit.innerHTML = /*html*/`
           <div class="edit">
         <div class="edit-one">
-            <img class="join-png" src="./assets/img/join.png" alt="Bild Join">
+            <img class="join-png" src="./assets/img/join-mobile.png" alt="Bild Join">
             <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
             <p> Edit contact</p>
             <div class="parting-line"></div>
@@ -251,7 +251,7 @@ function edit_contact(i) {
             </div>
         </form>
     </div>`;
-twoLetterGenerator();
+    twoLetterGenerator();
 }
 
 async function saveContact(i) {
@@ -271,7 +271,7 @@ async function saveContact(i) {
     contactsSort();
     contactList();
     init();
-    
+
 
 }
 // function mobileEditDelete() {
@@ -323,40 +323,44 @@ function contactListColor(i) {
     newColorContact.classList.add('contacts-onclick');
 }
 
-function saveAnimat(){
+function saveAnimat() {
     let backround = document.getElementById('backround');
     backround.classList.remove('animate');
 }
 
 function mobileBack() {
-        // Verstecke das Element mit der ID "mobileBack"
-        let mobileBackElement = document.getElementById("mobileBack");
-        if (mobileBackElement) {
-            mobileBackElement.style.display = "none";
-        }
+    // Verstecke das Element mit der ID "mobileBack"
+    let mobileBackElement = document.getElementById("mobileBack");
+    if (mobileBackElement) {
+        mobileBackElement.style.display = "none";
     }
+}
 
-function mobileBackRemove(){
+function mobileBackRemove() {
     let mobileBack = document.getElementById('mobileBack');
     mobileBack.classList.remove('d-none-mobile')
     let mobileBackElement = document.getElementById("mobileBack");
     if (mobileBackElement) {
         mobileBackElement.style.display = "block";
-}
-}
- function mobil_edit_contact(){
-    let editContact = document.getElementById('edit_contact');
-    editContact.classList.add('d-none');
- }
-
- function hideOnSmallScreens() {
-    // Überprüfe die Bildschirmbreite
-    if (window.innerWidth <= 1009) {
-        // Wenn die Bildschirmbreite kleiner oder gleich 1009px ist, verstecke das Element mit der ID "mobileBack"
-        let mobileBackElement = document.getElementById("mobileBack");
-        if (mobileBackElement) {
-            mobileBackElement.style.display = "none";
-        }
     }
 }
- 
+function mobil_edit_contact() {
+    let editContact = document.getElementById('edit_contact');
+    editContact.classList.add('d-none');
+}
+
+function hideOnSmallScreens() {
+    const mobileBackElement = document.getElementById("mobileBack");
+    if (mobileBackElement) {
+        mobileBackElement.style.display = (window.innerWidth <= 1009) ? "none" : "block";
+    }
+}
+function mobilmenu() {
+    let editDelet = document.getElementById('edit_delet');
+
+    if (editDelet.style.display === "none") {
+        editDelet.style.display = "block";
+    } else {
+        editDelet.style.display = "none";
+    }
+}
