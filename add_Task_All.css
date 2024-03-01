@@ -1,19 +1,19 @@
 /* ====
 ADD TASK-SECTION
 =======*/
+
 .add-task-inputfield-container {
   display: flex;
-  max-width: 1000px;
-  gap: 64px; 
-  margin-top: 32px;
   align-items: flex-start;
+  gap: clamp(16px, 5vw, 64px);
+  margin-top: 32px;
   font-size: 20px;
 }
 
-.add-task-container {
+.add-task-inputfield-column {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: clamp(200px, 40%, 400px);
 }
 
 .headline-and-close-button-container {
@@ -35,7 +35,6 @@ INPUTFIELDS
   display: flex;
   margin-top: 4px;
   margin-bottom: 24px;
-  width: 400px;
   height: 32px;
   padding-left: 16px;
   border-style: solid;
@@ -44,11 +43,12 @@ INPUTFIELDS
   border-color: rgb(178, 177, 177);
   font-size: 18px;
   outline: none;
+  box-sizing: border-box;
   /* outline-color: rgb(64,170,248); */
 }
 
 .add-task-inputfield::placeholder {
-  color: rgb(178, 177, 177) !important; 
+  color: rgb(178, 177, 177) !important;
 }
 
 .add-task-inputfield:hover {
@@ -64,6 +64,8 @@ INPUTFIELDS
   padding-top: 8px;
   resize: none;
   font-family: "Inter", sans-serif;
+  overflow: auto; 
+  box-sizing: content-box;
 }
 
 #add_task_description::placeholder {
@@ -77,7 +79,7 @@ INPUTFIELDS
 }
 
 input[type=date]:invalid::-webkit-datetime-edit {
-  color: rgb(178, 177, 177);  
+  color: rgb(178, 177, 177);
 }
 
 /* ====
@@ -111,7 +113,8 @@ CONTACTS
   overflow-y: auto;
   overflow-x: hidden;
   border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;;
+  border-bottom-right-radius: 8px;
+  ;
 }
 
 .add-task-contact-checkbox {
@@ -128,11 +131,15 @@ CONTACTS
   width: 80%;
 }
 
+/* ====
+DIVIDING-LINE
+=======*/
+
 .add-task-dividing-line {
-  width: 2px;
+  width: 1px;
   height: 320px;
   background-color: lightgray;
-} 
+}
 
 /* ====
 PRIO-BUTTONS
@@ -142,7 +149,6 @@ PRIO-BUTTONS
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
-  width: 420px;
 }
 
 .add-task-prio-button {
@@ -163,15 +169,24 @@ PRIO-BUTTONS
 }
 
 .add-task-prio-button-red {
-  background-color: rgb(255,61,0);
+  background-color: rgb(255, 61, 0);
 }
 
 .add-task-prio-button-yellow {
-  background-color: rgb(255,168,0);
+  background-color: rgb(255, 168, 0);
 }
 
 .add-task-prio-button-green {
-  background-color: rgb(122,226,41);
+  background-color: rgb(122, 226, 41);
+}
+
+
+/* ====
+CATEGORY
+=======*/
+
+#add_task_categorie {
+  width: 100%;
 }
 
 /* ====
@@ -181,8 +196,12 @@ SUBTASKS
 .add-task-subtasks-container {
   position: relative;
   display: inline-block;
-  width: 400px;
   height: 30px;
+  width: 100%;
+}
+
+#add_task_subtasks_inputfield {
+  width: 100%;
 }
 
 #add_task_subtask_plus_button {
@@ -201,22 +220,22 @@ SUBTASKS
 }
 
 #add_task_new_subtasks_container {
-  margin-top: 24px;
-  width: 400px;
   height: 100px;
   overflow: auto;
+  font-size: 16px;
 }
 
 .add-task-subtask-and-delete-icon {
   display: flex;
   justify-content: space-between;
   padding-right: 16px;
+  line-height: 1.5;
 }
 
 .add-task-subtask-bin {
-  cursor: pointer; 
+  cursor: pointer;
+  width: 16px;
 }
-
 
 /* ====
 FORM-BUTTONS & LEGEND
@@ -230,7 +249,7 @@ FORM-BUTTONS & LEGEND
 
 .add-task-legend {
   font-weight: 8px;
-  align-items: flex-start; 
+  align-items: flex-start;
 }
 
 .add-task-clear-and-create-task-buttons {
@@ -247,8 +266,7 @@ FORM-BUTTONS & LEGEND
   border-color: rgb(43, 54, 71);
   border-radius: 10px;
   cursor: pointer;
-  }
-
+}
 
 .add-task-popup-container {
   position: fixed;
@@ -301,4 +319,53 @@ FORM-BUTTONS & LEGEND
 
 .add-task-board-icon {
   width: 25px;
+}
+
+/* ================
+RESPONSIVE-DESIGN
+===================*/
+
+@media (max-width: 1090px) {
+  .add-task-inputfield-container {
+    flex-direction: column;
+    align-items: center;
+    }
+
+  /* #add_task_contacts_container {
+    order: 1;
+  } */
+
+  .add-task-inputfield-column {
+    width: clamp(80px, 90%, 620px);
+  }
+
+  /* .headline-and-close-button-container {
+    width: clamp(80px, 90%, 620px);
+} */
+
+  .add-task-dividing-line {
+    display: none;
+  }
+
+  .add-task-legend-and-form-buttons {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(246, 247, 248);
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+.add-task-legend-and-form-buttons {
+ margin-bottom: 64px;
+ display: flex;
+ justify-content: space-between;
+}
+
+@media (max-width: 850px) {
+  .add-task-inputfield-column {
+    width: clamp(320px, 90%, 800px);
+  }
+
 }

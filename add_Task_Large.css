@@ -1,8 +1,8 @@
-.main-container {
-  height: 100vh;
+.add-task-form-container {
   margin-left: 80px;
-  margin-bottom: 80px;
-}
+  /* width:clamp(416px, 90%, 864px); */
+  box-sizing: border-box; 
+  }
 
 #board_largeview_closebutton {
   display: none;
@@ -10,4 +10,13 @@
 
 .add-task-clear-button {
   background-color: rgb(246, 247, 248);;
+}
+
+@media (max-width: 1090px) {
+  .add-task-form-container {
+    margin: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    }
 }
