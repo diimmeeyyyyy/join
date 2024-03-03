@@ -1,5 +1,5 @@
 async function initBoard() {
-  includeHTML();
+  await includeHTML();
   await renderTasks();
   updateMenuPoint(2);
   await loadUserInitials();
@@ -32,33 +32,39 @@ async function renderTasks() {
     let containerId = containerIds[i];
     let container = document.getElementById(containerId);
     container.innerHTML = "";
-
-    for (let j = 0; j < taskList.length; j++) {
-      const task = taskList[j];
-      const description = task.description ? task.description : "";
-      const subtasksCount =
-        task.subtasks instanceof Array
-          ? "0/" + task.subtasks.length + " Subtasks"
-          : "";
-      let prio = addPrioIcon(task);
-      let contacts = task.contactsForNewTask
-        ? await createContactsList(task.contactsForNewTask, false)
-        : "";
-
-      container.innerHTML += generateTaskHTML(
-        task,
-        subtasksCount,
-        prio,
-        description,
-        task.id,
-        contacts
-      );
-    }
+    container.innerHTML += await generateTasks(taskList);
   }
   await noTaskToDoNotification();
 }
 
-function generateTaskHTML(
+async function generateTasks(taskList) {
+  let tasksHTML = "";
+
+  for (let j = 0; j < taskList.length; j++) {
+    const task = taskList[j];
+    const description = task.description ? task.description : "";
+    const subtasksCount =
+      task.subtasks instanceof Array
+        ? "0/" + task.subtasks.length + " Subtasks"
+        : "";
+    let prio = addPrioIcon(task);
+    let contacts = task.contactsForNewTask
+      ? await createContactsList(task.contactsForNewTask, false)
+      : "";
+
+    tasksHTML += generateOneTaskHTML(
+      task,
+      subtasksCount,
+      prio,
+      description,
+      task.id,
+      contacts
+    );
+  }
+  return tasksHTML;
+}
+
+function generateOneTaskHTML(
   task,
   subtasksCount,
   prio,
@@ -132,9 +138,9 @@ function removeHightlight(id) {
   document.getElementById(id).classList.remove("drag-area-hightlight");
 }
 
-/* ==============================
-SHOW "NO TASK TO DO" NOTIFICATION
-==================================*/
+/* =============================================================
+SHOW "NO TASK...TO DO/IN PROGRESS/AW.FEEDBACK/DONE" NOTIFICATION
+================================================================*/
 async function noTaskToDoNotification() {
   let allTasks = await getItem("allTasks");
 

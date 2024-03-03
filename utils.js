@@ -11,24 +11,6 @@ async function includeHTML() {
     }
   }
 }
-
-/* ========================
-TO FOCUS CLICKED MENU-POINT
-===========================*/
-/* function changeMenuPointFocus(clickedLink) {
-  let links = document.querySelectorAll(".task-sidebar a");
-
-  for (let i = 0; i < links.length; i++) {
-    const link = links[i];
-
-    if (link === clickedLink) {
-      link.style.backgroundColor = "rgb(1, 17, 63)";
-      localStorage.setItem("activeLink", i);
-    } else {
-      link.style.backgroundColor = "";
-    }
-  }
-} */
 /* ======================
 UPDATE CLICKED MENU-POINT
 =========================*/

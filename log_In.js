@@ -1,16 +1,26 @@
 let rememberLogIn = [];
 
+async function handleSubmit() {
+  let submitButton = document.activeElement.id;
+  if (submitButton === "LogIn_Button") {
+    await logInUser();
+  } else if (submitButton === "Guest_LogIn_Button") {
+    /* guestLogIn(); */
+    loadWelcomeGreeting("GUEST");
+  }
+}
+
 async function logInUser() {
   let email = document.getElementById("Email");
   let password = document.getElementById("Password");
 
-  /*  rememberLogInData(email, password); */
-
   let user = await findUser(email.value, password.value);
+
+  /*  rememberLogInData(email, password); */
 
   if (user) {
     await storeLoggedInUser(user);
-    await loadWelcomeGreeting(user);
+    await loadWelcomeGreeting(user.name);
   } else {
     alert("USER NICHT GEFUNDEN");
   }
@@ -39,12 +49,9 @@ async function findUser(email, password) {
   return user;
 }
 
-function guestLogIn() {
-  document.getElementById("Email").required = false;
-  document.getElementById("Password").required = false;
-
-  window.location.href = "summary.html";
-}
+/* function guestLogIn() {
+  loadWelcomeGreeting("GAST");
+} */
 
 async function storeLoggedInUser(user) {
   //Zuerst User in LocalStorage speichern:
@@ -56,16 +63,48 @@ async function storeLoggedInUser(user) {
   await setItem(key, JSON.stringify(user));
 }
 
-async function loadWelcomeGreeting(user) {
-  let inputfieldMobile = document.getElementById("Greeting_Name_Mobile");
-  inputfieldMobile.innerHTML = user.name;
+async function loadWelcomeGreeting(userName) {
+  let greetingForm = getGreeting();
+  setGreetingAndName(userName, greetingForm);
 
   let overlay = document.querySelector(".summary-mobile-position-content");
   overlay.style.display = "flex";
 
-  overlay.addEventListener('animationend', () => {
-    window.location.href = "summary.html";
+  let animationDuration = 3000;
+  let redirectDelay = animationDuration - 1000;
+  overlay.addEventListener("animationend", () => {
     overlay.style.display = "none";
     overlay.style.zIndex = "-1";
   });
+  setTimeout(() => {
+    window.location.href = "summary.html";
+  }, redirectDelay);
+}
+
+function setGreetingAndName(userName, greetingForm) {
+  let greetingName = document.getElementById("Greeting_Name");
+  let greeting = document.getElementById("Greeting");
+
+  if (userName !== "GUEST") {
+    greeting.innerHTML = greetingForm + ",";
+    greetingName.innerHTML = userName;
+  } else {
+    greeting.innerHTML = greetingForm + "!";
+    greetingName.innerHTML = "";
+  }
+}
+
+function getGreeting() {
+  let currentHour = new Date().getHours();
+  let greetingForm;
+
+  if (currentHour >= 1 && currentHour < 12) {
+    greetingForm = "Good Morning";
+  } else if (currentHour >= 12 && currentHour < 18) {
+    greetingForm = "Good Afternoon";
+  } else {
+    greetingForm = "Good Evening";
+  }
+
+  return greetingForm;
 }

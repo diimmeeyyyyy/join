@@ -131,7 +131,8 @@ ARROW BACK ON REGISTER.HTML
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 24px;
+  width: 100%;
+  padding-left: 40px;
 }
 .checkbox-div input {
   margin: unset;
@@ -303,7 +304,6 @@ MEDIA-QUERIES
   }
 }
 
-
 /* =====================
 GREETING OVER ALL SCREEN
 ========================*/
@@ -319,7 +319,7 @@ GREETING OVER ALL SCREEN
   align-items: center;
   background-color: whitesmoke;
   /*  z-index: -1; */
-  animation: fadeOut 4s ease-out forwards;
+  animation: fadeOut 3s ease-out forwards;
 }
 
 @keyframes fadeOut {
