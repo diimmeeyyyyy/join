@@ -30,7 +30,7 @@ body {
   align-items: center;
   background-color: rgb(42, 54, 71, 1);
   color: white;
-  width: 352px;
+  width: clamp(259px, 27vw, 352px);
   height: 56px;
   border: 1px solid;
   border-radius: 10px;

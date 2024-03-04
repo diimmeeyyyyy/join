@@ -261,9 +261,9 @@ async function saveContact(i) {
     contactList();
     initContacts();
     initContacts();
-
-
 }
+
+
 function mobileEditDelete() {
   let element = document.getElementById("menu_mobile");
   if (element) {
