@@ -243,7 +243,7 @@ async function edit_contact(i) {
 }
 
 async function saveContact(i) {
-  updateName(i);
+  await updateName(i);
 
   const newName = document.getElementById("editText").value;
   const newEmail = document.getElementById("editEmail").value;
@@ -261,7 +261,6 @@ async function saveContact(i) {
   contactsSort();
   contactList();
   initContacts();
-  console.log(contacts);
 }
 
 async function updateName(index) {
