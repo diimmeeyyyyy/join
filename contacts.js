@@ -244,25 +244,46 @@ async function edit_contact(i) {
 }
 
 async function saveContact(i) {
-    const newName = document.getElementById('editText').value;
-    const newEmail = document.getElementById('editEmail').value;
-    const newTel = document.getElementById('editNumber').value;
+  await updateName(i);
+
+  const newName = document.getElementById("editText").value;
+  const newEmail = document.getElementById("editEmail").value;
+  const newTel = document.getElementById("editNumber").value;
 
     // Den Kontakt mit dem Index 'i' aus dem Array aktualisieren
     contacts[i]['name'] = newName;
     contacts[i]['e-mail'] = newEmail;
     contacts[i]['tel'] = newTel;
 
-    // Kontaktliste aktualisieren
-    await setItem('allContacts', contacts);
-    updateLettersAndTwoLettersName();
-    transformCloseContacts();
-    contactsSort();
-    contactList();
-    initContacts();
-    initContacts();
+  // Kontaktliste aktualisieren
+  await setItem("allContacts", contacts);
+  updateLettersAndTwoLettersName();
+  transformCloseContacts();
+  contactsSort();
+  contactList();
+  initContacts();
 }
 
+async function updateName(index) {
+  let allTasks = await getItem("allTasks");
+  console.log(allTasks);
+  let oldName = contacts[index]["name"];
+  console.log(oldName);
+
+  const newName = document.getElementById("editText").value;
+
+  for (let task of allTasks) {
+    if (task["contactsForNewTask"]) {
+      for (let j = 0; j < task["contactsForNewTask"].length; j++) {
+        if (task["contactsForNewTask"][j] === oldName) {
+          task["contactsForNewTask"][j] = newName;
+        }
+      }
+    }
+  }
+  await setItem("allTasks", allTasks);
+  console.log(allTasks);
+}
 
 function mobileEditDelete() {
   let element = document.getElementById("menu_mobile");
