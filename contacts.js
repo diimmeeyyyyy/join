@@ -145,7 +145,7 @@ function pushContact(i) {
             </div>
     `;
     mobileBackRemove();
-    mobilEdit(i);
+   /*  mobilEdit(i); */
 
 }
 
@@ -270,7 +270,7 @@ async function saveContact(i) {
     transformCloseContacts();
     contactsSort();
     contactList();
-    init();
+    initContacts();
 
 
 }

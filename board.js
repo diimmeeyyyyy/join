@@ -138,9 +138,9 @@ function removeHightlight(id) {
   document.getElementById(id).classList.remove("drag-area-hightlight");
 }
 
-/* =============================================================
+/* =========================================================
 SHOW "NO TASK...TO DO/IN PROGRESS/AW.FEEDBACK/DONE" NOTIFICATION
-================================================================*/
+==============================================================*/
 async function noTaskToDoNotification() {
   let allTasks = await getItem("allTasks");
 
@@ -239,7 +239,13 @@ function addPrioIcon(task) {
 /* ========================
 SHOW LARGE VIEW OF ONE TASK
 ===========================*/
+let largeViewIsOpen = false;
 async function renderTaskLargeview(taskIndex) {
+  if (largeViewIsOpen) {
+    return;
+  }
+  largeViewIsOpen = true;
+
   const allTasks = await getTasks();
   console.log(allTasks);
   const task = allTasks[taskIndex];
@@ -395,6 +401,7 @@ function closeLargeview() {
     "Board_Task_Container_Largeview"
   );
   largeviewPopup.remove();
+  largeViewIsOpen = false;
 }
 
 function openAddTaskPopUp() {
