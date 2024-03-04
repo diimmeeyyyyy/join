@@ -4,6 +4,19 @@ body {
   overflow: auto;
   min-height: 100vh;
 }
+::-webkit-scrollbar {
+  max-width: 1vw;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(42, 54, 71);
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(40, 171, 226);
+  border-radius: 30px;
+}
 
 h1,
 p {
@@ -407,6 +420,13 @@ MEDIA-QUERIES
     gap: 10px;
     overflow-x: auto;
     padding-block: 10px;
+    scroll-behavior: smooth;
+  }
+  #to_do_container::-webkit-scrollbar,
+  #In_Progress_Content::-webkit-scrollbar,
+  #Await_Feedback_Content::-webkit-scrollbar,
+  #Done_Content::-webkit-scrollbar {
+    display: none;
   }
   .board-task-container-overview {
     margin-bottom: unset;
@@ -430,8 +450,12 @@ ASSIGNED CONTACTS
 =================*/
 .board-task-contact-icons {
   display: flex;
-  /* position: relative; */
+  cursor: pointer;
 }
+.board-task-contact-icons .item:not(:first-child) {
+  margin-left: -10px;
+}
+
 .initialCircle {
   width: 32px;
   height: 32px;
