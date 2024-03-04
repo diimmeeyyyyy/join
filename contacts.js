@@ -145,6 +145,8 @@ function pushContact(i) {
             </div>
     `;
     mobileBackRemove();
+   /*  mobilEdit(i); */
+
 }
 
 function transformNewContacts() {
@@ -270,6 +272,9 @@ async function saveContact(i) {
     contactsSort();
     contactList();
     initContacts();
+    initContacts();
+
+
 }
 function mobileEditDelete() {
     let element = document.getElementById("menu_mobile");

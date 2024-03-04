@@ -138,9 +138,9 @@ function removeHightlight(id) {
   document.getElementById(id).classList.remove("drag-area-hightlight");
 }
 
-/* =============================================================
+/* =========================================================
 SHOW "NO TASK...TO DO/IN PROGRESS/AW.FEEDBACK/DONE" NOTIFICATION
-================================================================*/
+==============================================================*/
 async function noTaskToDoNotification() {
   let allTasks = await getItem("allTasks");
 
@@ -239,7 +239,13 @@ function addPrioIcon(task) {
 /* ========================
 SHOW LARGE VIEW OF ONE TASK
 ===========================*/
+let largeViewIsOpen = false;
 async function renderTaskLargeview(taskIndex) {
+  if (largeViewIsOpen) {
+    return;
+  }
+  largeViewIsOpen = true;
+
   const allTasks = await getTasks();
   console.log(allTasks);
   const task = allTasks[taskIndex];
@@ -351,7 +357,7 @@ function generateContactListHTML(contact, showName) {
   `;
   } else {
     return /*html*/ `
-      <span>${getIconForContact(contact)}</span>`;
+      <span class="item">${getIconForContact(contact)}</span>`;
   }
 }
 
@@ -395,6 +401,7 @@ function closeLargeview() {
     "Board_Task_Container_Largeview"
   );
   largeviewPopup.remove();
+  largeViewIsOpen = false;
 }
 
 function openAddTaskPopUp() {
@@ -423,7 +430,7 @@ function reassignTaskIds(tasks) {
 /* ====================================
 WHEN SCREEN < 1090, SHOW OR HIDE ARROWS
 =======================================*/
-window.addEventListener("load", function () {
+window.addEventListener("DOMContentLoaded", function () {
   let container = [
     "to_do_container",
     "In_Progress_Content",
@@ -452,6 +459,9 @@ window.addEventListener("load", function () {
 
       if (subContainer.scrollWidth > subContainer.clientWidth) {
         rightArrow.style.display = "flex";
+        rightArrow.addEventListener("click", function () {
+          subContainer.scrollLeft += 150;
+        });
       } else {
         rightArrow.style.display = "none";
       }
@@ -468,20 +478,29 @@ window.addEventListener("load", function () {
         subContainer.scrollWidth -
         subContainer.scrollLeft -
         subContainer.clientWidth;
-      if (scrollRight <= 40) {
+      if (scrollRight <= 100) {
         rightArrow.style.display = "none";
       } else {
         rightArrow.style.display = "flex";
+        rightArrow.addEventListener("click", function () {
+          subContainer.scrollLeft += 150;
+        });
       }
 
       if (subContainer.scrollLeft >= 100) {
         leftArrow.style.display = "flex";
+        leftArrow.addEventListener("click", function () {
+          subContainer.scrollLeft -= 150;
+        });
       } else {
         leftArrow.style.display = "none";
       }
     }
   }
-  setTimeout(checkScroll, 100);
+  setTimeout(function () {
+    checkScroll();
+    checkScrollEnd();
+  }, 100);
   window.addEventListener("resize", checkScroll);
   for (let i = 0; i < container.length; i++) {
     const subContainer = document.getElementById(container[i]);
