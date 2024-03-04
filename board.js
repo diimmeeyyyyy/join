@@ -52,6 +52,8 @@ async function generateTasks(taskList) {
     let contacts = task.contactsForNewTask
       ? await createContactsList(task.contactsForNewTask, false)
       : "";
+    let ContactsHTML = contactsHTML(contacts);
+    console.log(ContactsHTML);
 
     tasksHTML += generateOneTaskHTML(
       task,
@@ -59,7 +61,7 @@ async function generateTasks(taskList) {
       prio,
       description,
       task.id,
-      contacts
+      ContactsHTML
     );
   }
   return tasksHTML;
@@ -98,11 +100,42 @@ function generateOneTaskHTML(
     <span id="board_task_number_of_subtasks">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div class="board-task-contact-icons">${assignedPersons}</div>
+    <div id="Board_Task_Contact_Icons" class="board-task-contact-icons">${assignedPersons}</div>
     <span>${prio}</span>
   </div>
 </div>
     `;
+}
+
+function contactsHTML(contacts) {
+  let tempDiv = document.createElement("div");
+  tempDiv.innerHTML = contacts;
+  let contactCount = tempDiv.querySelectorAll(".button-name").length;
+
+  if (contactCount > 3) {
+    let numberOfHiddenContacts = contactCount - 3;
+    /* let getThreeContacts = getThreeContacts(contacts); */
+    let items = Array.from(tempDiv.querySelectorAll(".button-name")).slice(
+      0,
+      3
+    );
+
+    let HTML = "";
+    for (let item of items) {
+      HTML += item.outerHTML;
+    }
+    let getThreeContacts = HTML;
+
+    let html = /*html*/ `
+       ${getThreeContacts}
+      <span class="show-amount-of-hidden-contacts">
+            +${numberOfHiddenContacts}
+      </span>
+    `;
+    return html;
+  } else {
+    contacts;
+  }
 }
 
 /* ================
