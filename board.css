@@ -473,7 +473,8 @@ ASSIGNED CONTACTS
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  color: rgb(42, 54, 71);
+  border: 1px solid rgb(42, 54, 71);
   background-color: rgb(40, 171, 226);
   margin-left: -10px;
 }
