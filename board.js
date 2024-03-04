@@ -13,6 +13,7 @@ let currentDraggedElement;
 
 async function renderTasks() {
   let allTasks = await getItem("allTasks");
+  console.log(allTasks);
   let toDos = allTasks.filter((task) => task.status === "toDo");
   let inProgress = allTasks.filter((task) => task.status === "inProgress");
   let awaitFeedback = allTasks.filter(
@@ -430,7 +431,7 @@ function reassignTaskIds(tasks) {
 /* ====================================
 WHEN SCREEN < 1090, SHOW OR HIDE ARROWS
 =======================================*/
-window.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", function () {
   let container = [
     "to_do_container",
     "In_Progress_Content",
@@ -460,7 +461,7 @@ window.addEventListener("DOMContentLoaded", function () {
       if (subContainer.scrollWidth > subContainer.clientWidth) {
         rightArrow.style.display = "flex";
         rightArrow.addEventListener("click", function () {
-          subContainer.scrollLeft += 150;
+          subContainer.scrollLeft += 200;
         });
       } else {
         rightArrow.style.display = "none";
@@ -483,14 +484,14 @@ window.addEventListener("DOMContentLoaded", function () {
       } else {
         rightArrow.style.display = "flex";
         rightArrow.addEventListener("click", function () {
-          subContainer.scrollLeft += 150;
+          subContainer.scrollLeft += 200;
         });
       }
 
       if (subContainer.scrollLeft >= 100) {
         leftArrow.style.display = "flex";
         leftArrow.addEventListener("click", function () {
-          subContainer.scrollLeft -= 150;
+          subContainer.scrollLeft -= 200;
         });
       } else {
         leftArrow.style.display = "none";
@@ -500,7 +501,7 @@ window.addEventListener("DOMContentLoaded", function () {
   setTimeout(function () {
     checkScroll();
     checkScrollEnd();
-  }, 100);
+  }, 1000);
   window.addEventListener("resize", checkScroll);
   for (let i = 0; i < container.length; i++) {
     const subContainer = document.getElementById(container[i]);
