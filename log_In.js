@@ -5,7 +5,7 @@ async function handleSubmit() {
   if (submitButton === "LogIn_Button") {
     await logInUser();
   } else if (submitButton === "Guest_LogIn_Button") {
-    /* guestLogIn(); */
+    localStorage.setItem("loggedInPerson", "guest");
     loadWelcomeGreeting("GUEST");
   }
 }
@@ -20,6 +20,8 @@ async function logInUser() {
 
   if (user) {
     await storeLoggedInUser(user);
+    /* await setItem("current") */
+    localStorage.setItem("loggedInPerson", "user");
     await loadWelcomeGreeting(user.name);
   } else {
     alert("USER NICHT GEFUNDEN");
@@ -48,10 +50,6 @@ async function findUser(email, password) {
   );
   return user;
 }
-
-/* function guestLogIn() {
-  loadWelcomeGreeting("GAST");
-} */
 
 async function storeLoggedInUser(user) {
   //Zuerst User in LocalStorage speichern:
@@ -92,19 +90,4 @@ function setGreetingAndName(userName, greetingForm) {
     greeting.innerHTML = greetingForm + "!";
     greetingName.innerHTML = "";
   }
-}
-
-function getGreeting() {
-  let currentHour = new Date().getHours();
-  let greetingForm;
-
-  if (currentHour >= 1 && currentHour < 12) {
-    greetingForm = "Good Morning";
-  } else if (currentHour >= 12 && currentHour < 18) {
-    greetingForm = "Good Afternoon";
-  } else {
-    greetingForm = "Good Evening";
-  }
-
-  return greetingForm;
 }

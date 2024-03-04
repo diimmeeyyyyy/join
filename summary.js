@@ -7,11 +7,18 @@ async function initSummary() {
 }
 
 async function loadSummaryGreeting() {
-  let user = await getCurrentUser();
+  let loggedInPerson = localStorage.getItem("loggedInPerson");
+  let greetingForm = getGreeting();
+  let inputfieldGreetingForm = document.getElementById("Summary_Greeting_Form");
+  let inputfieldName = document.getElementById("Greeting_Name");
 
-  if (window.innerWidth > 1050) {
-    let inputfield = document.getElementById("Greeting_Name");
-    inputfield.innerHTML = user.name;
+  if (loggedInPerson === "user" && window.innerWidth > 1050) {
+    let user = await getCurrentUser();
+    inputfieldGreetingForm.innerHTML = greetingForm + ",";
+    inputfieldName.innerHTML = user.name;
+  } else if (loggedInPerson === "guest" && window.innerWidth > 1050) {
+    inputfieldGreetingForm.innerHTML = greetingForm + "!";
+    inputfieldName.innerHTML = "";
   }
 }
 

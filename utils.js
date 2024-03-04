@@ -26,10 +26,16 @@ function updateMenuPoint(activeLinkIndex) {
 GET USER INITIALS FOR HEADER
 ============================*/
 async function loadUserInitials() {
-  let user = await getCurrentUser();
-  if (user) {
+  let loggedInPerson = localStorage.getItem("loggedInPerson");
+
+  if (loggedInPerson === "user") {
+    let user = await getCurrentUser();
     console.log(user.name);
-    document.getElementById("User_Initials").innerHTML = user.name.charAt(0);
+    let nameParts = user.name.split(" ");
+    let initials = nameParts.map((part) => part.charAt(0)).join("");
+    document.getElementById("User_Initials").innerHTML = initials;
+  } else {
+    document.getElementById("User_Initials").innerHTML = "G";
   }
 }
 
@@ -44,4 +50,20 @@ async function getCurrentUser() {
     let user = allRegisteredUsers.find((u) => u.email === userEmail);
     return user;
   }
+}
+
+
+function getGreeting() {
+  let currentHour = new Date().getHours();
+  let greetingForm;
+
+  if (currentHour >= 1 && currentHour < 12) {
+    greetingForm = "Good Morning";
+  } else if (currentHour >= 12 && currentHour < 18) {
+    greetingForm = "Good Afternoon";
+  } else {
+    greetingForm = "Good Evening";
+  }
+
+  return greetingForm;
 }
