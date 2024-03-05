@@ -30,7 +30,7 @@ body {
   align-items: center;
   background-color: rgb(42, 54, 71, 1);
   color: white;
-  width: 352px;
+  width: clamp(259px, 23vw, 352px);
   height: 56px;
   border: 1px solid;
   border-radius: 10px;
@@ -422,7 +422,6 @@ a {
 .container-and-new-contact-push {
   background-color: rgb(246, 247, 248);
   height: calc(100vh - 100px);
-
 }
 
 .all-container-contacts {
@@ -470,17 +469,13 @@ a {
     width: auto;
   }
 
-  .button-contact {
-    width: clamp(250px, 27vw, 500px);
-  }
-
   .contact-parting-line {
-    width: 280px;
+    width: 245px;
   }
 
   .contacts {
     gap: 15px;
-    width: 280px;
+    width: 245px;
   }
 
   .new-contact-push {
@@ -530,17 +525,12 @@ a {
     position: fixed;
   }
 
-
-  .button-contact {
-    width: 352px;
-  }
-
   .contact-parting-line {
     width: 330px;
   }
 
   .contacts {
-    width: 300px;
+    width: 100%;
   }
 
   .menu-mobile {
@@ -559,20 +549,19 @@ a {
     transform: translateX(0px);
   }
 
-  .edit-delet {
+  .edit-delet{
+    position: fixed;
+    right: 265px;
+    bottom: 180px;
     background-color: white;
     padding: 14px;
-    width: fit-content;
     border-bottom-left-radius: 30px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    position: fixed;
-    flex-direction: column;
-    bottom: -240px;
-    right: -250px;
     display: none;
-
+    z-index: 2;
   }
+
   .mobile-contacts {
     position: absolute;
     right: 60px;
@@ -583,11 +572,11 @@ a {
     position: fixed;
   }
 }
-@media (max-width:920px){
+/* @media (max-width:920px){
   .edit-delet{
     right: -150px;
   }
-}
+} */
 @media (max-width:850px) {
   .container2 h1 {
     font-size: 47px;
@@ -596,6 +585,9 @@ a {
   .container2 p {
     font-size: 24px;
 
+  }
+  .join-png {
+    display: none;
   }
 
   .container1 {
@@ -618,11 +610,12 @@ a {
   .backround-new-contact-container {
     display: flex;
     flex-direction: column;
+    z-index: 5;
   }
 
   .edit-contact-background {
     flex-direction: column;
-
+    z-index: 5;
   }
 
   .edit {
@@ -691,8 +684,6 @@ a {
     display: none;
   }
 
-  
-
   .mobil-edit-close {
     position: absolute;
     top: 30px;
@@ -708,12 +699,9 @@ a {
     right: 60px;
     cursor: pointer;
     border-radius: 80px;
+    z-index: 2;
   }
 
-
-  .button-contact {
-    width: 352px;
-  }
 
   .contact-parting-line {
     width: 352px;
@@ -727,15 +715,16 @@ a {
     height: calc(100vh - 180px);
   }
   .edit-delet{
-    right: -350px;
-    bottom: -175px;
+    right: 40px;
   }
+  .add-contact h1 {
+    font-size: 47px;
 }
-
-
-@media (max-width:780px) {
-.edit-delet{
-  right: -244px;
+.add-contact p {
+  font-size: 24px;
+}
+.edit-one p {
+  font-size: 47px;
 }
 }
 
@@ -762,11 +751,7 @@ a {
     right: 60px;
   }
 }
-@media (max-width:590px){
-  .edit-delet{
-  right: -60px;
-}
-}
+
 @media (max-width:570px) {
 
   .container1 {
@@ -800,16 +785,9 @@ a {
     font-size: 24px;
   }
 
-  .join-png {
-    display: none;
-  }
 
   .add-contact {
     width: 300px
-  }
-
-  .button-contact {
-    width: 270px;
   }
 
   .contact-parting-line {
@@ -824,20 +802,23 @@ a {
   .form {
     width: 0px;
   }
-}
-
-@media (max-width:440px) {
   .contacts {
     padding: 0px;
   }
-}
-@media (max-width:405px){
-  .edit-delet{
-    right: 20px;
+  .edit{
+    width: 300px;
   }
+  .edit-two{
+    width: 300px;
+  }
+
 }
 
-@media(min-width:1008px) {
+
+@media(min-width:1009px) {
+  .container-and-new-contact-push{
+    display: block;
+  }
   .mobile-back {
     display: none;
   }

@@ -526,6 +526,7 @@ function generateSubtaskListHTML(taskIndex, i, subtask, checkedAttribute) {
 function openAddTaskPopUp() {
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "unset";
+  
 }
 
 function closeAddTaskPopup() {
