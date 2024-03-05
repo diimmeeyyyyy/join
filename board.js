@@ -525,9 +525,13 @@ function generateSubtaskListHTML(taskIndex, i, subtask, checkedAttribute) {
 
 function openAddTaskPopUp() {
   let addTaskPopup = document.getElementById("add_task_popup");
-  addTaskPopup.style.display = "unset";
-  
+  if (window.innerWidth >= 1090) {
+    addTaskPopup.style.display = "unset";
+  } else {
+    window.location.href = 'add_Task.html';
+  }
 }
+
 
 function closeAddTaskPopup() {
   let addTaskPopup = document.getElementById("add_task_popup");

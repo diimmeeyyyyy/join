@@ -275,14 +275,19 @@ FORM-BUTTONS & LEGEND
   width: 100%;
 }
 
-
 .add-task-legend {
   font-weight: 8px;
   align-items: flex-start;
 }
 
-.add-task-clear-and-create-task-buttons {
+.add-task-clear-and-create-task-buttons-desktop-design {
   display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.add-task-clear-and-create-task-buttons-responsive-design {
+  display: none;
   justify-content: flex-end;
   gap: 16px;
 }
@@ -364,7 +369,7 @@ RESPONSIVE-DESIGN
   }
 
   .headline-and-close-button-container {
-    margin-top: 64px;
+    margin-top: 32px;
     margin-left: 32px;
   }
 
@@ -404,9 +409,16 @@ RESPONSIVE-DESIGN
     background-color: rgb(246, 247, 248);
   }
 
-  .add-task-clear-button {
+  .add-task-clear-and-create-task-buttons-desktop-design {
     display: none;
   }
+  
+  .add-task-clear-and-create-task-buttons-responsive-design {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
 }
 
 
@@ -436,7 +448,10 @@ RESPONSIVE-DESIGN
     position: sticky;
     bottom: 82px;                           /* ändern, falls sidebar ändern */      
     left: 0;  
- 
+  }
+
+  .add-task-clear-button {
+    display: none;
   }
 }
 
