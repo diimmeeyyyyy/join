@@ -46,7 +46,7 @@ async function renderContactsInAddTask() {
   for (let i = 0; i < allContacts.length; i++) {
     const contact = allContacts[i];
     contactList.innerHTML += `
-      <div class="add-task-contact-checkbox"> 
+      <div id="add_task_contact_checkbox${i}" class="add-task-contact-checkbox"> 
         <div class="add-task-contact-icon-and-name">
             <div>${getIconForContact(contact)}</div>
             <div>${contact.name}</div>
@@ -56,6 +56,13 @@ async function renderContactsInAddTask() {
     `;
   }
 }
+
+// onclick="markCheckbox(${i})"
+// function markCheckbox(i) {
+//   let checkbox = document.getElementById(`add_task_contact_checkbox${i}`);
+//   checkbox.style.backgroundColor = 'rgb(42,54,71)';
+//   checkbox.style.color = 'white';
+// }
 
 
 function saveCheckedContacts(isChecked, contactName) {
@@ -68,6 +75,7 @@ function saveCheckedContacts(isChecked, contactName) {
     }
   }
 }
+
 
 /* ================
 PRIORITY BUTTONS
@@ -91,7 +99,6 @@ function changeButtonColor() {
   let mediumIcon = document.getElementById("add_task_prio_icon_medium");
   let lowButton = document.getElementById("add_task_prio_button_low");
   let lowIcon = document.getElementById("add_task_prio_icon_low");
-
 
   switch (prio) {
     case "urgent":
@@ -230,7 +237,7 @@ async function createTask() {
   await setItem("taskIdCounter", task.id);
 
   console.log('allTasks', allTasks);
-
+  
   title.value = "";
   description.value = "";
   dueDate.value = "";
@@ -252,8 +259,9 @@ function clearAddTaskForm() {
   let newSubtasksList = document.getElementById("add-task-subtasks-list"); 
   newSubtasksList.innerHTML = '';
 
-  // let contactList = document.getElementById('add_task_contacts_container');
-  // contactList.innerHTML = '';
+  let contactList = document.getElementById('add_task_contacts_content');
+  contactList.style.display = 'none';
+    contactsDropdownOpen = false;
 }
 
 
@@ -268,3 +276,5 @@ function showPopupTaskAdded() {
         </div >
     `;
 }
+
+

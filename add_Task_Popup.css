@@ -1,8 +1,7 @@
   .add-task-popup {
     display: none;
-    max-width: 1000px;
-    min-width: 800px;
-    height: 75%;
+    width: clamp(900px, 5vw, 500px);
+    height: 70%;
     position: absolute;
     z-index: 1;
     top: 50%;
@@ -17,6 +16,7 @@
   .headline-and-close-button-container {
     justify-content: space-between;
     padding-left: 32px;
+
   }
 
   #board_largeview_closebutton {
@@ -29,12 +29,15 @@
     padding-left: 32px;
     padding-right: 32px;
     gap: 80px;
-
   }
 
-  /* #board_largeview_closebutton:hover {
-  
-} */
+  .add-task-prio-button {
+       font-size: clamp(16px, 5vw, 18px);
+   }
+
+  #board_largeview_closebutton:hover {
+  cursor: pointer;
+}
 
 .add-task-legend-and-form-buttons {
   display: flex;

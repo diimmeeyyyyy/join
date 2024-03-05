@@ -458,6 +458,7 @@ function closeLargeview() {
 function openAddTaskPopUp() {
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "unset";
+  
 }
 
 function closeAddTaskPopup() {

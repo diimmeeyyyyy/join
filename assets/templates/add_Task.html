@@ -14,16 +14,15 @@
                 <input id="add_task_title" class="add-task-inputfield" required placeholder="Enter a title">
 
                 <span>Description</span>
-                <textarea id="add_task_description" class="add-task-inputfield" placeholder="Enter a Description"></textarea>
-                    
-                <!-- <div id="add_task_contacts_container">  -->
-                    <span>Assigned to</span>
-                    <div onclick="toggleContactsDropdown()" class="add-task-inputfield add-task-inputfield-contacts">
-                        <span class="add-task-placeholder"> Select contacts to assign </span>
-                        <img class="add-task-inputfield-arrow" src="./assets/img/arrow_drop_down.svg">
-                    </div>
-                    <div id="add_task_contacts_content"></div>
-                <!-- </div> -->
+                <textarea id="add_task_description" class="add-task-inputfield"
+                    placeholder="Enter a Description"></textarea>
+
+                <span>Assigned to</span>
+                <div onclick="toggleContactsDropdown()" class="add-task-inputfield add-task-inputfield-contacts">
+                    <span class="add-task-placeholder"> Select contacts to assign </span>
+                    <img class="add-task-inputfield-arrow" src="./assets/img/arrow_drop_down.svg">
+                </div>
+                <div id="add_task_contacts_content"></div>
             </div>
 
 
@@ -47,7 +46,8 @@
                             id="add_task_prio_button_medium" class="add-task-prio-button add-task-prio-button-yellow"
                             type="button">
                             <span> Medium </span>
-                            <img id="add_task_prio_icon_medium" src="./assets/img/priorityMedium.svg">
+                            <img id="add_task_prio_icon_medium" class="add-task-prio-icon-white"
+                                src="./assets/img/priorityMedium.svg">
                         </button>
                         <button onclick="setTaskPriority('low'); changeButtonColor()" id="add_task_prio_button_low"
                             class="add-task-prio-button" type="button">
@@ -67,35 +67,34 @@
                     </select>
                 </div>
 
-                    <span>Subtasks</span>
-                    <div class="add-task-subtasks-container">
-                        <input id="add_task_subtasks_inputfield" class="add-task-inputfield"
-                            placeholder="Add new subtask">
-                        <img onclick="addNewSubtask()" id="add_task_subtask_plus_button" src="./assets/img/plus.svg">
-                    </div>
-                    <div id="add_task_new_subtasks_container">
-                        <ul id="add-task-subtasks-list">
-                        </ul>
-                    </div>
+                <span>Subtasks</span>
+                <div class="add-task-subtasks-container">
+                    <input id="add_task_subtasks_inputfield" class="add-task-inputfield" placeholder="Add new subtask">
+                    <img onclick="addNewSubtask()" id="add_task_subtask_plus_button" src="./assets/img/plus.svg">
+                </div>
+                <div id="add_task_new_subtasks_container">
+                    <ul id="add-task-subtasks-list">
+                    </ul>
                 </div>
             </div>
+        </div>
 
 
 
-            <div class="add-task-legend-and-form-buttons">
-                <span class="add-task-legend">
-                    <span class="add-task-highlight-red">*</span>This field is required
-                </span>
-                <div class="add-task-clear-and-create-task-buttons">
-                    <button onclick="clearAddTaskForm()" type="reset" class="add-task-clear-button">
-                        <span>Clear</span>
-                        <img src="./assets/img/closeBlue.svg">
-                    </button>
-                    <button type="submit" class="add-task-button">
-                        <span> Create Task</span>
-                        <img src="./assets/img/check.png">
-                    </button>
-                </div>
+        <div class="add-task-legend-and-form-buttons">
+            <span class="add-task-legend">
+                <span class="add-task-highlight-red">*</span>This field is required
+            </span>
+            <div class="add-task-clear-and-create-task-buttons">
+                <button onclick="clearAddTaskForm()" type="reset" class="add-task-clear-button">
+                    <span>Clear</span>
+                    <img src="./assets/img/closeBlue.svg">
+                </button>
+                <button type="submit" class="add-task-button">
+                    <span> Create Task</span>
+                    <img src="./assets/img/check.png">
+                </button>
             </div>
+        </div>
     </form>
 </main>

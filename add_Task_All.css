@@ -7,13 +7,13 @@ ADD TASK-SECTION
   align-items: flex-start;
   gap: clamp(16px, 5vw, 64px);
   margin-top: 32px;
-  font-size: 20px;
+  font-size: clamp(16px, 5vw, 20px);
 }
 
 .add-task-inputfield-column {
   display: flex;
   flex-direction: column;
-  width: clamp(200px, 40%, 400px);
+  width: clamp(100px, 40%, 400px);
 }
 
 .headline-and-close-button-container {
@@ -41,9 +41,10 @@ INPUTFIELDS
   border-radius: 8px;
   border-width: 0.1px;
   border-color: rgb(178, 177, 177);
-  font-size: 18px;
+  font-size: clamp(16px, 5vw, 20px);
   outline: none;
   box-sizing: border-box;
+
   /* outline-color: rgb(64,170,248); */
 }
 
@@ -64,7 +65,7 @@ INPUTFIELDS
   padding-top: 8px;
   resize: none;
   font-family: "Inter", sans-serif;
-  overflow: auto; 
+  overflow: auto;
   box-sizing: content-box;
 }
 
@@ -96,17 +97,15 @@ CONTACTS
 }
 
 .add-task-inputfield-arrow {
-  padding-right: 4px;
+  padding-right: 16px;
 }
 
 #add_task_contacts_content {
-  width: 400px;
   height: 156px;
 }
 
 .add-task-contacts-container {
   background-color: white;
-  width: 400px;
   height: 200px;
   position: sticky;
   z-index: 2;
@@ -114,13 +113,11 @@ CONTACTS
   overflow-x: hidden;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  ;
+
 }
 
 .add-task-contact-checkbox {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
   margin: 8px;
 }
 
@@ -157,6 +154,7 @@ PRIO-BUTTONS
 .add-task-prio-button-container {
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   margin-bottom: 24px;
 }
 
@@ -164,11 +162,11 @@ PRIO-BUTTONS
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  width: 129px;
+  gap: 8px;
+  width: calc((100% - 32px)/3);
   height: 48px;
   color: black;
-  font-size: 18px;
+  font-size: clamp(16px, 1vw, 20px);
   background-color: white;
   border-radius: 4px;
   border-style: solid;
@@ -180,16 +178,19 @@ PRIO-BUTTONS
 .add-task-prio-button-red {
   background-color: rgb(255, 61, 0);
   color: white;
+  font-weight: bold;
 }
 
 .add-task-prio-button-yellow {
   background-color: rgb(255, 168, 0);
   color: white;
+  font-weight: bold;
 }
 
 .add-task-prio-button-green {
   background-color: rgb(122, 226, 41);
   color: white;
+  font-weight: bold;
 }
 
 .add-task-prio-icon-white {
@@ -217,7 +218,6 @@ SUBTASKS
   position: relative;
   display: inline-block;
   height: 30px;
-  width: 100%;
 }
 
 #add_task_subtasks_inputfield {
@@ -239,6 +239,11 @@ SUBTASKS
 #add_task_subtask_plus_button:hover {
   background-color: rgb(209, 209, 209);
   border-radius: 32px;
+}
+
+#add-task-subtasks-list {
+  padding-left: 16px;
+  overflow-x: hidden;
 }
 
 #add_task_new_subtasks_container {
@@ -351,14 +356,12 @@ RESPONSIVE-DESIGN
   .add-task-inputfield-container {
     flex-direction: column;
     align-items: center;
-    }
-
-  /* #add_task_contacts_container {
-    order: 1;
-  } */
+    margin-left: 16px;
+    margin-right: 16px;
+  }
 
   .add-task-inputfield-column {
-    width: clamp(80px, 90%, 620px);
+    width: 100%; 
   }
 
   /* .headline-and-close-button-container {
@@ -370,6 +373,7 @@ RESPONSIVE-DESIGN
   }
 
   .add-task-legend-and-form-buttons {
+    display: flex;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -380,14 +384,18 @@ RESPONSIVE-DESIGN
 }
 
 .add-task-legend-and-form-buttons {
- margin-bottom: 64px;
- display: flex;
- justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 64px;
+  padding: 0;
+  background-color: aqua;
 }
 
 @media (max-width: 850px) {
   .add-task-inputfield-column {
-    width: clamp(320px, 90%, 800px);
+    width: 100%;
   }
-
 }
