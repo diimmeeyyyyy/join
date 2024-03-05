@@ -19,8 +19,6 @@ async function initContacts() {
   await loadUserInitials();
   window.onload = hideOnSmallScreens;
   window.onresize = hideOnSmallScreens;
-  window.onload = moveEditDeleteContainer;
-  window.onresize = moveEditDeleteContainer;
 }
 
 async function loadContacts() {

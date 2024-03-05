@@ -469,17 +469,13 @@ a {
     width: auto;
   }
 
-  /* .button-contact {
-    width: clamp(250px, 27vw, 500px);
-  } */
-
   .contact-parting-line {
-    width: 280px;
+    width: 245px;
   }
 
   .contacts {
     gap: 15px;
-    width: 280px;
+    width: 245px;
   }
 
   .new-contact-push {
@@ -529,17 +525,12 @@ a {
     position: fixed;
   }
 
-/* 
-  .button-contact {
-    width: 352px;
-  } */
-
   .contact-parting-line {
     width: 330px;
   }
 
   .contacts {
-    width: 300px;
+    width: 100%;
   }
 
   .menu-mobile {
