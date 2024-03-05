@@ -19,6 +19,8 @@ async function initContacts() {
   await loadUserInitials();
   window.onload = hideOnSmallScreens;
   window.onresize = hideOnSmallScreens;
+  window.onload = moveEditDeleteContainer;
+  window.onresize = moveEditDeleteContainer;
 }
 
 async function loadContacts() {
@@ -112,11 +114,12 @@ function pushContact(i) {
                     <button class="button-name-contacts" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
                     <div>
                         <p class="contacts-name">${contacts[i]["name"]}</p>
-                        <div class="edit-delet" id="edit_delet">
+                        <div id="edit_back">
+                          <div class="edit-delet" id="edit_delet">
                             <p onclick="edit_contact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
                             <p onclick="delet(${i})"><img src="./assets/img/delete.png"> Delete</p>
+                          </div>
                         </div>
-                        
                     </div>
                 </div>
                 <div>
@@ -239,8 +242,8 @@ async function edit_contact(i) {
             </div>
         </form>
     </div>`;
-    twoLetterGenerator();
-    setItem('allContacts', contacts);
+  twoLetterGenerator();
+  setItem('allContacts', contacts);
 }
 
 async function saveContact(i) {
@@ -250,10 +253,10 @@ async function saveContact(i) {
   const newEmail = document.getElementById("editEmail").value;
   const newTel = document.getElementById("editNumber").value;
 
-    // Den Kontakt mit dem Index 'i' aus dem Array aktualisieren
-    contacts[i]['name'] = newName;
-    contacts[i]['e-mail'] = newEmail;
-    contacts[i]['tel'] = newTel;
+  // Den Kontakt mit dem Index 'i' aus dem Array aktualisieren
+  contacts[i]['name'] = newName;
+  contacts[i]['e-mail'] = newEmail;
+  contacts[i]['tel'] = newTel;
 
   // Kontaktliste aktualisieren
   await setItem("allContacts", contacts);
@@ -358,13 +361,14 @@ function mobil_edit_contact() {
 }
 
 function hideOnSmallScreens() {
-  const mobileBackElement = document.getElementById("mobileBack");
+  let mobileBackElement = document.getElementById("mobileBack");
   if (mobileBackElement) {
     mobileBackElement.style.display =
       window.innerWidth <= 1009 ? "none" : "block";
   }
 }
 function mobilMenu() {
+  moveEditDeleteContainer();
   let editDelet = document.getElementById("edit_delet");
 
   if (editDelet.style.display === "none") {
@@ -373,3 +377,22 @@ function mobilMenu() {
     editDelet.style.display = "none";
   }
 }
+
+function moveEditDeleteContainer() {
+  let editDeleteDiv = document.getElementById("edit_delet");
+  let container2Div = document.getElementById("container2");
+  let editBackDiv = document.getElementById("edit_back");
+
+  if (window.innerWidth < 1009) {
+      // Überprüfen, ob das container2-Element existiert
+      if(container2Div)
+          container2Div.appendChild(editDeleteDiv);
+      
+  } else {
+      // Wenn die Bildschirmgröße größer ist, das edit_delet-Element zurück zu edit_back verschieben
+      if (editBackDiv) {
+        editBackDiv.appendChild(editDeleteDiv);
+      }
+  }
+}
+
