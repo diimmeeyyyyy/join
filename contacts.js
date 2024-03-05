@@ -152,12 +152,27 @@ function transformCloseContacts() {
 async function delet(i) {
   transformCloseContacts();
 
+  await deleteNameFromTask(i);
   contacts.splice(i, 1); // Kontakt aus dem Array löschen
   letters.splice(i, 1); // Entsprechenden Eintrag aus dem 'letters'-Array entfernen
   twolettersName.splice(i, 1); // Entsprechenden Eintrag aus dem 'twolettersName'-Array entfernen
   await setItem("allContacts", contacts);
   updateLettersAndTwoLettersName(); // Aktualisieren der 'letters' und 'twolettersName' Arrays
   contactList(); // Kontaktliste aktualisieren
+}
+async function deleteNameFromTask(i){
+  let allTasks = await getItem("allTasks");
+  let deletedName = contacts[i]["name"];
+  for (let task of allTasks) {
+    if (task["contactsForNewTask"]) {
+      for (let j = 0; j < task["contactsForNewTask"].length; j++) {
+        if (task["contactsForNewTask"][j] === deletedName) {
+          task["contactsForNewTask"].splice(j, 1);
+        }
+      }
+    }
+  }
+  await setItem("allTasks", allTasks);
 }
 
 function updateLettersAndTwoLettersName() {

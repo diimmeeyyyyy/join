@@ -205,16 +205,16 @@ MOBILE HEADER
 }
 
 .board-task-progress {
-  width: 0;
+  width: 50%;
   height: 8px;
   background-color: rgb(244, 244, 244);
   border-radius: 32px;
 }
 
 .board-task-progress-bar {
-  background-color: #0038ff;
+  background-color: rgb(68, 137, 255);
   height: 8px;
-  width: 0;
+  width: 0%;
   border-radius: 32px;
 }
 
@@ -476,5 +476,8 @@ ASSIGNED CONTACTS
   color: rgb(42, 54, 71);
   border: 1px solid rgb(42, 54, 71);
   background-color: rgb(40, 171, 226);
+  margin-left: -10px;
+}
+.item:not(:first-child) {
   margin-left: -10px;
 }

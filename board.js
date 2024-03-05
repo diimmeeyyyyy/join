@@ -44,10 +44,9 @@ async function generateTasks(taskList) {
   for (let j = 0; j < taskList.length; j++) {
     const task = taskList[j];
     const description = task.description ? task.description : "";
-    const subtasksCount =
-      task.subtasks instanceof Array
-        ? "0/" + task.subtasks.length + " Subtasks"
-        : "";
+    const subtasksCount = await subTasksCount(task, taskList);
+    let progressBarWidth = await getProgressBar(task);
+    let hideProgressBar = hideBar(task);
     let prio = addPrioIcon(task);
     let ContactsHTML = contactsHTML(
       task.contactsForNewTask
@@ -61,7 +60,9 @@ async function generateTasks(taskList) {
       prio,
       description,
       task.id,
-      ContactsHTML
+      ContactsHTML,
+      progressBarWidth,
+      hideProgressBar
     );
   }
   return tasksHTML;
@@ -73,7 +74,9 @@ function generateOneTaskHTML(
   prio,
   description,
   id,
-  assignedPersons
+  assignedPersons,
+  progressBarWidth,
+  hideProgressBar
 ) {
   return /*html*/ `
  <div
@@ -90,14 +93,15 @@ function generateOneTaskHTML(
   <div id="board-task-description${id}" class="board-task-description">
     ${description}
   </div>
-  <div class="board-task-subtask-container">
+  <div class="board-task-subtask-container" ${hideProgressBar}>
     <div class="board-task-progress" role="progressbar">
       <div
-        id="board_task_progress_bar${id}"
-        class="board-task-progress-bar w-75"
+        id="Board_Task_Progress_Bar${id}"
+        class="board-task-progress-bar"
+        ${progressBarWidth}
       ></div>
     </div>
-    <span id="board_task_number_of_subtasks">${subtasksCount}</span>
+    <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
     <div id="Board_Task_Contact_Icons" class="board-task-contact-icons">${assignedPersons}</div>
@@ -110,6 +114,45 @@ function generateOneTaskHTML(
 /* =============================
 AUXILIARY FUNCTIONS RENDER-TASKS
 ================================*/
+async function subTasksCount(task) {
+  let checkboxes = await getCheckedCheckboxes(task);
+  let numberOfCheckedSubtasks = checkboxes.filter(
+    (value) => value === true
+  ).length;
+
+  if (!Array.isArray(task.subtasks)) {
+    return "";
+  }
+
+  let totalSubtasks = task.subtasks.length;
+
+  return numberOfCheckedSubtasks + "/" + totalSubtasks + " Subtasks";
+}
+
+async function getProgressBar(task) {
+  let taskIndex = task.id;
+  console.log(task);
+
+  if (task.subtasks) {
+    if (task.subtasks.length > 0) {
+      let progressBar = await getItem(`Board_Task_Progress_Bar${taskIndex}`);
+      return `style="width: ${progressBar}%"`;
+    }
+  } else {
+    return 'style="display: none"';
+  }
+}
+
+function hideBar(task) {
+  if (task.subtasks) {
+    if (task.subtasks.length > 0) {
+      return "";
+    }
+  } else {
+    return 'style="display: none"';
+  }
+}
+
 function getFirstThreeContactsHTML(contacts, numberOfHiddenContacts) {
   let tempDiv = document.createElement("div");
   tempDiv.innerHTML = contacts;
@@ -147,13 +190,24 @@ function contactsHTML(contacts) {
   }
 }
 
-/* async function checkContacts(task) {
-  if (task.contactsForNewTask) {
-    return await createContactsList(task.contactsForNewTask, false);
-  } else {
-    return "";
+function addPrioIcon(task) {
+  switch (task.prio) {
+    case "urgent":
+      return '<img src="./assets/img/priorityUrgent.svg" class="board-task-prio-icon">';
+      break;
+
+    case "medium":
+      return '<img src="./assets/img/priorityMedium.svg" class="board-task-prio-icon">';
+      break;
+
+    case "low":
+      return '<img src="./assets/img/priorityLow.svg" class="board-task-prio-icon">';
+      break;
+
+    default:
+      return "";
   }
-} */
+}
 
 /* ================
 DRAG & DROP FUNCTIONS
@@ -254,39 +308,6 @@ function findTask() {
   }
 }
 
-/*  async function showProgressBar(task) {
-     if (task.subtask) {
-         return `
-              <div class= "board-task-subtask-container">
-              <div class="board-task-progress" role="progressbar">
-                 <div id="board_task_progress_bar${i}" class="board-task-progress-bar w-75"></div>
-              </div>
-              <span id="board_task_number_of_subtasks${i}">${subtasksCount}</span>
-              </div>
-         `;
-     } else { ''
-     }
- } */
-
-function addPrioIcon(task) {
-  switch (task.prio) {
-    case "urgent":
-      return '<img src="./assets/img/priorityUrgent.svg" class="board-task-prio-icon">';
-      break;
-
-    case "medium":
-      return '<img src="./assets/img/priorityMedium.svg" class="board-task-prio-icon">';
-      break;
-
-    case "low":
-      return '<img src="./assets/img/priorityLow.svg" class="board-task-prio-icon">';
-      break;
-
-    default:
-      return "";
-  }
-}
-
 /* ========================
 SHOW LARGE VIEW OF ONE TASK
 ===========================*/
@@ -309,7 +330,7 @@ async function renderTaskLargeview(taskIndex) {
     ? await createContactsList(task.contactsForNewTask, true)
     : "";
   let subtasks = task.subtasks
-    ? createSubtasklist(task.subtasks, taskIndex)
+    ? await createSubtasklist(task.subtasks, taskIndex)
     : "";
 
   board.innerHTML += generateTaskLargeViewHTML(
@@ -411,48 +432,95 @@ function generateContactListHTML(contact, showName) {
       <span class="item">${getIconForContact(contact)}</span>`;
   }
 }
-
+/* =======================
+TASKS LARGEVIEW SUBTASKS
+==========================*/
 async function updateProgress(taskIndex) {
-  let checkboxes = document.querySelectorAll(".board-task-subtask-checkbox"); // alle Checkboxelemente auswählen
+  let checkboxes = document.querySelectorAll(
+    `[id^='Board_Task_Subtask_Checkbox${taskIndex}']`
+  ); // alle Checkboxelemente auswählen
   let checkedCount = 0; //Variable, um die Anzahl der ausgewählten Checkboxen zu speichern
 
   for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
       checkedCount++; //wenn eine Checkbox ausgewählt wurde, wird checkedCount erhöht
     }
+    await setItem(
+      `Board_Task_Subtask_Checkbox${taskIndex}${i}`,
+      checkboxes[i].checked.toString()
+    );
   }
-
-  let percent = (checkedCount / checkboxes.length) * 100;
-
-  document.getElementById(
-    `board_task_progress_bar${taskIndex}`
-  ).style.width = `${percent}%`;
-  document.getElementById(
-    `board_task_number_of_subtasks${taskIndex}`
-  ).innerHTML = `${checkedCount}` + "/" + `${checkboxes.length}` + "Subtasks";
+  await updateProgressBar(taskIndex, checkedCount, checkboxes.length);
 }
 
-function createSubtasklist(subtasks, taskIndex) {
-  let subtasklist = "";
+async function updateProgressBar(taskIndex, checkedCount, checkboxAmount) {
+  let percent = (checkedCount / checkboxAmount) * 100;
 
+  document.getElementById(
+    `Board_Task_Progress_Bar${taskIndex}`
+  ).style.width = `${percent}%`;
+  await setItem(`Board_Task_Progress_Bar${taskIndex}`, percent);
+
+  document.getElementById(
+    `board_task_number_of_subtasks${taskIndex}`
+  ).innerHTML = `${checkedCount}` + "/" + `${checkboxAmount}` + "Subtasks";
+}
+
+async function getCheckedCheckboxes(task) {
+  let subtaskAmount = 0;
+  if (task.hasOwnProperty("subtasks")) {
+    subtaskAmount = task["subtasks"];
+  }
+
+  let checkboxStatus = [];
+  for (let i = 0; i < subtaskAmount.length; i++) {
+    let checkbox = JSON.parse(
+      await getItem(`Board_Task_Subtask_Checkbox${task.id}${i}`)
+    );
+    console.log(checkbox);
+    checkboxStatus.push(checkbox);
+  }
+  return checkboxStatus;
+}
+
+async function createSubtasklist(subtasks, taskIndex) {
+  let tasks = await getItem("allTasks");
+  let task = tasks[taskIndex];
+  let checkedCheckboxes = await getCheckedCheckboxes(task);
+  console.log(checkedCheckboxes);
+
+  let subtasklist = "";
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
-    subtasklist += `
-         <div class = "board-task-subtasks-largeview">
-             <input onclick = updateProgress(${taskIndex}); id="Board_Task_Subtask_Checkbox${i}" type="checkbox" class="board-task-subtask-checkbox">
-             <label for="Board_Task_Subtask_Checkbox${i}"> &nbsp ${subtask}</label>
-        </div>
-    `;
+    let checkedAttribute = checkedCheckboxes[i] ? "checked" : "";
+    subtasklist += generateSubtaskListHTML(
+      taskIndex,
+      i,
+      subtask,
+      checkedAttribute
+    );
   }
   return subtasklist;
 }
 
-function closeLargeview() {
-  let largeviewPopup = document.getElementById(
-    "Board_Task_Container_Largeview"
-  );
-  largeviewPopup.remove();
-  largeViewIsOpen = false;
+function generateSubtaskListHTML(taskIndex, i, subtask, checkedAttribute) {
+  return /*html*/ `
+    <div
+  id="Board_Task_Subtasks_Largeview${taskIndex}"
+  class="board-task-subtasks-largeview"
+>
+  <input
+    onclick="updateProgress(${taskIndex});"
+    id="Board_Task_Subtask_Checkbox${taskIndex}${i}"
+    type="checkbox"
+    class="board-task-subtask-checkbox${taskIndex}${i}"
+    ${checkedAttribute}
+  />
+  <label for="Board_Task_Subtask_Checkbox${taskIndex}${i}">
+    &nbsp ${subtask}</label
+  >
+</div>
+  `;
 }
 
 function openAddTaskPopUp() {
@@ -464,7 +532,19 @@ function closeAddTaskPopup() {
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "none";
 }
-
+/* =======================
+TASK LARGEVIEW CLOSE POP-UP
+===========================*/
+function closeLargeview() {
+  let largeviewPopup = document.getElementById(
+    "Board_Task_Container_Largeview"
+  );
+  largeviewPopup.remove();
+  largeViewIsOpen = false;
+}
+/* ==================
+TASK LARGEVIEW DELETE
+=====================*/
 async function deleteTask(i) {
   _taskList.splice(i, 1);
   reassignTaskIds(_taskList);
