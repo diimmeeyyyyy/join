@@ -9,40 +9,4 @@
 
 .add-task-clear-button {
   background-color: rgb(246, 247, 248);
-  ;
-}
-
-/* ================
-RESPONSIVE-DESIGN
-===================*/
-
-@media (max-width: 1090px) {
-  .add-task-form-container {
-    margin-left: 0;
-    margin-bottom: 82px;
-    /* ändern, wenn sidebar ändern*/
-    box-sizing: border-box;
-  }
-
-  .add-task-inputfield-container {
-    margin-left: 16px;
-    margin-right: 16px;
-    box-sizing: border-box;
-  }
-
-
-  #add_task_contacts_content {
-    height: 0;
-  }
-
-  .add-task-legend-and-form-buttons {
-    height: 80px;
-    margin-bottom: 80px;
-    z-index: 2;
-    /* ändern, wenn sidebar ändern*/
-  }
-
-  .add-task-clear-button {
-    display: none;
-  }
 }

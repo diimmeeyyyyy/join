@@ -8,6 +8,7 @@ ADD TASK-SECTION
   gap: clamp(16px, 5vw, 64px);
   margin-top: 32px;
   font-size: clamp(16px, 5vw, 20px);
+  position: relative;
 }
 
 .add-task-inputfield-column {
@@ -271,8 +272,9 @@ FORM-BUTTONS & LEGEND
 .add-task-legend-and-form-buttons {
   display: flex;
   justify-content: space-between;
-  max-width: 870px;
+  width: 100%;
 }
+
 
 .add-task-legend {
   font-weight: 8px;
@@ -352,21 +354,35 @@ FORM-BUTTONS & LEGEND
 RESPONSIVE-DESIGN
 ===================*/
 
+
+/* Break point 1 (1090px)*/
 @media (max-width: 1090px) {
+
+  .add-task-form-container {
+    margin-left: 0;
+    /* box-sizing: border-box; */
+  }
+
+  .headline-and-close-button-container {
+    margin-top: 64px;
+    margin-left: 32px;
+  }
+
   .add-task-inputfield-container {
     flex-direction: column;
     align-items: center;
-    margin-left: 16px;
-    margin-right: 16px;
+    margin-left: 32px;
+    margin-right: 32px;
+    margin-bottom: 32px;
   }
 
   .add-task-inputfield-column {
-    width: 100%; 
+    width: 100%;
   }
 
-  /* .headline-and-close-button-container {
-    width: clamp(80px, 90%, 620px);
-} */
+  #add_task_contacts_content {
+    height: 0;
+  }
 
   .add-task-dividing-line {
     display: none;
@@ -374,28 +390,68 @@ RESPONSIVE-DESIGN
 
   .add-task-legend-and-form-buttons {
     display: flex;
-    position: fixed;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
     bottom: 0;
-    width: 100%;
-    background-color: rgb(246, 247, 248);
+    left: 232px; 
+    height: 80px;
+    box-sizing: border-box;
+    margin-bottom: 0;
     padding-left: 32px;
     padding-right: 32px;
+    z-index: 2;
+    background-color: rgb(246, 247, 248);
+  }
+
+  .add-task-clear-button {
+    display: none;
   }
 }
 
-.add-task-legend-and-form-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 64px;
-  padding: 0;
-  background-color: aqua;
-}
 
+
+
+/* Break point 2 (850px)*/
 @media (max-width: 850px) {
+
+  .add-task-form-container {
+    margin-bottom: 80px;
+  }
+
+ .headline-and-close-button-container {
+    margin-left: 16px;
+  }
+
+  .add-task-inputfield-container {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
   .add-task-inputfield-column {
     width: 100%;
+  }
+
+  .add-task-legend-and-form-buttons {
+    position: sticky;
+    bottom: 82px;                           /* ändern, falls sidebar ändern */      
+    left: 0;  
+ 
+  }
+}
+
+
+
+
+
+/* Break point 3 (370px)*/
+@media (max-width: 370px) {
+  .add-task-prio-button {
+    font-size: 14px;
+    gap: 4px;
+  }
+
+  .add-task-prio-icon {
+    width: 14px;
   }
 }
