@@ -19,6 +19,18 @@ p {
   margin-block-end: 0;
 }
 
+.pop-up-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
 /* ============================
 TO ADD SIDEBAR + HEADER TO HTML
 ================================*/
@@ -375,14 +387,14 @@ a {
   left: 50%;
   transform: translateX(-50%);
 }
-.impressum-color{
-  color:rgb(205, 205, 205);
+.impressum-color {
+  color: rgb(205, 205, 205);
 }
 .impressum span:hover {
   cursor: pointer;
   color: rgb(0, 204, 255);
 }
-.impressum-sidebar{
+.impressum-sidebar {
   padding: 20px;
 }
 

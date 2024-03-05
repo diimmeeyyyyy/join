@@ -254,6 +254,7 @@ MOBILE HEADER
   flex-direction: column;
   padding: 36px;
   word-break: break-all;
+  z-index: 3;
 }
 
 .board-task-category-and-closebutton-container {

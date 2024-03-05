@@ -354,6 +354,7 @@ function generateTaskLargeViewHTML(
   taskIndex
 ) {
   return /*html*/ `
+  <div id="Pop_Up_Backdrop" class="pop-up-backdrop">
     <div id="Board_Task_Container_Largeview" class="board-task-container-largeview">
             <div class = "board-task-category-and-closebutton-container">
                 <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
@@ -381,6 +382,7 @@ function generateTaskLargeViewHTML(
                 </div>
             </div>
         </div>
+    </div>
 `;
 }
 
@@ -528,14 +530,14 @@ function openAddTaskPopUp() {
   if (window.innerWidth >= 1090) {
     addTaskPopup.style.display = "unset";
   } else {
-    window.location.href = 'add_Task.html';
+    window.location.href = "add_Task.html";
   }
 }
-
 
 function closeAddTaskPopup() {
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "none";
+  // Entfernen Sie das Hintergrundelement aus dem DOM
 }
 /* =======================
 TASK LARGEVIEW CLOSE POP-UP
@@ -544,6 +546,7 @@ function closeLargeview() {
   let largeviewPopup = document.getElementById(
     "Board_Task_Container_Largeview"
   );
+  document.getElementById("Pop_Up_Backdrop").remove();
   largeviewPopup.remove();
   largeViewIsOpen = false;
 }
