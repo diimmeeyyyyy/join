@@ -101,7 +101,7 @@ function generateOneTaskHTML(
         ${progressBarWidth}
       ></div>
     </div>
-    <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
+    <span id="Board_Task_Number_Of_Subtasks${id}">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
     <div id="Board_Task_Contact_Icons" class="board-task-contact-icons">${assignedPersons}</div>
@@ -389,6 +389,7 @@ function generateTaskLargeViewHTML(
 async function editTask(taskIndex) {
   const allTasks = await getTasks();
 }
+
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
   let day = date.getDate(); // Tag, Monat & Jahr werden aus dem Date-Objekt extrahiert
@@ -435,7 +436,7 @@ function generateContactListHTML(contact, showName) {
   }
 }
 /* =======================
-TASKS LARGEVIEW SUBTASKS
+TASK-LARGEVIEW SUBTASKS
 ==========================*/
 async function updateProgress(taskIndex) {
   let checkboxes = document.querySelectorAll(
@@ -464,7 +465,7 @@ async function updateProgressBar(taskIndex, checkedCount, checkboxAmount) {
   await setItem(`Board_Task_Progress_Bar${taskIndex}`, percent);
 
   document.getElementById(
-    `board_task_number_of_subtasks${taskIndex}`
+    `Board_Task_Number_Of_Subtasks${taskIndex}`
   ).innerHTML = `${checkedCount}` + "/" + `${checkboxAmount}` + "Subtasks";
 }
 
@@ -475,12 +476,16 @@ async function getCheckedCheckboxes(task) {
   }
 
   let checkboxStatus = [];
+  
   for (let i = 0; i < subtaskAmount.length; i++) {
-    let checkbox = JSON.parse(
-      await getItem(`Board_Task_Subtask_Checkbox${task.id}${i}`)
-    );
+    let checkbox = await getItem(`Board_Task_Subtask_Checkbox${task.id}${i}`);
     console.log(checkbox);
-    checkboxStatus.push(checkbox);
+    if (checkbox === true || checkbox === false) {
+      checkbox = JSON.parse(checkbox);
+      checkboxStatus.push(checkbox);
+    } else {
+      checkboxStatus.push(false);
+    }
   }
   return checkboxStatus;
 }
@@ -489,7 +494,6 @@ async function createSubtasklist(subtasks, taskIndex) {
   let tasks = await getItem("allTasks");
   let task = tasks[taskIndex];
   let checkedCheckboxes = await getCheckedCheckboxes(task);
-  console.log(checkedCheckboxes);
 
   let subtasklist = "";
   for (let i = 0; i < subtasks.length; i++) {
@@ -524,21 +528,6 @@ function generateSubtaskListHTML(taskIndex, i, subtask, checkedAttribute) {
 </div>
   `;
 }
-
-function openAddTaskPopUp() {
-  let addTaskPopup = document.getElementById("add_task_popup");
-  if (window.innerWidth >= 1090) {
-    addTaskPopup.style.display = "unset";
-  } else {
-    window.location.href = "add_Task.html";
-  }
-}
-
-function closeAddTaskPopup() {
-  let addTaskPopup = document.getElementById("add_task_popup");
-  addTaskPopup.style.display = "none";
-  // Entfernen Sie das Hintergrundelement aus dem DOM
-}
 /* =======================
 TASK LARGEVIEW CLOSE POP-UP
 ===========================*/
@@ -557,6 +546,18 @@ async function deleteTask(i) {
   _taskList.splice(i, 1);
   reassignTaskIds(_taskList);
   await setItem("allTasks", _taskList);
+
+  // Shift progress bar values down
+  for (let j = i; j < _taskList.length; j++) {
+    const nextProgressBarValue = await getItem(
+      `Board_Task_Progress_Bar${j + 1}`
+    );
+    await setItem(`Board_Task_Progress_Bar${j}`, nextProgressBarValue);
+  }
+  // Remove the last progress bar value
+  await setItem(`Board_Task_Progress_Bar${_taskList.length}`, []);
+  setItem(`Board_Task_Subtask_Checkbox${_taskList.length}`, []);
+
   closeLargeview();
   noTaskToDoNotification();
   renderTasks();
@@ -565,6 +566,23 @@ function reassignTaskIds(tasks) {
   for (let i = 0; i < tasks.length; i++) {
     tasks[i].id = i;
   }
+}
+/* ============================
+OPEN & CLOSE ADD TASK - POP-UP
+===============================*/
+function openAddTaskPopUp() {
+  let addTaskPopup = document.getElementById("add_task_popup");
+  if (window.innerWidth >= 1090) {
+    addTaskPopup.style.display = "unset";
+  } else {
+    window.location.href = "add_Task.html";
+  }
+}
+
+function closeAddTaskPopup() {
+  let addTaskPopup = document.getElementById("add_task_popup");
+  addTaskPopup.style.display = "none";
+  // Entfernen Sie das Hintergrundelement aus dem DOM
 }
 /* ====================================
 WHEN SCREEN < 1090, SHOW OR HIDE ARROWS

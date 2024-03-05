@@ -210,6 +210,9 @@ MOBILE HEADER
   background-color: rgb(244, 244, 244);
   border-radius: 32px;
 }
+/* {
+  width: 50%;
+} */
 
 .board-task-progress-bar {
   background-color: rgb(68, 137, 255);
