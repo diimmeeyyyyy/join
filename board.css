@@ -450,13 +450,14 @@ ASSIGNED CONTACTS
 =================*/
 .board-task-contact-icons {
   display: flex;
+  align-items: center;
   cursor: pointer;
 }
-.board-task-contact-icons .item:not(:first-child) {
+.board-task-contact-icons .button-name:not(:first-child) {
   margin-left: -10px;
 }
 
-.initialCircle {
+/* .initialCircle {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -464,4 +465,16 @@ ASSIGNED CONTACTS
   align-items: center;
   justify-content: center;
   border: 1px solid black;
+} */
+.show-amount-of-hidden-contacts {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(42, 54, 71);
+  border: 1px solid rgb(42, 54, 71);
+  background-color: rgb(40, 171, 226);
+  margin-left: -10px;
 }

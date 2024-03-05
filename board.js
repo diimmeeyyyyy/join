@@ -49,9 +49,11 @@ async function generateTasks(taskList) {
         ? "0/" + task.subtasks.length + " Subtasks"
         : "";
     let prio = addPrioIcon(task);
-    let contacts = task.contactsForNewTask
-      ? await createContactsList(task.contactsForNewTask, false)
-      : "";
+    let ContactsHTML = contactsHTML(
+      task.contactsForNewTask
+        ? await createContactsList(task.contactsForNewTask, false)
+        : ""
+    );
 
     tasksHTML += generateOneTaskHTML(
       task,
@@ -59,7 +61,7 @@ async function generateTasks(taskList) {
       prio,
       description,
       task.id,
-      contacts
+      ContactsHTML
     );
   }
   return tasksHTML;
@@ -98,12 +100,60 @@ function generateOneTaskHTML(
     <span id="board_task_number_of_subtasks">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div class="board-task-contact-icons">${assignedPersons}</div>
+    <div id="Board_Task_Contact_Icons" class="board-task-contact-icons">${assignedPersons}</div>
     <span>${prio}</span>
   </div>
 </div>
     `;
 }
+
+/* =============================
+AUXILIARY FUNCTIONS RENDER-TASKS
+================================*/
+function getFirstThreeContactsHTML(contacts, numberOfHiddenContacts) {
+  let tempDiv = document.createElement("div");
+  tempDiv.innerHTML = contacts;
+
+  let items = Array.from(tempDiv.querySelectorAll(".button-name")).slice(0, 3);
+  //Sucht alle Elemente innerhalb von tempDiv, die klasse "button-name" hat, querySelectorAll gibt NodeList zurück, die mit Array.from in ein Array umgewandelt wird
+  //slice(0, 3), um ersten drei Elemente dieses Arrays zu behalten
+  let firstThreeContactsHTML = "";
+  for (let item of items) {
+    firstThreeContactsHTML += item.outerHTML;
+  }
+
+  let html = /*html*/ `
+     ${firstThreeContactsHTML}
+    <span class="show-amount-of-hidden-contacts">
+          +${numberOfHiddenContacts}
+    </span>
+  `;
+  return html;
+}
+
+function contactsHTML(contacts) {
+  if (contacts === "") {
+    return "";
+  }
+  let tempDiv = document.createElement("div");
+  tempDiv.innerHTML = contacts;
+  let contactCount = tempDiv.querySelectorAll(".button-name").length;
+
+  if (contactCount > 3) {
+    let numberOfHiddenContacts = contactCount - 3;
+    return getFirstThreeContactsHTML(contacts, numberOfHiddenContacts);
+  } else {
+    return contacts;
+  }
+}
+
+/* async function checkContacts(task) {
+  if (task.contactsForNewTask) {
+    return await createContactsList(task.contactsForNewTask, false);
+  } else {
+    return "";
+  }
+} */
 
 /* ================
 DRAG & DROP FUNCTIONS
