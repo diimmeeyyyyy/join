@@ -297,22 +297,22 @@ body {
 
 }
 
-.edit-delet {
+.edit-delete {
   display: flex;
   gap: 8px;
   font-size: 16px;
 }
 
-.edit-delet p:hover {
+.edit-delete p:hover {
   cursor: pointer;
 }
 
-.edit-delet img p {
+.edit-delete img p {
   width: 24px;
   height: 24px;
 }
 
-.edit-delet p {
+.edit-delete p {
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -549,7 +549,7 @@ a {
     transform: translateX(0px);
   }
 
-  .edit-delet{
+  .edit-delete{
     position: fixed;
     right: 265px;
     bottom: 180px;
@@ -573,7 +573,7 @@ a {
   }
 }
 /* @media (max-width:920px){
-  .edit-delet{
+  .edit-delete{
     right: -150px;
   }
 } */
@@ -714,7 +714,7 @@ a {
   .container-and-new-contact-push {
     height: calc(100vh - 180px);
   }
-  .edit-delet{
+  .edit-delete{
     right: 40px;
   }
   .add-contact h1 {
@@ -804,6 +804,8 @@ a {
   }
   .contacts {
     padding: 0px;
+    padding-left: 5px;
+    width: 275px;
   }
   .edit{
     width: 300px;
