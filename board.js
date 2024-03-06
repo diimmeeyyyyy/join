@@ -465,7 +465,8 @@ async function updateProgress(taskIndex, subtaskIndex, checkedAttribute) {
   await setItem("allTasks", allTasks);
 }
 
-function updateProgressBarAndCount(task){
+function updateProgressBarAndCount(task) {
+  let taskIndex = task.id;
   let progressBarWidth = getProgressBarWidth(task);
   document.getElementById(
     `Board_Task_Progress_Bar${taskIndex}`

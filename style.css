@@ -19,6 +19,12 @@ p {
   margin-block-end: 0;
 }
 
+/* .hover-button-effect:hover{
+  background-color: #29abe2;
+  filter: drop-shadow();
+} */
+
+
 .pop-up-backdrop {
   position: fixed;
   top: 0;
@@ -86,10 +92,15 @@ HEADER
   color: white;
   background-color: rgb(43, 54, 71);
   padding: 10px;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 700;
   font-size: clamp(18px, 2vw, 21px);
+}
+.add-task-button:hover {
+  background-color: rgb(40, 171, 226);
+  filter: drop-shadow(2px 4px 6px black);
 }
 
 /* =======
@@ -192,6 +203,13 @@ TASK OVERVIEW & GREETINGS SECTION
   width: clamp(150px, 45vw, 260px);
   height: clamp(100px, 26vw, 170px);
   gap: 15px;
+  cursor: pointer;
+}
+
+.summary-task-overview-toDo-and-done span:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+  background-color: rgb(41, 54, 71);
 }
 
 .arrange-amount-and-status {
