@@ -39,18 +39,23 @@ async function toggleContactsDropdown() {
 async function renderContactsInAddTask() {
   let allContacts = await loadContacts();
 
-  // TODO If the contact list is empty, get element add-task-placeholder, change text and add a grey color (CSS class)
+  if (allContacts.length === 0) {
+    let placeholder = document.getElementById('add_task_placeholder');
+    let drowDownArrow = document.getElementById('add-task-inputfield-arrow');
+    placeholder.style.color = "rgb(178, 177, 177)";
+    placeholder.innerText = "No Contacts available";
+    drowDownArrow.style.display = "none"; } else {
 
-  let contactsContainer = document.getElementById("add_task_contacts_content");
-  contactsContainer.innerHTML += `
+    let contactsContainer = document.getElementById("add_task_contacts_content");
+    contactsContainer.innerHTML += `
     <div id="add_task_contacts_container" class="add-task-contacts-container"> 
     </div>
     `;
 
-  let contactList = document.getElementById('add_task_contacts_container');
-  for (let i = 0; i < allContacts.length; i++) {
-    const contact = allContacts[i];
-    contactList.innerHTML += `
+    let contactList = document.getElementById('add_task_contacts_container');
+    for (let i = 0; i < allContacts.length; i++) {
+      const contact = allContacts[i];
+      contactList.innerHTML += `
       <div id="add_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')"> 
         <div class="add-task-contact-icon-and-name">
             <div>${getIconForContact(contact)}</div>
@@ -59,6 +64,7 @@ async function renderContactsInAddTask() {
         <input class="add-task-contact-check" id="add_task_contact_checkbox_checkbox${i}" type="checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')">
       </div>
     `;
+    }
   }
 }
 

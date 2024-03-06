@@ -9,7 +9,6 @@ let twolettersName = contacts.map((contact) => {
   return twoNummber.join("");
 });
 
-
 async function initContacts() {
   await includeHTML();
   await loadContacts();
@@ -22,7 +21,6 @@ async function initContacts() {
   window.onresize = hideOnSmallScreens;
 }
 
-
 async function loadContacts() {
   try {
     contacts = await getItem("allContacts");
@@ -31,7 +29,6 @@ async function loadContacts() {
     console.info("Not load Contacts");
   }
 }
-
 
 async function addContact() {
   let text = document.getElementById("text").value;
@@ -44,6 +41,7 @@ async function addContact() {
     tel: number,
     color: getRandomColor(), // Zufällige Hintergrundfarbe generieren und zuweisen
   };
+
   contacts.push(newContact);
   await setItem("allContacts", contacts);
   contactsSort();
@@ -89,6 +87,7 @@ async function contactList() {
                 </div>`;
       previousLetter = currentLetter; // Aktualisiere den vorherigen Buchstaben
     }
+
     list.innerHTML += /*html*/ `
             <div id="newColorContact${i}" class="contacts" onclick="pushContact(${i})">
                 <button class="button-name" style="background-color: ${contact.color};">${twolettersName[i]}</button>
@@ -104,43 +103,41 @@ function pushContact(i) {
   pushContact.innerHTML = "";
   contactListColor(i);
   transformNewContacts();
-  pushContact.innerHTML = renderContactButton(i);
-  pushContact.innerHTML += renderContactInformation(i)
-  mobileBackRemove();
-}
-
-function renderContactButton(i){
   const contact = contacts[i]; // Den Kontakt mit dem Index 'i' abrufen
   const buttonColor = contact.color; // Hintergrundfarbe aus dem Kontaktobjekt
 
-  return /*html*/ `
-  <div class="contacts-list">
-      <button class="button-name-contacts" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
-      <div>
-          <p class="contacts-name">${contacts[i]["name"]}</p>
-          <div id="edit_back">
-            <div class="edit-delete" id="edit_delete">
-              <p onclick="edit_contact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
-              <p onclick="delit(${i})"><img src="./assets/img/delete.png"> Delete</p>
-            </div>
-          </div>
-      </div>
-  </div>
-`;
-}
+  pushContact.innerHTML = /*html*/ `
 
-function renderContactInformation(i) {
-  return /*html*/`
-    <div>
-      <p class="contact-information">Contact Information</p>
-    </div>
-    <div class="email-phone">
-      <p class="name-email-phone">Email</p> <br>
-      <a href="">${contacts[i]["e-mail"]}</a> <br> <br>
-      <p class="name-email-phone">Phone</p> <br>
-      <p>${contacts[i]["tel"]}</p>
-    </div>
-  `;
+                <div class="contacts-list">
+                    <button class="button-name-contacts" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
+                    <div>
+                        <p class="contacts-name">${contacts[i]["name"]}</p>
+                        <div id="edit_back">
+                          <div class="edit-delet" id="edit_delet">
+                            <p onclick="edit_contact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
+                            <p onclick="delet(${i})"><img src="./assets/img/delete.png"> Delete</p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="contact-information">Contact Information</p>
+                </div>
+                <div class="email-phone">
+
+                    <p class="name-email-phone">Email</p> <br>
+                    <a href="">${contacts[i]["e-mail"]}</a> <br> <br>
+
+
+                    <p class="name-email-phone"> Phone</p> <br>
+                    <p>${contacts[i]["tel"]}</p>
+
+                </div>
+
+            </div>
+    `;
+  mobileBackRemove();
+  /*  mobilEdit(i); */
 }
 
 function transformNewContacts() {
@@ -164,7 +161,6 @@ async function delet(i) {
   updateLettersAndTwoLettersName(); // Aktualisieren der 'letters' und 'twolettersName' Arrays
   contactList(); // Kontaktliste aktualisieren
 }
-
 async function deleteNameFromTask(i){
   let allTasks = await getItem("allTasks");
   let deletedName = contacts[i]["name"];
@@ -238,8 +234,16 @@ async function edit_contact(i) {
   const tel = contact["tel"];
 
   edit.innerHTML = "";
-  edit.innerHTML = returnEditContactOne()+ /*html*/ `
-      <div class="edit-two">
+  edit.innerHTML = /*html*/ `
+          <div class="edit">
+        <div class="edit-one">
+            <img class="join-png" src="./assets/img/join-mobile.png" alt="Bild Join">
+            <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
+            <p> Edit contact</p>
+            <div class="parting-line"></div>
+        </div>
+    </div>
+    <div class="edit-two">
         <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
         <form class="form" id="editForm" onsubmit="saveContact(${i}); return false;">
             <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
@@ -253,19 +257,6 @@ async function edit_contact(i) {
     </div>`;
   twoLetterGenerator();
   setItem('allContacts', contacts);
-}
-
-function returnEditContactOne(){
-  return /*html*/`
-    <div class="edit">
-        <div class="edit-one">
-            <img class="join-png" src="./assets/img/join-mobile.png" alt="Bild Join">
-            <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
-            <p> Edit contact</p>
-            <div class="parting-line"></div>
-        </div>
-    </div>
-  `
 }
 
 async function saveContact(i) {
@@ -377,7 +368,6 @@ function mobileBackRemove() {
     mobileBackElement.style.display = "block";
   }
 }
-
 function mobil_edit_contact() {
   let editContact = document.getElementById("edit_contact");
   editContact.classList.add("d-none");
@@ -390,10 +380,9 @@ function hideOnSmallScreens() {
       window.innerWidth <= 1009 ? "none" : "block";
   }
 }
-
 function mobilMenu() {
   moveEditDeleteContainer();
-  let editDelet = document.getElementById("edit_delete");
+  let editDelet = document.getElementById("edit_delet");
 
   if (editDelet.style.display === "none") {
     editDelet.style.display = "block";
@@ -403,7 +392,7 @@ function mobilMenu() {
 }
 
 function moveEditDeleteContainer() {
-  let editDeleteDiv = document.getElementById("edit_delete");
+  let editDeleteDiv = document.getElementById("edit_delet");
   let container2Div = document.getElementById("container2");
   let editBackDiv = document.getElementById("edit_back");
 
@@ -413,7 +402,7 @@ function moveEditDeleteContainer() {
           container2Div.appendChild(editDeleteDiv);
       
   } else {
-      // Wenn die Bildschirmgröße größer ist, das edit_delete-Element zurück zu edit_back verschieben
+      // Wenn die Bildschirmgröße größer ist, das edit_delet-Element zurück zu edit_back verschieben
       if (editBackDiv) {
         editBackDiv.appendChild(editDeleteDiv);
       }
