@@ -180,7 +180,7 @@ TASK OVERVIEW & GREETINGS SECTION
 .summary-task-overview-toDo-and-done {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  gap: clamp(10px, 3vw, 30px);
 }
 
 .summary-task-overview-toDo-and-done span {
@@ -189,8 +189,8 @@ TASK OVERVIEW & GREETINGS SECTION
   justify-content: center;
   background-color: white;
   border-radius: 30px;
-  width: 260px;
-  height: clamp(110px, 26vw, 170px);
+  width: clamp(150px, 45vw, 260px);
+  height: clamp(100px, 26vw, 170px);
   gap: 15px;
 }
 
@@ -252,8 +252,8 @@ TASK OVERVIEW & GREETINGS SECTION
 }
 
 .summary-task-overview-information div {
-  width: clamp(110px, 26vw, 170px);
-  height: clamp(110px, 26vw, 170px);
+  width: clamp(100px, 26vw, 170px);
+  height: clamp(100px, 26vw, 170px);
   background-color: white;
   border-radius: 30px;
   display: flex;
@@ -317,6 +317,9 @@ MEDIA-QUERIES
   .help-and-initials-div img {
     display: none;
   }
+  .summary-task-section {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 1050px) {
@@ -368,6 +371,9 @@ SIDEBAR NAVIGATION
   gap: 10px;
   padding-left: 55px;
   padding-block: 10px;
+}
+.span-sidebar p {
+  font-size: clamp(15px, 4vw, 18px);
 }
 a {
   text-decoration: none;

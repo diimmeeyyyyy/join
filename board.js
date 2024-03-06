@@ -45,7 +45,7 @@ async function generateTasks(taskList) {
     const task = taskList[j];
     const description = task.description ? task.description : "";
     const subtasksCount = await subTasksCount(task, taskList);
-    let progressBarWidth = await getProgressBar(task);
+    let progressBarWidth = await generateProgressBar(task);
     let hideProgressBar = hideBar(task);
     let prio = addPrioIcon(task);
     let ContactsHTML = contactsHTML(
@@ -115,32 +115,45 @@ function generateOneTaskHTML(
 AUXILIARY FUNCTIONS RENDER-TASKS
 ================================*/
 async function subTasksCount(task) {
-  let checkboxes = await getCheckedCheckboxes(task);
-  let numberOfCheckedSubtasks = checkboxes.filter(
-    (value) => value === true
-  ).length;
-
+  let checkedCheckboxes = getCheckedCount(task["subtasks"]);
   if (!Array.isArray(task.subtasks)) {
     return "";
   }
-
   let totalSubtasks = task.subtasks.length;
-
-  return numberOfCheckedSubtasks + "/" + totalSubtasks + " Subtasks";
+  return checkedCheckboxes + "/" + totalSubtasks + " Subtasks";
 }
 
-async function getProgressBar(task) {
+function getProgressBarWidth(task) {
+  let subtasks = task["subtasks"];
+  let subtaskAmount = subtasks.length;
+  let checkedCount = getCheckedCount(subtasks);
+  let percent;
+  percent = (checkedCount / subtaskAmount) * 100;
+  return percent;
+}
+
+async function generateProgressBar(task) {
   let taskIndex = task.id;
-  console.log(task);
+  let progressBarWidth = getProgressBarWidth(task);
 
   if (task.subtasks) {
     if (task.subtasks.length > 0) {
       let progressBar = await getItem(`Board_Task_Progress_Bar${taskIndex}`);
-      return `style="width: ${progressBar}%"`;
+      return `style="width: ${progressBarWidth}%"`;
     }
   } else {
     return 'style="display: none"';
   }
+}
+
+function getCheckedCount(subtasks) {
+  let checkedCount = 0;
+  for (let oneSubtask of subtasks) {
+    if (oneSubtask.checked) {
+      checkedCount++;
+    }
+  }
+  return checkedCount;
 }
 
 function hideBar(task) {
@@ -329,9 +342,7 @@ async function renderTaskLargeview(taskIndex) {
   let contacts = task.contactsForNewTask
     ? await createContactsList(task.contactsForNewTask, true)
     : "";
-  let subtasks = task.subtasks
-    ? await createSubtasklist(task.subtasks, taskIndex)
-    : "";
+  let subtasks = task.subtasks ? await createSubtasklist(taskIndex) : "";
 
   board.innerHTML += generateTaskLargeViewHTML(
     task,
@@ -438,67 +449,53 @@ function generateContactListHTML(contact, showName) {
 /* =======================
 TASK-LARGEVIEW SUBTASKS
 ==========================*/
-async function updateProgress(taskIndex) {
-  let checkboxes = document.querySelectorAll(
-    `[id^='Board_Task_Subtask_Checkbox${taskIndex}']`
-  ); // alle Checkboxelemente auswählen
-  let checkedCount = 0; //Variable, um die Anzahl der ausgewählten Checkboxen zu speichern
-
-  for (let i = 0; i < checkboxes.length; i++) {
-    if (checkboxes[i].checked) {
-      checkedCount++; //wenn eine Checkbox ausgewählt wurde, wird checkedCount erhöht
-    }
-    await setItem(
-      `Board_Task_Subtask_Checkbox${taskIndex}${i}`,
-      checkboxes[i].checked.toString()
-    );
+async function updateProgress(taskIndex, subtaskIndex, checkedAttribute) {
+  let changedStatus;
+  if (checkedAttribute === "checked") {
+    changedStatus = false;
+  } else {
+    changedStatus = true;
   }
-  await updateProgressBar(taskIndex, checkedCount, checkboxes.length);
+  let allTasks = await getItem("allTasks");
+  let task = allTasks[taskIndex];
+  let subtask = task["subtasks"][subtaskIndex];
+  subtask["checked"] = changedStatus;
+
+  updateProgressBarAndCount(task);
+  await setItem("allTasks", allTasks);
 }
 
-async function updateProgressBar(taskIndex, checkedCount, checkboxAmount) {
-  let percent = (checkedCount / checkboxAmount) * 100;
-
+function updateProgressBarAndCount(task){
+  let progressBarWidth = getProgressBarWidth(task);
   document.getElementById(
     `Board_Task_Progress_Bar${taskIndex}`
-  ).style.width = `${percent}%`;
-  await setItem(`Board_Task_Progress_Bar${taskIndex}`, percent);
+  ).style.width = `${progressBarWidth}%`;
 
+  let checkedCount = getCheckedCount(task["subtasks"]);
+  let subtaskAmount = task["subtasks"].length;
   document.getElementById(
     `Board_Task_Number_Of_Subtasks${taskIndex}`
-  ).innerHTML = `${checkedCount}` + "/" + `${checkboxAmount}` + "Subtasks";
+  ).innerHTML = `${checkedCount}` + "/" + `${subtaskAmount}` + " Subtasks";
 }
 
-async function getCheckedCheckboxes(task) {
-  let subtaskAmount = 0;
-  if (task.hasOwnProperty("subtasks")) {
-    subtaskAmount = task["subtasks"];
-  }
-
+async function getCheckboxStatus(subtasks) {
   let checkboxStatus = [];
-  
-  for (let i = 0; i < subtaskAmount.length; i++) {
-    let checkbox = await getItem(`Board_Task_Subtask_Checkbox${task.id}${i}`);
-    console.log(checkbox);
-    if (checkbox === true || checkbox === false) {
-      checkbox = JSON.parse(checkbox);
-      checkboxStatus.push(checkbox);
-    } else {
-      checkboxStatus.push(false);
-    }
+  for (let i = 0; i < subtasks.length; i++) {
+    let checkbox = subtasks[i]["checked"];
+    checkboxStatus.push(checkbox);
   }
   return checkboxStatus;
 }
 
-async function createSubtasklist(subtasks, taskIndex) {
+async function createSubtasklist(taskIndex) {
   let tasks = await getItem("allTasks");
-  let task = tasks[taskIndex];
-  let checkedCheckboxes = await getCheckedCheckboxes(task);
+  let subtasksArray = tasks[taskIndex]["subtasks"];
+  let checkedCheckboxes = await getCheckboxStatus(subtasksArray);
 
   let subtasklist = "";
-  for (let i = 0; i < subtasks.length; i++) {
-    const subtask = subtasks[i];
-    let checkedAttribute = checkedCheckboxes[i] ? "checked" : "";
+  for (let i = 0; i < subtasksArray.length; i++) {
+    const subtask = subtasksArray[i]["subtaskName"];
+    let checkedAttribute = checkedCheckboxes[i] ? "checked" : "unchecked";
     subtasklist += generateSubtaskListHTML(
       taskIndex,
       i,
@@ -512,14 +509,14 @@ async function createSubtasklist(subtasks, taskIndex) {
 function generateSubtaskListHTML(taskIndex, i, subtask, checkedAttribute) {
   return /*html*/ `
     <div
-  id="Board_Task_Subtasks_Largeview${taskIndex}"
+  id="Board_Task_Subtasks_Largeview${taskIndex}${i}"
   class="board-task-subtasks-largeview"
 >
   <input
-    onclick="updateProgress(${taskIndex});"
+    onclick="updateProgress(${taskIndex},${i},'${checkedAttribute}');"
     id="Board_Task_Subtask_Checkbox${taskIndex}${i}"
     type="checkbox"
-    class="board-task-subtask-checkbox${taskIndex}${i}"
+    class="board-task-subtask-checkbox"
     ${checkedAttribute}
   />
   <label for="Board_Task_Subtask_Checkbox${taskIndex}${i}">
@@ -546,17 +543,6 @@ async function deleteTask(i) {
   _taskList.splice(i, 1);
   reassignTaskIds(_taskList);
   await setItem("allTasks", _taskList);
-
-  // Shift progress bar values down
-  for (let j = i; j < _taskList.length; j++) {
-    const nextProgressBarValue = await getItem(
-      `Board_Task_Progress_Bar${j + 1}`
-    );
-    await setItem(`Board_Task_Progress_Bar${j}`, nextProgressBarValue);
-  }
-  // Remove the last progress bar value
-  await setItem(`Board_Task_Progress_Bar${_taskList.length}`, []);
-  setItem(`Board_Task_Subtask_Checkbox${_taskList.length}`, []);
 
   closeLargeview();
   noTaskToDoNotification();
