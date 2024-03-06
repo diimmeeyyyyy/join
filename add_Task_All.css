@@ -270,14 +270,31 @@ SUBTASKS
 .add-task-subtask-and-delete-icon {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-right: 16px;
   line-height: 1.5;
+  position: relative;
 }
+/* 
+.add-task-subtask-and-delete-icon:hover {
+  background-color: rgb(178, 177, 177);
+  border-radius: 8px;
+} */
 
 .add-task-subtask-bin {
+  display: none;
   cursor: pointer;
   width: 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 16px;
 }
+
+.add-task-subtask-and-delete-icon:hover .add-task-subtask-bin {
+  display: block;
+}
+
 
 /* ====
 FORM-BUTTONS & LEGEND
