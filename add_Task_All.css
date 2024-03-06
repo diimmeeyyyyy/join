@@ -261,9 +261,10 @@ SUBTASKS
 }
 
 #add_task_new_subtasks_container {
-  height: 100px;
+  height: 130px;
   overflow: auto;
   font-size: 16px;
+  margin-bottom: 32px;
 }
 
 .add-task-subtask-and-delete-icon {

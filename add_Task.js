@@ -38,14 +38,10 @@ async function toggleContactsDropdown() {
 
 async function renderContactsInAddTask() {
   let allContacts = await loadContacts();
+  let placeholder = document.getElementById('add_task_placeholder');
+  let drowDownArrow = document.getElementById('add-task-inputfield-arrow');
 
-  if (allContacts.length === 0) {
-    let placeholder = document.getElementById('add_task_placeholder');
-    let drowDownArrow = document.getElementById('add-task-inputfield-arrow');
-    placeholder.style.color = "rgb(178, 177, 177)";
-    placeholder.innerText = "No Contacts available";
-    drowDownArrow.style.display = "none"; } else {
-
+  if (allContacts.length !== 0) {
     let contactsContainer = document.getElementById("add_task_contacts_content");
     contactsContainer.innerHTML += `
     <div id="add_task_contacts_container" class="add-task-contacts-container"> 
@@ -65,8 +61,13 @@ async function renderContactsInAddTask() {
       </div>
     `;
     }
+  } else {
+    placeholder.style.color = "rgb(178, 177, 177)";
+    placeholder.innerText = "No Contacts available";
+    drowDownArrow.style.display = "none";
   }
 }
+
 
 // onclick="markCheckbox(${i})"
 // function markCheckbox(i) {
@@ -151,17 +152,25 @@ SUBTASKS
 function addNewSubtask() {
   let newSubtasksList = document.getElementById("add-task-subtasks-list");
   let subtask = document.getElementById("add_task_subtasks_inputfield");
+  let subtasksInputfield = document.getElementById("add_task_subtasks_inputfield");
 
-  newSubtasksList.innerHTML += ` 
+  subtasksInputfield.setAttribute("placeholder", "Add new subtask");
+
+  if (subtask.value !== '') {
+    newSubtasksList.innerHTML += ` 
          
         <li id="add_task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
             <span>${subtask.value}</span>
             <img onclick="deleteSubtask()" src="./assets/img/delete.svg" class="add-task-subtask-bin">
          </li>
     `;
-  subtasks.push(subtask.value);
-  subtask.value = "";
+    subtasks.push(subtask.value);
+    subtask.value = "";
+  } else {
+   subtasksInputfield.setAttribute("placeholder", "Write a subtask title");
+  }
 }
+
 
 function deleteSubtask() {
   let subtask = document.getElementById('add_task_subtask_and_delete_icon');
