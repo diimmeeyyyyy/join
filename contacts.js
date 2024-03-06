@@ -355,6 +355,8 @@ function saveAnimat() {
 function mobileBack() {
   // Verstecke das Element mit der ID "mobileBack"
   let mobileBackElement = document.getElementById("mobileBack");
+  let editDelet = document.getElementById("edit_delete");
+  editDelet.style.display = "none";
   if (mobileBackElement) {
     mobileBackElement.style.display = "none";
   }
