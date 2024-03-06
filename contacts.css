@@ -3,6 +3,7 @@ html,
 body {
   overflow-x: hidden;
   position: relative;
+  height: 100%;
 
 }
 
@@ -133,7 +134,7 @@ body {
 
 
 .container1 {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 164px);
   width: 456px;
   border-right: 1px lightgray solid;
   background-color: white;
