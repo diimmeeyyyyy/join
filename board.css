@@ -98,6 +98,7 @@ MOBILE HEADER
   height: clamp(30px, 8vw, 50px);
   width: clamp(30px, 8vw, 50px);
 }
+
 .input-box-smallScreen {
   display: none;
   justify-content: space-between;
