@@ -106,35 +106,43 @@ function pushContact(i) {
   const contact = contacts[i]; // Den Kontakt mit dem Index 'i' abrufen
   const buttonColor = contact.color; // Hintergrundfarbe aus dem Kontaktobjekt
 
-  return /*html*/ `
-  <div class="contacts-list">
-      <button class="button-name-contacts" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
-      <div>
-          <p class="contacts-name">${contacts[i]["name"]}</p>
-          <div id="edit_back">
-            <div class="edit-delete" id="edit_delete">
-              <p onclick="edit_contact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
-              <p onclick="deletContact(${i})"><img src="./assets/img/delete.png"> Delete</p>
-            </div>
-          </div>
-      </div>
-  </div>
-`;
+  pushContact.innerHTML = generateContactsListHTML(i, buttonColor);
+  pushContact.innerHTML += returnContactInfo(i);
+  mobileBackRemove();
 }
 
-function renderContactInformation(i) {
-  return /*html*/`
-    <div>
-      <p class="contact-information">Contact Information</p>
-    </div>
-    <div class="email-phone">
-      <p class="name-email-phone">Email</p> <br>
-      <a href="">${contacts[i]["e-mail"]}</a> <br> <br>
-      <p class="name-email-phone">Phone</p> <br>
-      <p>${contacts[i]["tel"]}</p>
+function generateContactsListHTML(i, buttonColor) {
+  return /*html*/ `
+    <div class="contacts-list">
+      <button class="button-name-contacts" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
+      <div>
+        <p class="contacts-name">${contacts[i]["name"]}</p>
+        <div id="edit_back">
+          <div class="edit-delete" id="edit_delete">
+            <p onclick="editContact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
+            <p onclick="deleteContact(${i})"><img src="./assets/img/delete.png"> Delete</p>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 }
+
+function returnContactInfo(i) {
+  return /*html*/`
+    <div>
+                    <p class="contact-information">Contact Information</p>
+                </div>
+                <div class="email-phone">
+                    <p class="name-email-phone">Email</p> <br>
+                    <a href="">${contacts[i]["e-mail"]}</a> <br> <br>
+                    <p class="name-email-phone"> Phone</p> <br>
+                    <p>${contacts[i]["tel"]}</p>
+                </div>
+            </div>
+  `
+}
+
 
 function transformNewContacts() {
   let pushContacts = document.getElementById("push_contacts");
@@ -146,7 +154,7 @@ function transformCloseContacts() {
   pushContacts.classList.remove("animate");
 }
 
-async function deletContact(i) {
+async function deleteContact(i) {
   transformCloseContacts();
 
   await deleteNameFromTask(i);
@@ -157,7 +165,7 @@ async function deletContact(i) {
   updateLettersAndTwoLettersName(); // Aktualisieren der 'letters' und 'twolettersName' Arrays
   contactList(); // Kontaktliste aktualisieren
 }
-async function deleteNameFromTask(i){
+async function deleteNameFromTask(i) {
   let allTasks = await getItem("allTasks");
   let deletedName = contacts[i]["name"];
   for (let task of allTasks) {
@@ -217,7 +225,7 @@ function getRandomColor() {
   return color;
 }
 
-async function edit_contact(i) {
+async function editContact(i) {
   let edit = document.getElementById("edit_contact");
   let editContact = document.getElementById("edit_contact");
   editContact.classList.remove("d-none");
@@ -230,29 +238,40 @@ async function edit_contact(i) {
   const tel = contact["tel"];
 
   edit.innerHTML = "";
-  edit.innerHTML = /*html*/ `
-          <div class="edit">
-        <div class="edit-one">
-            <img class="join-png" src="./assets/img/join-mobile.png" alt="Bild Join">
-            <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
-            <p> Edit contact</p>
-            <div class="parting-line"></div>
-        </div>
-    </div>
-    <div class="edit-two">
-        <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
-        <form class="form" id="editForm" onsubmit="saveContact(${i}); return false;">
-            <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
-            <input id="editEmail" required type="email" placeholder="Email" value="${email}"> <br>
-            <input id="editNumber" required type="number" placeholder="Phone" value="${tel}"> <br>
-            <div class="cancel-and-ceate">
-                <button onclick="closeEditContactDelete(${i})"type="button" class="cancel">Delete</button> 
-                <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img src="./assets/img/check.png"></button>
-            </div>
-        </form>
-    </div>`;
+  edit.innerHTML = generateEditHeader();
+  edit.innerHTML+= generateEditForm(buttonColor, twolettersName, i, name, email, tel);
   twoLetterGenerator();
   setItem('allContacts', contacts);
+}
+
+function generateEditHeader() {
+  return /*html*/ `
+    <div class="edit">
+      <div class="edit-one">
+        <img class="join-png" src="./assets/img/join-mobile.png" alt="Bild Join">
+        <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
+        <p> Edit contact</p>
+        <div class="parting-line"></div>
+      </div>
+    </div>
+  `;
+}
+
+function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
+  return /*html*/ `
+    <div class="edit-two">
+      <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
+      <form class="form" id="editForm" onsubmit="saveContact(${i}); return false;">
+        <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
+        <input id="editEmail" required type="email" placeholder="Email" value="${email}"> <br>
+        <input id="editNumber" required type="number" placeholder="Phone" value="${tel}"> <br>
+        <div class="cancel-and-ceate">
+          <button onclick="closeEditContactDelete(${i})" type="button" class="cancel">Delete</button> 
+          <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img src="./assets/img/check.png"></button>
+        </div>
+      </form>
+    </div>
+  `;
 }
 
 async function saveContact(i) {
@@ -366,6 +385,7 @@ function mobileBackRemove() {
     mobileBackElement.style.display = "block";
   }
 }
+
 function mobil_edit_contact() {
   let editContact = document.getElementById("edit_contact");
   editContact.classList.add("d-none");
@@ -378,6 +398,7 @@ function hideOnSmallScreens() {
       window.innerWidth <= 1009 ? "none" : "block";
   }
 }
+
 function mobilMenu() {
   moveEditDeleteContainer();
   let editDelet = document.getElementById("edit_delet");
@@ -390,20 +411,20 @@ function mobilMenu() {
 }
 
 function moveEditDeleteContainer() {
-  let editDeleteDiv = document.getElementById("edit_delet");
+  let editDeleteDiv = document.getElementById("edit_delete");
   let container2Div = document.getElementById("container2");
   let editBackDiv = document.getElementById("edit_back");
 
   if (window.innerWidth < 1009) {
-      // Überprüfen, ob das container2-Element existiert
-      if(container2Div)
-          container2Div.appendChild(editDeleteDiv);
-      
+    // Überprüfen, ob das container2-Element existiert
+    if (container2Div)
+      container2Div.appendChild(editDeleteDiv);
+
   } else {
-      // Wenn die Bildschirmgröße größer ist, das edit_delet-Element zurück zu edit_back verschieben
-      if (editBackDiv) {
-        editBackDiv.appendChild(editDeleteDiv);
-      }
+    // Wenn die Bildschirmgröße größer ist, das edit_delet-Element zurück zu edit_back verschieben
+    if (editBackDiv) {
+      editBackDiv.appendChild(editDeleteDiv);
+    }
   }
 }
 
