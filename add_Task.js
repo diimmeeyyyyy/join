@@ -38,19 +38,31 @@ async function toggleContactsDropdown() {
 
 async function renderContactsInAddTask() {
   let allContacts = await loadContacts();
+  let placeholder = document.getElementById('add_task_placeholder');
+  let drowDownArrow = document.getElementById('add-task-inputfield-arrow');
 
-  // TODO If the contact list is empty, get element add-task-placeholder, change text and add a grey color (CSS class)
-
-  let contactsContainer = document.getElementById("add_task_contacts_content");
-  contactsContainer.innerHTML += `
+  if (allContacts.length !== 0) {
+    let contactsContainer = document.getElementById("add_task_contacts_content");
+    contactsContainer.innerHTML += `
     <div id="add_task_contacts_container" class="add-task-contacts-container"> 
     </div>
     `;
 
-  let contactList = document.getElementById('add_task_contacts_container');
-  for (let i = 0; i < allContacts.length; i++) {
-    const contact = allContacts[i];
-    contactList.innerHTML += `
+    let contactList = document.getElementById('add_task_contacts_container');
+    for (let i = 0; i < allContacts.length; i++) {
+      const contact = allContacts[i];
+      contactList.innerHTML += renderHTMLAddTaskContactList(i, contact);
+    }
+  } else {
+    placeholder.style.color = "rgb(178, 177, 177)";
+    placeholder.innerText = "No Contacts available";
+    drowDownArrow.style.display = "none";
+  }
+}
+
+
+function renderHTMLAddTaskContactList(i, contact) {
+  return `
       <div id="add_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')"> 
         <div class="add-task-contact-icon-and-name">
             <div>${getIconForContact(contact)}</div>
@@ -59,7 +71,6 @@ async function renderContactsInAddTask() {
         <input class="add-task-contact-check" id="add_task_contact_checkbox_checkbox${i}" type="checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')">
       </div>
     `;
-  }
 }
 
 // onclick="markCheckbox(${i})"
@@ -145,17 +156,25 @@ SUBTASKS
 function addNewSubtask() {
   let newSubtasksList = document.getElementById("add-task-subtasks-list");
   let subtask = document.getElementById("add_task_subtasks_inputfield");
+  let subtasksInputfield = document.getElementById("add_task_subtasks_inputfield");
 
-  newSubtasksList.innerHTML += ` 
+  subtasksInputfield.setAttribute("placeholder", "Add new subtask");
+
+  if (subtask.value !== '') {
+    newSubtasksList.innerHTML += ` 
          
         <li id="add_task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
             <span>${subtask.value}</span>
             <img onclick="deleteSubtask()" src="./assets/img/delete.svg" class="add-task-subtask-bin">
          </li>
     `;
-  subtasks.push(subtask.value);
-  subtask.value = "";
+    subtasks.push(subtask.value);
+    subtask.value = "";
+  } else {
+   subtasksInputfield.setAttribute("placeholder", "Write a subtask title");
+  }
 }
+
 
 function deleteSubtask() {
   let subtask = document.getElementById('add_task_subtask_and_delete_icon');
@@ -197,6 +216,19 @@ async function getTaskIdCounter() {
 }
 
 
+function clearAddTaskForm() {
+  prio = "medium";
+  changeButtonColor();
+
+  let newSubtasksList = document.getElementById("add-task-subtasks-list");
+  newSubtasksList.innerHTML = '';
+
+  let contactList = document.getElementById('add_task_contacts_content');
+  contactList.style.display = 'none';
+  contactsDropdownOpen = false;
+}
+
+
 async function createTask() {
   const allTasks = await getTasks();
 
@@ -211,7 +243,6 @@ async function createTask() {
     dueDate: dueDate.value,
     category: category.value,
     status: "toDo",
-
   };
 
   if (description.value.trim() !== "") {
@@ -231,13 +262,9 @@ async function createTask() {
         checked: false
       }
       newSubtask.push(subtaskDetail);
-
     }
-
     task.subtasks = newSubtask;
   }
-
-
 
   if (prio !== "") {
     task.prio = prio;
@@ -249,32 +276,8 @@ async function createTask() {
   _taskList = allTasks;
   await setItem("taskIdCounter", task.id);
 
-  console.log('allTasks', allTasks);
-
-  title.value = "";
-  description.value = "";
-  dueDate.value = "";
-  category.value = "";
-  subtasks = [];
-
   showPopupTaskAdded();
-  const animationDuration = 200;
-  const extraDelay = 500;
-  setTimeout(() => {
-    window.location.href = "board.html";
-  }, animationDuration + extraDelay);
-}
-
-function clearAddTaskForm() {
-  prio = "medium";
-  changeButtonColor();
-
-  let newSubtasksList = document.getElementById("add-task-subtasks-list");
-  newSubtasksList.innerHTML = '';
-
-  let contactList = document.getElementById('add_task_contacts_content');
-  contactList.style.display = 'none';
-  contactsDropdownOpen = false;
+  navigateToBoardPage();
 }
 
 
@@ -289,5 +292,15 @@ function showPopupTaskAdded() {
         </div >
     `;
 }
+
+
+function navigateToBoardPage() {
+  const animationDuration = 200;
+  const extraDelay = 500;
+  setTimeout(() => {
+    window.location.href = "board.html";
+  }, animationDuration + extraDelay);
+}
+
 
 
