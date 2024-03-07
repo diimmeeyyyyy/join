@@ -121,7 +121,7 @@ function renderContactButton(i){
           <div id="edit_back">
             <div class="edit-delete" id="edit_delete">
               <p onclick="edit_contact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
-              <p onclick="delit(${i})"><img src="./assets/img/delete.png"> Delete</p>
+              <p onclick="deletContact(${i})"><img src="./assets/img/delete.png"> Delete</p>
             </div>
           </div>
       </div>
@@ -153,7 +153,7 @@ function transformCloseContacts() {
   pushContacts.classList.remove("animate");
 }
 
-async function delet(i) {
+async function deletContact(i) {
   transformCloseContacts();
 
   await deleteNameFromTask(i);
