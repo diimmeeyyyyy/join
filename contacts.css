@@ -116,7 +116,6 @@ body {
   width: 130px;
   border-radius: 10px;
   border: 1px solid lightgray;
-  padding: 16px;
   font-size: 24px;
   background-color: white;
 }
@@ -264,6 +263,7 @@ body {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   padding: 0px 48px 66px 48px;
+  position: relative;
 }
 
 
@@ -403,6 +403,7 @@ a {
   padding-left: 40px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .edit-button-contact {
@@ -427,6 +428,14 @@ a {
 
 .all-container-contacts {
   overflow-y: hidden;
+}
+
+.mobil-edit-close-black {
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  top: 40px;
+  right: 40px;
 }
 
 /* css für Media */
@@ -546,11 +555,12 @@ a {
     width: 100%;
 
   }
-  .mobile-animate{
+
+  .mobile-animate {
     transform: translateX(0px);
   }
 
-  .edit-delete{
+  .edit-delete {
     position: fixed;
     right: 265px;
     bottom: 180px;
@@ -573,12 +583,16 @@ a {
     position: fixed;
   }
 }
+
 /* @media (max-width:920px){
   .edit-delete{
     right: -150px;
   }
 } */
 @media (max-width:850px) {
+  .mobil-edit-close-black{
+    display: none;
+  }
   .container2 h1 {
     font-size: 47px;
   }
@@ -587,6 +601,7 @@ a {
     font-size: 24px;
 
   }
+
   .join-png {
     display: none;
   }
@@ -638,6 +653,7 @@ a {
     margin-top: -70px;
     z-index: 5;
   }
+
   .add-contact {
     position: relative;
     width: 396px;
@@ -715,18 +731,22 @@ a {
   .container-and-new-contact-push {
     height: calc(100vh - 180px);
   }
-  .edit-delete{
+
+  .edit-delete {
     right: 40px;
   }
+
   .add-contact h1 {
     font-size: 47px;
-}
-.add-contact p {
-  font-size: 24px;
-}
-.edit-one p {
-  font-size: 47px;
-}
+  }
+
+  .add-contact p {
+    font-size: 24px;
+  }
+
+  .edit-one p {
+    font-size: 47px;
+  }
 }
 
 @media (max-width:670px) {
@@ -803,15 +823,18 @@ a {
   .form {
     width: 0px;
   }
+
   .contacts {
     padding: 0px;
     padding-left: 5px;
     width: 275px;
   }
-  .edit{
+
+  .edit {
     width: 300px;
   }
-  .edit-two{
+
+  .edit-two {
     width: 300px;
   }
 
@@ -819,9 +842,10 @@ a {
 
 
 @media(min-width:1009px) {
-  .container-and-new-contact-push{
+  .container-and-new-contact-push {
     display: block;
   }
+
   .mobile-back {
     display: none;
   }
@@ -829,19 +853,21 @@ a {
   .menu-mobile {
     display: none;
   }
-  
+
 }
 
 @media(min-width:850px) {
- 
+  
   .close-mobile {
     display: none;
   }
+
   .mobil-edit-close {
     display: none;
-}
-.mobile-contacts {
-  display: none;
-}
+  }
+
+  .mobile-contacts {
+    display: none;
+  }
 
 }

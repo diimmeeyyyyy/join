@@ -430,6 +430,14 @@ a {
   padding: 20px;
 }
 
+.privacy-policy{
+  padding: 20px;
+}
+.privacy-polpcy-color{
+text-decoration: none;
+color: rgb(205, 205, 205);
+}
+
 @media (max-width: 850px) {
   .sidebar {
     position: fixed;
