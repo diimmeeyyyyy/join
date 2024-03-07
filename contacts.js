@@ -164,6 +164,7 @@ async function deleteContact(i) {
   await setItem("allContacts", contacts);
   updateLettersAndTwoLettersName(); // Aktualisieren der 'letters' und 'twolettersName' Arrays
   contactList(); // Kontaktliste aktualisieren
+ 
 }
 async function deleteNameFromTask(i) {
   let allTasks = await getItem("allTasks");
@@ -242,6 +243,7 @@ async function editContact(i) {
   edit.innerHTML+= generateEditForm(buttonColor, twolettersName, i, name, email, tel);
   twoLetterGenerator();
   setItem('allContacts', contacts);
+  
 }
 
 function generateEditHeader() {
@@ -260,6 +262,7 @@ function generateEditHeader() {
 function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
   return /*html*/ `
     <div class="edit-two">
+    <img onclick="mobil_edit_contact()" class="mobil-edit-close-black" src="./assets/img/closeBlack.png">
       <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
       <form class="form" id="editForm" onsubmit="saveContact(${i}); return false;">
         <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
@@ -267,7 +270,7 @@ function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
         <input id="editNumber" required type="number" placeholder="Phone" value="${tel}"> <br>
         <div class="cancel-and-ceate">
           <button onclick="closeEditContactDelete(${i})" type="button" class="cancel">Delete</button> 
-          <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img src="./assets/img/check.png"></button>
+          <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img  src="./assets/img/check.png"></button>
         </div>
       </form>
     </div>
@@ -339,6 +342,7 @@ function closeEditContactDelete(i) {
   letters.splice(i, 1); // Entsprechenden Eintrag aus dem 'letters'-Array entfernen
   twolettersName.splice(i, 1); // Entsprechenden Eintrag aus dem 'twolettersName'-Array entfernen
 
+  setItem("allContacts", contacts);
   contactList(); // Kontaktliste aktualisieren
   closeSaveContact();
 }
@@ -401,7 +405,7 @@ function hideOnSmallScreens() {
 
 function mobilMenu() {
   moveEditDeleteContainer();
-  let editDelet = document.getElementById("edit_delet");
+  let editDelet = document.getElementById("edit_delete");
 
   if (editDelet.style.display === "none") {
     editDelet.style.display = "block";
