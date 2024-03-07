@@ -24,6 +24,9 @@
                         <img id="add-task-inputfield-arrow" class="add-task-inputfield-arrow" src="./assets/img/arrow_drop_down.svg">
                     </div>
                     <div id="add_task_contacts_content"></div>
+                    <span class="add-task-legend add-task-legend-desktop-design">
+                        <span class="add-task-highlight-red">*</span>This field is required
+                    </span>
                 </div>
 
 
@@ -38,23 +41,23 @@
                     <div id="add_task_prio_container">
                         <span>Prio</span>
                         <div class="add-task-prio-button-container">
-                            <button onclick="setTaskPriority('urgent'); changeButtonColor()"
+                            <button onclick="setTaskPriority('urgent'); changeButtonColor(false)"
                                 id="add_task_prio_button_urgent" class="add-task-prio-button" type="button">
                                 <span> Urgent </span>
                                 <img id="add_task_prio_icon_urgent" class="add-task-prio-icon"
                                     src="./assets/img/priorityUrgent.svg">
                             </button>
-                            <button onclick="setTaskPriority('medium'); changeButtonColor()"
+                            <button onclick="setTaskPriority('medium'); changeButtonColor(false)"
                                 id="add_task_prio_button_medium"
                                 class="add-task-prio-button add-task-prio-button-yellow" type="button">
                                 <span> Medium </span>
                                 <img id="add_task_prio_icon_medium" class="add-task-prio-icon add-task-prio-icon-white "
                                     src="./assets/img/priorityMedium.svg">
                             </button>
-                            <button onclick="setTaskPriority('low'); changeButtonColor()" id="add_task_prio_button_low"
+                            <button onclick="setTaskPriority('low'); changeButtonColor(false)" id="add_task_prio_button_low"
                                 class="add-task-prio-button" type="button">
                                 <span> Low </span>
-                                <img id="add_task_prio_icon_low" class="add-task-prio-icon"
+                                <img id="add_task_prio_igcon_low" class="add-task-prio-icon"
                                     src="./assets/img/priorityLow.svg">
                             </button>
                         </div>
@@ -96,13 +99,13 @@
 
 
             <div class="add-task-legend-and-form-buttons">
-                <span class="add-task-legend">
+                <span class="add-task-legend add-task-legend-responsive-design">
                     <span class="add-task-highlight-red">*</span>This field is required
                 </span>
                 <div class="add-task-clear-and-create-task-buttons-responsive-design">
                     <button onclick="clearAddTaskForm()" type="reset" class="add-task-clear-button">
                         <span>Clear</span>
-                        <img src="./assets/img/closeBlue.svg">
+                        <img class="add-task-clear-button-img" src="./assets/img/closeBlue.svg">
                     </button>
                     <button type="submit" class="add-task-button add-task-button-responsive">
                         <span> Create Task</span>
