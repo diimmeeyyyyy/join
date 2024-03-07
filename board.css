@@ -416,7 +416,7 @@ EDIT TASK
   transform: translate(-50%, -50%);
   animation: slideIn 0.5s ease-out forwards;
   background-color: white;
-  padding: 20px;
+  padding: 36px;
   width: 320px;
   display: flex;
   flex-direction: column;

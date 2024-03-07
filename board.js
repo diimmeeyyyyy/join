@@ -427,6 +427,51 @@ async function editTask(taskIndex) {
           <p>Due Date</p>
           <input class="inputAndTextareaSettings" type="date" value="${task.dueDate}">
       </div>
+    <!-- PRIORITY  -->
+      <div>
+        <p>Priority</p>
+        <div class="add-task-prio-button-container">
+          <button
+            onclick="setTaskPriority('urgent'); changeButtonColor(true)"
+            id="edit_task_prio_button_urgent"
+            class="add-task-prio-button add-task-urgent-prio-button"
+            type="button"
+          >
+            <span> Urgent </span>
+            <img
+              id="edit_task_prio_icon_urgent"
+              class="add-task-prio-icon"
+              src="./assets/img/priorityUrgent.svg"
+            />
+          </button>
+          <button
+            onclick="setTaskPriority('medium'); changeButtonColor(true)"
+            id="edit_task_prio_button_medium"
+            class="add-task-prio-button add-task-prio-button-yellow add-task-medium-prio-button"
+            type="button"
+          >
+            <span> Medium </span>
+            <img
+              id="edit_task_prio_icon_medium"
+              class="add-task-prio-icon add-task-prio-icon-white"
+              src="./assets/img/priorityMedium.svg"
+            />
+          </button>
+          <button
+            onclick="setTaskPriority('low'); changeButtonColor(true)"
+            id="edit_task_prio_button_low"
+            class="add-task-prio-button add-task-low-prio-button"
+            type="button"
+          >
+            <span> Low </span>
+            <img
+              id="edit_task_prio_icon_low"
+              class="add-task-prio-icon"
+              src="./assets/img/priorityLow.svg"
+            />
+          </button>
+        </div>
+      </div>
 
     </main>
   `;
