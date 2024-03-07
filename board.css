@@ -287,7 +287,7 @@ STYLE OF ONE TASK
 }
 
 .board-task-title-largeview {
-  font-size: 56px;
+  font-size: 40px;
   font-weight: 700;
   word-break: auto-phrase;
 }
@@ -331,7 +331,9 @@ ASSIGNED TO
   padding-left: 16px;
   font-size: 20px;
 }
-
+/* ======
+SUBTASKS
+=========*/
 .board-task-subtasks-container-largeview {
   display: flex;
   flex-direction: column;
@@ -345,7 +347,18 @@ ASSIGNED TO
   padding-left: 16px;
   font-size: 16px;
 }
-
+.board-task-subtasks-largeview input:hover {
+  cursor: pointer;
+}
+/* ====================
+DELETE & EDIT LARGEVIEW
+========================*/
+#Board_Task_Delete_Button:hover img {
+  content: url("./assets/img/deleteTaskHover.png");
+}
+#Board_Task_Edit_Button:hover img {
+  content: url("./assets/img/editTaskHover.png");
+}
 .board-task-delete-and-edit-container {
   display: flex;
   justify-content: flex-end;
@@ -364,7 +377,39 @@ ASSIGNED TO
   font-weight: bold;
   cursor: pointer;
 }
-
+/* =======================
+DELETE TASK CONFIRM POP-UP
+========================*/
+.deleteTaskNotification {
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: slideIn 0.5s ease-out forwards;
+  background-color: white;
+  padding: 20px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+}
+.deleteTaskNotification button {
+  background-color: rgb(41, 54, 71);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+.deleteTaskNotification button:hover {
+  background-color: rgb(40, 171, 226);
+  color: rgb(41, 54, 71);
+  cursor: pointer;
+  filter: drop-shadow(2px 4px 6px black);
+}
 /* ================================
 ARROWS WHEN CONTAINER HAS MANY TASKS
 ====================================*/

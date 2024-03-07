@@ -24,7 +24,6 @@ p {
   filter: drop-shadow();
 } */
 
-
 .pop-up-backdrop {
   position: fixed;
   top: 0;
@@ -206,16 +205,21 @@ TASK OVERVIEW & GREETINGS SECTION
   cursor: pointer;
 }
 
-.summary-task-overview-toDo-and-done span:hover {
+.summary-hover-effect:hover {
   transform: scale(1.1);
   transition: transform 0.3s ease-in-out;
   background-color: rgb(41, 54, 71);
+  filter: drop-shadow(2px 4px 6px black);
+}
+.summary-hover-effect:hover p {
+  color: white;
 }
 
 .arrange-amount-and-status {
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 }
 
 .amount-tasks {
@@ -234,6 +238,7 @@ TASK OVERVIEW & GREETINGS SECTION
   background-color: navajowhite;
   height: clamp(110px, 26vw, 170px);
   border-radius: 30px;
+  cursor: pointer;
 }
 
 .summary-task-overview-dueDates span {
@@ -245,6 +250,9 @@ TASK OVERVIEW & GREETINGS SECTION
   width: 3px;
   height: clamp(68px, 15vw, 100px);
   background-color: gray;
+}
+.summary-task-overview-dueDates:hover .dividing-line-task-overview-dueDates {
+  background-color: white;
 }
 
 .summary-upcoming-deadline-div {

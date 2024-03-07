@@ -3,6 +3,9 @@ async function initBoard() {
   await renderTasks();
   updateMenuPoint(2);
   await loadUserInitials();
+  const today = new Date();
+  let newDueDate =   document.getElementById('add_task_due_date');
+  newDueDate.setAttribute('min', today.toISOString().substring(0, 10));
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -380,7 +383,7 @@ function generateTaskLargeViewHTML(
             <div class = "board-task-assigned-to-largeview"> <span class = "board-task-largeview-color"> Assigned To: </span>${contacts}</div>
             <div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>
             <div class = "board-task-delete-and-edit-container">
-                <div id = "Board_Task_Delete_Button" onclick = "deleteTask(${taskIndex})" class = "board-task-largeview-icon">
+                <div id = "Board_Task_Delete_Button" onclick = "deleteTaskConfirmNotification(${taskIndex})" class = "board-task-largeview-icon">
                     <img src = "assets/img/delete.png">
                     <span> Delete </span>
                 </div>
@@ -449,16 +452,19 @@ function generateContactListHTML(contact, showName) {
 /* =======================
 TASK-LARGEVIEW SUBTASKS
 ==========================*/
-async function updateProgress(taskIndex, subtaskIndex, checkedAttribute) {
+async function updateProgress(taskIndex, subtaskIndex) {
+  let allTasks = await getItem("allTasks");
+  let task = allTasks[taskIndex];
+  let subtask = task["subtasks"][subtaskIndex];
+  let checkboxStatus = subtask["checked"];
+
   let changedStatus;
-  if (checkedAttribute === "checked") {
+  if (checkboxStatus === true) {
     changedStatus = false;
   } else {
     changedStatus = true;
   }
-  let allTasks = await getItem("allTasks");
-  let task = allTasks[taskIndex];
-  let subtask = task["subtasks"][subtaskIndex];
+
   subtask["checked"] = changedStatus;
 
   updateProgressBarAndCount(task);
@@ -514,10 +520,9 @@ function generateSubtaskListHTML(taskIndex, i, subtask, checkedAttribute) {
   class="board-task-subtasks-largeview"
 >
   <input
-    onclick="updateProgress(${taskIndex},${i},'${checkedAttribute}');"
+    onclick="updateProgress(${taskIndex},${i});"
     id="Board_Task_Subtask_Checkbox${taskIndex}${i}"
     type="checkbox"
-    class="board-task-subtask-checkbox"
     ${checkedAttribute}
   />
   <label for="Board_Task_Subtask_Checkbox${taskIndex}${i}">
@@ -540,15 +545,40 @@ function closeLargeview() {
 /* ==================
 TASK LARGEVIEW DELETE
 =====================*/
+function deleteTaskConfirmNotification(i) {
+  let notificationDiv = document.createElement("div");
+  notificationDiv.className = "pop-up-backdrop";
+  notificationDiv.id = "Delete_Task_Confirm_Notification";
+  notificationDiv.innerHTML = /*html*/ `
+  <section class="deleteTaskNotification">
+    <p>Are you sure you want to delete this task?</p>
+    <div>
+      <button onclick="closeNotification()">No, cancel</button>
+      <button onclick="deleteTask(${i})">Yes, delete</button>
+    </div>
+</section>
+  `;
+  // Append the div to the body
+  document.body.appendChild(notificationDiv);
+}
+
 async function deleteTask(i) {
   _taskList.splice(i, 1);
   reassignTaskIds(_taskList);
   await setItem("allTasks", _taskList);
-
+  closeNotification();
   closeLargeview();
   noTaskToDoNotification();
   renderTasks();
 }
+
+function closeNotification() {
+  let notificationDiv = document.getElementById(
+    "Delete_Task_Confirm_Notification"
+  );
+  document.body.removeChild(notificationDiv);
+}
+
 function reassignTaskIds(tasks) {
   for (let i = 0; i < tasks.length; i++) {
     tasks[i].id = i;
