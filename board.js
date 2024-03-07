@@ -372,7 +372,7 @@ function generateTaskLargeViewHTML(
     <div id="Board_Task_Container_Largeview" class="board-task-container-largeview">
             <div class = "board-task-category-and-closebutton-container">
                 <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
-                <img id = "Board_Largeview_Closebutton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
+                <img class="hoverCloseButton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
             </div>
             <div class = "board-task-title-largeview">${task.title}</div>
             <div class = "board-task-description-largeview">${description}</div>
@@ -401,9 +401,41 @@ function generateTaskLargeViewHTML(
 }
 
 async function editTask(taskIndex) {
-  const allTasks = await getTasks();
+  const allTasks = await getItem("allTasks");
+  let task = allTasks[taskIndex];
+  /* const dueDate = task.dueDate ? formatDate(task.dueDate) : ""; */
+  let background = document.createElement("div");
+  background.id = "Edit_Task_Background";
+  background.className = "pop-up-backdrop";
+  background.innerHTML = /*html*/ `
+    <main id="Edit_Task_Container">
+      <div class="positionCloseButton">
+        <img class="hoverCloseButton" src="./assets/img/close.svg" onclick="closeEditTask()">
+      </div>
+      <!-- TITLE -->
+      <div class="editTitleDiv">
+          <p>Title</p>
+          <input class="inputAndTextareaSettings" type="text" value="${task.title}">
+      </div>
+    <!-- DESCRIPTION -->
+      <div class="editTitleDiv">
+          <p>Description</p>
+          <textarea class="inputAndTextareaSettings" name="" id="" cols="30" rows="10">${task.description}</textarea>
+      </div>
+    <!-- DUE DATES -->
+      <div class="editTitleDiv">
+          <p>Due Date</p>
+          <input class="inputAndTextareaSettings" type="date" value="${task.dueDate}">
+      </div>
 
-  
+    </main>
+  `;
+  document.body.appendChild(background);
+}
+
+function closeEditTask() {
+  let editTaskDiv = document.getElementById("Edit_Task_Background");
+  document.body.removeChild(editTaskDiv);
 }
 
 function formatDate(dateString) {

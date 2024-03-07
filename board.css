@@ -274,12 +274,6 @@ STYLE OF ONE TASK
   justify-content: space-between;
 }
 
-#Board_Largeview_Closebutton:hover {
-  cursor: pointer;
-  background-color: rgb(246, 247, 248);
-  border-radius: 32px;
-}
-
 .board-task-category-largeview {
   font-size: 20px;
   width: 128px;
@@ -410,6 +404,54 @@ DELETE TASK CONFIRM POP-UP
   cursor: pointer;
   filter: drop-shadow(2px 4px 6px black);
 }
+
+/* =========
+EDIT TASK
+============*/
+#Edit_Task_Container {
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: slideIn 0.5s ease-out forwards;
+  background-color: white;
+  padding: 20px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.positionCloseButton {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+.hoverCloseButton:hover {
+  cursor: pointer;
+  background-color: rgb(246, 247, 248);
+  border-radius: 32px;
+}
+.editTitleDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+.inputAndTextareaSettings {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+.editTitleDiv textarea {
+  height: 50px;
+}
+
 /* ================================
 ARROWS WHEN CONTAINER HAS MANY TASKS
 ====================================*/
