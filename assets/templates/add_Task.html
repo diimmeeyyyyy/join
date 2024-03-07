@@ -57,7 +57,7 @@
                             <button onclick="setTaskPriority('low'); changeButtonColor(false)" id="add_task_prio_button_low"
                                 class="add-task-prio-button" type="button">
                                 <span> Low </span>
-                                <img id="add_task_prio_igcon_low" class="add-task-prio-icon"
+                                <img id="add_task_prio_icon_low" class="add-task-prio-icon"
                                     src="./assets/img/priorityLow.svg">
                             </button>
                         </div>
@@ -77,7 +77,7 @@
                     <div class="add-task-subtasks-container">
                         <input id="add_task_subtasks_inputfield" class="add-task-inputfield"
                             placeholder="Add new subtask">
-                        <img onclick="addNewSubtask()" id="add_task_subtask_plus_button" src="./assets/img/plus.svg">
+                        <img onclick="addNewSubtask(false)" id="add_task_subtask_plus_button" src="./assets/img/plus.svg">
                     </div>
                     <div id="add_task_new_subtasks_container">
                         <ul id="add-task-subtasks-list">

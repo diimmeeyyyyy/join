@@ -153,19 +153,20 @@ function changeButtonColor(isEditMode) {
 SUBTASKS
 ===================*/
 
-function addNewSubtask() {
-  let newSubtasksList = document.getElementById("add-task-subtasks-list");
-  let subtask = document.getElementById("add_task_subtasks_inputfield");
-  let subtasksInputfield = document.getElementById("add_task_subtasks_inputfield");
+function addNewSubtask(isEditMode) {
+  const classPrefix = isEditMode ? 'edit' : 'add';
+  let newSubtasksList = document.getElementById(`${classPrefix}-task-subtasks-list`);
+  let subtask = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
+  let subtasksInputfield = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
 
   subtasksInputfield.setAttribute("placeholder", "Add new subtask");
 
   if (subtask.value !== '') {
     newSubtasksList.innerHTML += ` 
          
-        <li id="add_task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
+        <li id="${classPrefix}task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
             <span>${subtask.value}</span>
-            <img onclick="deleteSubtask()" src="./assets/img/delete.svg" class="add-task-subtask-bin">
+            <img onclick="deleteSubtask(false)" src="./assets/img/delete.svg" class="add-task-subtask-bin">
          </li>
     `;
     subtasks.push(subtask.value);
@@ -176,8 +177,9 @@ function addNewSubtask() {
 }
 
 
-function deleteSubtask() {
-  let subtask = document.getElementById('add_task_subtask_and_delete_icon');
+function deleteSubtask(isEditMode) {
+  const classPrefix = isEditMode ? 'edit' : 'add';
+  let subtask = document.getElementById(`${classPrefix}_task_subtask_and_delete_icon`);
   indexOfSubtask = subtasks.indexOf("subtask.value");
   subtasks.splice(indexOfSubtask, 1);
   subtask.remove();
