@@ -387,7 +387,6 @@ SIDEBAR NAVIGATION
 .task-sidebar img {
   width: clamp(20px, 5vw, 35px);
   height: clamp(20px, 5vw, 35px);
-  padding-right: 8px;
 }
 
 .span-sidebar {
@@ -458,15 +457,25 @@ color: rgb(205, 205, 205);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    padding-block: unset;
+    height: 100%;
   }
   .span-sidebar:hover {
     background-color: rgb(1, 17, 63);
-    border-radius: unset;
+    border-radius: 16px;
   }
   .task-sidebar {
     flex-direction: unset;
     padding-top: unset;
     justify-content: space-evenly;
+    height: 80px;
+  }
+  .task-sidebar a {
+    border-radius: 16px;
+  }
+  .task-sidebar a:hover {
+    border-radius: 16px;
   }
   .impressum {
     display: none;

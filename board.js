@@ -4,8 +4,8 @@ async function initBoard() {
   updateMenuPoint(2);
   await loadUserInitials();
   const today = new Date();
-  let newDueDate =   document.getElementById('add_task_due_date');
-  newDueDate.setAttribute('min', today.toISOString().substring(0, 10));
+  let newDueDate = document.getElementById("add_task_due_date");
+  newDueDate.setAttribute("min", today.toISOString().substring(0, 10));
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -402,6 +402,8 @@ function generateTaskLargeViewHTML(
 
 async function editTask(taskIndex) {
   const allTasks = await getTasks();
+
+  
 }
 
 function formatDate(dateString) {
