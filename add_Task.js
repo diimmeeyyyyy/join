@@ -19,11 +19,12 @@ async function initAddTask() {
 CONTACTS
 ===================*/
 
-async function toggleContactsDropdown() {
-  const contactsContainer = document.getElementById("add_task_contacts_content");
-
+async function toggleContactsDropdown(isEditMode) {
+  const classPrefix = isEditMode ? 'edit' : 'add';
+  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
+  
   if (!contactsRendered) {
-    await renderContactsInAddTask();
+    await renderContactsInAddTask(false);
     contactsRendered = true;
   }
 
@@ -37,22 +38,23 @@ async function toggleContactsDropdown() {
 }
 
 
-async function renderContactsInAddTask() {
+async function renderContactsInAddTask(isEditMode) {
+  const classPrefix = isEditMode ? 'edit' : 'add';
   let allContacts = await loadContacts();
-  let placeholder = document.getElementById('add_task_placeholder');
-  let drowDownArrow = document.getElementById('add-task-inputfield-arrow');
+  let placeholder = document.getElementById(`${classPrefix}_task_placeholder`);
+  let drowDownArrow = document.getElementById(`${classPrefix}-task-inputfield-arrow`);
 
   if (allContacts.length !== 0) {
-    let contactsContainer = document.getElementById("add_task_contacts_content");
+    let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
     contactsContainer.innerHTML += `
-    <div id="add_task_contacts_container" class="add-task-contacts-container"> 
+    <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"> 
     </div>
     `;
 
-    let contactList = document.getElementById('add_task_contacts_container');
+    let contactList = document.getElementById(`${classPrefix}_task_contacts_container`);
     for (let i = 0; i < allContacts.length; i++) {
       const contact = allContacts[i];
-      contactList.innerHTML += renderHTMLAddTaskContactList(i, contact);
+      contactList.innerHTML += renderHTMLAddTaskContactList(false, i, contact);
     }
   } else {
     placeholder.style.color = "rgb(178, 177, 177)";
@@ -62,24 +64,18 @@ async function renderContactsInAddTask() {
 }
 
 
-function renderHTMLAddTaskContactList(i, contact) {
+function renderHTMLAddTaskContactList(isEditMode, i, contact) {
+  const classPrefix = isEditMode ? 'edit' : 'add';
   return `
-      <div id="add_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')"> 
+      <div id="${classPrefix}_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')"> 
         <div class="add-task-contact-icon-and-name">
             <div>${getIconForContact(contact)}</div>
             <div>${contact.name}</div>
         </div>
-        <input class="add-task-contact-check" id="add_task_contact_checkbox_checkbox${i}" type="checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')">
+        <input class="add-task-contact-check" id="${classPrefix}_task_contact_checkbox_checkbox${i}" type="checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')">
       </div>
     `;
 }
-
-// onclick="markCheckbox(${i})"
-// function markCheckbox(i) {
-//   let checkbox = document.getElementById(`add_task_contact_checkbox${i}`);
-//   checkbox.style.backgroundColor = 'rgb(42,54,71)';
-//   checkbox.style.color = 'white';
-// }
 
 
 function saveCheckedContacts(event, contactIndex, contactName) {
@@ -164,7 +160,7 @@ function addNewSubtask(isEditMode) {
   if (subtask.value !== '') {
     newSubtasksList.innerHTML += ` 
          
-        <li id="${classPrefix}task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
+        <li id="${classPrefix}_task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
             <span>${subtask.value}</span>
             <img onclick="deleteSubtask(false)" src="./assets/img/delete.svg" class="add-task-subtask-bin">
          </li>

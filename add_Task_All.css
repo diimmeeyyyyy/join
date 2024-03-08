@@ -147,7 +147,8 @@ CONTACTS
   margin-right: 32px;
 }
 
-.add-task-contact-selected {
+.add-task-contact-selected,
+.add-task-contact-selected:hover {
   background-color: rgb(42,54,71);
   color: white;
   border-radius: 8px;
