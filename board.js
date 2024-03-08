@@ -472,6 +472,7 @@ async function editTask(taskIndex) {
           </button>
         </div>
       </div>
+      <!--  -->
 
     </main>
   `;

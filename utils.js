@@ -52,7 +52,6 @@ async function getCurrentUser() {
   }
 }
 
-
 function getGreeting() {
   let currentHour = new Date().getHours();
   let greetingForm;
@@ -66,4 +65,21 @@ function getGreeting() {
   }
 
   return greetingForm;
+}
+
+function openDropDownHeader() {
+  let existingOptions = document.querySelector(".drop-down-header");
+  if (existingOptions) {
+    existingOptions.remove();
+  } else {
+    let options = document.createElement("div");
+    options.className = "drop-down-header";
+    options.innerHTML = /*html*/ `
+      <a href="#">Legal Notice</a>
+      <a href="#">Privacy Policy</a>
+      <a href="log_In.html">Log out</a>
+    `;
+
+    document.body.appendChild(options);
+  }
 }

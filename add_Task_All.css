@@ -111,7 +111,7 @@ CONTACTS
 }
 
 #add_task_contacts_content {
-  height: 156px;
+  height: 188px;
 }
 
 .add-task-contacts-container {
@@ -133,6 +133,7 @@ CONTACTS
 .add-task-contact-checkbox:hover {
   cursor: pointer;
   background-color: rgb(209, 209, 209);
+  border-radius: 8px;
 }
 
 .add-task-contact-icon-and-name {
@@ -144,6 +145,12 @@ CONTACTS
 
 .add-task-contact-check {
   margin-right: 32px;
+}
+
+.add-task-contact-selected {
+  background-color: rgb(42,54,71);
+  color: white;
+  border-radius: 8px;
 }
 
 /* ====
@@ -186,7 +193,13 @@ PRIO-BUTTONS
 
 .add-task-prio-button:hover {
   cursor: pointer;
-  /* filter: drop-shadow(-2px 0px 6px 0px grey); */
+  box-shadow: -2px 2px 2px #ccc;
+}
+
+.add-task-prio-button-red:hover,
+.add-task-prio-button-yellow:hover,
+.add-task-prio-button-green:hover {
+  box-shadow: none;
 }
 
 .add-task-prio-button-red {
@@ -247,7 +260,7 @@ SUBTASKS
   top: 10px;
   right: 0;
   cursor: pointer;
-  padding-right: 8px;
+  margin-right: 8px;
 }
 
 #add_task_subtask_plus_button:hover {
@@ -261,7 +274,7 @@ SUBTASKS
 }
 
 #add_task_new_subtasks_container {
-  height: 130px;
+  height: 124px;
   overflow: auto;
   font-size: 16px;
   margin-bottom: 32px;
@@ -307,8 +320,11 @@ FORM-BUTTONS & LEGEND
 }
 
 .add-task-legend {
-  font-weight: 8px;
-  align-items: flex-start;
+  font-size: 16px;
+}
+
+.add-task-legend-responsive-design {
+  display: none;
 }
 
 .add-task-clear-and-create-task-buttons-desktop-design {
@@ -344,6 +360,16 @@ FORM-BUTTONS & LEGEND
   border-color: rgb(43, 54, 71);
   border-radius: 10px;
   cursor: pointer;
+}
+
+.add-task-clear-button:hover {
+  color: rgb(40, 171, 226);
+  border-color: rgb(40, 171, 226);
+  box-shadow: -2px 2px 2px #ccc;
+}
+
+.add-task-clear-button:hover > img {
+  filter: brightness(0) saturate(100%) invert(53%) sepia(93%) saturate(425%) hue-rotate(154deg) brightness(93%) contrast(89%);
 }
 
 .add-task-popup-container {
@@ -431,6 +457,15 @@ RESPONSIVE-DESIGN
   #add_task_contacts_content {
     height: 0;
   }
+
+  .add-task-legend-desktop-design {
+    display: none;
+  }
+
+  .add-task-legend-responsive-design {
+    display: block;
+  }
+  
 
   .add-task-dividing-line {
     display: none;

@@ -81,6 +81,9 @@ HEADER
   font-size: 25px;
   cursor: pointer;
 }
+.circle:hover {
+  background-color: rgb(226, 230, 236);
+}
 .summary-join-logo-header {
   display: none;
 }
@@ -101,7 +104,25 @@ HEADER
   background-color: rgb(40, 171, 226);
   filter: drop-shadow(2px 4px 6px black);
 }
-
+.drop-down-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: rgb(41, 54, 71);
+  position: absolute;
+  top: 100px;
+  right: 4%;
+  border-radius: 20px 0 20px 20px;
+  padding: 10px;
+}
+.drop-down-header a {
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+.drop-down-header a:hover {
+  background-color: rgb(1, 17, 63);
+}
 /* =======
 INDEX.HTML
 ==========*/
@@ -217,7 +238,7 @@ TASK OVERVIEW & GREETINGS SECTION
 .summary-hover-effect:hover .summary-done-tasks-hover {
   content: url("./assets/img/summary-doneTasks-hover.png");
 }
-.summary-hover-effect:hover .summary-todo-tasks-hover{
+.summary-hover-effect:hover .summary-todo-tasks-hover {
   content: url("./assets/img/summary-toDo-task-hover.png");
 }
 .arrange-amount-and-status {
@@ -434,12 +455,12 @@ a {
   padding: 20px;
 }
 
-.privacy-policy{
+.privacy-policy {
   padding: 20px;
 }
-.privacy-polpcy-color{
-text-decoration: none;
-color: rgb(205, 205, 205);
+.privacy-polpcy-color {
+  text-decoration: none;
+  color: rgb(205, 205, 205);
 }
 
 @media (max-width: 850px) {
