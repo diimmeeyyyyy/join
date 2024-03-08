@@ -11,6 +11,7 @@ async function includeHTML() {
     }
   }
 }
+
 /* ======================
 UPDATE CLICKED MENU-POINT
 =========================*/
@@ -39,6 +40,7 @@ async function loadUserInitials() {
   }
 }
 
+
 async function getCurrentUser() {
   let userEmailAsText = localStorage.getItem("userEmail");
   if (userEmailAsText) {
@@ -51,6 +53,7 @@ async function getCurrentUser() {
     return user;
   }
 }
+
 
 function getGreeting() {
   let currentHour = new Date().getHours();
@@ -67,6 +70,7 @@ function getGreeting() {
   return greetingForm;
 }
 
+
 function openDropDownHeader() {
   let existingOptions = document.querySelector(".drop-down-header");
   if (existingOptions) {
@@ -75,8 +79,8 @@ function openDropDownHeader() {
     let options = document.createElement("div");
     options.className = "drop-down-header";
     options.innerHTML = /*html*/ `
-      <a href="#">Legal Notice</a>
-      <a href="#">Privacy Policy</a>
+      <a href="legal_Notice.html">Legal Notice</a>
+      <a href="privacy_Policy">Privacy Policy</a>
       <a href="log_In.html">Log out</a>
     `;
 

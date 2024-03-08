@@ -128,6 +128,9 @@ async function subTasksCount(task) {
 
 function getProgressBarWidth(task) {
   let subtasks = task["subtasks"];
+  if (subtasks === undefined) {
+    return;
+  }
   let subtaskAmount = subtasks.length;
   let checkedCount = getCheckedCount(subtasks);
   let percent;
@@ -150,6 +153,10 @@ async function generateProgressBar(task) {
 }
 
 function getCheckedCount(subtasks) {
+  if (subtasks === undefined) {
+    return 0;
+  }
+
   let checkedCount = 0;
   for (let oneSubtask of subtasks) {
     if (oneSubtask.checked) {
@@ -403,78 +410,110 @@ function generateTaskLargeViewHTML(
 async function editTask(taskIndex) {
   const allTasks = await getItem("allTasks");
   let task = allTasks[taskIndex];
-  /* const dueDate = task.dueDate ? formatDate(task.dueDate) : ""; */
   let background = document.createElement("div");
   background.id = "Edit_Task_Background";
   background.className = "pop-up-backdrop";
   background.innerHTML = /*html*/ `
-    <main id="Edit_Task_Container">
-      <div class="positionCloseButton">
-        <img class="hoverCloseButton" src="./assets/img/close.svg" onclick="closeEditTask()">
-      </div>
-      <!-- TITLE -->
-      <div class="editTitleDiv">
-          <p>Title</p>
-          <input class="inputAndTextareaSettings" type="text" value="${task.title}">
-      </div>
-    <!-- DESCRIPTION -->
-      <div class="editTitleDiv">
-          <p>Description</p>
-          <textarea class="inputAndTextareaSettings" name="" id="" cols="30" rows="10">${task.description}</textarea>
-      </div>
-    <!-- DUE DATES -->
-      <div class="editTitleDiv">
-          <p>Due Date</p>
-          <input class="inputAndTextareaSettings" type="date" value="${task.dueDate}">
-      </div>
-    <!-- PRIORITY  -->
-      <div>
-        <p>Priority</p>
-        <div class="add-task-prio-button-container">
-          <button
-            onclick="setTaskPriority('urgent'); changeButtonColor(true)"
-            id="edit_task_prio_button_urgent"
-            class="add-task-prio-button add-task-urgent-prio-button"
-            type="button"
-          >
-            <span> Urgent </span>
-            <img
-              id="edit_task_prio_icon_urgent"
-              class="add-task-prio-icon"
-              src="./assets/img/priorityUrgent.svg"
-            />
-          </button>
-          <button
-            onclick="setTaskPriority('medium'); changeButtonColor(true)"
-            id="edit_task_prio_button_medium"
-            class="add-task-prio-button add-task-prio-button-yellow add-task-medium-prio-button"
-            type="button"
-          >
-            <span> Medium </span>
-            <img
-              id="edit_task_prio_icon_medium"
-              class="add-task-prio-icon add-task-prio-icon-white"
-              src="./assets/img/priorityMedium.svg"
-            />
-          </button>
-          <button
-            onclick="setTaskPriority('low'); changeButtonColor(true)"
-            id="edit_task_prio_button_low"
-            class="add-task-prio-button add-task-low-prio-button"
-            type="button"
-          >
-            <span> Low </span>
-            <img
-              id="edit_task_prio_icon_low"
-              class="add-task-prio-icon"
-              src="./assets/img/priorityLow.svg"
-            />
-          </button>
-        </div>
-      </div>
-      <!--  -->
+   <main id="Edit_Task_Container">
+  <div class="positionCloseButton">
+    <img
+      class="hoverCloseButton"
+      src="./assets/img/close.svg"
+      onclick="closeEditTask()"
+    />
+  </div>
+  <!-- TITLE -->
+  <section class="editSection">
+    <p>Title</p>
+    <input class="inputAndTextareaSettings" type="text" value="${task.title}" />
+  </section>
+  <!-- DESCRIPTION -->
+  <section class="editSection">
+    <p>Description</p>
+    <textarea
+      class="inputAndTextareaSettings"
+      name=""
+      id=""
+      cols="30"
+      rows="10"
+    >
+${task.description}</textarea
+    >
+  </section>
+  <!-- DUE DATES -->
+  <section class="editSection">
+    <p>Due Date</p>
+    <input
+      class="inputAndTextareaSettings"
+      type="date"
+      value="${task.dueDate}"
+    />
+  </section>
+  <!-- PRIORITY  -->
+  <section class="editSection">
+    <p>Priority</p>
+    <div class="edit-task-prio-button-container">
+      <button
+        onclick="setTaskPriority('urgent'); changeButtonColor(true)"
+        id="edit_task_prio_button_urgent"
+        class="add-task-prio-button add-task-urgent-prio-button"
+        type="button"
+      >
+        <span> Urgent </span>
+        <img
+          id="edit_task_prio_icon_urgent"
+          class="add-task-prio-icon"
+          src="./assets/img/priorityUrgent.svg"
+        />
+      </button>
+      <button
+        onclick="setTaskPriority('medium'); changeButtonColor(true)"
+        id="edit_task_prio_button_medium"
+        class="add-task-prio-button add-task-prio-button-yellow add-task-medium-prio-button"
+        type="button"
+      >
+        <span> Medium </span>
+        <img
+          id="edit_task_prio_icon_medium"
+          class="add-task-prio-icon add-task-prio-icon-white"
+          src="./assets/img/priorityMedium.svg"
+        />
+      </button>
+      <button
+        onclick="setTaskPriority('low'); changeButtonColor(true)"
+        id="edit_task_prio_button_low"
+        class="add-task-prio-button add-task-low-prio-button"
+        type="button"
+      >
+        <span> Low </span>
+        <img
+          id="edit_task_prio_icon_low"
+          class="add-task-prio-icon"
+          src="./assets/img/priorityLow.svg"
+        />
+      </button>
+    </div>
+  </section>
+  <!-- ASSIGNED TO -->
+  <section class="editSection">
+  <span>Assigned to</span>
+  <div
+    onclick="toggleContactsDropdown(true)"
+    class="add-task-inputfield add-task-inputfield-contacts inputAndTextareaSettings"
+  >
+    <span id="edit_task_placeholder" class="add-task-placeholder">
+      Select contacts to assign
+    </span>
+    <img
+      id="edit-task-inputfield-arrow"
+      class="add-task-inputfield-arrow"
+      src="./assets/img/arrow_drop_down.svg"
+    />
+  </div>
+  <div id="edit_task_contacts_content"></div>
+</section>
+</main>
 
-    </main>
   `;
   document.body.appendChild(background);
 }
