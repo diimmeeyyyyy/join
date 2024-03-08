@@ -7,6 +7,77 @@ body {
 
 }
 
+.backround-delete-contact-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  background-color: rgb(0, 0, 0, 0.1);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+
+
+.really-delete {
+  background-color: white;
+  font-weight: 600;
+  height: 120px;
+  width: 240px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.slideInContactDelete {
+  animation: slideInContactDelete 0.5s ease-out forwards;
+}
+
+.slideOutContactDelete {
+  animation: slideOutContactDelete 0.5s ease-out forwards;
+}
+
+@keyframes slideInContactDelete {
+  0% {
+    transform: translate(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(100%, 100%);
+    opacity: 1;
+    
+  }
+}
+
+@keyframes slideOutContactDelete {
+  0% {
+    transform: translate(100%, 100%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100%, -100%);
+    opacity: 1;
+  }
+}
+
+.button-delete {
+  color: white;
+  background-color: rgb(42, 54, 71, 1);
+  border-radius: 5px;
+  border: none;
+  height: 30px;
+  cursor: pointer;
+}
+
 .parting-line-main-page {
   border: 1px solid rgb(93, 190, 231);
   height: 40px;
@@ -338,6 +409,7 @@ body {
   display: flex;
   align-items: center;
 }
+
 /* 
 a {
   color: rgb(0, 124, 238);
@@ -436,6 +508,7 @@ a {
   position: absolute;
   top: 40px;
   right: 40px;
+  cursor: pointer;
 }
 
 /* css für Media */
@@ -590,9 +663,10 @@ a {
   }
 } */
 @media (max-width:850px) {
-  .mobil-edit-close-black{
+  .mobil-edit-close-black {
     display: none;
   }
+
   .container2 h1 {
     font-size: 47px;
   }
@@ -857,7 +931,7 @@ a {
 }
 
 @media(min-width:850px) {
-  
+
   .close-mobile {
     display: none;
   }

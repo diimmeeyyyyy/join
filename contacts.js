@@ -13,6 +13,7 @@ async function initContacts() {
   await includeHTML();
   await loadContacts();
   await contactsSort();
+  queryContainer();
   updateLettersAndTwoLettersName();
   await contactList();
   updateMenuPoint(3);
@@ -109,6 +110,7 @@ function pushContact(i) {
   pushContact.innerHTML = generateContactsListHTML(i, buttonColor);
   pushContact.innerHTML += returnContactInfo(i);
   mobileBackRemove();
+  queryContainer(i);
 }
 
 function generateContactsListHTML(i, buttonColor) {
@@ -120,7 +122,7 @@ function generateContactsListHTML(i, buttonColor) {
         <div id="edit_back">
           <div class="edit-delete" id="edit_delete">
             <p onclick="editContact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
-            <p onclick="deleteContact(${i})"><img src="./assets/img/delete.png"> Delete</p>
+            <p onclick="deleteQuery()"><img src="./assets/img/delete.png"> Delete</p>
           </div>
         </div>
       </div>
@@ -154,7 +156,41 @@ function transformCloseContacts() {
   pushContacts.classList.remove("animate");
 }
 
+function queryContainer(i) {
+  let queryContainer = document.getElementById('query_comtainer');
+  queryContainer.innerHTML = '';
+  queryContainer.innerHTML = /*html*/ `
+    <div class="backround-delete-contact-container" id="backgroundDeleteContactContainer">
+      <div class="really-delete">
+        <span>Do you really want to delete this contact?</span>
+        <div>
+          <button onclick="closeQuery()" class="button-delete">No, cancel</button>
+          <button onclick="deleteContact(${i})" class="button-delete">Yes, delete</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function deleteQuery() {
+  let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
+  backgroundDeleteContactContainer.style.display = 'flex'; // Einblenden
+  backgroundDeleteContactContainer.classList.add('slideInContactDelete');
+}
+
+function closeQuery() {
+  let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
+  setTimeout(() => {
+    backgroundDeleteContactContainer.classList.add('slideOutContactDelete');
+  }, 50); // Eine kleine Verzögerung, damit die vorherige Animation abgespielt wird
+  setTimeout(() => {
+    backgroundDeleteContactContainer.classList.remove('slideOutContactDelete');
+    backgroundDeleteContactContainer.style.display = 'none'; // Ausblenden nach der Animation
+  }, 500); 
+}
+
 async function deleteContact(i) {
+  closeQuery();
   transformCloseContacts();
 
   await deleteNameFromTask(i);
@@ -164,8 +200,8 @@ async function deleteContact(i) {
   await setItem("allContacts", contacts);
   updateLettersAndTwoLettersName(); // Aktualisieren der 'letters' und 'twolettersName' Arrays
   contactList(); // Kontaktliste aktualisieren
- 
 }
+
 async function deleteNameFromTask(i) {
   let allTasks = await getItem("allTasks");
   let deletedName = contacts[i]["name"];
