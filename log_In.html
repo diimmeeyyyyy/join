@@ -6,7 +6,7 @@
     <title>LogIn</title>
     <!--LINKED FILES -->
     <link rel="stylesheet" href="log_In_and_Register.css" />
-    <link rel="icon" href="./assets/img/FAVICONJOIN.png">
+    <link rel="icon" href="./assets/img/FAVICONJOIN.png" />
     <script src="storage.js"></script>
     <script src="register.js"></script>
     <script src="log_In.js"></script>
@@ -20,7 +20,7 @@
     <!------------ SIGN-UP ------------>
     <section class="register-button-section">
       <p>Not a Join user?</p>
-      <a href="register.html">Sign up</a>
+      <a href="register.html" class="main-button-hover">Sign up</a>
     </section>
     <!--------------------------------->
     <!----------------- LOG-IN-WINDOW ----------------->
@@ -44,8 +44,13 @@
           <label for="Remember_Me_Checkbox">Remember me</label>
         </div>
         <div class="logIn-button-div">
-          <button id="LogIn_Button" class="logIn-button">Log in</button>
-          <button id="Guest_LogIn_Button" class="guest-logIn-button">
+          <button id="LogIn_Button" class="logIn-button main-button-hover">
+            Log in
+          </button>
+          <button
+            id="Guest_LogIn_Button"
+            class="guest-logIn-button guest-logIn-button-hover"
+          >
             Guest Log in
           </button>
         </div>
