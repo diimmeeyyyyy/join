@@ -1,7 +1,7 @@
 let _taskList = null;
 let contactsForNewTask = [];
-let contactsRendered = false;           // keine Kontakte geladen
-let contactsDropdownOpen = false;       // Dropdownmenü nicht geöffnet
+let contactsRendered = false;
+let contactsDropdownOpen = false;
 let prio = "medium";
 let subtasks = [];
 
@@ -21,12 +21,14 @@ CONTACTS
 
 async function toggleContactsDropdown(isEditMode) {
   const classPrefix = isEditMode ? 'edit' : 'add';
-  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
-  
+
   if (!contactsRendered) {
     await renderContactsInAddTask(false);
     contactsRendered = true;
   }
+
+  
+  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
 
   if (contactsDropdownOpen === true) {
     contactsContainer.style.display = 'none';
@@ -86,7 +88,7 @@ function saveCheckedContacts(event, contactIndex, contactName) {
   if (index >= 0) {
     contactsForNewTask.splice(index, 1);
     checkbox.checked = false;
-    checkboxfield.classList.remove('add-task-contact-selected');   
+    checkboxfield.classList.remove('add-task-contact-selected');
   } else {
     contactsForNewTask.push(contactName);
     checkbox.checked = true;
@@ -161,7 +163,7 @@ function addNewSubtask(isEditMode) {
     newSubtasksList.innerHTML += ` 
          
         <li id="${classPrefix}_task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
-            <span>${subtask.value}</span>
+            <span>• ${subtask.value}</span>
             <img onclick="deleteSubtask(false)" src="./assets/img/delete.svg" class="add-task-subtask-bin">
          </li>
     `;
@@ -190,14 +192,13 @@ async function getTasks() {
     return _taskList;
   }
 
-  const allTasksResponse = await getItem("allTasks"); //allTasks vom Server laden
+  const allTasksResponse = await getItem("allTasks");
 
   if (allTasksResponse instanceof Array) {
-    //schauen, ob allTaksResponse ein Array ist
-    _taskList = allTasksResponse; // wenn allTasks ein Array ist: Array in globaler Variable Tasklist speichern
-    return allTasksResponse; //  & vorhandenes Array zurückgeben
+    _taskList = allTasksResponse; // 
+    return allTasksResponse; //  
   } else {
-    return []; //wenn nicht: leeres Array zurückgeben
+    return [];
   }
 }
 

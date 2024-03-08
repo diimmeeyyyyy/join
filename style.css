@@ -102,7 +102,7 @@ HEADER
 }
 .add-task-button:hover {
   background-color: rgb(40, 171, 226);
-  filter: drop-shadow(2px 4px 6px black);
+  box-shadow: -2px 2px 2px #ccc;
 }
 .drop-down-header {
   display: flex;

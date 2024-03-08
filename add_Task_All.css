@@ -132,7 +132,7 @@ CONTACTS
 
 .add-task-contact-checkbox:hover {
   cursor: pointer;
-  background-color: rgb(209, 209, 209);
+  background-color: rgb(221, 226, 226);
   border-radius: 8px;
 }
 
@@ -149,7 +149,7 @@ CONTACTS
 
 .add-task-contact-selected,
 .add-task-contact-selected:hover {
-  background-color: rgb(42,54,71);
+  background-color: rgb(42, 54, 71);
   color: white;
   border-radius: 8px;
 }
@@ -233,11 +233,6 @@ CATEGORY
   width: 100%;
 }
 
-/* #add_task_category:hover option:hover {
-  background-color: grey;
-  cursor: pointer; 
-} */
-
 /* ====
 SUBTASKS
 =======*/
@@ -289,11 +284,11 @@ SUBTASKS
   line-height: 1.5;
   position: relative;
 }
-/* 
+
 .add-task-subtask-and-delete-icon:hover {
-  background-color: rgb(178, 177, 177);
+  background-color: rgb(221, 226, 226);
   border-radius: 8px;
-} */
+}
 
 .add-task-subtask-bin {
   display: none;
@@ -303,12 +298,17 @@ SUBTASKS
   top: 0;
   right: 0;
   padding-right: 16px;
+  margin-top: 2px;
 }
+
+.add-task-subtask-bin:hover {
+  filter: opacity(70%);
+}
+
 
 .add-task-subtask-and-delete-icon:hover .add-task-subtask-bin {
   display: block;
 }
-
 
 /* ====
 FORM-BUTTONS & LEGEND
@@ -369,7 +369,7 @@ FORM-BUTTONS & LEGEND
   box-shadow: -2px 2px 2px #ccc;
 }
 
-.add-task-clear-button:hover > img {
+.add-task-clear-button:hover>img {
   filter: brightness(0) saturate(100%) invert(53%) sepia(93%) saturate(425%) hue-rotate(154deg) brightness(93%) contrast(89%);
 }
 
@@ -430,7 +430,6 @@ FORM-BUTTONS & LEGEND
 RESPONSIVE-DESIGN
 ===================*/
 
-
 /* Break point 1 (1090px)*/
 @media (max-width: 1090px) {
 
@@ -466,10 +465,14 @@ RESPONSIVE-DESIGN
   .add-task-legend-responsive-design {
     display: block;
   }
-  
 
   .add-task-dividing-line {
     display: none;
+  }
+
+  #add_task_new_subtasks_container {
+    height: 80px;
+    margin-bottom: 0;
   }
 
   .add-task-legend-and-form-buttons {
@@ -478,7 +481,6 @@ RESPONSIVE-DESIGN
     align-items: center;
     position: sticky;
     bottom: 0;
-    /* left: 232px; */
     height: 80px;
     box-sizing: border-box;
     margin-bottom: 0;
@@ -498,7 +500,6 @@ RESPONSIVE-DESIGN
     gap: 16px;
   }
 }
-
 
 /* Break point 2 (850px)*/
 @media (max-width: 850px) {
@@ -522,7 +523,8 @@ RESPONSIVE-DESIGN
 
   .add-task-legend-and-form-buttons {
     position: sticky;
-    bottom: 82px;                 /* ändern, falls sidebar ändern */
+    bottom: 82px;
+    /* ändern, falls sidebar ändern */
     left: 0;
     padding-left: 16px;
     padding-right: 16px;
@@ -532,7 +534,6 @@ RESPONSIVE-DESIGN
     display: none;
   }
 }
-
 
 /* Break point 3 (420px)*/
 @media (max-width: 370px) {
@@ -544,6 +545,7 @@ RESPONSIVE-DESIGN
   .add-task-contacts-container {
     max-height: 150px;
   }
+
   .add-task-prio-icon {
     width: 14px;
   }
@@ -552,8 +554,4 @@ RESPONSIVE-DESIGN
     font-size: 16px;
     white-space: nowrap;
   }
-
-  /* .add-task-create-button-img {
-    display: none;
-  } */
 }

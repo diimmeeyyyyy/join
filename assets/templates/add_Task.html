@@ -13,15 +13,15 @@
                 <div class="add-task-inputfield-column ">
                     <span>Title<span class="add-task-highlight-red">*</span></span>
                     <input id="add_task_title" class="add-task-inputfield" required placeholder="Enter a title">
-
                     <span>Description</span>
                     <textarea id="add_task_description" class="add-task-inputfield"
                         placeholder="Enter a Description"></textarea>
-
                     <span>Assigned to</span>
-                    <div onclick="toggleContactsDropdown(false)" class="add-task-inputfield add-task-inputfield-contacts">
+                    <div onclick="toggleContactsDropdown(false)"
+                        class="add-task-inputfield add-task-inputfield-contacts">
                         <span id="add_task_placeholder" class="add-task-placeholder"> Select contacts to assign </span>
-                        <img id="add-task-inputfield-arrow" class="add-task-inputfield-arrow" src="./assets/img/arrow_drop_down.svg">
+                        <img id="add-task-inputfield-arrow" class="add-task-inputfield-arrow"
+                            src="./assets/img/arrow_drop_down.svg">
                     </div>
                     <div id="add_task_contacts_content"></div>
                     <span class="add-task-legend add-task-legend-desktop-design">
@@ -29,11 +29,7 @@
                     </span>
                 </div>
 
-
-
                 <div class="add-task-dividing-line"></div>
-
-
 
                 <div class="add-task-inputfield-column ">
                     <span>Due Date<span class="add-task-highlight-red">*</span></span>
@@ -54,14 +50,13 @@
                                 <img id="add_task_prio_icon_medium" class="add-task-prio-icon add-task-prio-icon-white "
                                     src="./assets/img/priorityMedium.svg">
                             </button>
-                            <button onclick="setTaskPriority('low'); changeButtonColor(false)" id="add_task_prio_button_low"
-                                class="add-task-prio-button" type="button">
+                            <button onclick="setTaskPriority('low'); changeButtonColor(false)"
+                                id="add_task_prio_button_low" class="add-task-prio-button" type="button">
                                 <span> Low </span>
                                 <img id="add_task_prio_icon_low" class="add-task-prio-icon"
                                     src="./assets/img/priorityLow.svg">
                             </button>
                         </div>
-
                     </div>
                     <div id="add_task_category_container">
                         <span>Category<span class="add-task-highlight-red">*</span></span>
@@ -72,12 +67,12 @@
                             <option value="User Story">User Story</option>
                         </select>
                     </div>
-
                     <span>Subtasks</span>
                     <div class="add-task-subtasks-container">
                         <input id="add_task_subtasks_inputfield" class="add-task-inputfield"
                             placeholder="Add new subtask">
-                        <img onclick="addNewSubtask(false)" id="add_task_subtask_plus_button" src="./assets/img/plus.svg">
+                        <img onclick="addNewSubtask(false)" id="add_task_subtask_plus_button"
+                            src="./assets/img/plus.svg">
                     </div>
                     <div id="add_task_new_subtasks_container">
                         <ul id="add-task-subtasks-list">
@@ -95,8 +90,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <div class="add-task-legend-and-form-buttons">
                 <span class="add-task-legend add-task-legend-responsive-design">
