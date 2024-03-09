@@ -74,7 +74,7 @@ ARROW BACK ON REGISTER.HTML
   flex-direction: column;
   align-items: center;
   gap: clamp(15px, 3vw, 31px);
-  width: clamp(360px, 70vw, 650px);
+  width: clamp(320px, 70vw, 650px);
   padding-block: clamp(10px, 3vw, 25px);
   background-color: white;
   border-radius: 30px;
@@ -112,7 +112,7 @@ ARROW BACK ON REGISTER.HTML
   padding: 5px;
   cursor: pointer;
   height: clamp(25px, 5vw, 30px);
-  width: clamp(290px, 50vw, 350px);
+  width: clamp(280px, 60vw, 350px);
 }
 .input-box input {
   font-size: clamp(18px, 3vw, 22px);
@@ -233,6 +233,7 @@ CHECK PASSWORD REQUIREMENTS
   transform: translateY(-101%);
   border-radius: 0 0 20px 20px;
   padding: 15px;
+  width: clamp(210px, 40vw, 300px);
 }
 .slide-down {
   animation: slideDown 2s forwards;
@@ -253,6 +254,7 @@ CHECK PASSWORD REQUIREMENTS
 #Check_Requirements_Pop_Up span {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 .invalid {
   color: #b01717;

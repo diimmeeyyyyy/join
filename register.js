@@ -107,11 +107,11 @@ function check(input, pattern, imgID, classID) {
   if (input.value.match(pattern)) {
     element.classList.remove("invalid");
     element.classList.add("valid");
-    document.getElementById(imgID).src = "./img/RightPassword.png";
+    document.getElementById(imgID).src = "./assets/img/RightPassword.png";
   } else {
     element.classList.remove("valid");
     element.classList.add("invalid");
-    document.getElementById(imgID).src = "./img/WrongPassword.png";
+    document.getElementById(imgID).src = "./assets/img/WrongPassword.png";
   }
 }
 
