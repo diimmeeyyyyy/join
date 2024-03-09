@@ -74,6 +74,7 @@ BOARD
 }
 
 .input-box-largeScreen input {
+  outline: none;
   font-size: 20px;
   cursor: pointer;
   border: none;
@@ -451,7 +452,7 @@ EDIT TASK
 .editSection textarea {
   height: 50px;
 }
-.edit-task-prio-button-container{
+.edit-task-prio-button-container {
   display: flex;
   justify-content: space-between;
   gap: 16px;

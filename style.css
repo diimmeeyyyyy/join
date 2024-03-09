@@ -19,7 +19,7 @@ p {
   margin-block-end: 0;
 }
 
-.main-button-hover-effect:hover{
+.main-button-hover-effect:hover {
   background-color: #29abe2;
   filter: drop-shadow();
 }
@@ -214,7 +214,7 @@ TASK OVERVIEW & GREETINGS SECTION
   gap: clamp(10px, 3vw, 30px);
 }
 
-.summary-task-overview-toDo-and-done span {
+.summary-task-overview-toDo-and-done a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,6 +224,7 @@ TASK OVERVIEW & GREETINGS SECTION
   height: clamp(100px, 26vw, 170px);
   gap: 15px;
   cursor: pointer;
+  color: black;
 }
 
 .summary-hover-effect:hover {
@@ -265,6 +266,7 @@ TASK OVERVIEW & GREETINGS SECTION
   height: clamp(110px, 26vw, 170px);
   border-radius: 30px;
   cursor: pointer;
+  color: black;
 }
 
 .summary-task-overview-dueDates span {
@@ -303,7 +305,7 @@ TASK OVERVIEW & GREETINGS SECTION
   justify-content: space-between;
 }
 
-.summary-task-overview-information div {
+.summary-task-overview-information a {
   width: clamp(100px, 26vw, 170px);
   height: clamp(100px, 26vw, 170px);
   background-color: white;
@@ -311,9 +313,10 @@ TASK OVERVIEW & GREETINGS SECTION
   display: flex;
   justify-content: center;
   align-items: center;
+  color: black;
 }
 
-.summary-task-overview-information div p:last-of-type {
+.summary-task-overview-information a p:last-of-type {
   font-size: clamp(14px, 4vw, 21px);
   font-weight: 400;
   text-align: center;

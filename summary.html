@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Summary</title>
     <!-- LINKED FILES -->
-    <link rel="icon" href="./assets/img/FAVICONJOIN.png">
+    <link rel="icon" href="./assets/img/FAVICONJOIN.png" />
     <link rel="stylesheet" href="style.css" />
     <script src="storage.js"></script>
     <script src="utils.js"></script>
@@ -27,7 +27,7 @@
           <section class="summary-task-section">
             <div class="summary-task-overview">
               <div class="summary-task-overview-toDo-and-done">
-                <span class="summary-hover-effect">
+                <a href="board.html" class="summary-hover-effect">
                   <img
                     src="./assets/img/summaryPen.png"
                     class="summary-img-size summary-todo-tasks-hover"
@@ -36,8 +36,8 @@
                     <p class="amount-tasks" id="Summary_Tasks_ToDo">4</p>
                     <p class="status-tasks">To-do</p>
                   </div>
-                </span>
-                <span class="summary-hover-effect">
+                </a>
+                <a href="board.html" class="summary-hover-effect">
                   <img
                     src="./assets/img/summaryDoneTasks.png"
                     class="summary-img-size summary-done-tasks-hover"
@@ -46,10 +46,13 @@
                     <p class="amount-tasks" id="Summary_Tasks_Done"></p>
                     <p class="status-tasks">Done</p>
                   </div>
-                </span>
+                </a>
               </div>
               <!-------------------------------------------------------------------->
-              <div class="summary-task-overview-dueDates summary-hover-effect">
+              <a
+                href="board.html"
+                class="summary-task-overview-dueDates summary-hover-effect"
+              >
                 <span>
                   <img
                     src="./assets/img/summaryUrgency.png"
@@ -65,30 +68,39 @@
                   <p id="Summary_Upcoming_DueDate"></p>
                   <p>Upcoming Deadline</p>
                 </div>
-              </div>
+              </a>
               <!-------------------------------------------------------------------->
               <div class="summary-task-overview-information">
-                <div class="arrange-amount-and-status summary-hover-effect">
+                <a
+                  href="board.html"
+                  class="arrange-amount-and-status summary-hover-effect"
+                >
                   <p class="amount-tasks" id="Summary_Amount_Tasks"></p>
                   <p>
                     Tasks in <br />
                     Board
                   </p>
-                </div>
-                <div class="arrange-amount-and-status summary-hover-effect">
+                </a>
+                <a
+                  href="board.html"
+                  class="arrange-amount-and-status summary-hover-effect"
+                >
                   <p class="amount-tasks" id="Summary_Tasks_InProgress">3</p>
                   <p>
                     Tasks in <br />
                     progress
                   </p>
-                </div>
-                <div class="arrange-amount-and-status summary-hover-effect">
+                </a>
+                <a
+                  href="board.html"
+                  class="arrange-amount-and-status summary-hover-effect"
+                >
                   <p class="amount-tasks" id="Summary_Tasks_AwaitFeedback"></p>
                   <p>
                     Awaiting <br />
                     Feedback
                   </p>
-                </div>
+                </a>
               </div>
             </div>
             <span class="summary-greetings-div" id="Greetings_Large_Screen">

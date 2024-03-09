@@ -323,10 +323,10 @@ function findTask() {
       .getElementsByTagName("h2")[0]
       .innerText.toLowerCase();
     if (
-      (window.innerWidth > 650 && oneTaskName.includes(input)) ||
-      (window.innerWidth <= 650 && oneTaskName.includes(inputSmallScreen))
+      (window.innerWidth > 650 && oneTaskName.startsWith(input)) ||
+      (window.innerWidth <= 650 && oneTaskName.startsWith(inputSmallScreen))
     ) {
-      tasks[i].style.display = "block";
+      tasks[i].style.display = "flex";
     }
   }
 }
