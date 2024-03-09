@@ -411,6 +411,7 @@ async function editTask(taskIndex) {
   const allTasks = await getItem("allTasks");
   let task = allTasks[taskIndex];
   let background = document.createElement("div");
+  let assignedContactIcons = await getAssignedContacts(taskIndex);
   background.id = "Edit_Task_Background";
   background.className = "pop-up-backdrop";
   background.innerHTML = /*html*/ `
@@ -496,13 +497,12 @@ ${task.description}</textarea
   </section>
   <!-- ASSIGNED TO -->
   <section class="editSection">
-  <span>Assigned to</span>
   <div
-    onclick="toggleContactsDropdown(true)"
+    onclick="toggleContactsDropdown(true);checkAssignedContacts(${taskIndex})"
     class="add-task-inputfield add-task-inputfield-contacts inputAndTextareaSettings"
   >
     <span id="edit_task_placeholder" class="add-task-placeholder">
-      Select contacts to assign
+      Add or remove contacts 
     </span>
     <img
       id="edit-task-inputfield-arrow"
@@ -511,11 +511,49 @@ ${task.description}</textarea
     />
   </div>
   <div id="edit_task_contacts_content"></div>
+  <div id="edit_Task_contact_icons">${assignedContactIcons}</div>
 </section>
 </main>
-
   `;
   document.body.appendChild(background);
+}
+
+async function checkAssignedContacts(taskIndex) {
+  let allTasks = await getItem("allTasks");
+  let task = allTasks[taskIndex];
+  let assignedContacts = task["contactsForNewTask"];
+
+  for (let i = 0; i < assignedContacts.length; i++) {
+    let contactName = assignedContacts[i];
+    saveCheckedContacts(null, i, true, contactName);
+  }
+}
+
+async function getAssignedContacts(taskIndex) {
+  let allTasks = await getItem("allTasks");
+  let allAssignedContacts = allTasks[taskIndex]["contactsForNewTask"];
+  let html = "";
+
+  for (let oneContact of allAssignedContacts) {
+    oneContact = await getContactInformation(oneContact);
+    console.log(oneContact);
+    html += /*html*/ `
+    <span class="edit-Task-assigned-contacts-icon">${getIconForContact(
+      oneContact
+    )}</span>
+  `;
+  }
+  return html;
+}
+
+async function getContactInformation(contactName) {
+  let allContacts = await getItem("allContacts");
+  console.log(allContacts);
+  let contactInfo = allContacts.find(
+    (contact) => contact["name"] === contactName
+  );
+  console.log(contactInfo);
+  return contactInfo;
 }
 
 function closeEditTask() {
