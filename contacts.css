@@ -26,6 +26,7 @@ body {
 .really-delete {
   background-color: white;
   font-weight: 600;
+  font-size: 23px;
   height: 120px;
   width: 240px;
   padding: 5px;
@@ -74,7 +75,7 @@ body {
   background-color: rgb(42, 54, 71, 1);
   border-radius: 5px;
   border: none;
-  height: 30px;
+  height: 40px;
   cursor: pointer;
 }
 

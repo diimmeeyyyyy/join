@@ -122,7 +122,7 @@ function generateContactsListHTML(i, buttonColor) {
         <div id="edit_back">
           <div class="edit-delete" id="edit_delete">
             <p onclick="editContact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
-            <p onclick="deleteQuery()"><img src="./assets/img/delete.png"> Delete</p>
+            <p onclick="deleteQuery(${i})"><img src="./assets/img/delete.png"> Delete</p>
           </div>
         </div>
       </div>
@@ -173,8 +173,9 @@ function queryContainer(i) {
 }
 
 function deleteQuery() {
+  mobilEditContact();
   let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
-  backgroundDeleteContactContainer.style.display = 'flex'; // Einblenden
+  backgroundDeleteContactContainer.style.display = 'flex'; 
   backgroundDeleteContactContainer.classList.add('slideInContactDelete');
 }
 
@@ -287,7 +288,7 @@ function generateEditHeader() {
     <div class="edit">
       <div class="edit-one">
         <img class="join-png" src="./assets/img/join-mobile.png" alt="Bild Join">
-        <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
+        <img onclick="mobilEditContact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
         <p> Edit contact</p>
         <div class="parting-line"></div>
       </div>
@@ -298,14 +299,14 @@ function generateEditHeader() {
 function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
   return /*html*/ `
     <div class="edit-two">
-    <img onclick="mobil_edit_contact()" class="mobil-edit-close-black" src="./assets/img/closeBlack.png">
+    <img onclick="mobilEditContact()" class="mobil-edit-close-black" src="./assets/img/closeBlack.png">
       <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
       <form class="form" id="editForm" onsubmit="saveContact(${i}); return false;">
         <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
         <input id="editEmail" required type="email" placeholder="Email" value="${email}"> <br>
         <input id="editNumber" required type="number" placeholder="Phone" value="${tel}"> <br>
         <div class="cancel-and-ceate">
-          <button onclick="closeEditContactDelete(${i})" type="button" class="cancel">Delete</button> 
+          <button onclick="deleteQuery()" type="button" class="cancel">Delete</button> 
           <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img  src="./assets/img/check.png"></button>
         </div>
       </form>
@@ -426,7 +427,7 @@ function mobileBackRemove() {
   }
 }
 
-function mobil_edit_contact() {
+function mobilEditContact() {
   let editContact = document.getElementById("edit_contact");
   editContact.classList.add("d-none");
 }
