@@ -221,7 +221,7 @@ function clearAddTaskForm() {
   let newSubtasksList = document.getElementById("add-task-subtasks-list");
   newSubtasksList.innerHTML = '';
 
-  let contactList = document.getElementById('add_task_contacts_content');
+  let contactList = document.getElementById('add_task_contacts_container');
   contactList.style.display = 'none';
   contactsDropdownOpen = false;
 }
