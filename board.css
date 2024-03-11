@@ -74,6 +74,7 @@ BOARD
 }
 
 .input-box-largeScreen input {
+  outline: none;
   font-size: 20px;
   cursor: pointer;
   border: none;
@@ -275,9 +276,7 @@ STYLE OF ONE TASK
 }
 
 .board-task-category-largeview {
-  font-size: 20px;
-  width: 128px;
-  height: 32px;
+  padding: 5px;
 }
 
 .board-task-title-largeview {
@@ -451,7 +450,7 @@ EDIT TASK
 .editSection textarea {
   height: 50px;
 }
-.edit-task-prio-button-container{
+.edit-task-prio-button-container {
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -560,15 +559,6 @@ ASSIGNED CONTACTS
   margin-left: -10px;
 }
 
-/* .initialCircle {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-} */
 .show-amount-of-hidden-contacts {
   width: 32px;
   height: 32px;
@@ -584,3 +574,11 @@ ASSIGNED CONTACTS
 .item:not(:first-child) {
   margin-left: -10px;
 }
+
+
+/* =========
+EDIT TASK
+============*/
+/* .edit-Task-assigned-contacts-icon{
+
+} */

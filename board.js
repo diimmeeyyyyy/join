@@ -323,10 +323,10 @@ function findTask() {
       .getElementsByTagName("h2")[0]
       .innerText.toLowerCase();
     if (
-      (window.innerWidth > 650 && oneTaskName.includes(input)) ||
-      (window.innerWidth <= 650 && oneTaskName.includes(inputSmallScreen))
+      (window.innerWidth > 650 && oneTaskName.startsWith(input)) ||
+      (window.innerWidth <= 650 && oneTaskName.startsWith(inputSmallScreen))
     ) {
-      tasks[i].style.display = "block";
+      tasks[i].style.display = "flex";
     }
   }
 }
@@ -496,13 +496,12 @@ ${task.description}</textarea
   </section>
   <!-- ASSIGNED TO -->
   <section class="editSection">
-  <span>Assigned to</span>
   <div
-    onclick="toggleContactsDropdown(true)"
+    onclick="toggleContactsDropdown(true);checkAssignedContacts(${taskIndex})"
     class="add-task-inputfield add-task-inputfield-contacts inputAndTextareaSettings"
   >
     <span id="edit_task_placeholder" class="add-task-placeholder">
-      Select contacts to assign
+      Add or remove contacts 
     </span>
     <img
       id="edit-task-inputfield-arrow"
@@ -511,17 +510,62 @@ ${task.description}</textarea
     />
   </div>
   <div id="edit_task_contacts_content"></div>
+  <div id="edit_task_contact_icons"></div>
 </section>
 </main>
-
   `;
   document.body.appendChild(background);
+  await getAssignedContacts(taskIndex);
 }
+
+function editTaskAddContactIcon(){
+
+}
+
+async function checkAssignedContacts(taskIndex) {
+  let allTasks = await getItem("allTasks");
+  let task = allTasks[taskIndex];
+  let assignedContacts = task["contactsForNewTask"];
+
+  for (let i = 0; i < assignedContacts.length; i++) {
+    let contactName = assignedContacts[i];
+    saveCheckedContacts(null, i, true, contactName);
+  }
+}
+
+async function getAssignedContacts(taskIndex) {
+  let allTasks = await getItem("allTasks");
+  let allAssignedContacts = allTasks[taskIndex]["contactsForNewTask"];
+  let html = "";
+
+  for (let oneContact of allAssignedContacts) {
+    oneContact = await getContactInformation(oneContact);
+    console.log(oneContact);
+    html += /*html*/ `
+    <span class="edit-Task-assigned-contacts-icon">${getIconForContact(
+      oneContact
+    )}</span>
+  `;
+  }
+  let contactIconsDiv = document.getElementById("edit_task_contact_icons");
+  contactIconsDiv.innerHTML = html;
+}
+
+/* async function getContactInformation(contactName) {
+  let allContacts = await getItem("allContacts");
+  console.log(allContacts);
+  let contactInfo = allContacts.find(
+    (contact) => contact["name"] === contactName
+  );
+  console.log(contactInfo);
+  return contactInfo;
+} */
 
 function closeEditTask() {
   let editTaskDiv = document.getElementById("Edit_Task_Background");
   document.body.removeChild(editTaskDiv);
 }
+
 
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring

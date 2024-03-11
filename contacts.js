@@ -13,6 +13,7 @@ async function initContacts() {
   await includeHTML();
   await loadContacts();
   await contactsSort();
+  queryContainer();
   updateLettersAndTwoLettersName();
   await contactList();
   updateMenuPoint(3);
@@ -109,6 +110,7 @@ function pushContact(i) {
   pushContact.innerHTML = generateContactsListHTML(i, buttonColor);
   pushContact.innerHTML += returnContactInfo(i);
   mobileBackRemove();
+  queryContainer(i);
 }
 
 function generateContactsListHTML(i, buttonColor) {
@@ -120,7 +122,7 @@ function generateContactsListHTML(i, buttonColor) {
         <div id="edit_back">
           <div class="edit-delete" id="edit_delete">
             <p onclick="editContact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
-            <p onclick="deleteContact(${i})"><img src="./assets/img/delete.png"> Delete</p>
+            <p onclick="deleteQuery(${i})"><img src="./assets/img/delete.png"> Delete</p>
           </div>
         </div>
       </div>
@@ -154,7 +156,42 @@ function transformCloseContacts() {
   pushContacts.classList.remove("animate");
 }
 
+function queryContainer(i) {
+  let queryContainer = document.getElementById('query_comtainer');
+  queryContainer.innerHTML = '';
+  queryContainer.innerHTML = /*html*/ `
+    <div class="backround-delete-contact-container" id="backgroundDeleteContactContainer">
+      <div class="really-delete">
+        <span>Do you really want to delete this contact?</span>
+        <div>
+          <button onclick="closeQuery()" class="button-delete">No, cancel</button>
+          <button onclick="deleteContact(${i})" class="button-delete">Yes, delete</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function deleteQuery() {
+  mobilEditContact();
+  let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
+  backgroundDeleteContactContainer.style.display = 'flex'; 
+  backgroundDeleteContactContainer.classList.add('slideInContactDelete');
+}
+
+function closeQuery() {
+  let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
+  setTimeout(() => {
+    backgroundDeleteContactContainer.classList.add('slideOutContactDelete');
+  }, 50); // Eine kleine Verzögerung, damit die vorherige Animation abgespielt wird
+  setTimeout(() => {
+    backgroundDeleteContactContainer.classList.remove('slideOutContactDelete');
+    backgroundDeleteContactContainer.style.display = 'none'; // Ausblenden nach der Animation
+  }, 500); 
+}
+
 async function deleteContact(i) {
+  closeQuery();
   transformCloseContacts();
 
   await deleteNameFromTask(i);
@@ -164,8 +201,8 @@ async function deleteContact(i) {
   await setItem("allContacts", contacts);
   updateLettersAndTwoLettersName(); // Aktualisieren der 'letters' und 'twolettersName' Arrays
   contactList(); // Kontaktliste aktualisieren
- 
 }
+
 async function deleteNameFromTask(i) {
   let allTasks = await getItem("allTasks");
   let deletedName = contacts[i]["name"];
@@ -251,7 +288,7 @@ function generateEditHeader() {
     <div class="edit">
       <div class="edit-one">
         <img class="join-png" src="./assets/img/join-mobile.png" alt="Bild Join">
-        <img onclick="mobil_edit_contact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
+        <img onclick="mobilEditContact()" class="mobil-edit-close" src="./assets/img/close.png" alt="">
         <p> Edit contact</p>
         <div class="parting-line"></div>
       </div>
@@ -262,14 +299,14 @@ function generateEditHeader() {
 function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
   return /*html*/ `
     <div class="edit-two">
-    <img onclick="mobil_edit_contact()" class="mobil-edit-close-black" src="./assets/img/closeBlack.png">
+    <img onclick="mobilEditContact()" class="mobil-edit-close-black" src="./assets/img/closeBlack.png">
       <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
       <form class="form" id="editForm" onsubmit="saveContact(${i}); return false;">
         <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
         <input id="editEmail" required type="email" placeholder="Email" value="${email}"> <br>
         <input id="editNumber" required type="number" placeholder="Phone" value="${tel}"> <br>
         <div class="cancel-and-ceate">
-          <button onclick="closeEditContactDelete(${i})" type="button" class="cancel">Delete</button> 
+          <button onclick="deleteQuery()" type="button" class="cancel">Delete</button> 
           <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img  src="./assets/img/check.png"></button>
         </div>
       </form>
@@ -390,7 +427,7 @@ function mobileBackRemove() {
   }
 }
 
-function mobil_edit_contact() {
+function mobilEditContact() {
   let editContact = document.getElementById("edit_contact");
   editContact.classList.add("d-none");
 }

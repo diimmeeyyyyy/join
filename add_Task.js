@@ -5,14 +5,13 @@ let contactsDropdownOpen = false;
 let prio = "medium";
 let subtasks = [];
 
-
 async function initAddTask() {
   await includeHTML();
   updateMenuPoint(1);
   await loadUserInitials();
   const today = new Date();
-  let newDueDate = document.getElementById('add_task_due_date');
-  newDueDate.setAttribute('min', today.toISOString().substring(0, 10));
+  let newDueDate = document.getElementById("add_task_due_date");
+  newDueDate.setAttribute("min", today.toISOString().substring(0, 10));
 }
 
 /* ================
@@ -20,43 +19,53 @@ CONTACTS
 ===================*/
 
 async function toggleContactsDropdown(isEditMode) {
-  const classPrefix = isEditMode ? 'edit' : 'add';
+  const classPrefix = isEditMode ? "edit" : "add";
 
   if (!contactsRendered) {
-    await renderContactsInAddTask(false);
+    await renderContactsInAddTask(isEditMode);
     contactsRendered = true;
   }
 
-  
-  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
+  const contactsContainer = document.getElementById(
+    `${classPrefix}_task_contacts_container`
+  );
 
   if (contactsDropdownOpen === true) {
-    contactsContainer.style.display = 'none';
+    contactsContainer.style.display = "none";
     contactsDropdownOpen = false;
   } else {
-    contactsContainer.style.display = 'block';
+    contactsContainer.style.display = "block";
     contactsDropdownOpen = true;
   }
 }
 
-
 async function renderContactsInAddTask(isEditMode) {
-  const classPrefix = isEditMode ? 'edit' : 'add';
+  const classPrefix = isEditMode ? "edit" : "add";
   let allContacts = await loadContacts();
   let placeholder = document.getElementById(`${classPrefix}_task_placeholder`);
-  let drowDownArrow = document.getElementById(`${classPrefix}-task-inputfield-arrow`);
+  let drowDownArrow = document.getElementById(
+    `${classPrefix}-task-inputfield-arrow`
+  );
 
   if (allContacts.length !== 0) {
-    let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
+    let contactsContainer = document.getElementById(
+      `${classPrefix}_task_contacts_content`
+    );
     contactsContainer.innerHTML += `
     <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"> 
     </div>
     `;
 
-    let contactList = document.getElementById(`${classPrefix}_task_contacts_container`);
+    let contactList = document.getElementById(
+      `${classPrefix}_task_contacts_container`
+    );
     for (let i = 0; i < allContacts.length; i++) {
       const contact = allContacts[i];
-      contactList.innerHTML += renderHTMLAddTaskContactList(false, i, contact);
+      contactList.innerHTML += renderHTMLAddTaskContactList(
+        isEditMode,
+        i,
+        contact
+      );
     }
   } else {
     placeholder.style.color = "rgb(178, 177, 177)";
@@ -65,39 +74,99 @@ async function renderContactsInAddTask(isEditMode) {
   }
 }
 
-
 function renderHTMLAddTaskContactList(isEditMode, i, contact) {
-  const classPrefix = isEditMode ? 'edit' : 'add';
+  const classPrefix = isEditMode ? "edit" : "add";
   return `
-      <div id="${classPrefix}_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')"> 
+      <div id="${classPrefix}_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(event, ${i}, ${isEditMode}, '${contact.name.replace(
+    '"',
+    ""
+  )}')"> 
         <div class="add-task-contact-icon-and-name">
             <div>${getIconForContact(contact)}</div>
             <div>${contact.name}</div>
         </div>
-        <input class="add-task-contact-check" id="${classPrefix}_task_contact_checkbox_checkbox${i}" type="checkbox" onclick="saveCheckedContacts(event, ${i}, '${contact.name.replace('"', '')}')">
+        <input class="add-task-contact-check" id="${classPrefix}_task_contact_checkbox_checkbox${i}" type="checkbox" onclick="saveCheckedContacts(event, ${i},${isEditMode}, '${contact.name.replace(
+    '"',
+    ""
+  )}')">
       </div>
     `;
 }
 
-
-function saveCheckedContacts(event, contactIndex, contactName) {
-  const checkbox = document.getElementById(`add_task_contact_checkbox_checkbox${contactIndex}`);
+async function saveCheckedContacts(
+  event,
+  contactIndex,
+  isEditMode,
+  contactName
+) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  const checkbox = document.getElementById(
+    `${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`
+  );
   const index = contactsForNewTask.indexOf(contactName);
-  const checkboxfield = document.getElementById(`add_task_contact_checkbox${contactIndex}`);
+  const checkboxfield = document.getElementById(
+    `${classPrefix}_task_contact_checkbox${contactIndex}`
+  );
 
   if (index >= 0) {
     contactsForNewTask.splice(index, 1);
     checkbox.checked = false;
-    checkboxfield.classList.remove('add-task-contact-selected');
+    checkboxfield.classList.remove("add-task-contact-selected");
+    await removeContactIcon(isEditMode, contactName);
   } else {
     contactsForNewTask.push(contactName);
     checkbox.checked = true;
-    checkboxfield.classList.add('add-task-contact-selected');
+    checkboxfield.classList.add("add-task-contact-selected");
+    await addContactIcon(isEditMode, contactName);
   }
-  event.stopPropagation();
+  if (event) {
+    event.stopPropagation();
+  }
 }
 
+async function removeContactIcon(isEditMode, contactName) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  let IconContainer = document.getElementById(
+    `${classPrefix}_task_contacts_icons`
+  );
+  let contactInformation = await getContactInformation(contactName);
 
+  let iconToRemove = getIconForContact(contactInformation);
+
+  // Durchlaufen  aller span-Elemente im IconContainer
+  for (let i = 0; i < IconContainer.children.length; i++) {
+    let span = IconContainer.children[i];
+
+    // Wenn span-Element das zu entfernende Icon enthält, wirds entfernt
+    if (span.innerHTML === iconToRemove) {
+      IconContainer.removeChild(span);
+      break; // Beenden der Schleife, nachdem das Icon entfernt wurde
+    }
+  }
+}
+
+async function addContactIcon(isEditMode, contactName) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  let IconContainer = document.getElementById(
+    `${classPrefix}_task_contacts_icons`
+  );
+  let contactInformation = await getContactInformation(contactName);
+  console.log(contactInformation);
+
+  IconContainer.innerHTML += /*html*/ `
+    <span>${getIconForContact(contactInformation)}</span>
+  `;
+}
+
+async function getContactInformation(contactName) {
+  let allContacts = await getItem("allContacts");
+  console.log(allContacts);
+  let contactInfo = allContacts.find(
+    (contact) => contact["name"] === contactName
+  );
+  console.log(contactInfo);
+  return contactInfo;
+}
 /* ================
 PRIORITY BUTTONS
 ===================*/
@@ -106,26 +175,35 @@ function setTaskPriority(priority) {
   if (prio === priority) {
     prio = "";
   } else {
-    prio = priority
+    prio = priority;
   }
   return prio;
 }
 
-
 function changeButtonColor(isEditMode) {
-  const classPrefix = isEditMode ? 'edit' : 'add';
-  let urgentButton = document.getElementById(`${classPrefix}_task_prio_button_urgent`);
-  let urgentIcon = document.getElementById(`${classPrefix}_task_prio_icon_urgent`);
-  let mediumButton = document.getElementById(`${classPrefix}_task_prio_button_medium`);
-  let mediumIcon = document.getElementById(`${classPrefix}_task_prio_icon_medium`);
-  let lowButton = document.getElementById(`${classPrefix}_task_prio_button_low`);
+  const classPrefix = isEditMode ? "edit" : "add";
+  let urgentButton = document.getElementById(
+    `${classPrefix}_task_prio_button_urgent`
+  );
+  let urgentIcon = document.getElementById(
+    `${classPrefix}_task_prio_icon_urgent`
+  );
+  let mediumButton = document.getElementById(
+    `${classPrefix}_task_prio_button_medium`
+  );
+  let mediumIcon = document.getElementById(
+    `${classPrefix}_task_prio_icon_medium`
+  );
+  let lowButton = document.getElementById(
+    `${classPrefix}_task_prio_button_low`
+  );
   let lowIcon = document.getElementById(`${classPrefix}_task_prio_icon_low`);
 
-  urgentButton.classList = ['add-task-prio-button'];
+  urgentButton.classList = ["add-task-prio-button"];
   urgentIcon.classList = [];
-  mediumButton.classList = ['add-task-prio-button'];
+  mediumButton.classList = ["add-task-prio-button"];
   mediumIcon.classList = [];
-  lowButton.classList = ['add-task-prio-button'];
+  lowButton.classList = ["add-task-prio-button"];
   lowIcon.classList = [];
 
   switch (prio) {
@@ -146,20 +224,25 @@ function changeButtonColor(isEditMode) {
   }
 }
 
-
 /* ================
 SUBTASKS
 ===================*/
 
 function addNewSubtask(isEditMode) {
-  const classPrefix = isEditMode ? 'edit' : 'add';
-  let newSubtasksList = document.getElementById(`${classPrefix}-task-subtasks-list`);
-  let subtask = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
-  let subtasksInputfield = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
+  const classPrefix = isEditMode ? "edit" : "add";
+  let newSubtasksList = document.getElementById(
+    `${classPrefix}-task-subtasks-list`
+  );
+  let subtask = document.getElementById(
+    `${classPrefix}_task_subtasks_inputfield`
+  );
+  let subtasksInputfield = document.getElementById(
+    `${classPrefix}_task_subtasks_inputfield`
+  );
 
   subtasksInputfield.setAttribute("placeholder", "Add new subtask");
 
-  if (subtask.value !== '') {
+  if (subtask.value !== "") {
     newSubtasksList.innerHTML += ` 
          
         <li id="${classPrefix}_task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
@@ -174,10 +257,11 @@ function addNewSubtask(isEditMode) {
   }
 }
 
-
 function deleteSubtask(isEditMode) {
-  const classPrefix = isEditMode ? 'edit' : 'add';
-  let subtask = document.getElementById(`${classPrefix}_task_subtask_and_delete_icon`);
+  const classPrefix = isEditMode ? "edit" : "add";
+  let subtask = document.getElementById(
+    `${classPrefix}_task_subtask_and_delete_icon`
+  );
   indexOfSubtask = subtasks.indexOf("subtask.value");
   subtasks.splice(indexOfSubtask, 1);
   subtask.remove();
@@ -195,13 +279,12 @@ async function getTasks() {
   const allTasksResponse = await getItem("allTasks");
 
   if (allTasksResponse instanceof Array) {
-    _taskList = allTasksResponse; // 
-    return allTasksResponse; //  
+    _taskList = allTasksResponse; //
+    return allTasksResponse; //
   } else {
     return [];
   }
 }
-
 
 async function getTaskIdCounter() {
   const taskIdCounterResponse = await getItem("taskIdCounter");
@@ -213,19 +296,17 @@ async function getTaskIdCounter() {
   }
 }
 
-
 function clearAddTaskForm() {
   prio = "medium";
   changeButtonColor();
 
   let newSubtasksList = document.getElementById("add-task-subtasks-list");
-  newSubtasksList.innerHTML = '';
+  newSubtasksList.innerHTML = "";
 
-  let contactList = document.getElementById('add_task_contacts_container');
-  contactList.style.display = 'none';
+  let contactList = document.getElementById("add_task_contacts_content");
+  contactList.style.display = "none";
   contactsDropdownOpen = false;
 }
-
 
 async function createTask() {
   const allTasks = await getTasks();
@@ -257,8 +338,8 @@ async function createTask() {
       const subtask = subtasks[i];
       let subtaskDetail = {
         subtaskName: subtask,
-        checked: false
-      }
+        checked: false,
+      };
       newSubtask.push(subtaskDetail);
     }
     task.subtasks = newSubtask;
@@ -278,7 +359,6 @@ async function createTask() {
   navigateToBoardPage();
 }
 
-
 function showPopupTaskAdded() {
   let mainContainer = document.getElementById("main_container");
   mainContainer.innerHTML += `
@@ -291,7 +371,6 @@ function showPopupTaskAdded() {
     `;
 }
 
-
 function navigateToBoardPage() {
   const animationDuration = 200;
   const extraDelay = 500;
@@ -299,6 +378,3 @@ function navigateToBoardPage() {
     window.location.href = "board.html";
   }, animationDuration + extraDelay);
 }
-
-
-
