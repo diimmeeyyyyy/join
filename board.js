@@ -411,7 +411,6 @@ async function editTask(taskIndex) {
   const allTasks = await getItem("allTasks");
   let task = allTasks[taskIndex];
   let background = document.createElement("div");
-  let assignedContactIcons = await getAssignedContacts(taskIndex);
   background.id = "Edit_Task_Background";
   background.className = "pop-up-backdrop";
   background.innerHTML = /*html*/ `
@@ -511,11 +510,16 @@ ${task.description}</textarea
     />
   </div>
   <div id="edit_task_contacts_content"></div>
-  <div id="edit_Task_contact_icons">${assignedContactIcons}</div>
+  <div id="edit_task_contact_icons"></div>
 </section>
 </main>
   `;
   document.body.appendChild(background);
+  await getAssignedContacts(taskIndex);
+}
+
+function editTaskAddContactIcon(){
+
 }
 
 async function checkAssignedContacts(taskIndex) {
@@ -543,10 +547,11 @@ async function getAssignedContacts(taskIndex) {
     )}</span>
   `;
   }
-  return html;
+  let contactIconsDiv = document.getElementById("edit_task_contact_icons");
+  contactIconsDiv.innerHTML = html;
 }
 
-async function getContactInformation(contactName) {
+/* async function getContactInformation(contactName) {
   let allContacts = await getItem("allContacts");
   console.log(allContacts);
   let contactInfo = allContacts.find(
@@ -554,12 +559,13 @@ async function getContactInformation(contactName) {
   );
   console.log(contactInfo);
   return contactInfo;
-}
+} */
 
 function closeEditTask() {
   let editTaskDiv = document.getElementById("Edit_Task_Background");
   document.body.removeChild(editTaskDiv);
 }
+
 
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring

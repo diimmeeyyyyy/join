@@ -93,7 +93,12 @@ function renderHTMLAddTaskContactList(isEditMode, i, contact) {
     `;
 }
 
-function saveCheckedContacts(event, contactIndex, isEditMode, contactName) {
+async function saveCheckedContacts(
+  event,
+  contactIndex,
+  isEditMode,
+  contactName
+) {
   const classPrefix = isEditMode ? "edit" : "add";
   const checkbox = document.getElementById(
     `${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`
@@ -107,16 +112,61 @@ function saveCheckedContacts(event, contactIndex, isEditMode, contactName) {
     contactsForNewTask.splice(index, 1);
     checkbox.checked = false;
     checkboxfield.classList.remove("add-task-contact-selected");
+    await removeContactIcon(isEditMode, contactName);
   } else {
     contactsForNewTask.push(contactName);
     checkbox.checked = true;
     checkboxfield.classList.add("add-task-contact-selected");
+    await addContactIcon(isEditMode, contactName);
   }
   if (event) {
     event.stopPropagation();
   }
 }
 
+async function removeContactIcon(isEditMode, contactName) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  let IconContainer = document.getElementById(
+    `${classPrefix}_task_contacts_icons`
+  );
+  let contactInformation = await getContactInformation(contactName);
+
+  let iconToRemove = getIconForContact(contactInformation);
+
+  // Durchlaufen  aller span-Elemente im IconContainer
+  for (let i = 0; i < IconContainer.children.length; i++) {
+    let span = IconContainer.children[i];
+
+    // Wenn span-Element das zu entfernende Icon enthält, wirds entfernt
+    if (span.innerHTML === iconToRemove) {
+      IconContainer.removeChild(span);
+      break; // Beenden der Schleife, nachdem das Icon entfernt wurde
+    }
+  }
+}
+
+async function addContactIcon(isEditMode, contactName) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  let IconContainer = document.getElementById(
+    `${classPrefix}_task_contacts_icons`
+  );
+  let contactInformation = await getContactInformation(contactName);
+  console.log(contactInformation);
+
+  IconContainer.innerHTML += /*html*/ `
+    <span>${getIconForContact(contactInformation)}</span>
+  `;
+}
+
+async function getContactInformation(contactName) {
+  let allContacts = await getItem("allContacts");
+  console.log(allContacts);
+  let contactInfo = allContacts.find(
+    (contact) => contact["name"] === contactName
+  );
+  console.log(contactInfo);
+  return contactInfo;
+}
 /* ================
 PRIORITY BUTTONS
 ===================*/
