@@ -253,7 +253,7 @@ SUBTASKS
   width: 24px;
   height: 24px;
   position: absolute;
-  top: 10px;
+  top: 8px;
   right: 0;
   cursor: pointer;
   margin-right: 8px;
@@ -265,7 +265,7 @@ SUBTASKS
 }
 
 #add-task-subtasks-list {
-  padding-left: 16px;
+  padding-inline-start: 0;
   overflow-x: hidden;
 }
 
@@ -276,38 +276,101 @@ SUBTASKS
   margin-bottom: 32px;
 }
 
-.add-task-subtask-and-delete-icon {
+.add-task-subtask-and-icons {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 16px;
   padding-right: 16px;
   line-height: 1.5;
+  overflow: hidden;
   position: relative;
 }
 
-.add-task-subtask-and-delete-icon:hover {
+.add-task-subtask-and-icons:hover {
   background-color: rgb(221, 226, 226);
   border-radius: 8px;
 }
 
-.add-task-subtask-bin {
+.add-task-subtask-edit-and-delete-icons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 80px;
+}
+
+.add-task-subtask-dividing-line {
+  display: none;
+  width: 1px;
+  height: 20px;
+  background-color: grey;
+}
+
+.add-task-subtask-icon {
   display: none;
   cursor: pointer;
   width: 16px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding-right: 16px;
-  margin-top: 2px;
 }
 
-.add-task-subtask-bin:hover {
+.add-task-subtask-icon:hover {
   filter: opacity(70%);
 }
 
-
-.add-task-subtask-and-delete-icon:hover .add-task-subtask-bin {
+.add-task-subtask-and-icons:hover .add-task-subtask-icon,
+.add-task-subtask-and-icons:hover .add-task-subtask-dividing-line
+{
   display: block;
+}
+
+
+/* ====
+EDIT SUBTASK
+=======*/
+
+.add-task-subtask-and-icons-edit-subtask {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  overflow: hidden;
+  position: relative;
+  background-color: white; 
+  border-bottom: 2px solid rgb(93,190,231);
+}
+
+.add-task-subtask-delete-and-check-icons-edit-subtask {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 80px;
+}
+
+.add-task-subtask-inputfield-edit-subtask {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  border-style: none;
+  outline: none;
+  padding-left: 16px;
+  }
+
+  .add-task-subtask-dividing-line-edit-subtask {
+    width: 1px;
+    height: 20px;
+    background-color: grey;
+  }
+
+  .add-task-subtask-icon-edit-subtask {
+    cursor: pointer;
+    width: 16px;
+  }
+  
+  .add-task-subtask-icon-edit-subtask:hover {
+    filter: opacity(70%);
+  }
+  
+.add-task-subtask-icon-check-subtask:hover {
+  background-color: rgb(209, 209, 209);
+  border-radius: 32px;
 }
 
 /* ====

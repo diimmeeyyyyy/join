@@ -5,6 +5,7 @@ let contactsDropdownOpen = false;
 let prio = "medium";
 let subtasks = [];
 
+
 async function initAddTask() {
   await includeHTML();
   updateMenuPoint(1);
@@ -39,6 +40,7 @@ async function toggleContactsDropdown(isEditMode) {
   }
 }
 
+
 async function renderContactsInAddTask(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
   let allContacts = await loadContacts();
@@ -61,7 +63,7 @@ async function renderContactsInAddTask(isEditMode) {
     );
     for (let i = 0; i < allContacts.length; i++) {
       const contact = allContacts[i];
-      contactList.innerHTML += renderHTMLAddTaskContactList(
+      contactList.innerHTML += renderHTMLforAddTaskContactList(
         isEditMode,
         i,
         contact
@@ -74,7 +76,8 @@ async function renderContactsInAddTask(isEditMode) {
   }
 }
 
-function renderHTMLAddTaskContactList(isEditMode, i, contact) {
+
+function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
   const classPrefix = isEditMode ? "edit" : "add";
   return `
       <div id="${classPrefix}_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(event, ${i}, ${isEditMode}, '${contact.name.replace(
@@ -92,6 +95,7 @@ function renderHTMLAddTaskContactList(isEditMode, i, contact) {
       </div>
     `;
 }
+
 
 async function saveCheckedContacts(
   event,
@@ -124,6 +128,7 @@ async function saveCheckedContacts(
   }
 }
 
+
 async function removeContactIcon(isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   let IconContainer = document.getElementById(
@@ -145,6 +150,7 @@ async function removeContactIcon(isEditMode, contactName) {
   }
 }
 
+
 async function addContactIcon(isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   let IconContainer = document.getElementById(
@@ -158,6 +164,7 @@ async function addContactIcon(isEditMode, contactName) {
   `;
 }
 
+
 async function getContactInformation(contactName) {
   let allContacts = await getItem("allContacts");
   console.log(allContacts);
@@ -167,9 +174,11 @@ async function getContactInformation(contactName) {
   console.log(contactInfo);
   return contactInfo;
 }
+
 /* ================
 PRIORITY BUTTONS
 ===================*/
+
 
 function setTaskPriority(priority) {
   if (prio === priority) {
@@ -179,6 +188,7 @@ function setTaskPriority(priority) {
   }
   return prio;
 }
+
 
 function changeButtonColor(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
@@ -230,42 +240,92 @@ SUBTASKS
 
 function addNewSubtask(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
-  let newSubtasksList = document.getElementById(
-    `${classPrefix}-task-subtasks-list`
-  );
-  let subtask = document.getElementById(
-    `${classPrefix}_task_subtasks_inputfield`
-  );
-  let subtasksInputfield = document.getElementById(
-    `${classPrefix}_task_subtasks_inputfield`
-  );
+  let newSubtasksList = document.getElementById(`${classPrefix}-task-subtasks-list`);
+  let subtaskInputField = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
+  let subtasksInputfield = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
 
   subtasksInputfield.setAttribute("placeholder", "Add new subtask");
 
-  if (subtask.value !== "") {
-    newSubtasksList.innerHTML += ` 
-         
-        <li id="${classPrefix}_task_subtask_and_delete_icon" class="add-task-subtask-and-delete-icon">
-            <span>• ${subtask.value}</span>
-            <img onclick="deleteSubtask(false)" src="./assets/img/delete.svg" class="add-task-subtask-bin">
-         </li>
-    `;
-    subtasks.push(subtask.value);
-    subtask.value = "";
+  if (subtaskInputField.value !== "") {
+    const subtaskIndex = subtasks.length;
+    subtasks.push(subtaskInputField.value);
+    newSubtasksList.innerHTML += renderHTMLforSubtask(isEditMode, subtaskIndex, subtaskInputField.value);
+    subtaskInputField.value = "";
   } else {
     subtasksInputfield.setAttribute("placeholder", "Write a subtask title");
   }
 }
 
-function deleteSubtask(isEditMode) {
+
+function renderHTMLforSubtask(isEditMode, subtaskIndex, subtask) {
   const classPrefix = isEditMode ? "edit" : "add";
-  let subtask = document.getElementById(
-    `${classPrefix}_task_subtask_and_delete_icon`
-  );
-  indexOfSubtask = subtasks.indexOf("subtask.value");
-  subtasks.splice(indexOfSubtask, 1);
-  subtask.remove();
+
+  return ` 
+    <div>   
+      <div id="${classPrefix}_task_subtask_and_icons_${subtaskIndex}" class="add-task-subtask-and-icons">
+          <span>• ${subtask}</span>
+          <div class="add-task-subtask-edit-and-delete-icons">
+            <img onclick="editSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/edit.svg" class="add-task-subtask-icon">
+            <span class="add-task-subtask-dividing-line"></span>
+            <img onclick="deleteSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/delete.svg" class="add-task-subtask-icon">
+          </div>
+      </div>
+
+      <div id="${classPrefix}_task_subtask_and_icons_edit_subtask_${subtaskIndex}" class="add-task-subtask-and-icons-edit-subtask"> 
+          <input id="${classPrefix}_task_subtask_inputfield_to_edit_${subtaskIndex}" class="add-task-subtask-inputfield-edit-subtask">
+          <div class="add-task-subtask-delete-and-check-icons-edit-subtask">
+            <img onclick="deleteSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/delete.svg" class="add-task-subtask-icon-edit-subtask">
+            <span class="add-task-subtask-dividing-line-edit-subtask"></span> 
+            <img onclick="saveEditedSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/check.svg" class="add-task-subtask-icon-check-subtask">
+          </div>
+      </div>
+  </div>
+  `;
 }
+
+
+function renderSubtasks(isEditMode) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  const newSubtasksList = document.getElementById(`${classPrefix}-task-subtasks-list`);
+  let html = '';
+
+  for (let i = 0; i < subtasks.length; i++) {
+    const subtask = subtasks[i];
+    html += renderHTMLforSubtask(isEditMode, i, subtask);
+  }
+
+  newSubtasksList.innerHTML = html;
+}
+
+
+function editSubtask(isEditMode, subtaskIndex) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  const subtasksInputfieldRenderSubtask = document.getElementById(`${classPrefix}_task_subtask_and_icons_${subtaskIndex}`);
+  const subtasksInputfieldEditSubtask = document.getElementById(`${classPrefix}_task_subtask_and_icons_edit_subtask_${subtaskIndex}`);
+  const inputfieldToEdit = document.getElementById(`${classPrefix}_task_subtask_inputfield_to_edit_${subtaskIndex}`);
+
+  subtasksInputfieldRenderSubtask.style.display = "none";
+  subtasksInputfieldEditSubtask.style.display = "flex";
+  inputfieldToEdit.setAttribute("value", subtasks[subtaskIndex]);
+}
+
+
+function deleteSubtask(isEditMode, subtaskIndex) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  let subtask = document.getElementById(`${classPrefix}_task_subtask_and_icons_${subtaskIndex}`);
+  subtasks.splice(subtaskIndex, 1);
+  console.log('subtasks', subtasks);
+  renderSubtasks(isEditMode);
+}
+
+
+function saveEditedSubtask(isEditMode, subtaskIndex) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  const subtasksInputfieldToEdit = document.getElementById(`${classPrefix}_task_subtask_inputfield_to_edit_${subtaskIndex}`);
+  subtasks[subtaskIndex] = subtasksInputfieldToEdit.value;
+  renderSubtasks(isEditMode);
+}
+
 
 /* ================
 TASKS
@@ -286,6 +346,7 @@ async function getTasks() {
   }
 }
 
+
 async function getTaskIdCounter() {
   const taskIdCounterResponse = await getItem("taskIdCounter");
 
@@ -295,6 +356,7 @@ async function getTaskIdCounter() {
     return 0;
   }
 }
+
 
 function clearAddTaskForm() {
   prio = "medium";
@@ -307,6 +369,7 @@ function clearAddTaskForm() {
   contactList.style.display = "none";
   contactsDropdownOpen = false;
 }
+
 
 async function createTask() {
   const allTasks = await getTasks();
@@ -359,6 +422,7 @@ async function createTask() {
   navigateToBoardPage();
 }
 
+
 function showPopupTaskAdded() {
   let mainContainer = document.getElementById("main_container");
   mainContainer.innerHTML += `
@@ -370,6 +434,7 @@ function showPopupTaskAdded() {
         </div >
     `;
 }
+
 
 function navigateToBoardPage() {
   const animationDuration = 200;
