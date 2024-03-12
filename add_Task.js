@@ -259,27 +259,28 @@ function addNewSubtask(isEditMode) {
 
 function renderHTMLforSubtask(isEditMode, subtaskIndex, subtask) {
   const classPrefix = isEditMode ? "edit" : "add";
-
-  return ` 
-    <div>   
+  const displaySubtaskHtml = `
       <div id="${classPrefix}_task_subtask_and_icons_${subtaskIndex}" class="add-task-subtask-and-icons">
-          <span>• ${subtask}</span>
-          <div class="add-task-subtask-edit-and-delete-icons">
-            <img onclick="editSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/edit.svg" class="add-task-subtask-icon">
-            <span class="add-task-subtask-dividing-line"></span>
-            <img onclick="deleteSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/delete.svg" class="add-task-subtask-icon">
-          </div>
-      </div>
+           <span>• ${subtask}</span>
+           <div class="add-task-subtask-edit-and-delete-icons">
+              <img onclick="editSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/edit.svg" class="add-task-subtask-icon">
+              <span class="add-task-subtask-dividing-line"></span>
+              <img onclick="deleteSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/delete.svg" class="add-task-subtask-icon">
+           </div>
+      </div>`;
 
+  const editSubtaskHtml = ` 
       <div id="${classPrefix}_task_subtask_and_icons_edit_subtask_${subtaskIndex}" class="add-task-subtask-and-icons-edit-subtask"> 
           <input id="${classPrefix}_task_subtask_inputfield_to_edit_${subtaskIndex}" class="add-task-subtask-inputfield-edit-subtask">
           <div class="add-task-subtask-delete-and-check-icons-edit-subtask">
-            <img onclick="deleteSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/delete.svg" class="add-task-subtask-icon-edit-subtask">
-            <span class="add-task-subtask-dividing-line-edit-subtask"></span> 
-            <img onclick="saveEditedSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/check.svg" class="add-task-subtask-icon-check-subtask">
+              <img onclick="deleteSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/delete.svg" class="add-task-subtask-icon-edit-subtask">
+              <span class="add-task-subtask-dividing-line-edit-subtask"></span> 
+              <img onclick="saveEditedSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/check.svg" class="add-task-subtask-icon-check-subtask">
           </div>
-      </div>
-  </div>
+      </div>`;
+      
+  return ` 
+    <div>${displaySubtaskHtml}${editSubtaskHtml}</div>
   `;
 }
 
