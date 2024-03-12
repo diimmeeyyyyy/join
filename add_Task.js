@@ -362,7 +362,7 @@ function clearAddTaskForm() {
   prio = "medium";
   changeButtonColor();
 
-  let newSubtasksList = document.getElementById("add-task-subtasks-list");
+  let newSubtasksList = document.getElementById("add_task_subtasks_list");
   newSubtasksList.innerHTML = "";
 
   let contactList = document.getElementById("add_task_contacts_content");
