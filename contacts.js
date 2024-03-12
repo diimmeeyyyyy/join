@@ -9,6 +9,7 @@ let twolettersName = contacts.map((contact) => {
   return twoNummber.join("");
 });
 
+
 async function initContacts() {
   await includeHTML();
   await loadContacts();
@@ -22,6 +23,7 @@ async function initContacts() {
   window.onresize = hideOnSmallScreens;
 }
 
+
 async function loadContacts() {
   try {
     contacts = await getItem("allContacts");
@@ -30,6 +32,7 @@ async function loadContacts() {
     console.info("Not load Contacts");
   }
 }
+
 
 async function addContact() {
   let text = document.getElementById("text").value;
@@ -51,6 +54,7 @@ async function addContact() {
   saveAnimat();
 }
 
+
 function valueToEmpty() {
   // Value leeren!
   document.getElementById("text").value = "";
@@ -60,25 +64,26 @@ function valueToEmpty() {
   contactList();
 }
 
+
 function newContactOpen() {
   let backround = document.getElementById("backround");
   backround.classList.add("animate");
 }
+
 
 function closeContact() {
   let backround = document.getElementById("backround");
   backround.classList.remove("animate");
 }
 
+
 async function contactList() {
   let list = document.getElementById("newContacts");
-
   list.innerHTML = "";
   let previousLetter = null; // Variable, um den vorherigen Buchstaben zu speichern
   for (let i = 0; i < contacts.length; i++) {
     const contact = contacts[i];
     const currentLetter = letters[i];
-
     // Wenn der aktuelle Buchstabe vom vorherigen Buchstaben abweicht, zeige ihn an
     if (currentLetter !== previousLetter) {
       list.innerHTML += /*html*/ `
@@ -99,6 +104,7 @@ async function contactList() {
   }
 }
 
+
 function pushContact(i) {
   let pushContact = document.getElementById("push_contacts");
   pushContact.innerHTML = "";
@@ -112,6 +118,7 @@ function pushContact(i) {
   mobileBackRemove();
   queryContainer(i);
 }
+
 
 function generateContactsListHTML(i, buttonColor) {
   return /*html*/ `
@@ -129,6 +136,7 @@ function generateContactsListHTML(i, buttonColor) {
     </div>
   `;
 }
+
 
 function returnContactInfo(i) {
   return /*html*/`
@@ -151,17 +159,19 @@ function transformNewContacts() {
   pushContacts.classList.add("animate");
 }
 
+
 function transformCloseContacts() {
   let pushContacts = document.getElementById("push_contacts");
   pushContacts.classList.remove("animate");
 }
+
 
 function queryContainer(i) {
   let queryContainer = document.getElementById('query_comtainer');
   queryContainer.innerHTML = '';
   queryContainer.innerHTML = /*html*/ `
     <div class="backround-delete-contact-container" id="backgroundDeleteContactContainer">
-      <div class="really-delete">
+      <div class="really-delete" id="really_delete">
         <span>Do you really want to delete this contact?</span>
         <div>
           <button onclick="closeQuery()" class="button-delete">No, cancel</button>
@@ -172,23 +182,28 @@ function queryContainer(i) {
   `;
 }
 
+
 function deleteQuery() {
   mobilEditContact();
   let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
   backgroundDeleteContactContainer.style.display = 'flex'; 
-  backgroundDeleteContactContainer.classList.add('slideInContactDelete');
+  let reallyDelete = document.getElementById('really_delete')
+  reallyDelete.classList.add('slideInContactDelete');
 }
+
 
 function closeQuery() {
   let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
+  let reallyDelete = document.getElementById('really_delete')
   setTimeout(() => {
-    backgroundDeleteContactContainer.classList.add('slideOutContactDelete');
-  }, 50); // Eine kleine Verzögerung, damit die vorherige Animation abgespielt wird
+    reallyDelete.classList.add('slideOutContactDelete');
+  }, 50); 
   setTimeout(() => {
-    backgroundDeleteContactContainer.classList.remove('slideOutContactDelete');
+    reallyDelete.classList.remove('slideOutContactDelete');
     backgroundDeleteContactContainer.style.display = 'none'; // Ausblenden nach der Animation
   }, 500); 
 }
+
 
 async function deleteContact(i) {
   closeQuery();
@@ -202,6 +217,7 @@ async function deleteContact(i) {
   updateLettersAndTwoLettersName(); // Aktualisieren der 'letters' und 'twolettersName' Arrays
   contactList(); // Kontaktliste aktualisieren
 }
+
 
 async function deleteNameFromTask(i) {
   let allTasks = await getItem("allTasks");
@@ -218,20 +234,24 @@ async function deleteNameFromTask(i) {
   await setItem("allTasks", allTasks);
 }
 
+
 function updateLettersAndTwoLettersName() {
   oneLetterGenerator();
   twoLetterGenerator();
 }
 
+
 function oneLetterGenerator() {
   letters = contacts.map((contact) => contact.name.charAt(0));
 }
+
 
 function getIconForContact(contact) {
   const splitName = contact.name.split(" ");
   const initials = splitName.map((part) => part[0]).join("");
   return `<button class="button-name" style="background-color: ${contact.color};">${initials}</button>`;
 }
+
 
 function twoLetterGenerator() {
   twolettersName = contacts.map((contact) => {
@@ -240,6 +260,7 @@ function twoLetterGenerator() {
     return twoNummber.join("");
   });
 }
+
 
 function contactsSort() {
   contacts.sort((a, b) => {
@@ -253,6 +274,7 @@ function contactsSort() {
   });
 }
 
+
 function getRandomColor() {
   // Zufällige Farbwerte generieren (Hexadezimal)
   let letters = "0123456789ABCDEF";
@@ -262,6 +284,7 @@ function getRandomColor() {
   }
   return color;
 }
+
 
 async function editContact(i) {
   let edit = document.getElementById("edit_contact");
@@ -283,6 +306,7 @@ async function editContact(i) {
   
 }
 
+
 function generateEditHeader() {
   return /*html*/ `
     <div class="edit">
@@ -295,6 +319,7 @@ function generateEditHeader() {
     </div>
   `;
 }
+
 
 function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
   return /*html*/ `
@@ -313,6 +338,7 @@ function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
     </div>
   `;
 }
+
 
 async function saveContact(i) {
   await updateName(i);
@@ -335,6 +361,7 @@ async function saveContact(i) {
   initContacts();
 }
 
+
 async function updateName(index) {
   let allTasks = await getItem("allTasks");
   console.log(allTasks);
@@ -356,6 +383,7 @@ async function updateName(index) {
   console.log(allTasks);
 }
 
+
 function mobileEditDelete() {
   let element = document.getElementById("menu_mobile");
   if (element) {
@@ -367,10 +395,12 @@ function mobileEditDelete() {
   }
 }
 
+
 function closeSaveContact() {
   let editContact = document.getElementById("edit_contact");
   editContact.classList.add("d-none");
 }
+
 
 function closeEditContactDelete(i) {
   transformCloseContacts();
@@ -384,10 +414,12 @@ function closeEditContactDelete(i) {
   closeSaveContact();
 }
 
+
 function pushBackroundColor() {
   let newColorContact = document.getElementById("newColorContact(i)");
   newColorContact.classList.add("contacts-onclick");
 }
+
 
 function contactListColor(i) {
   // Alle Kontaktelemente auswählen
@@ -403,10 +435,12 @@ function contactListColor(i) {
   newColorContact.classList.add("contacts-onclick");
 }
 
+
 function saveAnimat() {
   let backround = document.getElementById("backround");
   backround.classList.remove("animate");
 }
+
 
 function mobileBack() {
   // Verstecke das Element mit der ID "mobileBack"
@@ -418,6 +452,7 @@ function mobileBack() {
   }
 }
 
+
 function mobileBackRemove() {
   let mobileBack = document.getElementById("mobileBack");
   mobileBack.classList.remove("d-none-mobile");
@@ -427,10 +462,12 @@ function mobileBackRemove() {
   }
 }
 
+
 function mobilEditContact() {
   let editContact = document.getElementById("edit_contact");
   editContact.classList.add("d-none");
 }
+
 
 function hideOnSmallScreens() {
   let mobileBackElement = document.getElementById("mobileBack");
@@ -439,6 +476,7 @@ function hideOnSmallScreens() {
       window.innerWidth <= 1009 ? "none" : "block";
   }
 }
+
 
 function mobilMenu() {
   moveEditDeleteContainer();
@@ -450,6 +488,7 @@ function mobilMenu() {
     editDelet.style.display = "none";
   }
 }
+
 
 function moveEditDeleteContainer() {
   let editDeleteDiv = document.getElementById("edit_delete");
