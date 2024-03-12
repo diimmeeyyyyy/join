@@ -171,7 +171,7 @@ function queryContainer(i) {
   queryContainer.innerHTML = '';
   queryContainer.innerHTML = /*html*/ `
     <div class="backround-delete-contact-container" id="backgroundDeleteContactContainer">
-      <div class="really-delete">
+      <div class="really-delete" id="really_delete">
         <span>Do you really want to delete this contact?</span>
         <div>
           <button onclick="closeQuery()" class="button-delete">No, cancel</button>
@@ -187,17 +187,19 @@ function deleteQuery() {
   mobilEditContact();
   let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
   backgroundDeleteContactContainer.style.display = 'flex'; 
-  backgroundDeleteContactContainer.classList.add('slideInContactDelete');
+  let reallyDelete = document.getElementById('really_delete')
+  reallyDelete.classList.add('slideInContactDelete');
 }
 
 
 function closeQuery() {
   let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
+  let reallyDelete = document.getElementById('really_delete')
   setTimeout(() => {
-    backgroundDeleteContactContainer.classList.add('slideOutContactDelete');
-  }, 50); // Eine kleine Verzögerung, damit die vorherige Animation abgespielt wird
+    reallyDelete.classList.add('slideOutContactDelete');
+  }, 50); 
   setTimeout(() => {
-    backgroundDeleteContactContainer.classList.remove('slideOutContactDelete');
+    reallyDelete.classList.remove('slideOutContactDelete');
     backgroundDeleteContactContainer.style.display = 'none'; // Ausblenden nach der Animation
   }, 500); 
 }
