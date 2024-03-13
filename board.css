@@ -4,19 +4,6 @@ body {
   overflow: auto;
   min-height: 100vh;
 }
-::-webkit-scrollbar {
-  max-width: 1vw;
-}
-
-::-webkit-scrollbar-track {
-  background: rgb(42, 54, 71);
-  border-radius: 30px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgb(40, 171, 226);
-  border-radius: 30px;
-}
 
 h1,
 p {

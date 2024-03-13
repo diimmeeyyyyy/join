@@ -5,11 +5,18 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-@font-face {
-  font-family: "Inter", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  src: url("fonts/Inter-VariableFont_slnt\,wght.ttf") format("ttf");
+::-webkit-scrollbar {
+  max-width: 1vw;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(42, 54, 71);
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(40, 171, 226);
+  border-radius: 30px;
 }
 
 h1,

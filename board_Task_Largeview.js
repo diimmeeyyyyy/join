@@ -88,7 +88,6 @@ async function editTask(taskIndex) {
   await selectPriorityButton(task);
 }
 
-
 function generateEditTaskHTML(task, taskIndex) {
   return /*html*/ `
 <main id="Edit_Task_Container">
@@ -189,10 +188,29 @@ function generateEditTaskHTML(task, taskIndex) {
     <div id="edit_task_contacts_content"></div>
     <div id="edit_task_contacts_icons"></div>
   </section>
+  <!-- SUBTASKS -->
+  <section class="editSection">
+  <span>Subtasks</span>
+  <div class="add-task-subtasks-container">
+    <input
+    id="edit_task_subtasks_inputfield"
+    class="add-task-inputfield inputAndTextareaSettings"
+    placeholder="Add new subtask"
+    />
+    <img
+    onclick="addNewSubtask(true)"
+    id="add_task_subtask_plus_button"
+    src="./assets/img/plus.svg"
+    />
+  </div>
+  <div id="edit_task_new_subtasks_container">
+    <ul id="edit-task-subtasks-list"></ul>
+  </div>
+
+  </section>
 </main>
     `;
 }
-
 
 async function selectPriorityButton(task) {
   const priority = task["prio"];
@@ -206,7 +224,6 @@ async function selectPriorityButton(task) {
     console.error(`Button with id ${buttonId} not found`);
   }
 }
-
 
 async function checkAssignedContacts(taskIndex) {
   if (contactsRendered === false) {
@@ -238,12 +255,6 @@ async function checkAssignedContacts(taskIndex) {
   }
 }
 
-
-/* function closeEditTask() {
-  existingContacts = [];
-  let editTaskDiv = document.getElementById("Edit_Task_Background");
-  document.body.removeChild(editTaskDiv);
-} */
 function closeEditTask() {
   existingContacts = [];
   let editTaskDiv = document.getElementById("Edit_Task_Background");
@@ -409,7 +420,6 @@ function deleteTaskConfirmNotification(i) {
       </div>
   </section>
     `;
-  // Append the div to the body
   document.body.appendChild(notificationDiv);
 }
 
