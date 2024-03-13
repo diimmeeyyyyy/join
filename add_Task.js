@@ -5,7 +5,6 @@ let contactsRendered = false;
 let contactsDropdownOpen = false;
 let prio = "medium";
 let subtasks = [];
-let existingContacts = [];
 
 
 async function initAddTask() {
@@ -46,10 +45,8 @@ async function renderContactsInAddTask(isEditMode) {
   let allContacts = await loadContacts();
   let placeholder = document.getElementById(`${classPrefix}_task_placeholder`);
   let drowDownArrow = document.getElementById(`${classPrefix}-task-inputfield-arrow`);
-  let drowDownArrow = document.getElementById(`${classPrefix}-task-inputfield-arrow`);
 
   if (allContacts.length !== 0) {
-    let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
     let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
     contactsContainer.innerHTML += `
     <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"> 
@@ -57,10 +54,8 @@ async function renderContactsInAddTask(isEditMode) {
     `;
 
     let contactList = document.getElementById(`${classPrefix}_task_contacts_container`);
-    let contactList = document.getElementById(`${classPrefix}_task_contacts_container`);
     for (let i = 0; i < allContacts.length; i++) {
       const contact = allContacts[i];
-      contactList.innerHTML += renderHTMLforAddTaskContactList(isEditMode, i, contact);
       contactList.innerHTML += renderHTMLforAddTaskContactList(isEditMode, i, contact);
     }
   } else {
@@ -92,12 +87,9 @@ function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
 
 
 async function saveCheckedContacts(event, contactIndex, isEditMode, contactName) {
-async function saveCheckedContacts(event, contactIndex, isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   const checkbox = document.getElementById(`${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`);
-  const checkbox = document.getElementById(`${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`);
   const index = contactsForNewTask.indexOf(contactName);
-  const checkboxfield = document.getElementById(`${classPrefix}_task_contact_checkbox${contactIndex}`);
   const checkboxfield = document.getElementById(`${classPrefix}_task_contact_checkbox${contactIndex}`);
 
   if (!checkbox && !checkboxfield) {
@@ -232,7 +224,6 @@ SUBTASKS
 function addNewSubtask(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
   let newSubtasksList = document.getElementById(`${classPrefix}_task_subtasks_list`);
-  let newSubtasksList = document.getElementById(`${classPrefix}_task_subtasks_list`);
   let subtaskInputField = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
   let subtasksInputfield = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
 
@@ -279,7 +270,6 @@ function renderHTMLforSubtask(isEditMode, subtaskIndex, subtask) {
 
 function renderSubtasks(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
-  const newSubtasksList = document.getElementById(`${classPrefix}_task_subtasks_list`);
   const newSubtasksList = document.getElementById(`${classPrefix}_task_subtasks_list`);
   let html = '';
 
