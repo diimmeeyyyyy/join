@@ -20,12 +20,30 @@ async function logInUser() {
 
   if (user) {
     await storeLoggedInUser(user);
-    /* await setItem("current") */
     localStorage.setItem("loggedInPerson", "user");
     await loadWelcomeGreeting(user.name);
   } else {
-    alert("USER NICHT GEFUNDEN");
+    showAlert();
   }
+}
+
+function showAlert() {
+  let background = document.createElement("div");
+  background.className = "pop-up-backdrop";
+  background.id = "Alert_Message";
+  background.innerHTML = /*html*/ `
+    <div class="alert-container">
+         <h3>Information</h3>
+         <p>User not found or login credentials incorrect !</p> 
+        <button onclick="closeAlert()">Ok</button>
+    </div>
+  `;
+  document.body.appendChild(background);
+}
+
+function closeAlert() {
+  let alertMessage = document.getElementById("Alert_Message");
+  document.body.removeChild(alertMessage);
 }
 
 /* function rememberLogInData(userEmail, userPassword) {
