@@ -219,7 +219,14 @@ BORDER-ANIMATION WHEN ONCLICK
 }
 .rights-section p {
   cursor: pointer;
+  color: rgb(168, 168, 168);
 }
+.rights-section a {
+  text-decoration: none;
+} 
+.rights-section p:hover{
+  color: #29abe2;
+} 
 
 /* ========================
 CHECK PASSWORD REQUIREMENTS

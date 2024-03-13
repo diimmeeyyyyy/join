@@ -92,9 +92,9 @@ function generateOneTaskHTML(
     ${task.category}
   </div>
   <h2 id="board_task_title${id}" class="board-task-title">${task.title}</h2>
-  <div id="board-task-description${id}" class="board-task-description">
-    ${description}
-  </div>
+  
+  <p id="board-task-description${id}" class="board-task-description">${description}</p> 
+  
   <div class="board-task-subtask-container" ${hideProgressBar}>
     <div class="board-task-progress" role="progressbar">
       <div
@@ -322,9 +322,16 @@ function findTask() {
     const oneTaskName = tasks[i]
       .getElementsByTagName("h2")[0]
       .innerText.toLowerCase();
+    const oneTaskDescription = tasks[i]
+      .getElementsByTagName("p")[0]
+      .innerText.toLowerCase();
     if (
-      (window.innerWidth > 650 && oneTaskName.startsWith(input)) ||
-      (window.innerWidth <= 650 && oneTaskName.startsWith(inputSmallScreen))
+      (window.innerWidth > 650 &&
+        (oneTaskName.startsWith(input) ||
+          oneTaskDescription.startsWith(input))) ||
+      (window.innerWidth <= 650 &&
+        (oneTaskName.startsWith(inputSmallScreen) ||
+          oneTaskDescription.startsWith(inputSmallScreen)))
     ) {
       tasks[i].style.display = "flex";
     }

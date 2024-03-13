@@ -1,5 +1,5 @@
 /* ========================
-SHOW LARGE VIEW OF ONE TASK
+LARGEVIEW OF ONE TASK
 ===========================*/
 let largeViewIsOpen = false;
 async function renderTaskLargeview(taskIndex) {
@@ -82,95 +82,103 @@ async function editTask(taskIndex) {
   let background = document.createElement("div");
   background.id = "Edit_Task_Background";
   background.className = "pop-up-backdrop";
-  background.innerHTML = /*html*/ `
-     <main id="Edit_Task_Container">
-    <div class="positionCloseButton">
-      <img
-        class="hoverCloseButton"
-        src="./assets/img/close.svg"
-        onclick="closeEditTask()"
-      />
+  background.innerHTML = generateEditTaskHTML(task, taskIndex);
+  document.body.appendChild(background);
+  await checkAssignedContacts(taskIndex);
+  await selectPriorityButton(task);
+}
+
+
+function generateEditTaskHTML(task, taskIndex) {
+  return /*html*/ `
+<main id="Edit_Task_Container">
+  <div class="positionCloseButton">
+    <img
+      class="hoverCloseButton"
+      src="./assets/img/close.svg"
+      onclick="closeEditTask()"
+    />
+  </div>
+  <!-- TITLE -->
+  <section class="editSection">
+    <p>Title</p>
+    <input class="inputAndTextareaSettings" type="text" value="${task.title}" />
+  </section>
+  <!-- DESCRIPTION -->
+  <section class="editSection">
+    <p>Description</p>
+    <textarea
+      class="inputAndTextareaSettings"
+      name=""
+      id=""
+      cols="30"
+      rows="10"
+    >
+    ${task.description}</textarea
+    >
+  </section>
+  <!-- DUE DATES -->
+  <section class="editSection">
+    <p>Due Date</p>
+    <input
+      class="inputAndTextareaSettings"
+      type="date"
+      value="${task.dueDate}"
+    />
+  </section>
+  <!-- PRIORITY  -->
+  <section class="editSection">
+    <p>Priority</p>
+    <div class="edit-task-prio-button-container">
+      <button
+        onclick="setTaskPriority('urgent'); changeButtonColor(true)"
+        id="edit_task_prio_button_urgent"
+        class="add-task-prio-button add-task-urgent-prio-button"
+        type="button"
+      >
+        <span> Urgent </span>
+        <img
+          id="edit_task_prio_icon_urgent"
+          class="add-task-prio-icon"
+          src="./assets/img/priorityUrgent.svg"
+        />
+      </button>
+      <button
+        onclick="setTaskPriority('medium'); changeButtonColor(true)"
+        id="edit_task_prio_button_medium"
+        class="add-task-prio-button add-task-prio-button-yellow add-task-medium-prio-button"
+        type="button"
+      >
+        <span> Medium </span>
+        <img
+          id="edit_task_prio_icon_medium"
+          class="add-task-prio-icon add-task-prio-icon-white"
+          src="./assets/img/priorityMedium.svg"
+        />
+      </button>
+      <button
+        onclick="setTaskPriority('low'); changeButtonColor(true)"
+        id="edit_task_prio_button_low"
+        class="add-task-prio-button add-task-low-prio-button"
+        type="button"
+      >
+        <span> Low </span>
+        <img
+          id="edit_task_prio_icon_low"
+          class="add-task-prio-icon"
+          src="./assets/img/priorityLow.svg"
+        />
+      </button>
     </div>
-    <!-- TITLE -->
-    <section class="editSection">
-      <p>Title</p>
-      <input class="inputAndTextareaSettings" type="text" value="${task.title}" />
-    </section>
-    <!-- DESCRIPTION -->
-    <section class="editSection">
-      <p>Description</p>
-      <textarea
-        class="inputAndTextareaSettings"
-        name=""
-        id=""
-        cols="30"
-        rows="10"
-      >
-  ${task.description}</textarea
-      >
-    </section>
-    <!-- DUE DATES -->
-    <section class="editSection">
-      <p>Due Date</p>
-      <input
-        class="inputAndTextareaSettings"
-        type="date"
-        value="${task.dueDate}"
-      />
-    </section>
-    <!-- PRIORITY  -->
-    <section class="editSection">
-      <p>Priority</p>
-      <div class="edit-task-prio-button-container">
-        <button
-          onclick="setTaskPriority('urgent'); changeButtonColor(true)"
-          id="edit_task_prio_button_urgent"
-          class="add-task-prio-button add-task-urgent-prio-button"
-          type="button"
-        >
-          <span> Urgent </span>
-          <img
-            id="edit_task_prio_icon_urgent"
-            class="add-task-prio-icon"
-            src="./assets/img/priorityUrgent.svg"
-          />
-        </button>
-        <button
-          onclick="setTaskPriority('medium'); changeButtonColor(true)"
-          id="edit_task_prio_button_medium"
-          class="add-task-prio-button add-task-prio-button-yellow add-task-medium-prio-button"
-          type="button"
-        >
-          <span> Medium </span>
-          <img
-            id="edit_task_prio_icon_medium"
-            class="add-task-prio-icon add-task-prio-icon-white"
-            src="./assets/img/priorityMedium.svg"
-          />
-        </button>
-        <button
-          onclick="setTaskPriority('low'); changeButtonColor(true)"
-          id="edit_task_prio_button_low"
-          class="add-task-prio-button add-task-low-prio-button"
-          type="button"
-        >
-          <span> Low </span>
-          <img
-            id="edit_task_prio_icon_low"
-            class="add-task-prio-icon"
-            src="./assets/img/priorityLow.svg"
-          />
-        </button>
-      </div>
-    </section>
-    <!-- ASSIGNED TO -->
-    <section class="editSection">
+  </section>
+  <!-- ASSIGNED TO -->
+  <section class="editSection">
     <div
       onclick="toggleContactsDropdown(true);checkAssignedContacts(${taskIndex})"
       class="add-task-inputfield add-task-inputfield-contacts inputAndTextareaSettings"
     >
       <span id="edit_task_placeholder" class="add-task-placeholder">
-        Add or remove contacts 
+        Add or remove contacts
       </span>
       <img
         id="edit-task-inputfield-arrow"
@@ -181,11 +189,24 @@ async function editTask(taskIndex) {
     <div id="edit_task_contacts_content"></div>
     <div id="edit_task_contacts_icons"></div>
   </section>
-  </main>
+</main>
     `;
-  document.body.appendChild(background);
-  await checkAssignedContacts(taskIndex);
 }
+
+
+async function selectPriorityButton(task) {
+  const priority = task["prio"];
+
+  const buttonId = `edit_task_prio_button_${priority}`;
+  const button = document.getElementById(buttonId);
+
+  if (button) {
+    button.click();
+  } else {
+    console.error(`Button with id ${buttonId} not found`);
+  }
+}
+
 
 async function checkAssignedContacts(taskIndex) {
   if (contactsRendered === false) {
@@ -217,10 +238,18 @@ async function checkAssignedContacts(taskIndex) {
   }
 }
 
-function closeEditTask() {
+
+/* function closeEditTask() {
   existingContacts = [];
   let editTaskDiv = document.getElementById("Edit_Task_Background");
   document.body.removeChild(editTaskDiv);
+} */
+function closeEditTask() {
+  existingContacts = [];
+  let editTaskDiv = document.getElementById("Edit_Task_Background");
+  if (editTaskDiv) {
+    editTaskDiv.remove();
+  }
 }
 
 function formatDate(dateString) {

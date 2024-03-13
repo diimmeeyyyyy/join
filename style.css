@@ -4,6 +4,7 @@ body {
   background-color: rgb(246, 247, 248);
   font-family: "Inter", sans-serif;
 }
+
 @font-face {
   font-family: "Inter";
   font-style: normal;
@@ -44,12 +45,14 @@ TO ADD SIDEBAR + HEADER TO HTML
   height: 100vh;
   overflow: hidden;
 }
+
 .header-and-mainContent {
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
 }
+
 /* ====
 HEADER 
 =======*/
@@ -61,11 +64,13 @@ HEADER
   justify-content: space-between;
   padding-inline: clamp(20px, 6vw, 80px);
 }
+
 .help-and-initials-div {
   display: flex;
   align-items: center;
   gap: 16px;
 }
+
 .circle {
   width: 50px;
   height: 50px;
@@ -81,12 +86,15 @@ HEADER
   font-size: 25px;
   cursor: pointer;
 }
+
 .circle:hover {
   background-color: rgb(226, 230, 236);
 }
+
 .summary-join-logo-header {
   display: none;
 }
+
 .add-task-button {
   display: flex;
   align-items: center;
@@ -100,10 +108,12 @@ HEADER
   font-weight: 700;
   font-size: clamp(18px, 2vw, 21px);
 }
+
 .add-task-button:hover {
   background-color: rgb(40, 171, 226);
   box-shadow: -2px 2px 2px #ccc;
 }
+
 .drop-down-header {
   display: flex;
   flex-direction: column;
@@ -115,14 +125,17 @@ HEADER
   border-radius: 20px 0 20px 20px;
   padding: 10px;
 }
+
 .drop-down-header a {
   color: white;
   padding: 10px;
   border-radius: 10px;
 }
+
 .drop-down-header a:hover {
   background-color: rgb(1, 17, 63);
 }
+
 /* =======
 INDEX.HTML
 ==========*/
@@ -233,15 +246,19 @@ TASK OVERVIEW & GREETINGS SECTION
   background-color: rgb(41, 54, 71);
   filter: drop-shadow(2px 4px 6px black);
 }
+
 .summary-hover-effect:hover p {
   color: white;
 }
+
 .summary-hover-effect:hover .summary-done-tasks-hover {
   content: url("./assets/img/summary-doneTasks-hover.png");
 }
+
 .summary-hover-effect:hover .summary-todo-tasks-hover {
   content: url("./assets/img/summary-toDo-task-hover.png");
 }
+
 .arrange-amount-and-status {
   display: flex;
   flex-direction: column;
@@ -279,6 +296,7 @@ TASK OVERVIEW & GREETINGS SECTION
   height: clamp(68px, 15vw, 100px);
   background-color: gray;
 }
+
 .summary-task-overview-dueDates:hover .dividing-line-task-overview-dueDates {
   background-color: white;
 }
@@ -338,6 +356,7 @@ TASK OVERVIEW & GREETINGS SECTION
   font-weight: 700;
   color: #29abe2;
 }
+
 /* ===========
 MEDIA-QUERIES
 ===============*/
@@ -366,12 +385,15 @@ MEDIA-QUERIES
   .header-container span {
     display: none;
   }
+
   .summary-join-logo-header {
     display: flex;
   }
+
   .help-and-initials-div img {
     display: none;
   }
+
   .summary-task-section {
     justify-content: center;
   }
@@ -409,6 +431,7 @@ SIDEBAR NAVIGATION
   padding-top: 60px;
   width: 100%;
 }
+
 .active {
   background-color: rgb(1, 17, 63);
 }
@@ -426,9 +449,11 @@ SIDEBAR NAVIGATION
   padding-left: 55px;
   padding-block: 10px;
 }
+
 .span-sidebar p {
   font-size: clamp(15px, 4vw, 18px);
 }
+
 a {
   text-decoration: none;
 }
@@ -447,20 +472,48 @@ a {
   left: 50%;
   transform: translateX(-50%);
 }
+
 .impressum-color {
   color: rgb(205, 205, 205);
 }
+
 .impressum span:hover {
   cursor: pointer;
   color: rgb(0, 204, 255);
 }
+
 .impressum-sidebar {
   padding: 20px;
+}
+
+.impressum-sidebar h1 {
+  font-size: 61px;
+}
+
+.impressum-sidebar h2 {
+  font-size: 27px;
+}
+
+.impressum-sidebar p {
+  font-size: 20px;
 }
 
 .privacy-policy {
   padding: 20px;
 }
+.privacy-policy h1{
+  font-size: 61px;
+}
+.privacy-policy h2{
+  font-size: 27px;
+}
+.privacy-policy h4{
+  font-size: 25px;
+}
+.privacy-policy p{
+  font-size: 20px;
+}
+
 .privacy-polpcy-color {
   text-decoration: none;
   color: rgb(205, 205, 205);
@@ -469,7 +522,13 @@ a {
 @media (max-width: 850px) {
   .privacy-policy {
     padding-bottom: 100px;
+
   }
+
+  .impressum-sidebar {
+    padding-bottom: 100px;
+  }
+
   .sidebar {
     position: fixed;
     left: 0;
@@ -480,9 +539,11 @@ a {
     flex-direction: unset;
     z-index: 5;
   }
+
   .join-sidebar-img {
     display: none;
   }
+
   .span-sidebar {
     width: 80px;
     padding-left: 0px;
@@ -493,22 +554,27 @@ a {
     padding-block: unset;
     height: 100%;
   }
+
   .span-sidebar:hover {
     background-color: rgb(1, 17, 63);
     border-radius: 16px;
   }
+
   .task-sidebar {
     flex-direction: unset;
     padding-top: unset;
     justify-content: space-evenly;
     height: 80px;
   }
+
   .task-sidebar a {
     border-radius: 16px;
   }
+
   .task-sidebar a:hover {
     border-radius: 16px;
   }
+
   .impressum {
     display: none;
   }
