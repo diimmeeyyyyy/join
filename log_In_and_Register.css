@@ -9,9 +9,51 @@ body {
   min-height: 100vh;
 }
 h1,
+h3,
 p {
   margin-block-start: 0;
   margin-block-end: 0;
+}
+
+.pop-up-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.alert-container {
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #29abe2;
+  background-color: #2a3647;
+  color: white;
+  padding: 20px;
+}
+.alert-container button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.alert-container button:hover {
+  background-color: #29abe2;
+  color: white;
 }
 
 .main-button-hover:hover {
@@ -223,10 +265,10 @@ BORDER-ANIMATION WHEN ONCLICK
 }
 .rights-section a {
   text-decoration: none;
-} 
-.rights-section p:hover{
+}
+.rights-section p:hover {
   color: #29abe2;
-} 
+}
 
 /* ========================
 CHECK PASSWORD REQUIREMENTS

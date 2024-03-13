@@ -30,67 +30,143 @@
                     
                 </div>
 
-                <div class="add-task-dividing-line"></div>
+        <div class="add-task-dividing-line"></div>
 
-                <div class="add-task-inputfield-column ">
-                    <span>Due Date<span class="add-task-highlight-red">*</span></span>
-                    <input id="add_task_due_date" class="add-task-inputfield" type="date" required>
-                    <div id="add_task_prio_container">
-                        <span>Prio</span>
-                        <div class="add-task-prio-button-container">
-                            <button onclick="setTaskPriority('urgent'); changeButtonColor(false)"
-                                id="add_task_prio_button_urgent" class="add-task-prio-button" type="button">
-                                <span> Urgent </span>
-                                <img id="add_task_prio_icon_urgent" class="add-task-prio-icon"
-                                    src="./assets/img/priorityUrgent.svg">
-                            </button>
-                            <button onclick="setTaskPriority('medium'); changeButtonColor(false)"
-                                id="add_task_prio_button_medium"
-                                class="add-task-prio-button add-task-prio-button-yellow" type="button">
-                                <span> Medium </span>
-                                <img id="add_task_prio_icon_medium" class="add-task-prio-icon add-task-prio-icon-white "
-                                    src="./assets/img/priorityMedium.svg">
-                            </button>
-                            <button onclick="setTaskPriority('low'); changeButtonColor(false)"
-                                id="add_task_prio_button_low" class="add-task-prio-button" type="button">
-                                <span> Low </span>
-                                <img id="add_task_prio_icon_low" class="add-task-prio-icon"
-                                    src="./assets/img/priorityLow.svg">
-                            </button>
-                        </div>
-                    </div>
-                    <div id="add_task_category_container">
-                        <span>Category<span class="add-task-highlight-red">*</span></span>
-                        <select id="add_task_category" class="add-task-inputfield add-task-category" required>
-                            <option class="add-task-placeholder" value="" disabled selected hidden>Select task category
-                            </option>
-                            <option class="add-task-category-option" value="Technical Task">Technical Task</option>
-                            <option value="User Story">User Story</option>
-                        </select>
-                    </div>
-                    <span>Subtasks</span>
-                    <div class="add-task-subtasks-container">
-                        <input id="add_task_subtasks_inputfield" class="add-task-inputfield add-task-subtasks-inputfield "
-                            placeholder="Add new subtask">
-                        <img onclick="addNewSubtask(false)" id="add_task_subtask_plus_button" class="add-task-subtask-plus-button"
-                            src="./assets/img/plus.svg">
-                    </div>
-                    <div id="add_task_new_subtasks_container" class="add-task-new-subtasks-container">
-                        <ul id="add_task_subtasks_list" class="add-task-subtasks-list">
-                        </ul>
-                    </div>
-                    <div class="add-task-clear-and-create-task-buttons-desktop-design">
-                        <button onclick="clearAddTaskForm()" type="reset" class="add-task-clear-button">
-                            <span>Clear</span>
-                            <img src="./assets/img/closeBlue.svg">
-                        </button>
-                        <button type="submit" class="add-task-button">
-                            <span> Create Task</span>
-                            <img src="./assets/img/check.png">
-                        </button>
-                    </div>
-                </div>
+        <div class="add-task-inputfield-column">
+          <span>Due Date<span class="add-task-highlight-red">*</span></span>
+          <input
+            id="add_task_due_date"
+            class="add-task-inputfield"
+            type="date"
+            required
+          />
+          <div id="add_task_prio_container">
+            <span>Prio</span>
+            <div class="add-task-prio-button-container">
+              <button
+                onclick="setTaskPriority('urgent'); changeButtonColor(false)"
+                id="add_task_prio_button_urgent"
+                class="add-task-prio-button"
+                type="button"
+              >
+                <span> Urgent </span>
+                <img
+                  id="add_task_prio_icon_urgent"
+                  class="add-task-prio-icon"
+                  src="./assets/img/priorityUrgent.svg"
+                />
+              </button>
+              <button
+                onclick="setTaskPriority('medium'); changeButtonColor(false)"
+                id="add_task_prio_button_medium"
+                class="add-task-prio-button add-task-prio-button-yellow"
+                type="button"
+              >
+                <span> Medium </span>
+                <img
+                  id="add_task_prio_icon_medium"
+                  class="add-task-prio-icon add-task-prio-icon-white"
+                  src="./assets/img/priorityMedium.svg"
+                />
+              </button>
+              <button
+                onclick="setTaskPriority('low'); changeButtonColor(false)"
+                id="add_task_prio_button_low"
+                class="add-task-prio-button"
+                type="button"
+              >
+                <span> Low </span>
+                <img
+                  id="add_task_prio_icon_low"
+                  class="add-task-prio-icon"
+                  src="./assets/img/priorityLow.svg"
+                />
+              </button>
             </div>
+          </div>
+          <div id="add_task_category_container">
+            <span>Category<span class="add-task-highlight-red">*</span></span>
+            <select id="add_task_category" class="add-task-inputfield" required>
+              <option
+                class="add-task-placeholder"
+                value=""
+                disabled
+                selected
+                hidden
+              >
+                Select task category
+              </option>
+              <option class="add-task-category-option" value="Technical Task">
+                Technical Task
+              </option>
+              <option value="User Story">User Story</option>
+            </select>
+          </div>
+          <span>Subtasks</span>
+          <div class="add-task-subtasks-container">
+            <input
+              id="add_task_subtasks_inputfield"
+              class="add-task-inputfield"
+              placeholder="Add new subtask"
+            />
+            <img
+              onclick="addNewSubtask(false)"
+              id="add_task_subtask_plus_button"
+              src="./assets/img/plus.svg"
+            />
+          </div>
+          <div id="add_task_new_subtasks_container">
+            <ul id="add-task-subtasks-list"></ul>
+          </div>
+          <div class="add-task-clear-and-create-task-buttons-desktop-design">
+            <button
+              onclick="clearAddTaskForm()"
+              type="reset"
+              class="add-task-clear-button"
+            >
+              <span>Clear</span>
+              <img src="./assets/img/closeBlue.svg" />
+            </button>
+            <button type="submit" class="add-task-button">
+              <span> Create Task</span>
+              <img src="./assets/img/check.png" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-task-legend-and-form-buttons">
+        <span class="add-task-legend add-task-legend-responsive-design">
+          <span class="add-task-highlight-red">*</span>This field is required
+        </span>
+        <div class="add-task-clear-and-create-task-buttons-responsive-design">
+          <button
+            onclick="clearAddTaskForm()"
+            type="reset"
+            class="add-task-clear-button"
+          >
+            <span>Clear</span>
+            <img
+              class="add-task-clear-button-img"
+              src="./assets/img/closeBlue.svg"
+            />
+          </button>
+          <button
+            type="submit"
+            class="add-task-button add-task-button-responsive"
+          >
+            <span> Create Task</span>
+            <img
+              class="add-task-create-button-img"
+              src="./assets/img/check.png"
+            />
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
 
             <div class="add-task-legend-and-form-buttons">
                 <span class="add-task-legend add-task-legend">
