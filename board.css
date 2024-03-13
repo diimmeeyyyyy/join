@@ -522,6 +522,12 @@ MEDIA-QUERIES
   }
 }
 
+@media (max-width: 850px) {
+  .board-section-mainContent:last-child {
+    padding-bottom: 80px;
+  }
+}
+
 @media (max-width: 600px) {
   .board-section-header-div {
     padding-bottom: unset;
@@ -561,7 +567,6 @@ ASSIGNED CONTACTS
 .item:not(:first-child) {
   margin-left: -10px;
 }
-
 
 /* =========
 EDIT TASK

@@ -112,66 +112,72 @@ async function saveCheckedContacts(
     `${classPrefix}_task_contact_checkbox${contactIndex}`
   );
 
-  if (index >= 0) {
-    contactsForNewTask.splice(index, 1);
-    checkbox.checked = false;
-    checkboxfield.classList.remove("add-task-contact-selected");
-    await removeContactIcon(isEditMode, contactName);
-  } else {
-    contactsForNewTask.push(contactName);
-    checkbox.checked = true;
-    checkboxfield.classList.add("add-task-contact-selected");
+  if (!checkbox && !checkboxfield) {
     await addContactIcon(isEditMode, contactName);
-  }
-  if (event) {
-    event.stopPropagation();
+  } else {
+    if (index >= 0) {
+      contactsForNewTask.splice(index, 1);
+      checkbox.checked = false;
+      checkboxfield.classList.remove("add-task-contact-selected");
+      await removeContactIcon(isEditMode, contactName);
+    } else {
+      contactsForNewTask.push(contactName);
+      checkbox.checked = true;
+      checkboxfield.classList.add("add-task-contact-selected");
+      await addContactIcon(isEditMode, contactName);
+    }
+    if (event) {
+      event.stopPropagation();
+    }
   }
 }
 
-
+let existingContacts = [];
 async function removeContactIcon(isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
-  let IconContainer = document.getElementById(
-    `${classPrefix}_task_contacts_icons`
-  );
+  let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
   let contactInformation = await getContactInformation(contactName);
 
   let iconToRemove = getIconForContact(contactInformation);
 
-  // Durchlaufen  aller span-Elemente im IconContainer
-  for (let i = 0; i < IconContainer.children.length; i++) {
-    let span = IconContainer.children[i];
+  for (let i = 0; i < iconContainer.children.length; i++) {
+    let span = iconContainer.children[i];
 
     // Wenn span-Element das zu entfernende Icon enthält, wirds entfernt
     if (span.innerHTML === iconToRemove) {
-      IconContainer.removeChild(span);
+      iconContainer.removeChild(span);
       break; // Beenden der Schleife, nachdem das Icon entfernt wurde
     }
   }
+  // Entfernen des Kontakts aus existingContacts
+  existingContacts = existingContacts.filter(
+    (contact) => contact !== contactName
+  );
 }
 
 
 async function addContactIcon(isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
-  let IconContainer = document.getElementById(
-    `${classPrefix}_task_contacts_icons`
-  );
-  let contactInformation = await getContactInformation(contactName);
-  console.log(contactInformation);
+  let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
+  // Überprüfen Sie, ob der Kontaktname bereits in existingContacts existiert
+  if (!existingContacts.includes(contactName)) {
+    // Wenn er nicht existiert, fügen Sie ihn hinzu
+    existingContacts.push(contactName);
 
-  IconContainer.innerHTML += /*html*/ `
-    <span>${getIconForContact(contactInformation)}</span>
-  `;
+    let contactInformation = await getContactInformation(contactName);
+    // Und fügen Sie das Icon zum iconContainer hinzu
+    iconContainer.innerHTML += /*html*/ `
+        <span>${getIconForContact(contactInformation)}</span>
+      `;
+  }
 }
 
 
 async function getContactInformation(contactName) {
   let allContacts = await getItem("allContacts");
-  console.log(allContacts);
   let contactInfo = allContacts.find(
     (contact) => contact["name"] === contactName
   );
-  console.log(contactInfo);
   return contactInfo;
 }
 
