@@ -123,7 +123,7 @@ async function addContactIcon(isEditMode, contactName) {
   if (!existingContacts.includes(contactName)) {
     existingContacts.push(contactName);
 
-    if (isEditMode === "edit") {
+    if (isEditMode === true) {
     let contactInformation = await getContactInformation(contactName);
     iconContainer.innerHTML += `
         <span>${getIconForContact(contactInformation)}</span>
@@ -176,8 +176,8 @@ PRIORITY BUTTONS
 
 
 function setTaskPriority(priority) {
-  if (prio === priority) {
-    prio = "";
+  if ("medium" === priority) {
+    prio = "medium";
   } else {
     prio = priority;
   }
