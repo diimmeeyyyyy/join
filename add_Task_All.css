@@ -264,7 +264,7 @@ SUBTASKS
   border-radius: 32px;
 }
 
-#add-task-subtasks-list {
+#add_task_subtasks_list {
   padding-inline-start: 0;
   overflow-x: hidden;
 }
@@ -346,7 +346,6 @@ EDIT SUBTASK
 }
 
 .add-task-subtask-inputfield-edit-subtask {
-  font-family: "Inter", sans-serif;
   font-size: 16px;
   border-style: none;
   outline: none;
