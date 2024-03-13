@@ -1,10 +1,10 @@
 let _taskList = null;
 let contactsForNewTask = [];
+let existingContacts = [];
 let contactsRendered = false;
 let contactsDropdownOpen = false;
 let prio = "medium";
 let subtasks = [];
-let existingContacts = [];
 
 
 async function initAddTask() {
@@ -28,9 +28,7 @@ async function toggleContactsDropdown(isEditMode) {
     contactsRendered = true;
   }
 
-  const contactsContainer = document.getElementById(
-    `${classPrefix}_task_contacts_container`
-  );
+  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
 
   if (contactsDropdownOpen === true) {
     contactsContainer.style.display = "none";
@@ -118,23 +116,19 @@ async function saveCheckedContacts(event, contactIndex, isEditMode, contactName)
 async function addContactIcon(isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
-  let iconContainerAddModeDesktopView = document.getElementById("add_task_contacts_content");
   
   if (!existingContacts.includes(contactName)) {
     existingContacts.push(contactName);
 
+<<<<<<< HEAD
     if (isEditMode === true) {
+=======
+>>>>>>> 3561e9eb24f0ce22b6f0db9d983c248fd23e1ab0
     let contactInformation = await getContactInformation(contactName);
     iconContainer.innerHTML += `
         <span>${getIconForContact(contactInformation)}</span>
           `;
-    }
-    if (isEditMode === "add" && window.innerWidth > 1090) {
-      let contactInformation = await getContactInformation(contactName);
-      iconContainerAddModeDesktopView.innerHTML += `
-          <span>${getIconForContact(contactInformation)}</span>
-        `; 
-    }
+    
   }
 }
 
@@ -149,13 +143,11 @@ async function removeContactIcon(isEditMode, contactName) {
   for (let i = 0; i < iconContainer.children.length; i++) {
     let span = iconContainer.children[i];
 
-    // Wenn span-Element das zu entfernende Icon enthält, wirds entfernt
     if (span.innerHTML === iconToRemove) {
       iconContainer.removeChild(span);
-      break; // Beenden der Schleife, nachdem das Icon entfernt wurde
+      break;
     }
   }
-  // Entfernen des Kontakts aus existingContacts
   existingContacts = existingContacts.filter(
     (contact) => contact !== contactName
   );

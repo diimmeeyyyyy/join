@@ -111,18 +111,25 @@ CONTACTS
 }
 
 #add_task_contacts_content {
-  height: 188px;
+  position: relative;
+  display:inline-block;
 }
 
 .add-task-contacts-container {
-  background-color: white;
-  position: sticky;
+  position: absolute;
+  top: 0;
   max-height: 200px;
-  z-index: 2;
+  width: 100%;
+  z-index: 999;
+  background-color: white;
   overflow-y: auto;
   overflow-x: hidden;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.add-task-contacts-icons-for-add-mode-desktop-view {
+  margin-top: 8px;
 }
 
 .add-task-contact-checkbox {
@@ -152,6 +159,11 @@ CONTACTS
   background-color: rgb(42, 54, 71);
   color: white;
   border-radius: 8px;
+}
+
+
+.add-task-contacts-icons {
+  margin-top: 8px;
 }
 
 /* ====
@@ -383,10 +395,7 @@ FORM-BUTTONS & LEGEND
 
 .add-task-legend {
   font-size: 16px;
-}
-
-.add-task-legend-responsive-design {
-  display: none;
+  margin-top: -20px;
 }
 
 .add-task-clear-and-create-task-buttons-desktop-design {
@@ -515,18 +524,14 @@ RESPONSIVE-DESIGN
     width: 100%;
   }
 
-  #add_task_contacts_content {
-    height: 0;
-  }
-
   .add-task-legend-desktop-design {
     display: none;
   }
 
-  .add-task-legend-responsive-design {
-    display: block;
+  .add-task-legend {
+    margin-top: 0;
   }
-
+  
   .add-task-dividing-line {
     display: none;
   }
