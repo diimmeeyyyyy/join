@@ -111,18 +111,21 @@ CONTACTS
 }
 
 #add_task_contacts_content {
-  height: 188px;
+  /* height: 188px; */
+  position: relative;
 }
 
 .add-task-contacts-container {
-  background-color: white;
-  position: sticky;
+  position: absolute; 
+  top: 0;
+  width: 100%;
   max-height: 200px;
   z-index: 2;
   overflow-y: auto;
   overflow-x: hidden;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  background-color: white;
 }
 
 .add-task-contact-checkbox {
@@ -152,6 +155,10 @@ CONTACTS
   background-color: rgb(42, 54, 71);
   color: white;
   border-radius: 8px;
+}
+
+.add-task-contacts-icons {
+  margin-top: 8px;
 }
 
 /* ====
@@ -229,7 +236,7 @@ PRIO-BUTTONS
 CATEGORY
 =======*/
 
-#add_task_category {
+.add-task-category {
   width: 100%;
 }
 
@@ -243,11 +250,11 @@ SUBTASKS
   height: 30px;
 }
 
-#add_task_subtasks_inputfield {
+.add-task-subtasks-inputfield {
   width: 100%;
 }
 
-#add_task_subtask_plus_button {
+.add-task-subtask-plus-button {
   display: flex;
   align-items: center;
   width: 24px;
@@ -259,17 +266,17 @@ SUBTASKS
   margin-right: 8px;
 }
 
-#add_task_subtask_plus_button:hover {
+.add-task-subtask-plus-button:hover {
   background-color: rgb(209, 209, 209);
   border-radius: 32px;
 }
 
-#add_task_subtasks_list {
+.add-task-subtasks-list {
   padding-inline-start: 0;
   overflow-x: hidden;
 }
 
-#add_task_new_subtasks_container {
+.add-task-new-subtasks-container {
   height: 124px;
   overflow: auto;
   font-size: 16px;
@@ -317,8 +324,7 @@ SUBTASKS
 }
 
 .add-task-subtask-and-icons:hover .add-task-subtask-icon,
-.add-task-subtask-and-icons:hover .add-task-subtask-dividing-line
-{
+.add-task-subtask-and-icons:hover .add-task-subtask-dividing-line {
   display: block;
 }
 
@@ -334,8 +340,8 @@ EDIT SUBTASK
   height: 24px;
   overflow: hidden;
   position: relative;
-  background-color: white; 
-  border-bottom: 2px solid rgb(93,190,231);
+  background-color: white;
+  border-bottom: 2px solid rgb(93, 190, 231);
 }
 
 .add-task-subtask-delete-and-check-icons-edit-subtask {
@@ -350,23 +356,23 @@ EDIT SUBTASK
   border-style: none;
   outline: none;
   padding-left: 16px;
-  }
+}
 
-  .add-task-subtask-dividing-line-edit-subtask {
-    width: 1px;
-    height: 20px;
-    background-color: grey;
-  }
+.add-task-subtask-dividing-line-edit-subtask {
+  width: 1px;
+  height: 20px;
+  background-color: grey;
+}
 
-  .add-task-subtask-icon-edit-subtask {
-    cursor: pointer;
-    width: 16px;
-  }
-  
-  .add-task-subtask-icon-edit-subtask:hover {
-    filter: opacity(70%);
-  }
-  
+.add-task-subtask-icon-edit-subtask {
+  cursor: pointer;
+  width: 16px;
+}
+
+.add-task-subtask-icon-edit-subtask:hover {
+  filter: opacity(70%);
+}
+
 .add-task-subtask-icon-check-subtask:hover {
   background-color: rgb(209, 209, 209);
   border-radius: 32px;
@@ -384,11 +390,9 @@ FORM-BUTTONS & LEGEND
 
 .add-task-legend {
   font-size: 16px;
+  margin-top: -20px;
 }
 
-.add-task-legend-responsive-design {
-  display: none;
-}
 
 .add-task-clear-and-create-task-buttons-desktop-design {
   display: flex;
@@ -516,18 +520,6 @@ RESPONSIVE-DESIGN
     width: 100%;
   }
 
-  #add_task_contacts_content {
-    height: 0;
-  }
-
-  .add-task-legend-desktop-design {
-    display: none;
-  }
-
-  .add-task-legend-responsive-design {
-    display: block;
-  }
-
   .add-task-dividing-line {
     display: none;
   }
@@ -551,6 +543,11 @@ RESPONSIVE-DESIGN
     z-index: 2;
     background-color: rgb(246, 247, 248);
   }
+
+  .add-task-legend {
+    margin-top: 0;
+  }
+  
 
   .add-task-clear-and-create-task-buttons-desktop-design {
     display: none;

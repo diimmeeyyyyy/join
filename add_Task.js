@@ -1,5 +1,6 @@
 let _taskList = null;
 let contactsForNewTask = [];
+let existingContacts = [];
 let contactsRendered = false;
 let contactsDropdownOpen = false;
 let prio = "medium";
@@ -27,9 +28,7 @@ async function toggleContactsDropdown(isEditMode) {
     contactsRendered = true;
   }
 
-  const contactsContainer = document.getElementById(
-    `${classPrefix}_task_contacts_container`
-  );
+  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
 
   if (contactsDropdownOpen === true) {
     contactsContainer.style.display = "none";
@@ -45,29 +44,19 @@ async function renderContactsInAddTask(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
   let allContacts = await loadContacts();
   let placeholder = document.getElementById(`${classPrefix}_task_placeholder`);
-  let drowDownArrow = document.getElementById(
-    `${classPrefix}-task-inputfield-arrow`
-  );
+  let drowDownArrow = document.getElementById(`${classPrefix}-task-inputfield-arrow`);
 
   if (allContacts.length !== 0) {
-    let contactsContainer = document.getElementById(
-      `${classPrefix}_task_contacts_content`
-    );
+    let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
     contactsContainer.innerHTML += `
     <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"> 
     </div>
     `;
 
-    let contactList = document.getElementById(
-      `${classPrefix}_task_contacts_container`
-    );
+    let contactList = document.getElementById(`${classPrefix}_task_contacts_container`);
     for (let i = 0; i < allContacts.length; i++) {
       const contact = allContacts[i];
-      contactList.innerHTML += renderHTMLforAddTaskContactList(
-        isEditMode,
-        i,
-        contact
-      );
+      contactList.innerHTML += renderHTMLforAddTaskContactList(isEditMode, i, contact);
     }
   } else {
     placeholder.style.color = "rgb(178, 177, 177)";
@@ -97,20 +86,11 @@ function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
 }
 
 
-async function saveCheckedContacts(
-  event,
-  contactIndex,
-  isEditMode,
-  contactName
-) {
+async function saveCheckedContacts(event, contactIndex, isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
-  const checkbox = document.getElementById(
-    `${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`
-  );
+  const checkbox = document.getElementById(`${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`);
   const index = contactsForNewTask.indexOf(contactName);
-  const checkboxfield = document.getElementById(
-    `${classPrefix}_task_contact_checkbox${contactIndex}`
-  );
+  const checkboxfield = document.getElementById(`${classPrefix}_task_contact_checkbox${contactIndex}`);
 
   if (!checkbox && !checkboxfield) {
     await addContactIcon(isEditMode, contactName);
@@ -132,7 +112,23 @@ async function saveCheckedContacts(
   }
 }
 
-let existingContacts = [];
+
+async function addContactIcon(isEditMode, contactName) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
+  
+  if (!existingContacts.includes(contactName)) {
+    existingContacts.push(contactName);
+
+    let contactInformation = await getContactInformation(contactName);
+    iconContainer.innerHTML += `
+        <span>${getIconForContact(contactInformation)}</span>
+          `;
+    
+  }
+}
+
+
 async function removeContactIcon(isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
@@ -143,33 +139,14 @@ async function removeContactIcon(isEditMode, contactName) {
   for (let i = 0; i < iconContainer.children.length; i++) {
     let span = iconContainer.children[i];
 
-    // Wenn span-Element das zu entfernende Icon enthält, wirds entfernt
     if (span.innerHTML === iconToRemove) {
       iconContainer.removeChild(span);
-      break; // Beenden der Schleife, nachdem das Icon entfernt wurde
+      break;
     }
   }
-  // Entfernen des Kontakts aus existingContacts
   existingContacts = existingContacts.filter(
     (contact) => contact !== contactName
   );
-}
-
-
-async function addContactIcon(isEditMode, contactName) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
-  // Überprüfen Sie, ob der Kontaktname bereits in existingContacts existiert
-  if (!existingContacts.includes(contactName)) {
-    // Wenn er nicht existiert, fügen Sie ihn hinzu
-    existingContacts.push(contactName);
-
-    let contactInformation = await getContactInformation(contactName);
-    // Und fügen Sie das Icon zum iconContainer hinzu
-    iconContainer.innerHTML += /*html*/ `
-        <span>${getIconForContact(contactInformation)}</span>
-      `;
-  }
 }
 
 
@@ -246,7 +223,7 @@ SUBTASKS
 
 function addNewSubtask(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
-  let newSubtasksList = document.getElementById(`${classPrefix}-task-subtasks-list`);
+  let newSubtasksList = document.getElementById(`${classPrefix}_task_subtasks_list`);
   let subtaskInputField = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
   let subtasksInputfield = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
 
@@ -293,7 +270,7 @@ function renderHTMLforSubtask(isEditMode, subtaskIndex, subtask) {
 
 function renderSubtasks(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
-  const newSubtasksList = document.getElementById(`${classPrefix}-task-subtasks-list`);
+  const newSubtasksList = document.getElementById(`${classPrefix}_task_subtasks_list`);
   let html = '';
 
   for (let i = 0; i < subtasks.length; i++) {
@@ -321,7 +298,6 @@ function deleteSubtask(isEditMode, subtaskIndex) {
   const classPrefix = isEditMode ? "edit" : "add";
   let subtask = document.getElementById(`${classPrefix}_task_subtask_and_icons_${subtaskIndex}`);
   subtasks.splice(subtaskIndex, 1);
-  console.log('subtasks', subtasks);
   renderSubtasks(isEditMode);
 }
 
