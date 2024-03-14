@@ -430,18 +430,23 @@ function findTask() {
 OPEN & CLOSE ADD TASK - POP-UP
 ===============================*/
 function openAddTaskPopUp() {
+  let backdrop = document.getElementById("add_task_popup_backdrop");
   let addTaskPopup = document.getElementById("add_task_popup");
   if (window.innerWidth >= 1090) {
+    backdrop.style.display = "unset";
     addTaskPopup.style.display = "unset";
+
   } else {
     window.location.href = "add_Task.html";
   }
 }
 
 function closeAddTaskPopup() {
+  let backdrop = document.getElementById("add_task_popup_backdrop");
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "none";
-  // Entfernen Sie das Hintergrundelement aus dem DOM
+  backdrop.style.display = "none";
+  
 }
 
 /* ====================================

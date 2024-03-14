@@ -94,10 +94,13 @@ async function editTask(taskIndex) {
   document.body.appendChild(background);
   await checkAssignedContacts(taskIndex);
   await selectPriorityButton(task);
+  setNewDateForDueDate();
 }
 
+
 function generateEditTaskHTML(task, taskIndex) {
-  let subtasksHTML = `<div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>`;
+  // let subtasksHTML = `<div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>`;
+ 
   return /*html*/ `
 <main id="Edit_Task_Container">
   <div class="positionCloseButton">
@@ -121,14 +124,14 @@ function generateEditTaskHTML(task, taskIndex) {
       id=""
       cols="30"
       rows="10"
-    >
-    ${task.description}</textarea
+    >${task.description}</textarea
     >
   </section>
   <!-- DUE DATES -->
   <section class="editSection">
     <p>Due Date</p>
     <input
+      id="edit_task_due_date"
       class="inputAndTextareaSettings"
       type="date"
       value="${task.dueDate}"
@@ -229,7 +232,7 @@ function generateEditTaskHTML(task, taskIndex) {
 
   
   <section class="edit-task-position-check-button">
-    <button class="add-task-button edit-task-check-button">
+    <button onclick="saveEditedTask(task, taskIndex)" class="add-task-button edit-task-check-button">
       <span> Ok </span>
       <img src="./assets/img/check.png">
 
@@ -238,6 +241,19 @@ function generateEditTaskHTML(task, taskIndex) {
 </main>
     `;
 }
+
+
+// function saveEditedTask(task, taskIndex) {
+      // const allTasks = await getItem("allTasks");
+      // allTasks.splice(taskindex, 1, )
+      
+ 
+
+
+
+
+// }
+
 
 async function selectPriorityButton(task) {
   const priority = task["prio"];
@@ -289,6 +305,11 @@ function closeEditTask() {
   }
 }
 
+// function setNewDateForDueDate() {
+//   let newDueDateForEditTask = document.getElementById("edit_task_due_date");
+//   newDueDateForEditTask.setAttribute("min", today.toISOString().substring(0, 10));
+// }
+
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
   let day = date.getDate(); // Tag, Monat & Jahr werden aus dem Date-Objekt extrahiert
@@ -336,7 +357,8 @@ function generateContactListHTML(contact, showName) {
 }
 
 
-// function 
+
+
 
 
 /* =======================

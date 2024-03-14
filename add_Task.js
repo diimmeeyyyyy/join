@@ -20,6 +20,25 @@ async function initAddTask() {
 CONTACTS
 ===================*/
 
+// async function toggleContactsDropdown(isEditMode) {
+//   const classPrefix = isEditMode ? "edit" : "add";
+
+//   if (!contactsRendered) {
+//     await renderContactsInAddTask(isEditMode);
+//     contactsRendered = true;
+//   }
+
+//   const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
+
+//   if (contactsDropdownOpen === true) {
+//     contactsContainer.style.display = "none";
+//     contactsDropdownOpen = false;
+//   } else {
+//     contactsContainer.style.display = "block";
+//     contactsDropdownOpen = true;
+//   }
+// }
+
 async function toggleContactsDropdown(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
 
@@ -29,6 +48,7 @@ async function toggleContactsDropdown(isEditMode) {
   }
 
   const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
+  const inputField = document.querySelector(`.${classPrefix}-task-inputfield-contacts`);
 
   if (contactsDropdownOpen === true) {
     contactsContainer.style.display = "none";
@@ -36,8 +56,35 @@ async function toggleContactsDropdown(isEditMode) {
   } else {
     contactsContainer.style.display = "block";
     contactsDropdownOpen = true;
+    
+    document.addEventListener('click', closeContactsDropdownOutside);
+  }
+
+  // Funktion, um das Dropdown-Menü zu schließen, wenn außerhalb davon geklickt wird
+  function closeContactsDropdownOutside(event) {
+    const clearButton = document.getElementById('add_task_clear_button');
+
+    const isClickInsideDropdown = contactsContainer.contains(event.target) || event.target === inputField;
+    const isClickOnClearOrCreateButton = event.target === clearButton || event.target.closest('.add-task-button');
+    // TODO: sidebar ergänzen; 
+
+    if (!isClickInsideDropdown) {
+      contactsContainer.style.display = "none";
+      contactsDropdownOpen = false;
+      document.removeEventListener('click', closeContactsDropdownOutside);
+    }
+
+    // Wenn auf "Clear" oder "Create Task" geklickt wurde, verhindere das Standardverhalten (Formularabsenden)
+    if (isClickOnClearOrCreateButton) {
+      event.preventDefault();
+    }
   }
 }
+
+
+
+
+
 
 
 async function renderContactsInAddTask(isEditMode) {
@@ -49,8 +96,7 @@ async function renderContactsInAddTask(isEditMode) {
   if (allContacts.length !== 0) {
     let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
     contactsContainer.innerHTML += `
-    <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"> 
-    </div>
+      <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"> 
     `;
 
     let contactList = document.getElementById(`${classPrefix}_task_contacts_container`);
@@ -123,13 +169,13 @@ async function addContactIcon(isEditMode, contactName) {
     existingContacts.push(contactName);
 
 
-      let contactInformation = await getContactInformation(contactName);
-      iconContainer.innerHTML += `
+    let contactInformation = await getContactInformation(contactName);
+    iconContainer.innerHTML += `
         <span>${getIconForContact(contactInformation)}</span>
           `;
 
-    }
   }
+}
 
 
 

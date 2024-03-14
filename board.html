@@ -22,11 +22,13 @@
   </head>
 
   <body onload="initBoard()">
-    <div
-      w3-include-html="assets/templates/add_Task.html"
-      id="add_task_popup"
-      class="add-task-popup"
-    ></div>
+    <div id="add_task_popup_backdrop" class="pop-up-backdrop d-none">
+      <div
+       w3-include-html="assets/templates/add_Task.html"
+        id="add_task_popup"
+        class="add-task-popup"
+      ></div>
+    </div>
 
     <div class="sidebar-and-mainContent">
       <div w3-include-html="assets/templates/sidebar.html"></div>
