@@ -69,7 +69,7 @@ async function renderContactsInAddTask(isEditMode) {
 function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
   const classPrefix = isEditMode ? "edit" : "add";
   return `
-      <div id="${classPrefix}_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(event, ${i}, ${isEditMode}, '${contact.name.replace(
+      <div id="${classPrefix}_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(null, ${i}, ${isEditMode}, '${contact.name.replace(
     '"',
     ""
   )}')"> 
@@ -87,27 +87,29 @@ function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
 
 
 async function saveCheckedContacts(event, contactIndex, isEditMode, contactName) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
   const classPrefix = isEditMode ? "edit" : "add";
   const checkbox = document.getElementById(`${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`);
   const index = contactsForNewTask.indexOf(contactName);
   const checkboxfield = document.getElementById(`${classPrefix}_task_contact_checkbox${contactIndex}`);
 
+  
   if (!checkbox && !checkboxfield) {
     await addContactIcon(isEditMode, contactName);
   } else {
     if (index >= 0) {
       contactsForNewTask.splice(index, 1);
-      checkbox.checked = false;
       checkboxfield.classList.remove("add-task-contact-selected");
       await removeContactIcon(isEditMode, contactName);
+      checkbox.checked = false;
     } else {
       contactsForNewTask.push(contactName);
-      checkbox.checked = true;
       checkboxfield.classList.add("add-task-contact-selected");
       await addContactIcon(isEditMode, contactName);
-    }
-    if (event) {
-      event.stopPropagation();
+      checkbox.checked = true;
     }
   }
 }
