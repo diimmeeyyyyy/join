@@ -551,8 +551,7 @@ a {
     display: none;
   }
 
-  .span-sidebar {
-    width: 80px;
+  .span-sidebar {;
     padding-left: 0px;
     display: flex;
     flex-direction: column;
