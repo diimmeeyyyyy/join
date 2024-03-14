@@ -1,10 +1,6 @@
 let rememberLogIn = [];
 
 
-
-
-
-
 async function handleSubmit() {
   let submitButton = document.activeElement.id;
   if (submitButton === "LogIn_Button") {
@@ -114,3 +110,13 @@ function setGreetingAndName(userName, greetingForm) {
     greetingName.innerHTML = "";
   }
 }
+
+/* function showPasswordVisibility(){
+  let inputfield = document.getElementById("Password_LogIn");
+  let img = document.getElementById("Toggle_Password_Visibility");
+
+ 
+    img.src = "";
+    inputfield.type = "password"
+  
+} */
