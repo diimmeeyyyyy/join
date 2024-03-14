@@ -128,8 +128,8 @@ function generateContactsListHTML(i, buttonColor) {
         <p class="contacts-name">${contacts[i]["name"]}</p>
         <div id="edit_back">
           <div class="edit-delete" id="edit_delete">
-            <p onclick="editContact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
-            <p onclick="deleteQuery(${i})"><img src="./assets/img/delete.png"> Delete</p>
+            <p class="edit-hover" onclick="editContact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
+            <p class="delete-hover" onclick="deleteQuery(${i})"><img src="./assets/img/delete.png"> Delete</p>
           </div>
         </div>
       </div>

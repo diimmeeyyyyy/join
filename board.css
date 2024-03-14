@@ -163,6 +163,35 @@ STYLE OF ONE TASK
   transform: rotate(3deg);
 }
 
+.board-task-category-and-move-options {
+  display: flex;
+  justify-content: space-between;
+}
+.board-task-category-and-move-options img {
+  cursor: pointer;
+}
+
+.moving-options-popup {
+  width: 150px;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 5px;
+  border: 2px solid rgb(41, 54, 71);
+  background-color: rgb(40, 171, 226);
+}
+.moving-options-popup h3 {
+  color: white;
+}
+.moving-options-popup button {
+  cursor: pointer;
+  height: 40px;
+ /*  background-color: rgb(41, 54, 71);
+  color: rgb(40, 171, 226); */
+}
+
 .board-task-category {
   width: 113px;
   height: 27px;

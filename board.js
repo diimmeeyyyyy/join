@@ -88,8 +88,9 @@ function generateOneTaskHTML(
   draggable = "true"
   ondragstart = "startDragging(${task.id})"
 >
-  <div id="board_task_category${id}" class="board-task-category">
-    ${task.category}
+  <div id="board_task_category${id}" class="board-task-category-and-move-options">
+    <p class="board-task-category">${task.category}</p>
+    <img src="./assets/img/moveTaskImg.png" onclick="openMovingOptions(event,${task.id})">
   </div>
   <h2 id="board_task_title${id}" class="board-task-title">${task.title}</h2>
   
@@ -111,6 +112,93 @@ function generateOneTaskHTML(
   </div>
 </div>
     `;
+}
+
+/* ===============
+MOVE TASK POP-UP
+==================*/
+async function openMovingOptions(event, taskID) {
+  event.stopPropagation();
+  if (popUpIsOpen()) {
+    return;
+  }
+  let allTasks = await getItem("allTasks");
+  let task = allTasks.find((t) => t.id === taskID);
+  let currentStatus = task.status;
+
+  let popUp = document.createElement("div");
+  popUp.className = "moving-options-popup";
+  popUp.innerHTML = generateMovingOptionsHTML(currentStatus, taskID);
+  positionPopUpMovingOptions(popUp, event);
+  document.body.appendChild(popUp);
+  if (popUp) {
+    addClosePopupEventListener(popUp);
+  }
+}
+
+function addClosePopupEventListener(popUp) {
+  //Event-Listener, der Popup entfernt, wenn außerhalb des Popups geklickt wird
+  document.addEventListener("click", function closePopup(e) {
+    if (!popUp.contains(e.target)) {
+      // Überprüfen,ob Pop-Up noch im DOM ist, bevor entfernt wird
+      if (document.body.contains(popUp)) {
+        document.body.removeChild(popUp);
+      }
+      document.removeEventListener("click", closePopup);
+    }
+  });
+}
+
+function generateMovingOptionsHTML(currentStatus, taskID) {
+  return /*html*/ `
+      <h3>Move Task to...</h3>
+    <button ${
+      currentStatus === "toDo" ? "disabled" : ""
+    } onclick="moveTask(${taskID}, 'toDo')">To Do</button>
+    <button ${
+      currentStatus === "inProgress" ? "disabled" : ""
+    } onclick="moveTask(${taskID},'inProgress')">In Progress</button>
+    <button ${
+      currentStatus === "awaitFeedback" ? "disabled" : ""
+    } onclick="moveTask(${taskID}, 'awaitFeedback')">Await Feedback</button>
+    <button ${
+      currentStatus === "done" ? "disabled" : ""
+    } onclick="moveTask(${taskID},'done')">Done</button>
+`;
+}
+
+async function moveTask(taskID, newStatus) {
+  let allTasks = await getItem("allTasks");
+
+  // Element mit der id = taskID finden
+  let task = allTasks.find((task) => task.id === taskID);
+  if (task) {
+    task.status = newStatus;
+    await setItem("allTasks", allTasks);
+  } else {
+    console.error(`Kein Task mit der ID ${taskID} gefunden.`);
+  }
+  popUpIsOpen();
+  noTaskToDoNotification();
+  renderTasks();
+}
+
+function popUpIsOpen() {
+  let existingPopup = document.querySelector(".moving-options-popup");
+  if (existingPopup) {
+    document.body.removeChild(existingPopup);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function positionPopUpMovingOptions(popUp, event) {
+  const button = event.target; // Das Element, auf das geklickt wurde
+  const buttonRect = button.getBoundingClientRect();
+  popUp.style.position = "absolute";
+  popUp.style.left = buttonRect.left - 110 + "px";
+  popUp.style.top = buttonRect.top + buttonRect.height + "px";
 }
 
 /* =============================

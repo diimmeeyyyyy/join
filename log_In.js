@@ -1,5 +1,10 @@
 let rememberLogIn = [];
 
+
+
+
+
+
 async function handleSubmit() {
   let submitButton = document.activeElement.id;
   if (submitButton === "LogIn_Button") {
@@ -12,7 +17,7 @@ async function handleSubmit() {
 
 async function logInUser() {
   let email = document.getElementById("Email");
-  let password = document.getElementById("Password");
+  let password = document.getElementById("Password_LogIn");
 
   let user = await findUser(email.value, password.value);
 

@@ -363,7 +363,6 @@ body {
 }
 
 .contacts-name {
-  font-family: Inter;
   font-size: 47px;
   font-weight: 500;
   text-align: left;
@@ -377,13 +376,22 @@ body {
 }
 
 .edit-delete p:hover {
+  color: rgb(40, 171, 226);
+  font-weight: bold;
   cursor: pointer;
+}
+.edit-hover:hover img {
+    content: url("./assets/img/editTaskHover.png");
+}
+.delete-hover:hover img{
+  content: url("./assets/img/deleteTaskHover.png");
 }
 
 .edit-delete img p {
   width: 24px;
   height: 24px;
 }
+
 
 .edit-delete p {
   display: flex;

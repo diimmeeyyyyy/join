@@ -194,17 +194,21 @@ function generateEditTaskHTML(task, taskIndex) {
   <div class="add-task-subtasks-container">
     <input
     id="edit_task_subtasks_inputfield"
-    class="add-task-inputfield inputAndTextareaSettings"
+    class="add-task-inputfield add-task-subtasks-inputfield"
     placeholder="Add new subtask"
     />
     <img
-    onclick="addNewSubtask(true)"
-    id="add_task_subtask_plus_button"
+    onclick="addNewSubtask(false)"
+    id="edit_task_subtask_plus_button"
+    class="add-task-subtask-plus-button"
     src="./assets/img/plus.svg"
     />
   </div>
-  <div id="edit_task_new_subtasks_container">
-    <ul id="edit-task-subtasks-list"></ul>
+  <div
+    id="edit_task_new_subtasks_container"
+    class="add-task-new-subtasks-container"
+  >
+    <ul id="edit_task_subtasks_list" class="add-task-subtasks-list"></ul>
   </div>
 
   </section>
@@ -239,7 +243,6 @@ async function checkAssignedContacts(taskIndex) {
       let contactIndex = allContacts.findIndex(
         (contact) => contact.name === contactName
       );
-
       saveCheckedContacts(null, contactIndex, true, contactName);
     }
   } else {
