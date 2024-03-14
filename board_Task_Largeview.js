@@ -12,6 +12,15 @@ async function renderTaskLargeview(taskIndex) {
   const task = allTasks[taskIndex];
   const board = document.getElementById("Board");
 
+  const taskHtml = `<div id="Pop_Up_Backdrop" class="pop-up-backdrop"><div id="Board_Task_Container_Largeview" class="board-task-container-largeview">${await generateTaskLargeViewHTML(task, taskIndex)}</div></div>`;
+
+  board.innerHTML += taskHtml;
+}
+
+async function generateTaskLargeViewHTML(
+  task,
+  taskIndex
+) {
   const description = task.description ? task.description : "";
   const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
   let prio = addPrioIcon(task);
@@ -19,27 +28,6 @@ async function renderTaskLargeview(taskIndex) {
     ? await createContactsList(task.contactsForNewTask, true)
     : "";
   let subtasks = task.subtasks ? await createSubtasklist(taskIndex) : "";
-
-  board.innerHTML += generateTaskLargeViewHTML(
-    task,
-    description,
-    dueDate,
-    prio,
-    subtasks,
-    contacts,
-    taskIndex
-  );
-}
-
-function generateTaskLargeViewHTML(
-  task,
-  description,
-  dueDate,
-  prio,
-  subtasks,
-  contacts,
-  taskIndex
-) {
   let contactsHTML =
     contacts === ""
       ? ""
@@ -49,8 +37,7 @@ function generateTaskLargeViewHTML(
       ? ""
       : `<div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>`;
   return /*html*/ `
-    <div id="Pop_Up_Backdrop" class="pop-up-backdrop">
-      <div id="Board_Task_Container_Largeview" class="board-task-container-largeview">
+      <div>
               <div class = "board-task-category-and-closebutton-container">
                   <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
                   <img class="hoverCloseButton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
@@ -77,7 +64,6 @@ function generateTaskLargeViewHTML(
                   </div>
               </div>
           </div>
-      </div>
   `;
 }
 
@@ -85,7 +71,7 @@ function generateTaskLargeViewHTML(
 EDIT TASK
 ===========*/
 async function editTask(taskIndex) {
-  const allTasks = await getItem("allTasks");
+  const allTasks = await getTasks();
   let task = allTasks[taskIndex];
   let background = document.createElement("div");
   background.id = "Edit_Task_Background";
@@ -95,12 +81,21 @@ async function editTask(taskIndex) {
   await checkAssignedContacts(taskIndex);
   await selectPriorityButton(task);
   setNewDateForDueDate();
+  // code from add_Task.js expects a global variable subtasks
+  window.subtasks = task.subtasks;
+  window.prio = task.prio;
 }
 
 
 function generateEditTaskHTML(task, taskIndex) {
-  // let subtasksHTML = `<div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>`;
- 
+  let subtasksHtml = '';
+
+  if(task.subtasks) {
+    for(let subtaskIndex = 0; subtaskIndex < task.subtasks.length; subtaskIndex++) {
+      subtasksHtml += renderHTMLforSubtask(true, subtaskIndex, task.subtasks[subtaskIndex]);
+    }
+  }
+
   return /*html*/ `
 <main id="Edit_Task_Container">
   <div class="positionCloseButton">
@@ -113,13 +108,14 @@ function generateEditTaskHTML(task, taskIndex) {
   <!-- TITLE -->
   <section class="editSection">
     <p>Title</p>
-    <input class="inputAndTextareaSettings" type="text" value="${task.title}" />
+    <input class="inputAndTextareaSettings" id="edit_task_title" type="text" value="${task.title}" />
   </section>
   <!-- DESCRIPTION -->
   <section class="editSection">
     <p>Description</p>
     <textarea
       class="inputAndTextareaSettings"
+      id="edit_task_description"
       name=""
       id=""
       cols="30"
@@ -185,7 +181,7 @@ function generateEditTaskHTML(task, taskIndex) {
   <!-- ASSIGNED TO -->
   <section class="editSection">
     <div
-      onclick="toggleContactsDropdown(true);checkAssignedContacts(${taskIndex})"
+      onclick="toggleContactsDropdown(event, true);checkAssignedContacts(${taskIndex})"
       class="add-task-inputfield add-task-inputfield-contacts inputAndTextareaSettings"
     >
       <span id="edit_task_placeholder" class="add-task-placeholder">
@@ -199,6 +195,14 @@ function generateEditTaskHTML(task, taskIndex) {
     </div>
     <div id="edit_task_contacts_content"></div>
     <div id="edit_task_contacts_icons"></div>
+  </section class="editSection">
+  <!-- CATEGORY -->
+  <section class="editSection">
+      <span>Category<span class="add-task-highlight-red">*</span></span>
+      <select id="edit_task_category" class="add-task-inputfield add-task-category" required>
+          <option value="Technical Task" ${task.category === 'Technical Task' ? 'selected' : ''}>Technical Task</option>
+          <option value="User Story" ${task.category === 'User Story' ? 'selected' : ''}>User Story</option>
+      </select>
   </section>
   <!-- SUBTASKS -->
   <section class="editSection">
@@ -210,21 +214,18 @@ function generateEditTaskHTML(task, taskIndex) {
     placeholder="Add new subtask"
     />
     <img
-    onclick="addNewSubtask(false)"
+    onclick="addNewSubtask(true)"
     id="edit_task_subtask_plus_button"
     class="add-task-subtask-plus-button"
     src="./assets/img/plus.svg"
     />
   </div>
   <div
-    id="edit_task_new_subtasks_container"
-    class="add-task-new-subtasks-container"
+    id="edit_task_subtasks_list"
+    class="edit-task-subtasks-list"
 
   >
-    <ul id="edit_task_subtasks_list" class="add-task-subtasks-list">
-       ${subtasksHTML}
-    </ul>
-
+    ${subtasksHtml}
   </div>
 
   </section>
@@ -232,10 +233,9 @@ function generateEditTaskHTML(task, taskIndex) {
 
   
   <section class="edit-task-position-check-button">
-    <button onclick="saveEditedTask(task, taskIndex)" class="add-task-button edit-task-check-button">
+    <button onclick="saveEditedTask(${taskIndex})" class="add-task-button edit-task-check-button">
       <span> Ok </span>
       <img src="./assets/img/check.png">
-
     </button>
   </section>
 </main>
@@ -243,16 +243,40 @@ function generateEditTaskHTML(task, taskIndex) {
 }
 
 
-// function saveEditedTask(task, taskIndex) {
-      // const allTasks = await getItem("allTasks");
-      // allTasks.splice(taskindex, 1, )
+ async function saveEditedTask(taskIndex) {
+      const allTasks = await getTasks();
+      const task = allTasks[taskIndex];
+
+      const title = document.getElementById("edit_task_title");
+      const dueDate = document.getElementById("edit_task_due_date");
+      const category = document.getElementById("edit_task_category");
+      const description = document.getElementById("edit_task_description");
+
+      task.title = title.value;
+      task.dueDate = dueDate.value;
+      task.category = category.value;
+      task.description = description.value.trim();
+      task.contactsForNewTask = contactsForNewTask;
+      task.subtasks = subtasks;
+      task.prio = prio;
+
+      allTasks[taskIndex] = task;
+      await setItem("allTasks", allTasks);
+
+      // clear the cache
+      await getTasks(true);
+
+      await renderTasks();
+      const taskLargeView = document.getElementById('Board_Task_Container_Largeview');
+      taskLargeView.innerHTML = await generateTaskLargeViewHTML(task, taskIndex);
+      let editTaskDiv = document.getElementById("Edit_Task_Background");
+      if (editTaskDiv) {
+        editTaskDiv.remove();
+      }
+
       
- 
-
-
-
-
-// }
+      largeViewIsOpen = false;
+ }
 
 
 async function selectPriorityButton(task) {
@@ -270,14 +294,14 @@ async function selectPriorityButton(task) {
 
 async function checkAssignedContacts(taskIndex) {
   if (contactsRendered === false) {
-    let allTasks = await getItem("allTasks");
+    let allTasks = await getTasks();
     let task = allTasks[taskIndex];
-    let assignedContacts = task["contactsForNewTask"];
+    let assignedContacts = task["contactsForNewTask"] || [];
 
     for (let i = 0; i < assignedContacts.length; i++) {
       let contactName = assignedContacts[i];
 
-      let allContacts = await getItem("allContacts");
+      let allContacts = await loadContacts();
       //Index des Kontakts in der Gesamtliste aller Kontakte finden
       let contactIndex = allContacts.findIndex(
         (contact) => contact.name === contactName
@@ -286,14 +310,17 @@ async function checkAssignedContacts(taskIndex) {
     }
   } else {
     let iconContainer = document.getElementById(`edit_task_contacts_icons`);
-    iconContainer.innerHTML = "";
+    let iconContactHtml = '';
+    
     for (let oneContact of existingContacts) {
       let contactInformation = await getContactInformation(oneContact);
       // Und fügen Sie das Icon zum iconContainer hinzu
-      iconContainer.innerHTML += /*html*/ `
+      iconContactHtml += /*html*/ `
         <span>${getIconForContact(contactInformation)}</span>
       `;
     }
+
+    iconContainer.innerHTML = iconContactHtml;
   }
 }
 
@@ -305,10 +332,11 @@ function closeEditTask() {
   }
 }
 
-// function setNewDateForDueDate() {
-//   let newDueDateForEditTask = document.getElementById("edit_task_due_date");
-//   newDueDateForEditTask.setAttribute("min", today.toISOString().substring(0, 10));
-// }
+ function setNewDateForDueDate() {
+   const newDueDateForEditTask = document.getElementById("edit_task_due_date");
+   const today = new Date();
+   newDueDateForEditTask.setAttribute("min", today.toISOString().substring(0, 10));
+ }
 
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
@@ -365,7 +393,7 @@ function generateContactListHTML(contact, showName) {
 TASK-LARGEVIEW SUBTASKS
 ==========================*/
 async function updateProgress(taskIndex, subtaskIndex) {
-  let allTasks = await getItem("allTasks");
+  let allTasks = await getTasks();
   let task = allTasks[taskIndex];
   let subtask = task["subtasks"][subtaskIndex];
   let checkboxStatus = subtask["checked"];
@@ -407,7 +435,7 @@ async function getCheckboxStatus(subtasks) {
 }
 
 async function createSubtasklist(taskIndex) {
-  let tasks = await getItem("allTasks");
+  let tasks = await getTasks();
   let subtasksArray = tasks[taskIndex]["subtasks"];
   let checkedCheckboxes = await getCheckboxStatus(subtasksArray);
 

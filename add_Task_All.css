@@ -251,14 +251,12 @@ SUBTASKS
 
 .add-task-subtasks-container {
   position: relative;
-  /* display: inline-block; */
   height: 30px;
   width: 100%;
 }
 
 .add-task-subtasks-inputfield {
   width: 100%;
-  
 }
 
 .add-task-subtask-plus-button {

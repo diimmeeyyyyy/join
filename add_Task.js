@@ -3,8 +3,8 @@ let contactsForNewTask = [];
 let existingContacts = [];
 let contactsRendered = false;
 let contactsDropdownOpen = false;
-let prio = "medium";
-let subtasks = [];
+var prio = "medium";
+var subtasks = [];
 
 
 async function initAddTask() {
@@ -38,51 +38,6 @@ CONTACTS
 //     contactsDropdownOpen = true;
 //   }
 // }
-
-async function toggleContactsDropdown(isEditMode) {
-  const classPrefix = isEditMode ? "edit" : "add";
-
-  if (!contactsRendered) {
-    await renderContactsInAddTask(isEditMode);
-    contactsRendered = true;
-  }
-
-  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
-  const inputField = document.querySelector(`.${classPrefix}-task-inputfield-contacts`);
-
-  if (contactsDropdownOpen === true) {
-    contactsContainer.style.display = "none";
-    contactsDropdownOpen = false;
-  } else {
-    contactsContainer.style.display = "block";
-    contactsDropdownOpen = true;
-    
-    document.addEventListener('click', closeContactsDropdownOutside);
-  }
-
-  // Funktion, um das Dropdown-Menü zu schließen, wenn außerhalb davon geklickt wird
-  function closeContactsDropdownOutside(event) {
-    const clearButton = document.getElementById('add_task_clear_button');
-
-    const isClickInsideDropdown = contactsContainer.contains(event.target) || event.target === inputField;
-    const isClickOnClearOrCreateButton = event.target === clearButton || event.target.closest('.add-task-button');
-    // TODO: sidebar ergänzen; 
-
-    if (!isClickInsideDropdown) {
-      contactsContainer.style.display = "none";
-      contactsDropdownOpen = false;
-      document.removeEventListener('click', closeContactsDropdownOutside);
-    }
-
-    // Wenn auf "Clear" oder "Create Task" geklickt wurde, verhindere das Standardverhalten (Formularabsenden)
-    if (isClickOnClearOrCreateButton) {
-      event.preventDefault();
-    }
-  }
-}
-
-
-
 
 
 
@@ -178,7 +133,6 @@ async function addContactIcon(isEditMode, contactName) {
 }
 
 
-
 async function removeContactIcon(isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
@@ -201,7 +155,7 @@ async function removeContactIcon(isEditMode, contactName) {
 
 
 async function getContactInformation(contactName) {
-  let allContacts = await getItem("allContacts");
+  let allContacts = await loadContacts();
   let contactInfo = allContacts.find(
     (contact) => contact["name"] === contactName
   );
@@ -281,8 +235,9 @@ function addNewSubtask(isEditMode) {
 
   if (subtaskInputField.value !== "") {
     const subtaskIndex = subtasks.length;
-    subtasks.push(subtaskInputField.value);
-    newSubtasksList.innerHTML += renderHTMLforSubtask(isEditMode, subtaskIndex, subtaskInputField.value);
+    const newSubtask = {subtaskName: subtaskInputField.value, checked: false};
+    subtasks.push(newSubtask);
+    newSubtasksList.innerHTML += renderHTMLforSubtask(isEditMode, subtaskIndex, newSubtask);
     subtaskInputField.value = "";
   } else {
     subtasksInputfield.setAttribute("placeholder", "Write a subtask title");
@@ -294,7 +249,7 @@ function renderHTMLforSubtask(isEditMode, subtaskIndex, subtask) {
   const classPrefix = isEditMode ? "edit" : "add";
   const displaySubtaskHtml = `
       <div id="${classPrefix}_task_subtask_and_icons_${subtaskIndex}" class="add-task-subtask-and-icons">
-           <span>• ${subtask}</span>
+           <span>• ${subtask.subtaskName}</span>
            <div class="add-task-subtask-edit-and-delete-icons">
               <img onclick="editSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/edit.svg" class="add-task-subtask-icon">
               <span class="add-task-subtask-dividing-line"></span>
@@ -340,7 +295,7 @@ function editSubtask(isEditMode, subtaskIndex) {
 
   subtasksInputfieldRenderSubtask.style.display = "none";
   subtasksInputfieldEditSubtask.style.display = "flex";
-  inputfieldToEdit.setAttribute("value", subtasks[subtaskIndex]);
+  inputfieldToEdit.setAttribute("value", subtasks[subtaskIndex].subtaskName);
 }
 
 
@@ -355,7 +310,8 @@ function deleteSubtask(isEditMode, subtaskIndex) {
 function saveEditedSubtask(isEditMode, subtaskIndex) {
   const classPrefix = isEditMode ? "edit" : "add";
   const subtasksInputfieldToEdit = document.getElementById(`${classPrefix}_task_subtask_inputfield_to_edit_${subtaskIndex}`);
-  subtasks[subtaskIndex] = subtasksInputfieldToEdit.value;
+  const oldSubtask = subtasks[subtaskIndex];
+  subtasks[subtaskIndex] = {subtaskName: subtasksInputfieldToEdit.value, checked: oldSubtask.checked};
   renderSubtasks(isEditMode);
 }
 
@@ -364,8 +320,8 @@ function saveEditedSubtask(isEditMode, subtaskIndex) {
 TASKS
 ===================*/
 
-async function getTasks() {
-  if (_taskList != null) {
+async function getTasks(overrideCache) {
+  if (_taskList != null && overrideCache !== true) {
     return _taskList;
   }
 
@@ -428,18 +384,7 @@ async function createTask() {
     task.contactsForNewTask = contactsForNewTask;
   }
 
-  if (subtasks.length !== 0) {
-    let newSubtask = [];
-    for (let i = 0; i < subtasks.length; i++) {
-      const subtask = subtasks[i];
-      let subtaskDetail = {
-        subtaskName: subtask,
-        checked: false,
-      };
-      newSubtask.push(subtaskDetail);
-    }
-    task.subtasks = newSubtask;
-  }
+  task.subtasks = subtasks;
 
   if (prio !== "") {
     task.prio = prio;
