@@ -40,6 +40,14 @@ function generateTaskLargeViewHTML(
   contacts,
   taskIndex
 ) {
+  let contactsHTML =
+    contacts === ""
+      ? ""
+      : `<div class = "board-task-assigned-to-largeview"> <span class = "board-task-largeview-color"> Assigned To: </span>${contacts}</div>`;
+  let subtasksHTML =
+    subtasks === ""
+      ? ""
+      : `<div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>`;
   return /*html*/ `
     <div id="Pop_Up_Backdrop" class="pop-up-backdrop">
       <div id="Board_Task_Container_Largeview" class="board-task-container-largeview">
@@ -53,8 +61,8 @@ function generateTaskLargeViewHTML(
                   <div class="arrange-dueDate-and-priority"> <span>Due date: </span><span>Priority:</span> </div>
                   <div class="arrange-dueDate-and-priority"> <span>${dueDate}</span><span>${task.prio} ${prio}</span> </div>
               </div>
-              <div class = "board-task-assigned-to-largeview"> <span class = "board-task-largeview-color"> Assigned To: </span>${contacts}</div>
-              <div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>
+              ${contactsHTML}
+              ${subtasksHTML}
               <div class = "board-task-delete-and-edit-container">
                   <div id = "Board_Task_Delete_Button" onclick = "deleteTaskConfirmNotification(${taskIndex})" class = "board-task-largeview-icon">
                       <img src = "assets/img/delete.png">
@@ -63,9 +71,9 @@ function generateTaskLargeViewHTML(
                   <svg height="20" width="1">
                       <line x1="0" y1="0" x2="0" y2="200" style="stroke:black; stroke-width:0.5" />
                   </svg>
-                  <div id = "Board_Task_Edit_Button" class = "board-task-largeview-icon">
+                  <div id = "Board_Task_Edit_Button" class = "board-task-largeview-icon" onclick="editTask(${taskIndex})">
                        <img src = "assets/img/edit.png">
-                       <span onclick="editTask(${taskIndex})"> Edit </span>
+                       <span> Edit </span>
                   </div>
               </div>
           </div>

@@ -30,16 +30,14 @@
         <h1>Log In</h1>
         <p class="dividing-line"></p>
       </span>
-
       <form class="form-body" onsubmit="handleSubmit();return false">
         <div class="input-box">
-          <!-- <label for="Email"></label> -->
           <input type="email" placeholder="Email" id="Email" />
           <img src="./assets/img/registerEmail.png" />
         </div>
         <div class="input-box">
-          <input type="password" placeholder="Password" id="Password_LogIn"/>
-          <img src="./assets/img/registerLock.png" />
+          <input type="password" placeholder="Password" id="Password_LogIn" onclick="showPasswordVisibility()"/>
+          <img src="./assets/img/logInLock.png" id="Toggle_Password_Visibility" />
         </div>
         <div class="checkbox-div">
           <input type="checkbox" id="Remember_Me_Checkbox" />

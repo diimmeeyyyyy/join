@@ -120,10 +120,6 @@ async function addContactIcon(isEditMode, contactName) {
   if (!existingContacts.includes(contactName)) {
     existingContacts.push(contactName);
 
-<<<<<<< HEAD
-    if (isEditMode === true) {
-=======
->>>>>>> 3561e9eb24f0ce22b6f0db9d983c248fd23e1ab0
     let contactInformation = await getContactInformation(contactName);
     iconContainer.innerHTML += `
         <span>${getIconForContact(contactInformation)}</span>

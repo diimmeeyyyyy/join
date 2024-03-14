@@ -122,10 +122,22 @@ document.addEventListener("click", function (event) {
   let inputBoxes = document.querySelectorAll(".input-box");
   inputBoxes.forEach(function (inputBox) {
     let img = inputBox.querySelector("img");
+    let inputField = inputBox.querySelector("input");
 
-    if (inputBox.contains(event.target)) {
-      img.style.display = "none";
+    if (inputBox.contains(event.target) && inputField.type === "password") {
+      img.src = "./assets/img/visibility_off.png";
       inputBox.style.borderColor = "#29abe2";
+
+      //Event-Listener fürs geänderte Bild
+      img.addEventListener("click", function () {
+        if (img.src.endsWith("visibility_off.png")) {
+          img.src = "./assets/img/visibility.png";
+          inputField.type = "text";
+        } else {
+          img.src = "./assets/img/visibility_off.png";
+          inputField.type = "password";
+        }
+      });
     } else {
       img.style.display = "block";
       inputBox.style.borderColor = "#d1d1d1";
