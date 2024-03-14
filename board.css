@@ -49,7 +49,7 @@ BOARD
   gap: 40px;
 }
 .input-box-largeScreen {
-  width: clamp(250px, 25vw, 300px);
+  width: clamp(280px, 25vw, 300px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -440,13 +440,14 @@ EDIT TASK
   animation: slideIn 0.5s ease-out forwards;
   background-color: white;
   padding: 36px;
-  width: 320px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   justify-content: center;
   align-items: flex-start;
   gap: 20px;
+  font-size: 20px;
 }
 #edit_task_contacts_content {
   position: relative;
@@ -472,10 +473,11 @@ EDIT TASK
 }
 .inputAndTextareaSettings {
   width: 100%;
-  padding: 5px;
+  padding-left: 8px;
   border-radius: 5px;
   border: 1px solid lightgray;
   font-family: "Inter", sans-serif;
+  font-size: 20px;
 }
 .editSection textarea {
   height: 50px;
@@ -484,6 +486,17 @@ EDIT TASK
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  width: 100%; 
+}
+.edit-task-check-button-section {
+  display: flex;
+  justify-content: flex-end;
+}
+.edit-task-position-check-button {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
 }
 /* ================================
 ARROWS WHEN CONTAINER HAS MANY TASKS

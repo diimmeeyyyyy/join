@@ -96,7 +96,7 @@ async function saveCheckedContacts(event, contactIndex, isEditMode, contactName)
   const index = contactsForNewTask.indexOf(contactName);
   const checkboxfield = document.getElementById(`${classPrefix}_task_contact_checkbox${contactIndex}`);
 
-  
+
   if (!checkbox && !checkboxfield) {
     await addContactIcon(isEditMode, contactName);
   } else {
@@ -118,17 +118,19 @@ async function saveCheckedContacts(event, contactIndex, isEditMode, contactName)
 async function addContactIcon(isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
-  
+
   if (!existingContacts.includes(contactName)) {
     existingContacts.push(contactName);
 
-    let contactInformation = await getContactInformation(contactName);
-    iconContainer.innerHTML += `
+
+      let contactInformation = await getContactInformation(contactName);
+      iconContainer.innerHTML += `
         <span>${getIconForContact(contactInformation)}</span>
           `;
-    
+
+    }
   }
-}
+
 
 
 async function removeContactIcon(isEditMode, contactName) {
@@ -263,7 +265,7 @@ function renderHTMLforSubtask(isEditMode, subtaskIndex, subtask) {
               <img onclick="saveEditedSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/check.svg" class="add-task-subtask-icon-check-subtask">
           </div>
       </div>`;
-      
+
   return ` 
     <div>${displaySubtaskHtml}${editSubtaskHtml}</div>
   `;

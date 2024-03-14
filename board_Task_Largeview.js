@@ -97,6 +97,7 @@ async function editTask(taskIndex) {
 }
 
 function generateEditTaskHTML(task, taskIndex) {
+  let subtasksHTML = `<div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>`;
   return /*html*/ `
 <main id="Edit_Task_Container">
   <div class="positionCloseButton">
@@ -215,10 +216,24 @@ function generateEditTaskHTML(task, taskIndex) {
   <div
     id="edit_task_new_subtasks_container"
     class="add-task-new-subtasks-container"
+
   >
-    <ul id="edit_task_subtasks_list" class="add-task-subtasks-list"></ul>
+    <ul id="edit_task_subtasks_list" class="add-task-subtasks-list">
+       ${subtasksHTML}
+    </ul>
+
   </div>
 
+  </section>
+  
+
+  
+  <section class="edit-task-position-check-button">
+    <button class="add-task-button edit-task-check-button">
+      <span> Ok </span>
+      <img src="./assets/img/check.png">
+
+    </button>
   </section>
 </main>
     `;
@@ -319,6 +334,10 @@ function generateContactListHTML(contact, showName) {
         <span class="item">${getIconForContact(contact)}</span>`;
   }
 }
+
+
+// function 
+
 
 /* =======================
 TASK-LARGEVIEW SUBTASKS
