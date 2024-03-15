@@ -68,7 +68,7 @@ function valueToEmpty() {
 function newContactOpen() {
   let backround = document.getElementById("backround");
   backround.classList.add("animate");
-}
+  }
 
 
 function closeContact() {

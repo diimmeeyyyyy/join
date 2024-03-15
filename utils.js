@@ -87,3 +87,12 @@ function openDropDownHeader() {
     document.body.appendChild(options);
   }
 }
+
+
+function taskSidebarDelete(){
+  let userIdTest = document.getElementById('User_Initials').textContent;
+  let taskSidebar = document.getElementById('task_Sidebar');
+  if (!userIdTest) {
+    taskSidebar.style.display = "none";
+  }
+}
