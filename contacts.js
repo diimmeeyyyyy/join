@@ -1,9 +1,9 @@
 let contacts = [];
 
-let letters = contacts.map((contact) => contact.name.charAt(0)); // Erster Buchstabe vom Array contacts['name'] wird übernommen!
+let letters = contacts.map((contact) => contact.name.charAt(0)); 
 
 let twolettersName = contacts.map((contact) => {
-  // Zwei Buchstaben werden übergeben zb. Max Musstermann = MM !
+  
   const nameSplit = contact.name.split(" ");
   const twoNummber = nameSplit.map((teil) => teil.charAt(0));
   return twoNummber.join("");
@@ -60,7 +60,6 @@ async function addContact() {
 
 
 function valueToEmpty() {
-  // Value leeren!
   document.getElementById("text").value = "";
   document.getElementById("email").value = "";
   document.getElementById("number").value = "";
@@ -306,7 +305,6 @@ async function editContact(i) {
   edit.innerHTML+= generateEditForm(buttonColor, twolettersName, i, name, email, tel);
   twoLetterGenerator();
   setItem('allContacts', contacts);
-  
 }
 
 
