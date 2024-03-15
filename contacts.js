@@ -47,7 +47,7 @@ async function addContact() {
     name: text,
     "e-mail": email,
     tel: number,
-    color: getRandomColor(), // Zufällige Hintergrundfarbe generieren und zuweisen
+    color: getRandomColor(),
   };
 
   contacts.push(newContact);
@@ -84,18 +84,18 @@ function closeContact() {
 async function contactList() {
   let list = document.getElementById("newContacts");
   list.innerHTML = "";
-  let previousLetter = null; // Variable, um den vorherigen Buchstaben zu speichern
+  let previousLetter = null; 
   for (let i = 0; i < contacts.length; i++) {
     const contact = contacts[i];
     const currentLetter = letters[i];
-    // Wenn der aktuelle Buchstabe vom vorherigen Buchstaben abweicht, zeige ihn an
+    
     if (currentLetter !== previousLetter) {
       list.innerHTML += /*html*/ `
                 <div class="name-letter">${currentLetter}</div>
                 <div class="contact-parting-line">
                     <hr>
                 </div>`;
-      previousLetter = currentLetter; // Aktualisiere den vorherigen Buchstaben
+      previousLetter = currentLetter;
     }
 
     list.innerHTML += /*html*/ `
@@ -114,8 +114,8 @@ function pushContact(i) {
   pushContact.innerHTML = "";
   contactListColor(i);
   transformNewContacts();
-  const contact = contacts[i]; // Den Kontakt mit dem Index 'i' abrufen
-  const buttonColor = contact.color; // Hintergrundfarbe aus dem Kontaktobjekt
+  const contact = contacts[i]; 
+  const buttonColor = contact.color; 
 
   pushContact.innerHTML = generateContactsListHTML(i, buttonColor);
   pushContact.innerHTML += returnContactInfo(i);
@@ -204,7 +204,7 @@ function closeQuery() {
   }, 50); 
   setTimeout(() => {
     reallyDelete.classList.remove('slideOutContactDelete');
-    backgroundDeleteContactContainer.style.display = 'none'; // Ausblenden nach der Animation
+    backgroundDeleteContactContainer.style.display = 'none'; 
   }, 500); 
 }
 
@@ -214,12 +214,12 @@ async function deleteContact(i) {
   transformCloseContacts();
 
   await deleteNameFromTask(i);
-  contacts.splice(i, 1); // Kontakt aus dem Array löschen
-  letters.splice(i, 1); // Entsprechenden Eintrag aus dem 'letters'-Array entfernen
-  twolettersName.splice(i, 1); // Entsprechenden Eintrag aus dem 'twolettersName'-Array entfernen
+  contacts.splice(i, 1); 
+  letters.splice(i, 1); 
+  twolettersName.splice(i, 1); 
   await setItem("allContacts", contacts);
-  updateLettersAndTwoLettersName(); // Aktualisieren der 'letters' und 'twolettersName' Arrays
-  contactList(); // Kontaktliste aktualisieren
+  updateLettersAndTwoLettersName(); 
+  contactList(); 
 }
 
 
@@ -280,7 +280,6 @@ function contactsSort() {
 
 
 function getRandomColor() {
-  // Zufällige Farbwerte generieren (Hexadezimal)
   let letters = "0123456789ABCDEF";
   let color = "#";
   for (let i = 0; i < 6; i++) {
@@ -296,8 +295,8 @@ async function editContact(i) {
   editContact.classList.remove("d-none");
   editContact.classList.add("edit-contact-background");
 
-  const contact = contacts[i]; // Den Kontakt mit dem Index 'i' abrufen
-  const buttonColor = contact.color; // Hintergrundfarbe aus dem Kontaktobjekt
+  const contact = contacts[i]; 
+  const buttonColor = contact.color;
   const name = contact["name"];
   const email = contact["e-mail"];
   const tel = contact["tel"];
@@ -351,12 +350,10 @@ async function saveContact(i) {
   const newEmail = document.getElementById("editEmail").value;
   const newTel = document.getElementById("editNumber").value;
 
-  // Den Kontakt mit dem Index 'i' aus dem Array aktualisieren
   contacts[i]['name'] = newName;
   contacts[i]['e-mail'] = newEmail;
   contacts[i]['tel'] = newTel;
 
-  // Kontaktliste aktualisieren
   await setItem("allContacts", contacts);
   updateLettersAndTwoLettersName();
   transformCloseContacts();
@@ -368,9 +365,7 @@ async function saveContact(i) {
 
 async function updateName(index) {
   let allTasks = await getItem("allTasks");
-  console.log(allTasks);
   let oldName = contacts[index]["name"];
-  console.log(oldName);
 
   const newName = document.getElementById("editText").value;
 
@@ -384,7 +379,6 @@ async function updateName(index) {
     }
   }
   await setItem("allTasks", allTasks);
-  console.log(allTasks);
 }
 
 
@@ -409,12 +403,12 @@ function closeSaveContact() {
 function closeEditContactDelete(i) {
   transformCloseContacts();
 
-  contacts.splice(i, 1); // Kontakt aus dem Array löschen
-  letters.splice(i, 1); // Entsprechenden Eintrag aus dem 'letters'-Array entfernen
-  twolettersName.splice(i, 1); // Entsprechenden Eintrag aus dem 'twolettersName'-Array entfernen
+  contacts.splice(i, 1);
+  letters.splice(i, 1);
+  twolettersName.splice(i, 1);
 
   setItem("allContacts", contacts);
-  contactList(); // Kontaktliste aktualisieren
+  contactList();
   closeSaveContact();
 }
 
@@ -426,15 +420,12 @@ function pushBackroundColor() {
 
 
 function contactListColor(i) {
-  // Alle Kontaktelemente auswählen
   let allContacts = document.querySelectorAll(".contacts");
 
-  // Schleife durch alle Kontaktelemente, um die Klasse 'contacts-onclick' zu entfernen
   allContacts.forEach((contact) => {
     contact.classList.remove("contacts-onclick");
   });
 
-  // Dem angeklickten Element die Klasse 'contacts-onclick' hinzufügen
   let newColorContact = document.getElementById("newColorContact" + i);
   newColorContact.classList.add("contacts-onclick");
 }
@@ -447,7 +438,6 @@ function saveAnimat() {
 
 
 function mobileBack() {
-  // Verstecke das Element mit der ID "mobileBack"
   let mobileBackElement = document.getElementById("mobileBack");
   let editDelet = document.getElementById("edit_delete");
   editDelet.style.display = "none";
@@ -500,12 +490,9 @@ function moveEditDeleteContainer() {
   let editBackDiv = document.getElementById("edit_back");
 
   if (window.innerWidth < 1009) {
-    // Überprüfen, ob das container2-Element existiert
     if (container2Div)
       container2Div.appendChild(editDeleteDiv);
-
   } else {
-    // Wenn die Bildschirmgröße größer ist, das edit_delet-Element zurück zu edit_back verschieben
     if (editBackDiv) {
       editBackDiv.appendChild(editDeleteDiv);
     }

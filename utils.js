@@ -80,7 +80,7 @@ function openDropDownHeader() {
     options.className = "drop-down-header";
     options.innerHTML = /*html*/ `
       <a href="legal_Notice.html">Legal Notice</a>
-      <a href="privacy_Policy">Privacy Policy</a>
+      <a href="privacy_Policy.html">Privacy Policy</a>
       <a href="log_In.html">Log out</a>
     `;
 
