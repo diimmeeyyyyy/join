@@ -78,10 +78,19 @@ function openDropDownHeader() {
     options.className = "drop-down-header";
     options.innerHTML = /*html*/ `
       <a href="legal_Notice.html">Legal Notice</a>
-      <a href="privacy_Policy">Privacy Policy</a>
+      <a href="privacy_Policy.html">Privacy Policy</a>
       <a href="log_In.html">Log out</a>
     `;
 
     document.body.appendChild(options);
+  }
+}
+
+
+function taskSidebarDelete(){
+  let userIdTest = document.getElementById('User_Initials').textContent;
+  let taskSidebar = document.getElementById('task_Sidebar');
+  if (!userIdTest) {
+    taskSidebar.style.display = "none";
   }
 }
