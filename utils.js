@@ -31,7 +31,6 @@ async function loadUserInitials() {
 
   if (loggedInPerson === "user") {
     let user = await getCurrentUser();
-    console.log(user.name);
     let nameParts = user.name.split(" ");
     let initials = nameParts.map((part) => part.charAt(0)).join("");
     document.getElementById("User_Initials").innerHTML = initials;
@@ -45,7 +44,6 @@ async function getCurrentUser() {
   let userEmailAsText = localStorage.getItem("userEmail");
   if (userEmailAsText) {
     let userEmail = JSON.parse(userEmailAsText);
-    console.log(userEmail);
 
     let allRegisteredUsers = await getItem("allRegisteredUsers");
 

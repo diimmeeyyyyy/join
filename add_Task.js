@@ -20,26 +20,24 @@ async function initAddTask() {
 CONTACTS
 ===================*/
 
-// async function toggleContactsDropdown(isEditMode) {
-//   const classPrefix = isEditMode ? "edit" : "add";
+async function toggleContactsDropdown(isEditMode) {
+  const classPrefix = isEditMode ? "edit" : "add";
 
-//   if (!contactsRendered) {
-//     await renderContactsInAddTask(isEditMode);
-//     contactsRendered = true;
-//   }
+  if (!contactsRendered) {
+    await renderContactsInAddTask(isEditMode);
+    contactsRendered = true;
+  }
 
-//   const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
+  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
 
-//   if (contactsDropdownOpen === true) {
-//     contactsContainer.style.display = "none";
-//     contactsDropdownOpen = false;
-//   } else {
-//     contactsContainer.style.display = "block";
-//     contactsDropdownOpen = true;
-//   }
-// }
-
-
+  if (contactsDropdownOpen === true) {
+    contactsContainer.style.display = "none";
+    contactsDropdownOpen = false;
+  } else {
+    contactsContainer.style.display = "block";
+    contactsDropdownOpen = true;
+  }
+}
 
 
 async function renderContactsInAddTask(isEditMode) {
