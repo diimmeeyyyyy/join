@@ -25,6 +25,10 @@ async function initContacts() {
 
 
 async function loadContacts() {
+  if(contacts && contacts.length > 0) {
+    return contacts;
+  }
+
   try {
     contacts = await getItem("allContacts");
     return contacts;

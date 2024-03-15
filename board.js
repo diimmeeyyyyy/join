@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 let currentDraggedElement;
 
 async function renderTasks() {
-  let allTasks = await getItem("allTasks");
+  let allTasks = await getTasks();
   let toDos = allTasks.filter((task) => task.status === "toDo");
   let inProgress = allTasks.filter((task) => task.status === "inProgress");
   let awaitFeedback = allTasks.filter(
@@ -34,8 +34,7 @@ async function renderTasks() {
     let taskList = tasks[i];
     let containerId = containerIds[i];
     let container = document.getElementById(containerId);
-    container.innerHTML = "";
-    container.innerHTML += await generateTasks(taskList);
+    container.innerHTML = await generateTasks(taskList);
   }
   await noTaskToDoNotification();
 }
@@ -122,7 +121,7 @@ async function openMovingOptions(event, taskID) {
   if (popUpIsOpen()) {
     return;
   }
-  let allTasks = await getItem("allTasks");
+  let allTasks = await getTasks();
   let task = allTasks.find((t) => t.id === taskID);
   let currentStatus = task.status;
 
@@ -168,7 +167,7 @@ function generateMovingOptionsHTML(currentStatus, taskID) {
 }
 
 async function moveTask(taskID, newStatus) {
-  let allTasks = await getItem("allTasks");
+  let allTasks = await getTasks();
 
   // Element mit der id = taskID finden
   let task = allTasks.find((task) => task.id === taskID);
@@ -332,7 +331,7 @@ function allowDrop(ev) {
 }
 
 async function moveTo(status) {
-  let allTasks = await getItem("allTasks");
+  let allTasks = await getTasks();
 
   //Element mit der id = currentDraggedElement finden
   let task = allTasks.find((task) => task.id === currentDraggedElement);
@@ -358,7 +357,7 @@ function removeHightlight(id) {
 SHOW "NO TASK...TO DO/IN PROGRESS/AW.FEEDBACK/DONE" NOTIFICATION
 ==============================================================*/
 async function noTaskToDoNotification() {
-  let allTasks = await getItem("allTasks");
+  let allTasks = await getTasks();
 
   let taskCounts = {
     toDo: 0,
@@ -430,18 +429,23 @@ function findTask() {
 OPEN & CLOSE ADD TASK - POP-UP
 ===============================*/
 function openAddTaskPopUp() {
+  let backdrop = document.getElementById("add_task_popup_backdrop");
   let addTaskPopup = document.getElementById("add_task_popup");
   if (window.innerWidth >= 1090) {
+    backdrop.style.display = "unset";
     addTaskPopup.style.display = "unset";
+
   } else {
     window.location.href = "add_Task.html";
   }
 }
 
 function closeAddTaskPopup() {
+  let backdrop = document.getElementById("add_task_popup_backdrop");
   let addTaskPopup = document.getElementById("add_task_popup");
   addTaskPopup.style.display = "none";
-  // Entfernen Sie das Hintergrundelement aus dem DOM
+  backdrop.style.display = "none";
+  
 }
 
 /* ====================================
