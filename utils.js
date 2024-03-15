@@ -10,6 +10,7 @@ async function includeHTML() {
       element.innerHTML = "Page not found";
     }
   }
+  // checkForTheSidebarTheInitials();
 }
 
 /* ======================
@@ -37,6 +38,7 @@ async function loadUserInitials() {
   } else {
     document.getElementById("User_Initials").innerHTML = "G";
   }
+  // checkForTheSidebarTheInitials();
 }
 
 
@@ -87,3 +89,17 @@ function openDropDownHeader() {
 }
 
 
+// function checkForTheSidebarTheInitials() {
+//   let userInitials = document.getElementById('User_Initials').textContent.trim();
+//   let taskSidebar = document.querySelector('.task-sidebar');
+//   if (userInitials === '') {
+//     taskSidebar.style.display = 'none';
+//   } else{
+//     taskSidebar.style.display = 'flex'
+//   }
+// }
+
+
+function goBack() {
+  window.history.back();
+}
