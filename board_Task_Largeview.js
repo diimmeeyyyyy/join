@@ -181,7 +181,7 @@ function generateEditTaskHTML(task, taskIndex) {
   <!-- ASSIGNED TO -->
   <section class="editSection">
     <div
-      onclick="toggleContactsDropdown(event, true);checkAssignedContacts(${taskIndex})"
+      onclick="toggleContactsDropdown(true);checkAssignedContacts(${taskIndex})"
       class="add-task-inputfield add-task-inputfield-contacts inputAndTextareaSettings"
     >
       <span id="edit_task_placeholder" class="add-task-placeholder">

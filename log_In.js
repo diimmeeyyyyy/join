@@ -76,7 +76,6 @@ async function storeLoggedInUser(user) {
   localStorage.setItem("userEmail", emailAsText);
   //Dann User remote speichern:
   let key = "loggedInUser-" + user.email;
-  console.log(key);
   await setItem(key, JSON.stringify(user));
 }
 

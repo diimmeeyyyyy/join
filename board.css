@@ -298,6 +298,7 @@ STYLE OF ONE TASK
 .board-task-category-and-closebutton-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 24px;
 }
 
 .board-task-category-largeview {
@@ -510,7 +511,7 @@ EDIT TASK
 /* ================================
 ARROWS WHEN CONTAINER HAS MANY TASKS
 ====================================*/
-.arrow-right {
+/* .arrow-right {
   display: none;
   width: 80px;
   height: 80px;
@@ -529,7 +530,7 @@ ARROWS WHEN CONTAINER HAS MANY TASKS
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-}
+} */
 
 .d-none {
   display: none;
