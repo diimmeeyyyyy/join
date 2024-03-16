@@ -5,18 +5,18 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+
 ::-webkit-scrollbar {
-  max-width: 1vw;
+  max-width: 0.7vw;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(42, 54, 71);
+  background: white;
   border-radius: 30px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(40, 171, 226);
-  border-radius: 30px;
+  background:rgb(168,168,168);
 }
 
 h1,
@@ -41,7 +41,7 @@ p {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
+  z-index: 6;
 }
 
 /* .backdrop-filter-overlay {

@@ -391,6 +391,7 @@ FORM-BUTTONS & LEGEND
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 64px;
 }
 
 .add-task-legend {
