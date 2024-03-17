@@ -410,7 +410,7 @@ function findTask() {
       .getElementsByTagName("h2")[0]
       .innerText.toLowerCase();
     const oneTaskDescription = tasks[i]
-      .getElementsByTagName("p")[0]
+      .getElementsByClassName('board-task-description')[0]
       .innerText.toLowerCase();
     if (
       (window.innerWidth > 650 &&
