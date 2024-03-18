@@ -7,10 +7,20 @@ var prio = "medium";
 var subtasks = [];
 
 
+/**
+ * Calls the functions includeHTML(), updateMenuPoint(1), await loadUserInitials() & setNewDateForDueDateAddTask()
+ */
 async function initAddTask() {
   await includeHTML();
   updateMenuPoint(1);
   await loadUserInitials();
+  setNewDateForDueDateAddTask(); 
+}
+
+/**
+ * Sets the current date as the minimum attribute for the due date input field 
+ */
+function setNewDateForDueDateAddTask() {
   const today = new Date();
   let newDueDate = document.getElementById("add_task_due_date");
   newDueDate.setAttribute("min", today.toISOString().substring(0, 10));
@@ -20,10 +30,15 @@ async function initAddTask() {
 CONTACTS
 ===================*/
 
+
+/**
+ * Shows and hides dropdown menu with contact names and checkboxes
+ * 
+ * @param {boolean} isEditMode - Indicates whether the function was opened in board during edit mode or from the 'add task' form
+ */
 async function toggleContactsDropdown(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
 
-  // for edit mode, we don't cache the contacts HTML
   if (!contactsRendered[classPrefix] || isEditMode === true) {
     await renderContactsInAddTask(isEditMode);
     contactsRendered[classPrefix] = true;
@@ -40,6 +55,12 @@ async function toggleContactsDropdown(isEditMode) {
   }
 }
 
+
+/**
+ * Closes dropwdown menu with contact names and checkboxes
+ * 
+ * @param {boolean} isEditMode - Indicates whether the function was opened in board during edit mode or from the 'add task' form
+ */
 function closeContactsDropdown(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
   const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
@@ -52,6 +73,12 @@ function closeContactsDropdown(isEditMode) {
   contactsRendered[classPrefix] = false;
 }
 
+
+/**
+ *  Clears dropwdown menu with contact names and checkboxes
+ * 
+ * @param {boolean} isEditMode - Indicates whether the function was opened in board during edit mode or from the 'add task' form
+ */
 function clearAndCloseContactsList(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
 
@@ -65,17 +92,17 @@ function clearAndCloseContactsList(isEditMode) {
 }
 
 
+/**
+ * Loads contacts from server and displays them in dropdown menu
+ * 
+ * @param {boolean} isEditMode - Indicates whether the function was opened in board during edit mode or from the 'add task' form
+ */
 async function renderContactsInAddTask(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
   let allContacts = await loadContacts();
   let placeholder = document.getElementById(`${classPrefix}_task_placeholder`);
   let drowDownArrow = document.getElementById(`${classPrefix}-task-inputfield-arrow`);
-  // let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
-  //   
-  //   contactsContainer.innerHTML += `
-  //    <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"></div> 
-  //  `;
-
+ 
   if (allContacts.length !== 0) {
     let contactList = document.getElementById(`${classPrefix}_task_contacts_container`);
     let html = '';
@@ -91,7 +118,14 @@ async function renderContactsInAddTask(isEditMode) {
   }
 }
 
-
+/**
+ * Renders HTML for contact names, contact icons and checkboxes in dropwdown menu
+ * 
+ * @param {boolean} isEditMode - Indicates whether the function was opened in board during edit mode or from the 'add task' form
+ * @param {number} i - Index of Contact in Array AllContacts
+ * @param {object} contact - Object for which the HTML code is generated
+ * @returns {string} - HTML for contact names, contact icons and checkboxes
+ */
 function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
   const classPrefix = isEditMode ? "edit" : "add";
   const contactChecked = contactsInForm.includes(contact.name);
@@ -112,7 +146,13 @@ function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
     `;
 }
 
-
+/**
+ * Saves checked contacts in array contactsInForm and changes color of the checkboxfield
+ * 
+ * @param {number} contactIndex - Index of the contact
+ * @param {boolean} isEditMode - Indicates whether the function was opened in board during edit mode or from the 'add task' form
+ * @param {object} contactName - contact to be saved
+ */
 async function saveCheckedContacts(contactIndex, isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   const checkbox = document.getElementById(`${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`);
@@ -138,6 +178,13 @@ async function saveCheckedContacts(contactIndex, isEditMode, contactName) {
   }
 }
 
+
+/**
+ * Adds a contact icon below the contacts input field after contact has been selected
+ * 
+ * @param {object} iconContainer - Container in which the contact icon is rendered
+ * @param {string} contactName - Name of the contact for which the contact icon is added
+ */
 async function addContactIcon(iconContainer, contactName) {
   let contactInformation = await getContactInformation(contactName);
   iconContainer.innerHTML += `
@@ -145,6 +192,12 @@ async function addContactIcon(iconContainer, contactName) {
         `;
 }
 
+/**
+ * Removes a contact icon below the contacts input field after contact has been removed
+ * 
+ * @param {object} iconContainer - Container in which the contact icon is rendered
+ * @param {string} contactName - Name of the contact for which the contact icon is added
+ */
 async function removeContactIcon(iconContainer, contactName) {
   let contactInformation = await getContactInformation(contactName)
   let iconToRemove = getIconForContact(contactInformation);
@@ -161,7 +214,12 @@ async function removeContactIcon(iconContainer, contactName) {
   }
 }
 
-
+/**
+ * Searches the array 'allContacts' for the corresponding contact based on the contact name and returns the contact object as return value
+ * 
+ * @param {string} contactName - name of the contact for which information is searched
+ * @returns {object} contact of array allContacts
+ */
 async function getContactInformation(contactName) {
   let allContacts = await loadContacts();
   let contactInfo = allContacts.find(
@@ -174,7 +232,12 @@ async function getContactInformation(contactName) {
 PRIORITY BUTTONS
 ===================*/
 
-
+/**
+ * Sets the priority of the task 
+ *  
+ * @param {string} priority - the priority of the task (urgent, medium or low)
+ * @returns {string} priority value of the task (urgent, medium or low)
+ */
 function setTaskPriority(priority) {
   if ("medium" === priority) {
     prio = "medium";
@@ -185,23 +248,18 @@ function setTaskPriority(priority) {
 }
 
 
+/**
+ * Changes color of priority button
+ *  
+ * @param {boolean} isEditMode - Indicates whether the function was opened in board during edit mode or from the 'add task' form
+ */
 function changeButtonColor(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
-  let urgentButton = document.getElementById(
-    `${classPrefix}_task_prio_button_urgent`
-  );
-  let urgentIcon = document.getElementById(
-    `${classPrefix}_task_prio_icon_urgent`
-  );
-  let mediumButton = document.getElementById(
-    `${classPrefix}_task_prio_button_medium`
-  );
-  let mediumIcon = document.getElementById(
-    `${classPrefix}_task_prio_icon_medium`
-  );
-  let lowButton = document.getElementById(
-    `${classPrefix}_task_prio_button_low`
-  );
+  let urgentButton = document.getElementById(`${classPrefix}_task_prio_button_urgent`);
+  let urgentIcon = document.getElementById(`${classPrefix}_task_prio_icon_urgent`);
+  let mediumButton = document.getElementById(`${classPrefix}_task_prio_button_medium`);
+  let mediumIcon = document.getElementById(`${classPrefix}_task_prio_icon_medium`);
+  let lowButton = document.getElementById(`${classPrefix}_task_prio_button_low`);
   let lowIcon = document.getElementById(`${classPrefix}_task_prio_icon_low`);
 
   urgentButton.classList = ["add-task-prio-button"];
@@ -227,209 +285,4 @@ function changeButtonColor(isEditMode) {
       lowIcon.classList.add("add-task-prio-icon-white");
       break;
   }
-}
-
-/* ================
-SUBTASKS
-===================*/
-
-function addNewSubtask(isEditMode) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  let newSubtasksList = document.getElementById(`${classPrefix}_task_subtasks_list`);
-  let subtaskInputField = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
-  let subtasksInputfield = document.getElementById(`${classPrefix}_task_subtasks_inputfield`);
-
-  subtasksInputfield.setAttribute("placeholder", "Add new subtask");
-
-  if (subtaskInputField.value !== "") {
-    const subtaskIndex = subtasks.length;
-    const newSubtask = {subtaskName: subtaskInputField.value, checked: false};
-    subtasks.push(newSubtask);
-    newSubtasksList.innerHTML += renderHTMLforSubtask(isEditMode, subtaskIndex, newSubtask);
-    subtaskInputField.value = "";
-  } else {
-    subtasksInputfield.setAttribute("placeholder", "Write a subtask title");
-  }
-}
-
-
-function renderHTMLforSubtask(isEditMode, subtaskIndex, subtask) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  const displaySubtaskHtml = `
-      <div id="${classPrefix}_task_subtask_and_icons_${subtaskIndex}" class="add-task-subtask-and-icons">
-           <span>• ${subtask.subtaskName}</span>
-           <div class="add-task-subtask-edit-and-delete-icons">
-              <img onclick="editSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/edit.svg" class="add-task-subtask-icon">
-              <span class="add-task-subtask-dividing-line"></span>
-              <img onclick="deleteSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/delete.svg" class="add-task-subtask-icon">
-           </div>
-      </div>`;
-
-  const editSubtaskHtml = ` 
-      <div id="${classPrefix}_task_subtask_and_icons_edit_subtask_${subtaskIndex}" class="add-task-subtask-and-icons-edit-subtask"> 
-          <input id="${classPrefix}_task_subtask_inputfield_to_edit_${subtaskIndex}" class="add-task-subtask-inputfield-edit-subtask">
-          <div class="add-task-subtask-delete-and-check-icons-edit-subtask">
-              <img onclick="deleteSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/delete.svg" class="add-task-subtask-icon-edit-subtask">
-              <span class="add-task-subtask-dividing-line-edit-subtask"></span> 
-              <img onclick="saveEditedSubtask(${isEditMode}, ${subtaskIndex})" src="./assets/img/check.svg" class="add-task-subtask-icon-check-subtask">
-          </div>
-      </div>`;
-
-  return ` 
-    <div>${displaySubtaskHtml}${editSubtaskHtml}</div>
-  `;
-}
-
-
-function renderSubtasks(isEditMode) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  const newSubtasksList = document.getElementById(`${classPrefix}_task_subtasks_list`);
-  let html = '';
-
-  for (let i = 0; i < subtasks.length; i++) {
-    const subtask = subtasks[i];
-    html += renderHTMLforSubtask(isEditMode, i, subtask);
-  }
-
-  newSubtasksList.innerHTML = html;
-}
-
-
-function editSubtask(isEditMode, subtaskIndex) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  const subtasksInputfieldRenderSubtask = document.getElementById(`${classPrefix}_task_subtask_and_icons_${subtaskIndex}`);
-  const subtasksInputfieldEditSubtask = document.getElementById(`${classPrefix}_task_subtask_and_icons_edit_subtask_${subtaskIndex}`);
-  const inputfieldToEdit = document.getElementById(`${classPrefix}_task_subtask_inputfield_to_edit_${subtaskIndex}`);
-
-  subtasksInputfieldRenderSubtask.style.display = "none";
-  subtasksInputfieldEditSubtask.style.display = "flex";
-  inputfieldToEdit.setAttribute("value", subtasks[subtaskIndex].subtaskName);
-}
-
-
-function deleteSubtask(isEditMode, subtaskIndex) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  let subtask = document.getElementById(`${classPrefix}_task_subtask_and_icons_${subtaskIndex}`);
-  subtasks.splice(subtaskIndex, 1);
-  renderSubtasks(isEditMode);
-}
-
-
-function saveEditedSubtask(isEditMode, subtaskIndex) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  const subtasksInputfieldToEdit = document.getElementById(`${classPrefix}_task_subtask_inputfield_to_edit_${subtaskIndex}`);
-  const oldSubtask = subtasks[subtaskIndex];
-  subtasks[subtaskIndex] = {subtaskName: subtasksInputfieldToEdit.value, checked: oldSubtask.checked};
-  renderSubtasks(isEditMode);
-}
-
-
-/* ================
-TASKS
-===================*/
-
-async function getTasks(overrideCache) {
-  if (_taskList != null && overrideCache !== true) {
-    return _taskList;
-  }
-
-  const allTasksResponse = await getItem("allTasks");
-
-  if (allTasksResponse instanceof Array) {
-    _taskList = allTasksResponse; //
-    return allTasksResponse; //
-  } else {
-    return [];
-  }
-}
-
-
-async function getTaskIdCounter() {
-  const taskIdCounterResponse = await getItem("taskIdCounter");
-
-  if (taskIdCounterResponse != null) {
-    return parseInt(taskIdCounterResponse);
-  } else {
-    return 0;
-  }
-}
-
-
-function clearAddTaskForm() {
-  prio = "medium";
-  changeButtonColor();
-
-  const form = document.getElementById('add_task_form');
-
-  if(form) {
-    form.reset();
-  }
-
-  let newSubtasksList = document.getElementById("add_task_subtasks_list");
-  newSubtasksList.innerHTML = "";
-
-  clearAndCloseContactsList(false);
-}
-
-
-async function createTask() {
-  const allTasks = await getTasks();
-
-  let title = document.getElementById("add_task_title");
-  let dueDate = document.getElementById("add_task_due_date");
-  let category = document.getElementById("add_task_category");
-  let description = document.getElementById("add_task_description");
-
-  let task = {
-    id: allTasks.length,
-    title: title.value,
-    dueDate: dueDate.value,
-    category: category.value,
-    status: "toDo",
-  };
-
-  if (description.value.trim() !== "") {
-    task.description = description.value.trim();
-  }
-
-  if (contactsInForm.length !== 0) {
-    task.contacts = contactsInForm;
-  }
-
-  task.subtasks = subtasks;
-
-  if (prio !== "") {
-    task.prio = prio;
-  }
-
-  allTasks.push(task);
-
-  await setItem("allTasks", allTasks);
-  _taskList = allTasks;
-  await setItem("taskIdCounter", task.id);
-
-  showPopupTaskAdded();
-  navigateToBoardPage();
-}
-
-
-function showPopupTaskAdded() {
-  let mainContainer = document.getElementById("main_container");
-  mainContainer.innerHTML += `
-        <div id = "add-task-popup-container">
-            <div class="add-task-popup-task-added">
-                <span> Task added to board </span>
-                <img class= "add-task-board-icon" src="./assets/img/board.svg"
-            </div>
-        </div >
-    `;
-}
-
-
-function navigateToBoardPage() {
-  const animationDuration = 200;
-  const extraDelay = 500;
-  setTimeout(() => {
-    window.location.href = "board.html";
-  }, animationDuration + extraDelay);
 }
