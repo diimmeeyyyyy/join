@@ -10,6 +10,9 @@ let twolettersName = contacts.map((contact) => {
 });
 
 
+/**
+ * Functions are executed as soon as the page is loaded
+ */
 async function initContacts() {
   await includeHTML();
   await loadContacts();
@@ -24,11 +27,14 @@ async function initContacts() {
 }
 
 
+/**
+ * Loads contacts from storage or returns an empty array if no contacts are found.
+ * @returns {Array} An array of contacts.
+ */
 async function loadContacts() {
   if(contacts && contacts.length > 0) {
     return contacts;
   }
-
   try {
     contacts = await getItem("allContacts");
     return contacts;
@@ -38,27 +44,9 @@ async function loadContacts() {
 }
 
 
-async function addContact() {
-  let text = document.getElementById("text").value;
-  let email = document.getElementById("email").value;
-  let number = document.getElementById("number").value;
-
-  let newContact = {
-    name: text,
-    "e-mail": email,
-    tel: number,
-    color: getRandomColor(),
-  };
-
-  contacts.push(newContact);
-  await setItem("allContacts", contacts);
-  contactsSort();
-  updateLettersAndTwoLettersName();
-  valueToEmpty();
-  saveAnimat();
-}
-
-
+/**
+ * Clears the values ​​of the input fields and then performs further updates.
+ */
 function valueToEmpty() {
   document.getElementById("text").value = "";
   document.getElementById("email").value = "";
@@ -68,124 +56,45 @@ function valueToEmpty() {
 }
 
 
+/**
+ * Opens a new contact and animates the background.
+ */
 function newContactOpen() {
   let backround = document.getElementById("backround");
   backround.classList.add("animate");
   }
 
 
+/**
+ * Closes the current contact and removes the background animation.
+ */
 function closeContact() {
   let backround = document.getElementById("backround");
   backround.classList.remove("animate");
 }
 
 
-async function contactList() {
-  let list = document.getElementById("newContacts");
-  list.innerHTML = "";
-  let previousLetter = null; 
-  for (let i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];
-    const currentLetter = letters[i];
-    
-    if (currentLetter !== previousLetter) {
-      list.innerHTML += /*html*/ `
-                <div class="name-letter">${currentLetter}</div>
-                <div class="contact-parting-line">
-                    <hr>
-                </div>`;
-      previousLetter = currentLetter;
-    }
-
-    list.innerHTML += /*html*/ `
-            <div id="newColorContact${i}" class="contacts" onclick="pushContact(${i})">
-                <button class="button-name" style="background-color: ${contact.color};">${twolettersName[i]}</button>
-                <div class="names">
-                    <p>${contact["name"]} <br> <p class="mail">${contact["e-mail"]}</p>
-                </div>
-            </div>`;
-  }
-}
-
-
-function pushContact(i) {
-  let pushContact = document.getElementById("push_contacts");
-  pushContact.innerHTML = "";
-  contactListColor(i);
-  transformNewContacts();
-  const contact = contacts[i]; 
-  const buttonColor = contact.color; 
-
-  pushContact.innerHTML = generateContactsListHTML(i, buttonColor);
-  pushContact.innerHTML += returnContactInfo(i);
-  mobileBackRemove();
-  queryContainer(i);
-}
-
-
-function generateContactsListHTML(i, buttonColor) {
-  return /*html*/ `
-    <div class="contacts-list">
-      <button class="button-name-contacts" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
-      <div>
-        <p class="contacts-name">${contacts[i]["name"]}</p>
-        <div id="edit_back">
-          <div class="edit-delete" id="edit_delete">
-            <p class="edit-hover" onclick="editContact(${i})"> <img src="./assets/img/edit.png"> Edit </p>
-            <p class="delete-hover" onclick="deleteQuery(${i})"><img src="./assets/img/delete.png"> Delete</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-
-function returnContactInfo(i) {
-  return /*html*/`
-    <div>
-                    <p class="contact-information">Contact Information</p>
-                </div>
-                <div class="email-phone">
-                    <p class="name-email-phone">Email</p> <br>
-                    <a href="">${contacts[i]["e-mail"]}</a> <br> <br>
-                    <p class="name-email-phone"> Phone</p> <br>
-                    <p>${contacts[i]["tel"]}</p>
-                </div>
-            </div>
-  `
-}
-
-
+/**
+ * Applies transformation to new contacts.
+ */
 function transformNewContacts() {
   let pushContacts = document.getElementById("push_contacts");
   pushContacts.classList.add("animate");
 }
 
 
+/**
+ * Reverts transformation applied to close contacts.
+ */
 function transformCloseContacts() {
   let pushContacts = document.getElementById("push_contacts");
   pushContacts.classList.remove("animate");
 }
 
 
-function queryContainer(i) {
-  let queryContainer = document.getElementById('query_comtainer');
-  queryContainer.innerHTML = '';
-  queryContainer.innerHTML = /*html*/ `
-    <div class="backround-delete-contact-container" id="backgroundDeleteContactContainer">
-      <div class="really-delete" id="really_delete">
-        <span>Do you really want to delete this contact?</span>
-        <div>
-          <button onclick="closeQuery()" class="button-delete">No, cancel</button>
-          <button onclick="deleteContact(${i})" class="button-delete">Yes, delete</button>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-
+/**
+ * Displays the delete contact confirmation prompt.
+ */
 function deleteQuery() {
   mobilEditContact();
   let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
@@ -195,6 +104,9 @@ function deleteQuery() {
 }
 
 
+/**
+ * Closes the delete contact confirmation prompt.
+ */
 function closeQuery() {
   let backgroundDeleteContactContainer = document.getElementById('backgroundDeleteContactContainer');
   let reallyDelete = document.getElementById('really_delete')
@@ -208,6 +120,10 @@ function closeQuery() {
 }
 
 
+/**
+ * Deletes a contact.
+ * @param {number} i - Index of the contact to be deleted.
+ */
 async function deleteContact(i) {
   closeQuery();
   transformCloseContacts();
@@ -222,6 +138,10 @@ async function deleteContact(i) {
 }
 
 
+/**
+ * Deletes a contact's name from associated tasks.
+ * @param {number} i - Index of the contact whose name is to be deleted from tasks.
+ */
 async function deleteNameFromTask(i) {
   let allTasks = await getItem("allTasks");
   let deletedName = contacts[i]["name"];
@@ -238,17 +158,28 @@ async function deleteNameFromTask(i) {
 }
 
 
+/**
+ * Updates the arrays storing one-letter and two-letter representations of contact names.
+ */
 function updateLettersAndTwoLettersName() {
   oneLetterGenerator();
   twoLetterGenerator();
 }
 
 
+/**
+ * Generates one-letter representations of contact names.
+ */
 function oneLetterGenerator() {
   letters = contacts.map((contact) => contact.name.charAt(0));
 }
 
 
+/**
+ * Generates an icon button for a contact using their initials.
+ * @param {Object} contact - The contact object.
+ * @returns {string} HTML for the icon button.
+ */
 function getIconForContact(contact) {
   const splitName = contact.name.split(" ");
   const initials = splitName.map((part) => part[0]).join("");
@@ -256,6 +187,9 @@ function getIconForContact(contact) {
 }
 
 
+/**
+ * Generates two-letter representations of contact names.
+ */
 function twoLetterGenerator() {
   twolettersName = contacts.map((contact) => {
     const nameSplit = contact.name.split(" ");
@@ -265,6 +199,9 @@ function twoLetterGenerator() {
 }
 
 
+/**
+ * Sorts the contacts alphabetically by name.
+ */
 function contactsSort() {
   contacts.sort((a, b) => {
     if (a.name < b.name) {
@@ -278,6 +215,10 @@ function contactsSort() {
 }
 
 
+/**
+ * Generates a random hexadecimal color code.
+ * @returns {string} Random hexadecimal color code
+ */
 function getRandomColor() {
   let letters = "0123456789ABCDEF";
   let color = "#";
@@ -288,6 +229,10 @@ function getRandomColor() {
 }
 
 
+/**
+ * Allows editing of a contact.
+ * @param {number} i - Index of the contact to be edited.
+ */
 async function editContact(i) {
   let edit = document.getElementById("edit_contact");
   let editContact = document.getElementById("edit_contact");
@@ -308,6 +253,10 @@ async function editContact(i) {
 }
 
 
+/**
+ * Generates HTML for the header of the edit contact form.
+ * @returns {string} HTML string for the header of the edit contact form.
+ */
 function generateEditHeader() {
   return /*html*/ `
     <div class="edit">
@@ -322,25 +271,10 @@ function generateEditHeader() {
 }
 
 
-function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
-  return /*html*/ `
-    <div class="edit-two">
-    <img onclick="mobilEditContact()" class="mobil-edit-close-black" src="./assets/img/closeBlack.png">
-      <button class="edit-button-contact" style="background-color: ${buttonColor};">${twolettersName[i]}</button>
-      <form class="form" id="editForm" onsubmit="saveContact(${i}); return false;">
-        <input id="editText" required type="text" placeholder="Name" value="${name}"> <br>
-        <input id="editEmail" required type="email" placeholder="Email" value="${email}"> <br>
-        <input id="editNumber" required type="number" placeholder="Phone" value="${tel}"> <br>
-        <div class="cancel-and-ceate">
-          <button onclick="deleteQuery()" type="button" class="cancel">Delete</button> 
-          <button onclick="closeSaveContact()" type="submit" class="create-contact">Save<img  src="./assets/img/check.png"></button>
-        </div>
-      </form>
-    </div>
-  `;
-}
-
-
+/**
+ * Saves the edited contact.
+ * @param {number} i - Index of the contact being edited.
+ */
 async function saveContact(i) {
   await updateName(i);
 
@@ -361,6 +295,10 @@ async function saveContact(i) {
 }
 
 
+/**
+ * Updates the name of the contact in associated tasks.
+ * @param {number} index - Index of the contact whose name is to be updated.
+ */
 async function updateName(index) {
   let allTasks = await getItem("allTasks");
   let oldName = contacts[index]["name"];
@@ -380,6 +318,9 @@ async function updateName(index) {
 }
 
 
+/**
+ * Toggles the display of the mobile edit/delete menu.
+ */
 function mobileEditDelete() {
   let element = document.getElementById("menu_mobile");
   if (element) {
@@ -392,75 +333,36 @@ function mobileEditDelete() {
 }
 
 
+/**
+ * Hides the edit contact form.
+ */
 function closeSaveContact() {
   let editContact = document.getElementById("edit_contact");
   editContact.classList.add("d-none");
 }
 
 
-function closeEditContactDelete(i) {
-  transformCloseContacts();
-
-  contacts.splice(i, 1);
-  letters.splice(i, 1);
-  twolettersName.splice(i, 1);
-
-  setItem("allContacts", contacts);
-  contactList();
-  closeSaveContact();
-}
-
-
+/**
+ * Adds a background color to a newly added contact.
+ */
 function pushBackroundColor() {
   let newColorContact = document.getElementById("newColorContact(i)");
   newColorContact.classList.add("contacts-onclick");
 }
 
 
-function contactListColor(i) {
-  let allContacts = document.querySelectorAll(".contacts");
-
-  allContacts.forEach((contact) => {
-    contact.classList.remove("contacts-onclick");
-  });
-
-  let newColorContact = document.getElementById("newColorContact" + i);
-  newColorContact.classList.add("contacts-onclick");
-}
-
-
+/**
+ * Removes the animation class from the background element.
+ */
 function saveAnimat() {
   let backround = document.getElementById("backround");
   backround.classList.remove("animate");
 }
 
 
-function mobileBack() {
-  let mobileBackElement = document.getElementById("mobileBack");
-  let editDelet = document.getElementById("edit_delete");
-  editDelet.style.display = "none";
-  if (mobileBackElement) {
-    mobileBackElement.style.display = "none";
-  }
-}
-
-
-function mobileBackRemove() {
-  let mobileBack = document.getElementById("mobileBack");
-  mobileBack.classList.remove("d-none-mobile");
-  let mobileBackElement = document.getElementById("mobileBack");
-  if (mobileBackElement) {
-    mobileBackElement.style.display = "block";
-  }
-}
-
-
-function mobilEditContact() {
-  let editContact = document.getElementById("edit_contact");
-  editContact.classList.add("d-none");
-}
-
-
+/**
+ * Hides the mobile back element on small screens.
+ */
 function hideOnSmallScreens() {
   let mobileBackElement = document.getElementById("mobileBack");
   if (mobileBackElement) {
@@ -470,18 +372,9 @@ function hideOnSmallScreens() {
 }
 
 
-function mobilMenu() {
-  moveEditDeleteContainer();
-  let editDelet = document.getElementById("edit_delete");
-
-  if (editDelet.style.display === "none") {
-    editDelet.style.display = "block";
-  } else {
-    editDelet.style.display = "none";
-  }
-}
-
-
+/**
+ * Moves the edit/delete container based on window width.
+ */
 function moveEditDeleteContainer() {
   let editDeleteDiv = document.getElementById("edit_delete");
   let container2Div = document.getElementById("container2");
