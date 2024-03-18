@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 let currentDraggedElement;
 
+
+/**
+ * Function fetches all tasks, filters them by status, and renders them in their respective containers on the board
+ */
 async function renderTasks() {
   let allTasks = await getTasks();
   let toDos = allTasks.filter((task) => task.status === "toDo");
@@ -39,6 +43,12 @@ async function renderTasks() {
   await noTaskToDoNotification();
 }
 
+
+/**
+ * Function generates the HTML for a list of tasks
+ * @param {Array} taskList - The array of tasks
+ * @returns {string} - The HTML for all tasks in the list
+ */
 async function generateTasks(taskList) {
   let tasksHTML = "";
 
@@ -69,6 +79,19 @@ async function generateTasks(taskList) {
   return tasksHTML;
 }
 
+
+/**
+ * This function generates the HTML for a single task
+ * @param {object} task - The task object
+ * @param {number} subtasksCount - The number of subtasks
+ * @param {string} prio - The priority of the task
+ * @param {string} description - The description of the task
+ * @param {number} id - The id of the task
+ * @param {string} assignedPersons - The HTML for the assigned persons
+ * @param {string} progressBarWidth - The width of the progress bar
+ * @param {string} hideProgressBar - A flag to hide the progress bar
+ * @returns {string} The HTML for one task.
+ */
 function generateOneTaskHTML(
   task,
   subtasksCount,
@@ -113,9 +136,13 @@ function generateOneTaskHTML(
     `;
 }
 
-/* ===============
-MOVE TASK POP-UP
-==================*/
+
+/**
+ * Function opens a popup with options for moving a task to a different status
+ * @param {Event} event - The event that triggered the function
+ * @param {number} taskID - The ID of the task to move
+ * @returns 
+ */
 async function openMovingOptions(event, taskID) {
   event.stopPropagation();
   if (popUpIsOpen()) {
@@ -135,6 +162,11 @@ async function openMovingOptions(event, taskID) {
   }
 }
 
+
+/**
+ * Function adds an event listener to the document that closes the popup when the user clicks outside of it
+ * @param {Element} popUp - The popup element
+ */
 function addClosePopupEventListener(popUp) {
   //Event-Listener, der Popup entfernt, wenn außerhalb des Popups geklickt wird
   document.addEventListener("click", function closePopup(e) {
@@ -148,6 +180,13 @@ function addClosePopupEventListener(popUp) {
   });
 }
 
+
+/**
+ * Function generates the HTML for a popup with options for moving a task to a different status
+ * @param {string} currentStatus - The current status of the task
+ * @param {number} taskID - The ID of the task to move
+ * @returns {string} - The HTML for the popup
+ */
 function generateMovingOptionsHTML(currentStatus, taskID) {
   return /*html*/ `
       <h3>Move Task to...</h3>
@@ -166,6 +205,12 @@ function generateMovingOptionsHTML(currentStatus, taskID) {
 `;
 }
 
+
+/**
+ * Function moves a task to a new status
+ * @param {number} taskID - The ID of the task to move
+ * @param {string} newStatus - The new status for the task
+ */
 async function moveTask(taskID, newStatus) {
   let allTasks = await getTasks();
 
@@ -182,6 +227,11 @@ async function moveTask(taskID, newStatus) {
   renderTasks();
 }
 
+
+/**
+ * Function checks if a popup is currently open on the page 
+ * @returns {boolean} - True if a popup is open, false otherwise
+ */
 function popUpIsOpen() {
   let existingPopup = document.querySelector(".moving-options-popup");
   if (existingPopup) {
@@ -192,18 +242,30 @@ function popUpIsOpen() {
   }
 }
 
+
+/**
+ * Function positions a popup element relative to the element that was clicked to open the popup
+ * The function first gets the element that was clicked to open the popup from the event's target
+ * Then it gets the bounding rectangle of the clicked element, which includes the element's position and dimensions
+ * The function sets the popup's position to "absolute" and positions it 110 pixels to the left of the clicked element and just below the clicked element
+ *
+ * @param {Element} popUp - The popup element
+ * @param {Event} event - The event that triggered the function
+ */
 function positionPopUpMovingOptions(popUp, event) {
-  const button = event.target; // Das Element, auf das geklickt wurde
+  const button = event.target; 
   const buttonRect = button.getBoundingClientRect();
   popUp.style.position = "absolute";
   popUp.style.left = buttonRect.left - 110 + "px";
   popUp.style.top = buttonRect.top + buttonRect.height + "px";
 }
 
-/* =============================
-AUXILIARY FUNCTIONS RENDER-TASKS
-================================*/
 
+/**
+ * Function calculates and returns the number of completed subtasks out of the total subtasks for a given task
+ * @param {Object} task - The task object
+ * @returns {string} - A string that represents the number of completed subtasks and the total number of subtasks
+ */
 async function subTasksCount(task) {
   let checkedCheckboxes = getCheckedCount(task["subtasks"]);
   if (!Array.isArray(task.subtasks)) {
@@ -213,6 +275,12 @@ async function subTasksCount(task) {
   return checkedCheckboxes + "/" + totalSubtasks + " Subtasks";
 }
 
+
+/**
+ * calculates and returns the percentage of completed subtasks for a given task, which can be used to set the width of a progress bar
+ * @param {Object} task - The task object
+ * @returns {number} - Percentage of completed subtasks, or undefined if the task has no subtasks.
+ */
 function getProgressBarWidth(task) {
   let subtasks = task["subtasks"];
   if (subtasks === undefined) {
@@ -225,13 +293,18 @@ function getProgressBarWidth(task) {
   return percent;
 }
 
+
+/**
+ * This asynchronous function generates a progress bar for a given task
+ * @param {object} task - The task object
+ * @returns {string} - String that sets the width or display of the progress bar.
+ */
 async function generateProgressBar(task) {
   /* let taskIndex = task.id; */
   let progressBarWidth = getProgressBarWidth(task);
 
   if (task.subtasks) {
     if (task.subtasks.length > 0) {
-      /* let progressBar = await getItem(`Board_Task_Progress_Bar${taskIndex}`); */
       return `style="width: ${progressBarWidth}%"`;
     }
   } else {
@@ -239,6 +312,12 @@ async function generateProgressBar(task) {
   }
 }
 
+
+/**
+ * Function calculates and returns the number of completed (checked) subtasks from a given array of subtasks
+ * @param {Array} subtasks - Array of subtask objects
+ * @returns {number} - Number of completed subtasks
+ */
 function getCheckedCount(subtasks) {
   if (subtasks === undefined) {
     return 0;
@@ -253,6 +332,12 @@ function getCheckedCount(subtasks) {
   return checkedCount;
 }
 
+
+/**
+ * Function determines whether to hide a progress bar for a given task
+ * @param {object} task - The task object
+ * @returns {string} - String that sets the display of the progress bar
+ */
 function hideBar(task) {
   if (task.subtasks) {
     if (task.subtasks.length > 0) {
@@ -263,10 +348,16 @@ function hideBar(task) {
   }
 }
 
+
+/**
+ * Function generates HTML for the first three contacts and a span element that shows the number of hidden contacts
+ * @param {string} contacts - A string of HTML that represents the contacts
+ * @param {number} numberOfHiddenContacts - THe umber of contacts that are not shown
+ * @returns {string} - A string of HTML that includes the first three contacts and the number of hidden contacts
+ */
 function getFirstThreeContactsHTML(contacts, numberOfHiddenContacts) {
   let tempDiv = document.createElement("div");
   tempDiv.innerHTML = contacts;
-
   let items = Array.from(tempDiv.querySelectorAll(".button-name")).slice(0, 3);
   //Sucht alle Elemente innerhalb von tempDiv, die klasse "button-name" hat, querySelectorAll gibt NodeList zurück, die mit Array.from in ein Array umgewandelt wird
   //slice(0, 3), um ersten drei Elemente dieses Arrays zu behalten
@@ -274,7 +365,6 @@ function getFirstThreeContactsHTML(contacts, numberOfHiddenContacts) {
   for (let item of items) {
     firstThreeContactsHTML += item.outerHTML;
   }
-
   let html = /*html*/ `
      ${firstThreeContactsHTML}
     <span class="show-amount-of-hidden-contacts">
@@ -284,6 +374,12 @@ function getFirstThreeContactsHTML(contacts, numberOfHiddenContacts) {
   return html;
 }
 
+
+/**
+ * Function generates HTML for the contacts, showing only the first three contacts if there are more than three
+ * @param {string} contacts - A string of HTML that represents the contacts
+ * @returns {string} - A string of HTML that represents the contacts, showing only the first three if there are more than three
+ */
 function contactsHTML(contacts) {
   if (contacts === "") {
     return "";
@@ -299,230 +395,3 @@ function contactsHTML(contacts) {
     return contacts;
   }
 }
-
-function addPrioIcon(task) {
-  switch (task.prio) {
-    case "urgent":
-      return '<img src="./assets/img/priorityUrgent.svg" class="board-task-prio-icon">';
-      break;
-
-    case "medium":
-      return '<img src="./assets/img/priorityMedium.svg" class="board-task-prio-icon">';
-      break;
-
-    case "low":
-      return '<img src="./assets/img/priorityLow.svg" class="board-task-prio-icon">';
-      break;
-
-    default:
-      return "";
-  }
-}
-
-/* ================
-DRAG & DROP FUNCTIONS
-===================*/
-function startDragging(id) {
-  currentDraggedElement = id;
-}
-
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-async function moveTo(status) {
-  let allTasks = await getTasks();
-
-  //Element mit der id = currentDraggedElement finden
-  let task = allTasks.find((task) => task.id === currentDraggedElement);
-  if (task) {
-    task.status = status;
-    await setItem("allTasks", allTasks);
-  } else {
-    console.error(`Kein Task mit der ID ${currentDraggedElement} gefunden.`);
-  }
-  noTaskToDoNotification();
-  renderTasks();
-}
-
-function hightlight(id) {
-  document.getElementById(id).classList.add("drag-area-hightlight");
-}
-
-function removeHightlight(id) {
-  document.getElementById(id).classList.remove("drag-area-hightlight");
-}
-
-/* =========================================================
-SHOW "NO TASK...TO DO/IN PROGRESS/AW.FEEDBACK/DONE" NOTIFICATION
-==============================================================*/
-async function noTaskToDoNotification() {
-  let allTasks = await getTasks();
-
-  let taskCounts = {
-    toDo: 0,
-    inProgress: 0,
-    awaitFeedback: 0,
-    done: 0,
-  };
-
-  for (let i = 0; i < allTasks.length; i++) {
-    const status = allTasks[i]["status"];
-    if (taskCounts.hasOwnProperty(status)) {
-      //hasOwnProperty um zu überprüfen, ob das Objekt eine Eigenschaft mit Namen des aktuellen Status hat
-      taskCounts[status]++;
-    }
-  }
-  setDisplayStatus(document.getElementById("No_Task_To_Do"), taskCounts.toDo);
-  setDisplayStatus(
-    document.getElementById("No_Task_In_Progress"),
-    taskCounts.inProgress
-  );
-  setDisplayStatus(
-    document.getElementById("No_Task_Await_Feedback"),
-    taskCounts.awaitFeedback
-  );
-  setDisplayStatus(document.getElementById("No_Task_Done"), taskCounts.done);
-}
-
-function setDisplayStatus(container, taskCount) {
-  container.style.display = taskCount > 0 ? "none" : "flex";
-}
-
-/* ========
-FIND TASKS
-==========*/
-function findTask() {
-  let inputfield = document.getElementById("Find_Task");
-  let input = inputfield.value.toLowerCase();
-  let inputfieldSmallScreen = document.getElementById("Find_Task_SmallScreen");
-  let inputSmallScreen = inputfieldSmallScreen.value.toLowerCase();
-
-  let boardSection = document.getElementById("Board_Section_Main_Content");
-  let tasks = boardSection.getElementsByClassName(
-    "board-task-container-overview"
-  );
-  for (const oneTask of tasks) {
-    oneTask.style.display = "none";
-  }
-  for (let i = 0; i < tasks.length; i++) {
-    const oneTaskName = tasks[i]
-      .getElementsByTagName("h2")[0]
-      .innerText.toLowerCase();
-    const oneTaskDescription = tasks[i]
-      .getElementsByClassName('board-task-description')[0]
-      .innerText.toLowerCase();
-    if (
-      (window.innerWidth > 650 &&
-        (oneTaskName.startsWith(input) ||
-          oneTaskDescription.startsWith(input))) ||
-      (window.innerWidth <= 650 &&
-        (oneTaskName.startsWith(inputSmallScreen) ||
-          oneTaskDescription.startsWith(inputSmallScreen)))
-    ) {
-      tasks[i].style.display = "flex";
-    }
-  }
-}
-
-/* ============================
-OPEN & CLOSE ADD TASK - POP-UP
-===============================*/
-function openAddTaskPopUp() {
-  let backdrop = document.getElementById("add_task_popup_backdrop");
-  let addTaskPopup = document.getElementById("add_task_popup");
-  if (window.innerWidth >= 1090) {
-    backdrop.style.display = "unset";
-    addTaskPopup.style.display = "unset";
-
-  } else {
-    window.location.href = "add_Task.html";
-  }
-}
-
-function closeAddTaskPopup() {
-  let backdrop = document.getElementById("add_task_popup_backdrop");
-  backdrop.style.display = "none";
-  clearAddTaskForm();
-}
-
-/* ====================================
-WHEN SCREEN < 1090, SHOW OR HIDE ARROWS
-=======================================*/
-// window.addEventListener("load", function () {
-//   let container = [
-//     "to_do_container",
-//     "In_Progress_Content",
-//     "Await_Feedback_Content",
-//     "Done_Content",
-//   ];
-
-//   let arrowRight = [
-//     "To_Do_Container_Arrow_Right",
-//     "In_Progress_Container_Arrow_Right",
-//     "Await_Feedback_Arrow_Right",
-//     "Done_Arrow_Right",
-//   ];
-
-//   let arrowLeft = [
-//     "To_Do_Container_Arrow_Left",
-//     "In_Progress_Container_Arrow_Left",
-//     "Await_Feedback_Arrow_Left",
-//     "Done_Arrow_Left",
-//   ];
-
-//   function checkScroll() {
-//     for (let i = 0; i < container.length; i++) {
-//       let subContainer = document.getElementById(container[i]);
-//       let rightArrow = document.getElementById(arrowRight[i]);
-
-//       if (subContainer.scrollWidth > subContainer.clientWidth) {
-//         rightArrow.style.display = "flex";
-//         rightArrow.addEventListener("click", function () {
-//           subContainer.scrollLeft += 200;
-//         });
-//       } else {
-//         rightArrow.style.display = "none";
-//       }
-//     }
-//   }
-
-//   function checkScrollEnd() {
-//     for (let i = 0; i < container.length; i++) {
-//       let subContainer = document.getElementById(container[i]);
-//       let rightArrow = document.getElementById(arrowRight[i]);
-//       let leftArrow = document.getElementById(arrowLeft[i]);
-
-//       let scrollRight =
-//         subContainer.scrollWidth -
-//         subContainer.scrollLeft -
-//         subContainer.clientWidth;
-//       if (scrollRight <= 100) {
-//         rightArrow.style.display = "none";
-//       } else {
-//         rightArrow.style.display = "flex";
-//         rightArrow.addEventListener("click", function () {
-//           subContainer.scrollLeft += 200;
-//         });
-//       }
-
-//       if (subContainer.scrollLeft >= 100) {
-//         leftArrow.style.display = "flex";
-//         leftArrow.addEventListener("click", function () {
-//           subContainer.scrollLeft -= 200;
-//         });
-//       } else {
-//         leftArrow.style.display = "none";
-//       }
-//     }
-//   }
-//   setTimeout(function () {
-//     checkScroll();
-//     checkScrollEnd();
-//   }, 1000);
-//   window.addEventListener("resize", checkScroll);
-//   for (let i = 0; i < container.length; i++) {
-//     const subContainer = document.getElementById(container[i]);
-//     subContainer.addEventListener("scroll", checkScrollEnd);
-//   }
-// });

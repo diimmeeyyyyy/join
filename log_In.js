@@ -1,6 +1,6 @@
-let rememberLogIn = [];
-
-
+/**
+ * Used to determine whether the logIn Button or guest LogIn was clicked
+ */
 async function handleSubmit() {
   let submitButton = document.activeElement.id;
   if (submitButton === "LogIn_Button") {
@@ -11,57 +11,41 @@ async function handleSubmit() {
   }
 }
 
+
+/**
+ * Used to check if user exists and then continue the logIn process
+ */
 async function logInUser() {
   let email = document.getElementById("Email");
   let password = document.getElementById("Password_LogIn");
 
   let user = await findUser(email.value, password.value);
 
-  /*  rememberLogInData(email, password); */
-
   if (user) {
     await storeLoggedInUser(user);
     localStorage.setItem("loggedInPerson", "user");
     await loadWelcomeGreeting(user.name);
   } else {
-    showAlert();
+    showAlert('User not found or login credentials incorrect !');
   }
 }
 
-function showAlert() {
-  let background = document.createElement("div");
-  background.className = "pop-up-backdrop";
-  background.id = "Alert_Message";
-  background.innerHTML = /*html*/ `
-    <div class="alert-container">
-         <h3>Information</h3>
-         <p>User not found or login credentials incorrect !</p> 
-        <button onclick="closeAlert()">Ok</button>
-    </div>
-  `;
-  document.body.appendChild(background);
-}
 
+/**
+ * closing popUp message that tells us that the user was not found
+ */
 function closeAlert() {
   let alertMessage = document.getElementById("Alert_Message");
   document.body.removeChild(alertMessage);
 }
 
-/* function rememberLogInData(userEmail, userPassword) {
-  let checkbox = document.getElementById("Remember_Me_Checkbox");
 
-  if (checkbox.checked) {
-    rememberLogIn.push({
-      email: userEmail.value,
-      password: userPassword.value,
-    });
-    setItem("rememberLogIn", JSON.stringify(rememberLogIn));
-  } else {
-    rememberLogIn = []; //Array leeren
-    setItem("rememberLogIn", JSON.stringify(rememberLogIn));
-  }
-} */
-
+/**
+ *
+ * @param {string} email - this is the email of the person who is trying to logIn
+ * @param {string} password - this is the password of the person who is trying to logIn
+ * @returns
+ */
 async function findUser(email, password) {
   let getAllRegisteredUsers = await getItem("allRegisteredUsers");
   let user = getAllRegisteredUsers.find(
@@ -70,6 +54,11 @@ async function findUser(email, password) {
   return user;
 }
 
+
+/**
+ * serves for saving user information
+ * @param {object} user - this is the user that was found
+ */
 async function storeLoggedInUser(user) {
   //Zuerst User in LocalStorage speichern:
   let emailAsText = JSON.stringify(user.email);
@@ -79,8 +68,13 @@ async function storeLoggedInUser(user) {
   await setItem(key, JSON.stringify(user));
 }
 
+
+/**
+ * Used to display the welcome-greeting after the logIn was successfully
+ * @param {string} userName - this is the username that we want to greet
+ */
 async function loadWelcomeGreeting(userName) {
-  let greetingForm = getGreeting();
+  let greetingForm = getGreetingForm();
   setGreetingAndName(userName, greetingForm);
 
   let overlay = document.querySelector(".summary-mobile-position-content");
@@ -97,6 +91,12 @@ async function loadWelcomeGreeting(userName) {
   }, redirectDelay);
 }
 
+
+/**
+ *  Used to combine greeting form and username
+ * @param {string} userName - this is the username
+ * @param {string} greetingForm - this is the greeting form based on the current time of logIn
+ */
 function setGreetingAndName(userName, greetingForm) {
   let greetingName = document.getElementById("Greeting_Name");
   let greeting = document.getElementById("Greeting");
@@ -109,13 +109,3 @@ function setGreetingAndName(userName, greetingForm) {
     greetingName.innerHTML = "";
   }
 }
-
-/* function showPasswordVisibility(){
-  let inputfield = document.getElementById("Password_LogIn");
-  let img = document.getElementById("Toggle_Password_Visibility");
-
- 
-    img.src = "";
-    inputfield.type = "password"
-  
-} */

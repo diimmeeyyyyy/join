@@ -1,7 +1,11 @@
-/* ========================
-LARGEVIEW OF ONE TASK
-===========================*/
 let largeViewIsOpen = false;
+
+
+/**
+ * Function opens the "Add Task" popup
+ * @param {number} taskIndex - The index of the task to render a large view of
+ * @returns - A Promise that resolves when the function has finished rendering the large view of the task
+ */
 async function renderTaskLargeview(taskIndex) {
   if (largeViewIsOpen) {
     return;
@@ -17,6 +21,13 @@ async function renderTaskLargeview(taskIndex) {
   board.innerHTML += taskHtml;
 }
 
+
+/**
+ * This function generates the HTML for the task details
+ * @param {object} task - The task object
+ * @param {number} taskIndex - The index of the task
+ * @returns {Promise<string>} A Promise that resolves to the HTML string for the task details
+ */
 async function generateTaskLargeViewHTML(
   task,
   taskIndex
@@ -65,15 +76,15 @@ async function generateTaskLargeViewHTML(
                <img src = "assets/img/edit.png">
                <span> Edit </span>
           </div>
-      </div>
-  
-        
+      </div>  
   `;
 }
 
-/* ========
-EDIT TASK
-===========*/
+
+/**
+ * This function opens the "Edit Task" popup for a specific task
+ * @param {number} taskIndex - The index of the task to edit
+ */
 async function editTask(taskIndex) {
   const allTasks = await getTasks();
   let task = allTasks[taskIndex];
@@ -94,6 +105,12 @@ async function editTask(taskIndex) {
 }
 
 
+/**
+ * This function generates the HTML for the "Edit Task" popup
+ * @param {object} task - The task object
+ * @param {number} taskIndex - The index of the task
+ * @returns {string} - The HTML string for the "Edit Task" popup
+ */
 function generateEditTaskHTML(task, taskIndex) {
   let subtasksHtml = '';
 
@@ -251,6 +268,10 @@ function generateEditTaskHTML(task, taskIndex) {
 }
 
 
+/**
+ *  This function saves the edited task
+ * @param {number} taskIndex - The index of the task to save
+ */
  async function saveEditedTask(taskIndex) {
       const allTasks = await getTasks();
       const task = allTasks[taskIndex];
@@ -281,6 +302,10 @@ function generateEditTaskHTML(task, taskIndex) {
  }
 
 
+ /**
+  * This function selects the priority button of a task in the "Edit Task" popup
+  * @param {object} task - The task object
+  */
 async function selectPriorityButton(task) {
   const priority = task["prio"];
 
@@ -294,6 +319,11 @@ async function selectPriorityButton(task) {
   }
 }
 
+
+/**
+ * This function checks the assigned contacts of a task in the "Edit Task" popup
+ * @param {number} taskIndex - The index of the task to check
+ */
 async function checkAssignedContacts(taskIndex) {
   if (contactsRendered === false) {
     let allTasks = await getTasks();
@@ -321,13 +351,15 @@ async function checkAssignedContacts(taskIndex) {
         <span>${getIconForContact(contactInformation)}</span>
       `;
     }
-
     iconContainer.innerHTML = iconContactHtml;
   }
 }
 
 
-
+/**
+ *  Function closes the "Edit Task" popup and optionally the task information dialog.
+ * @param {boolean} closeInfoDialog - A flag indicating whether to close the task information dialog
+ */
 function closeEditTask(closeInfoDialog) {
   clearAndCloseContactsList(true);
   const editTaskBackdrop = document.getElementById('Edit_Task_Background');
@@ -342,12 +374,21 @@ function closeEditTask(closeInfoDialog) {
 }
 
 
+/**
+ * This function sets a new minimum date for the due date input field in the "Edit Task" popup
+ */
  function setNewDateForDueDate() {
    const newDueDateForEditTask = document.getElementById("edit_task_due_date");
    const today = new Date();
    newDueDateForEditTask.setAttribute("min", today.toISOString().substring(0, 10));
  }
 
+
+ /**
+  * This function formats a date string into the format "dd/mm/yyyy"
+  * @param {string} dateString - The input date string
+  * @returns {string} -  The formatted date string
+  */
 function formatDate(dateString) {
   const date = new Date(dateString); //erstellt ein neues Date-Objekt aus dem Eingabestring
   let day = date.getDate(); // Tag, Monat & Jahr werden aus dem Date-Objekt extrahiert
@@ -356,179 +397,4 @@ function formatDate(dateString) {
   month = month < 10 ? "0" + month : month;
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
-}
-
-
-async function createContactsList(contactNames, showName) {
-  let contactsList = "";
-  const allContacts = await loadContacts();
-
-  for (let i = 0; i < contactNames.length; i++) {
-    const contactName = contactNames[i];
-    const filteredContacts = allContacts.filter(function (
-      contactElementInArray
-    ) {
-      // in add task ausgewählte Elemente aus Array filtern
-      return contactElementInArray.name === contactName;
-    });
-    const contact = filteredContacts[0];
-
-    if (!filteredContacts) {
-      continue;
-    }
-    contactsList += generateContactListHTML(contact, showName);
-  }
-  return contactsList;
-}
-
-function generateContactListHTML(contact, showName) {
-  if (showName) {
-    return /*html*/ `
-      <div class="board-task-contacticon-and-name">
-        <span>${getIconForContact(contact)}</span>
-        <span>&nbsp ${contact.name}</span>
-    </div>
-    `;
-  } else {
-    return /*html*/ `
-        <span class="item">${getIconForContact(contact)}</span>`;
-  }
-}
-
-
-/* =======================
-TASK-LARGEVIEW SUBTASKS
-==========================*/
-async function updateProgress(taskIndex, subtaskIndex) {
-  let allTasks = await getTasks();
-  let task = allTasks[taskIndex];
-  let subtask = task["subtasks"][subtaskIndex];
-  let checkboxStatus = subtask["checked"];
-
-  let changedStatus;
-  if (checkboxStatus === true) {
-    changedStatus = false;
-  } else {
-    changedStatus = true;
-  }
-
-  subtask["checked"] = changedStatus;
-
-  updateProgressBarAndCount(task);
-  await setItem("allTasks", allTasks);
-}
-
-function updateProgressBarAndCount(task) {
-  let taskIndex = task.id;
-  let progressBarWidth = getProgressBarWidth(task);
-  document.getElementById(
-    `Board_Task_Progress_Bar${taskIndex}`
-  ).style.width = `${progressBarWidth}%`;
-
-  let checkedCount = getCheckedCount(task["subtasks"]);
-  let subtaskAmount = task["subtasks"].length;
-  document.getElementById(
-    `Board_Task_Number_Of_Subtasks${taskIndex}`
-  ).innerHTML = `${checkedCount}` + "/" + `${subtaskAmount}` + " Subtasks";
-}
-
-async function getCheckboxStatus(subtasks) {
-  let checkboxStatus = [];
-  for (let i = 0; i < subtasks.length; i++) {
-    let checkbox = subtasks[i]["checked"];
-    checkboxStatus.push(checkbox);
-  }
-  return checkboxStatus;
-}
-
-async function createSubtasklist(taskIndex) {
-  let tasks = await getTasks();
-  let subtasksArray = tasks[taskIndex]["subtasks"];
-  let checkedCheckboxes = await getCheckboxStatus(subtasksArray);
-
-  let subtasklist = "";
-  for (let i = 0; i < subtasksArray.length; i++) {
-    const subtask = subtasksArray[i]["subtaskName"];
-    let checkedAttribute = checkedCheckboxes[i] ? "checked" : "unchecked";
-    subtasklist += generateSubtaskListHTML(
-      taskIndex,
-      i,
-      subtask,
-      checkedAttribute
-    );
-  }
-  return subtasklist;
-}
-
-function generateSubtaskListHTML(taskIndex, i, subtask, checkedAttribute) {
-  return /*html*/ `
-      <div
-    id="Board_Task_Subtasks_Largeview${taskIndex}${i}"
-    class="board-task-subtasks-largeview"
-  >
-    <input
-      onclick="updateProgress(${taskIndex},${i});"
-      id="Board_Task_Subtask_Checkbox${taskIndex}${i}"
-      type="checkbox"
-      ${checkedAttribute}
-    />
-    <label for="Board_Task_Subtask_Checkbox${taskIndex}${i}">
-      &nbsp ${subtask}</label
-    >
-  </div>
-    `;
-}
-
-/* =======================
-TASK LARGEVIEW CLOSE POP-UP
-===========================*/
-function closeLargeview() {
-  let largeviewPopup = document.getElementById(
-    "Board_Task_Container_Largeview"
-  );
-  document.getElementById("Pop_Up_Backdrop").remove();
-  largeviewPopup.remove();
-  largeViewIsOpen = false;
-}
-
-/* ==================
-TASK LARGEVIEW DELETE
-=====================*/
-function deleteTaskConfirmNotification(i) {
-  let notificationDiv = document.createElement("div");
-  notificationDiv.className = "pop-up-backdrop";
-  notificationDiv.id = "Delete_Task_Confirm_Notification";
-  notificationDiv.innerHTML = /*html*/ `
-    <section class="deleteTaskNotification">
-      <p>Are you sure you want to delete this task?</p>
-      <div>
-        <button onclick="closeNotification()">No, cancel</button>
-        <button onclick="deleteTask(${i})">Yes, delete</button>
-      </div>
-  </section>
-    `;
-  document.body.appendChild(notificationDiv);
-}
-
-async function deleteTask(i) {
-  _taskList.splice(i, 1);
-  reassignTaskIds(_taskList);
-  await setItem("allTasks", _taskList);
-  closeNotification();
-  closeLargeview();
-  noTaskToDoNotification();
-  renderTasks();
-}
-
-function closeNotification() {
-  let notificationDiv = document.getElementById(
-    "Delete_Task_Confirm_Notification"
-  );
-  document.body.removeChild(notificationDiv);
-}
-
-function reassignTaskIds(tasks) {
-  for (let i = 0; i < tasks.length; i++) {
-    tasks[i].id = i;
-  }
 }

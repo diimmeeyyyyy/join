@@ -1,3 +1,7 @@
+
+/**
+ * This function initializes the index page
+ */
 function initIndex() {
   let indexPage = document.getElementById("Index_Page");
 

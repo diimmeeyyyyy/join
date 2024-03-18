@@ -10,7 +10,6 @@ async function includeHTML() {
       element.innerHTML = "Page not found";
     }
   }
-  // checkForTheSidebarTheInitials();
 }
 
 /* ======================
@@ -38,7 +37,6 @@ async function loadUserInitials() {
   } else {
     document.getElementById("User_Initials").innerHTML = "G";
   }
-  // checkForTheSidebarTheInitials();
 }
 
 async function getCurrentUser() {
@@ -53,7 +51,7 @@ async function getCurrentUser() {
   }
 }
 
-function getGreeting() {
+function getGreetingForm() {
   let currentHour = new Date().getHours();
   let greetingForm;
 
