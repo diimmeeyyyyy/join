@@ -12,6 +12,7 @@ async function includeHTML() {
   }
 }
 
+
 /* ======================
 UPDATE CLICKED MENU-POINT
 =========================*/
@@ -22,6 +23,7 @@ function updateMenuPoint(activeLinkIndex) {
     links[activeLinkIndex].style.backgroundColor = "rgb(8,25,49)";
   }
 }
+
 
 /* ========================
 GET USER INITIALS FOR HEADER
@@ -39,6 +41,7 @@ async function loadUserInitials() {
   }
 }
 
+
 async function getCurrentUser() {
   let userEmailAsText = localStorage.getItem("userEmail");
   if (userEmailAsText) {
@@ -50,6 +53,7 @@ async function getCurrentUser() {
     return user;
   }
 }
+
 
 function getGreetingForm() {
   let currentHour = new Date().getHours();
@@ -65,6 +69,7 @@ function getGreetingForm() {
 
   return greetingForm;
 }
+
 
 function openDropDownHeader() {
   let existingOptions = document.querySelector(".drop-down-header");
@@ -83,14 +88,17 @@ function openDropDownHeader() {
   }
 }
 
+
 function goBack() {
   window.history.back();
 }
+
 
 async function initPrivacyPolicyAndLegalNotice() {
   await includeHTML();
   await checkPreviousPage();
 }
+
 
 async function checkPreviousPage() {
   const referrer = document.referrer;
