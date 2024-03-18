@@ -1,8 +1,8 @@
 let _taskList = null;
-let contactsForNewTask = [];
-let existingContacts = [];
-let contactsRendered = false;
-let contactsDropdownOpen = false;
+let contactsRendered = {add: false, edit: false};
+let contactsDropdownOpen = {add: false, edit: false};
+// the following are declared as var so they can be accessed for editing tasks
+var contactsInForm = [];
 var prio = "medium";
 var subtasks = [];
 
@@ -23,19 +23,44 @@ CONTACTS
 async function toggleContactsDropdown(isEditMode) {
   const classPrefix = isEditMode ? "edit" : "add";
 
-  if (!contactsRendered) {
+  // for edit mode, we don't cache the contacts HTML
+  if (!contactsRendered[classPrefix] || isEditMode === true) {
     await renderContactsInAddTask(isEditMode);
-    contactsRendered = true;
+    contactsRendered[classPrefix] = true;
   }
 
   const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
 
-  if (contactsDropdownOpen === true) {
+  if (contactsDropdownOpen[classPrefix] === true) {
     contactsContainer.style.display = "none";
-    contactsDropdownOpen = false;
+    contactsDropdownOpen[classPrefix] = false;
   } else {
     contactsContainer.style.display = "block";
-    contactsDropdownOpen = true;
+    contactsDropdownOpen[classPrefix] = true;
+  }
+}
+
+function closeContactsDropdown(isEditMode) {
+  const classPrefix = isEditMode ? "edit" : "add";
+  const contactsContainer = document.getElementById(`${classPrefix}_task_contacts_container`);
+
+  if(contactsContainer) {
+    contactsContainer.style.display = "none";
+  }
+  
+  contactsDropdownOpen[classPrefix] = false;
+  contactsRendered[classPrefix] = false;
+}
+
+function clearAndCloseContactsList(isEditMode) {
+  const classPrefix = isEditMode ? "edit" : "add";
+
+  closeContactsDropdown(isEditMode);
+  contactsInForm = [];
+  const contactIcons = document.getElementById(`${classPrefix}_task_contacts_icons`);
+
+  if(contactIcons) {
+    contactIcons.innerHTML = '';
   }
 }
 
@@ -45,18 +70,20 @@ async function renderContactsInAddTask(isEditMode) {
   let allContacts = await loadContacts();
   let placeholder = document.getElementById(`${classPrefix}_task_placeholder`);
   let drowDownArrow = document.getElementById(`${classPrefix}-task-inputfield-arrow`);
+  // let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
+  //   
+  //   contactsContainer.innerHTML += `
+  //    <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"></div> 
+  //  `;
 
   if (allContacts.length !== 0) {
-    let contactsContainer = document.getElementById(`${classPrefix}_task_contacts_content`);
-    contactsContainer.innerHTML += `
-      <div id="${classPrefix}_task_contacts_container" class="add-task-contacts-container"> 
-    `;
-
     let contactList = document.getElementById(`${classPrefix}_task_contacts_container`);
+    let html = '';
     for (let i = 0; i < allContacts.length; i++) {
       const contact = allContacts[i];
-      contactList.innerHTML += renderHTMLforAddTaskContactList(isEditMode, i, contact);
+      html += renderHTMLforAddTaskContactList(isEditMode, i, contact);
     }
+    contactList.innerHTML = html;
   } else {
     placeholder.style.color = "rgb(178, 177, 177)";
     placeholder.innerText = "No Contacts available";
@@ -67,8 +94,12 @@ async function renderContactsInAddTask(isEditMode) {
 
 function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
   const classPrefix = isEditMode ? "edit" : "add";
+  const contactChecked = contactsInForm.includes(contact.name);
+  const checkedAttribute = contactChecked ? 'checked' : '';
+  const checkedClass = contactChecked ? 'add-task-contact-selected' : '';
+
   return `
-      <div id="${classPrefix}_task_contact_checkbox${i}" class="add-task-contact-checkbox" onclick="saveCheckedContacts(null, ${i}, ${isEditMode}, '${contact.name.replace(
+      <div id="${classPrefix}_task_contact_checkbox${i}" class="add-task-contact-checkbox ${checkedClass}" onclick="saveCheckedContacts(${i}, ${isEditMode}, '${contact.name.replace(
     '"',
     ""
   )}')"> 
@@ -76,79 +107,58 @@ function renderHTMLforAddTaskContactList(isEditMode, i, contact) {
             <div>${getIconForContact(contact)}</div>
             <div>${contact.name}</div>
         </div>
-        <input class="add-task-contact-check" id="${classPrefix}_task_contact_checkbox_checkbox${i}" type="checkbox" onclick="saveCheckedContacts(event, ${i},${isEditMode}, '${contact.name.replace(
-    '"',
-    ""
-  )}')">
+        <input class="add-task-contact-check" id="${classPrefix}_task_contact_checkbox_checkbox${i}" type="checkbox" ${checkedAttribute} >
       </div>
     `;
 }
 
 
-async function saveCheckedContacts(event, contactIndex, isEditMode, contactName) {
-  if (event) {
-    event.stopPropagation();
-    event.preventDefault();
-  }
+async function saveCheckedContacts(contactIndex, isEditMode, contactName) {
   const classPrefix = isEditMode ? "edit" : "add";
   const checkbox = document.getElementById(`${classPrefix}_task_contact_checkbox_checkbox${contactIndex}`);
-  const index = contactsForNewTask.indexOf(contactName);
+  const index = contactsInForm.indexOf(contactName);
   const checkboxfield = document.getElementById(`${classPrefix}_task_contact_checkbox${contactIndex}`);
-
 
   if (!checkbox && !checkboxfield) {
     await addContactIcon(isEditMode, contactName);
   } else {
+    const iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
+
     if (index >= 0) {
-      contactsForNewTask.splice(index, 1);
+      contactsInForm.splice(index, 1);
       checkboxfield.classList.remove("add-task-contact-selected");
-      await removeContactIcon(isEditMode, contactName);
       checkbox.checked = false;
+      await removeContactIcon(iconContainer, contactName);
     } else {
-      contactsForNewTask.push(contactName);
+      contactsInForm.push(contactName);
       checkboxfield.classList.add("add-task-contact-selected");
-      await addContactIcon(isEditMode, contactName);
       checkbox.checked = true;
+      await addContactIcon(iconContainer, contactName)
     }
   }
 }
 
-
-async function addContactIcon(isEditMode, contactName) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
-
-  if (!existingContacts.includes(contactName)) {
-    existingContacts.push(contactName);
-
-
-    let contactInformation = await getContactInformation(contactName);
-    iconContainer.innerHTML += `
-        <span>${getIconForContact(contactInformation)}</span>
-          `;
-
-  }
+async function addContactIcon(iconContainer, contactName) {
+  let contactInformation = await getContactInformation(contactName);
+  iconContainer.innerHTML += `
+      <span>${getIconForContact(contactInformation)}</span>
+        `;
 }
 
-
-async function removeContactIcon(isEditMode, contactName) {
-  const classPrefix = isEditMode ? "edit" : "add";
-  let iconContainer = document.getElementById(`${classPrefix}_task_contacts_icons`);
-  let contactInformation = await getContactInformation(contactName);
-
+async function removeContactIcon(iconContainer, contactName) {
+  let contactInformation = await getContactInformation(contactName)
   let iconToRemove = getIconForContact(contactInformation);
 
-  for (let i = 0; i < iconContainer.children.length; i++) {
-    let span = iconContainer.children[i];
+  if(iconContainer.children) {
+    for (let i = 0; i < iconContainer.children.length; i++) {
+      let span = iconContainer.children[i];
 
-    if (span.innerHTML === iconToRemove) {
-      iconContainer.removeChild(span);
-      break;
+      if (span.innerHTML === iconToRemove) {
+        iconContainer.removeChild(span);
+        break;
+      }
     }
   }
-  existingContacts = existingContacts.filter(
-    (contact) => contact !== contactName
-  );
 }
 
 
@@ -349,12 +359,16 @@ function clearAddTaskForm() {
   prio = "medium";
   changeButtonColor();
 
+  const form = document.getElementById('add_task_form');
+
+  if(form) {
+    form.reset();
+  }
+
   let newSubtasksList = document.getElementById("add_task_subtasks_list");
   newSubtasksList.innerHTML = "";
 
-  let contactList = document.getElementById("add_task_contacts_content");
-  contactList.style.display = "none";
-  contactsDropdownOpen = false;
+  clearAndCloseContactsList(false);
 }
 
 
@@ -378,8 +392,8 @@ async function createTask() {
     task.description = description.value.trim();
   }
 
-  if (contactsForNewTask.length !== 0) {
-    task.contactsForNewTask = contactsForNewTask;
+  if (contactsInForm.length !== 0) {
+    task.contacts = contactsInForm;
   }
 
   task.subtasks = subtasks;

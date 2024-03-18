@@ -16,12 +16,14 @@ p {
   height: 100vh;
   overflow: hidden;
 }
+
 .header-and-mainContent {
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
 }
+
 /* ====
 BOARD
 =======*/
@@ -30,6 +32,7 @@ BOARD
   padding-inline: clamp(10px, 2vw, 50px);
   background-color: rgb(246, 247, 248);
 }
+
 /* ==========
   BOARD-HEADER
   =============*/
@@ -48,6 +51,7 @@ BOARD
   display: flex;
   gap: 40px;
 }
+
 .input-box-largeScreen {
   width: clamp(280px, 25vw, 300px);
   display: flex;
@@ -78,6 +82,7 @@ BOARD
   justify-content: space-between;
   margin-right: 150px;
 }
+
 /* ===========
 MOBILE HEADER
 ==============*/
@@ -98,6 +103,7 @@ MOBILE HEADER
   padding: 10px;
   margin-block: 20px;
 }
+
 .input-box-smallScreen input {
   font-size: 20px;
   cursor: pointer;
@@ -105,9 +111,11 @@ MOBILE HEADER
   border-right: 2px solid #a8a8a8;
   flex-grow: 1;
 }
+
 .input-box-smallScreen img {
   padding-left: 20px;
 }
+
 /* ========================
   BOARD-MAIN-CONTENT LAYOUT
   =========================*/
@@ -129,6 +137,7 @@ MOBILE HEADER
   justify-content: space-between;
   align-items: center;
 }
+
 .board-mainContent-titleDiv img {
   cursor: pointer;
 }
@@ -167,6 +176,7 @@ STYLE OF ONE TASK
   display: flex;
   justify-content: space-between;
 }
+
 .board-task-category-and-move-options img {
   cursor: pointer;
 }
@@ -182,15 +192,18 @@ STYLE OF ONE TASK
   border: 2px solid rgb(41, 54, 71);
   background-color: rgb(41, 54, 71);
 }
+
 .moving-options-popup h3 {
   color: rgb(40, 171, 226);
 }
+
 .moving-options-popup button {
   cursor: pointer;
   height: 40px;
   width: 150px;
 }
-.moving-options-popup button:hover{
+
+.moving-options-popup button:hover {
   color: white;
   font-weight: bold;
   background-color: rgb(40, 171, 226);
@@ -252,6 +265,7 @@ STYLE OF ONE TASK
   justify-content: space-between;
   align-items: center;
 }
+
 #to_do_container,
 #In_Progress_Content,
 #Await_Feedback_Content,
@@ -265,14 +279,15 @@ STYLE OF ONE TASK
   border: 1px dashed black;
   border-radius: 20px;
 }
+
 /* ========================
   BOARD-LARGEVIEW-CONTAINER
   =========================*/
+
 .board-task-container-largeview {
   background-color: white;
-  width: 320px;
-  /* TODO Change height to same as edit dialog */
-  height: auto;
+  width: 426px;
+  max-height: 80%;
   border-radius: 30px;
   box-shadow: 0px 0px 4px 0px #00000029;
   position: absolute;
@@ -281,23 +296,38 @@ STYLE OF ONE TASK
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 36px;
+  padding: 36px 10px 36px 36px;
   word-break: break-all;
   z-index: 3;
   animation: slideIn 0.5s ease-out forwards;
 }
+
 @keyframes slideIn {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translate(-50%, -50%);
   }
 }
 
+.board-task-largeview-closebutton {
+  margin-right: 32px;  
+}
+
+.board-task-largeview-scrollable {
+  height: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .board-task-category-and-closebutton-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 32px;
   margin-bottom: 24px;
 }
 
@@ -309,11 +339,14 @@ STYLE OF ONE TASK
   font-size: 40px;
   font-weight: 700;
   word-break: auto-phrase;
+  margin-bottom: 24px;
 }
 
 .board-task-description-largeview {
   font-size: 20px;
   font-weight: 400;
+  margin-bottom: 24px;
+  margin-right: 32px;
 }
 
 /* =================
@@ -323,15 +356,25 @@ DUE DATE + PRIORITY
   display: flex;
   gap: 30px;
   font-size: 20px;
+  margin-bottom: 24px;
 }
+
 .arrange-dueDate-and-priority {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
+.arrange-dueDate-and-priority span:nth-child(2) {
+  margin-top: 24px;
+  /* Hier kannst du den gewünschten Margin-Wert einstellen */
+}
+
+
 .board-task-largeview-color {
   color: rgb(125, 136, 156);
 }
+
 .board-task-prio-icon {
   padding-left: 4px;
 }
@@ -344,12 +387,19 @@ ASSIGNED TO
   flex-direction: column;
   gap: 5px;
   font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.board-task-largeview-color {
+  margin-bottom: 8px;
 }
 
 .board-task-contacticon-and-name {
   padding-left: 16px;
   font-size: 20px;
+  margin-bottom: 8px;
 }
+
 /* ======
 SUBTASKS
 =========*/
@@ -358,6 +408,7 @@ SUBTASKS
   flex-direction: column;
   gap: 5px;
   font-size: 20px;
+  margin-bottom: 24px;
 }
 
 .board-task-subtasks-largeview {
@@ -366,23 +417,29 @@ SUBTASKS
   padding-left: 16px;
   font-size: 16px;
 }
+
 .board-task-subtasks-largeview input:hover {
   cursor: pointer;
 }
+
 /* ====================
 DELETE & EDIT LARGEVIEW
 ========================*/
 #Board_Task_Delete_Button:hover img {
   content: url("./assets/img/deleteTaskHover.png");
 }
+
 #Board_Task_Edit_Button:hover img {
   content: url("./assets/img/editTaskHover.png");
 }
+
 .board-task-delete-and-edit-container {
   display: flex;
   justify-content: flex-end;
   gap: 16px;
   font-size: 16px;
+  margin-bottom: 32px;
+  margin-right: 32px;
 }
 
 .board-task-largeview-icon {
@@ -396,6 +453,7 @@ DELETE & EDIT LARGEVIEW
   font-weight: bold;
   cursor: pointer;
 }
+
 /* =======================
 DELETE TASK CONFIRM POP-UP
 ========================*/
@@ -416,6 +474,7 @@ DELETE TASK CONFIRM POP-UP
   align-items: center;
   gap: 35px;
 }
+
 .deleteTaskNotification button {
   background-color: rgb(41, 54, 71);
   color: white;
@@ -423,6 +482,7 @@ DELETE TASK CONFIRM POP-UP
   padding: 10px;
   border-radius: 10px;
 }
+
 .deleteTaskNotification button:hover {
   background-color: rgb(40, 171, 226);
   color: rgb(41, 54, 71);
@@ -434,79 +494,110 @@ DELETE TASK CONFIRM POP-UP
 EDIT TASK
 ============*/
 #Edit_Task_Container {
-  z-index: 5;
+  z-index: 7;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  right: 0;
+  width: 426px;
+  height: 82%;
+  max-height: 830px;
+  margin-top: 32px;
+  margin-left: auto;
+  margin-right: auto; 
   background-color: white;
-  padding: 36px;
-  width: 400px;
-  height: 800px;
+  border-radius: 30px;
+  padding: 36px 10px 36px 36px;
+  }
+
+.edit-task-scrollable {
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 90%; 
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
-  justify-content: center;
   align-items: flex-start;
   gap: 20px;
-  font-size: 20px;
+  font-size: clamp(16px, 5vw, 20px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 #edit_task_contacts_content {
   position: relative;
   width: 100%;
 }
+
 .positionCloseButton {
   display: flex;
   justify-content: flex-end;
   width: 100%;
 }
+
+#edit_task_close_button {
+  margin-right: 32px;
+}
+
 .hoverCloseButton:hover {
   cursor: pointer;
   background-color: rgb(246, 247, 248);
   border-radius: 32px;
 }
+
 .editSection {
-  width: 100%;
+  /* TODO */
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
   font-family: "Inter", sans-serif;
 }
+
 .inputAndTextareaSettings {
   width: 100%;
   padding-left: 8px;
   border-radius: 5px;
   border: 1px solid lightgray;
+  outline: none;
   font-family: "Inter", sans-serif;
-  font-size: 20px;
+  font-size: clamp(16px, 5vw, 20px);
 }
+
 .editSection textarea {
   height: 50px;
 }
+
 .edit-task-prio-button-container {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  width: 100%; 
+  gap: 8px;
+  width: 100%;
 }
+
 .edit-task-check-button-section {
   display: flex;
   justify-content: flex-end;
 }
+
 .edit-task-position-check-button {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  margin-right: 32px;
+}
+
+.edit-task-check-button {
+  margin-right: 32px;
 }
 
 .edit-task-subtasks-list {
   width: 100%;
-  max-height: 80px; 
-  overflow: auto;
+  max-height: 80px;
+  overflow-y: auto;
   font-size: 16px;
   margin-top: 8px;
 }
+
 
 /* ================================
 ARROWS WHEN CONTAINER HAS MANY TASKS
@@ -535,6 +626,7 @@ ARROWS WHEN CONTAINER HAS MANY TASKS
 .d-none {
   display: none;
 }
+
 /* ==========
 MEDIA-QUERIES 
 =============*/
@@ -549,23 +641,29 @@ MEDIA-QUERIES
     grid-template-columns: 1fr;
     overflow-x: auto;
   }
+
   .hide-add-task-button-largeScreen {
     display: none;
   }
+
   .add-task-mobile {
     display: flex;
     cursor: pointer;
   }
+
   .board-section-header-find-and-add-task-div {
     gap: 15px;
   }
+
   .board-task-container-overview {
     width: 250px;
   }
+
   .board-mainContent-container {
     overflow-x: hidden;
     position: relative;
   }
+
   #to_do_container,
   #In_Progress_Content,
   #Await_Feedback_Content,
@@ -577,12 +675,14 @@ MEDIA-QUERIES
     padding-block: 10px;
     scroll-behavior: smooth;
   }
+
   #to_do_container::-webkit-scrollbar,
   #In_Progress_Content::-webkit-scrollbar,
   #Await_Feedback_Content::-webkit-scrollbar,
   #Done_Content::-webkit-scrollbar {
     display: none;
   }
+
   .board-task-container-overview {
     margin-bottom: unset;
   }
@@ -598,13 +698,35 @@ MEDIA-QUERIES
   .board-section-header-div {
     padding-bottom: unset;
   }
+
   .input-box-largeScreen {
     display: none;
   }
+
   .input-box-smallScreen {
     display: flex;
   }
 }
+
+@media (max-width: 560px) {
+  .board-task-container-largeview {
+    width: 80%;
+    padding: 16px;
+  }
+
+  #Edit_Task_Container {
+    width: 80%;
+    padding: 16px;
+  }
+
+  .edit-task-prio-button {
+    font-size: 100px;
+    background-color: aqua;
+
+  }
+
+}
+
 
 /* ==============
 ASSIGNED CONTACTS
@@ -614,6 +736,7 @@ ASSIGNED CONTACTS
   align-items: center;
   cursor: pointer;
 }
+
 .board-task-contact-icons .button-name:not(:first-child) {
   margin-left: -10px;
 }
@@ -630,6 +753,7 @@ ASSIGNED CONTACTS
   background-color: rgb(40, 171, 226);
   margin-left: -10px;
 }
+
 .item:not(:first-child) {
   margin-left: -10px;
 }

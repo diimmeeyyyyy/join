@@ -50,8 +50,8 @@ async function generateTasks(taskList) {
     let hideProgressBar = hideBar(task);
     let prio = addPrioIcon(task);
     let ContactsHTML = contactsHTML(
-      task.contactsForNewTask
-        ? await createContactsList(task.contactsForNewTask, false)
+      task.contacts
+        ? await createContactsList(task.contacts, false)
         : ""
     );
 
@@ -410,7 +410,7 @@ function findTask() {
       .getElementsByTagName("h2")[0]
       .innerText.toLowerCase();
     const oneTaskDescription = tasks[i]
-      .getElementsByTagName("p")[0]
+      .getElementsByClassName('board-task-description')[0]
       .innerText.toLowerCase();
     if (
       (window.innerWidth > 650 &&
@@ -442,89 +442,87 @@ function openAddTaskPopUp() {
 
 function closeAddTaskPopup() {
   let backdrop = document.getElementById("add_task_popup_backdrop");
-  let addTaskPopup = document.getElementById("add_task_popup");
-  addTaskPopup.style.display = "none";
   backdrop.style.display = "none";
-  
+  clearAddTaskForm();
 }
 
 /* ====================================
 WHEN SCREEN < 1090, SHOW OR HIDE ARROWS
 =======================================*/
-window.addEventListener("load", function () {
-  let container = [
-    "to_do_container",
-    "In_Progress_Content",
-    "Await_Feedback_Content",
-    "Done_Content",
-  ];
+// window.addEventListener("load", function () {
+//   let container = [
+//     "to_do_container",
+//     "In_Progress_Content",
+//     "Await_Feedback_Content",
+//     "Done_Content",
+//   ];
 
-  let arrowRight = [
-    "To_Do_Container_Arrow_Right",
-    "In_Progress_Container_Arrow_Right",
-    "Await_Feedback_Arrow_Right",
-    "Done_Arrow_Right",
-  ];
+//   let arrowRight = [
+//     "To_Do_Container_Arrow_Right",
+//     "In_Progress_Container_Arrow_Right",
+//     "Await_Feedback_Arrow_Right",
+//     "Done_Arrow_Right",
+//   ];
 
-  let arrowLeft = [
-    "To_Do_Container_Arrow_Left",
-    "In_Progress_Container_Arrow_Left",
-    "Await_Feedback_Arrow_Left",
-    "Done_Arrow_Left",
-  ];
+//   let arrowLeft = [
+//     "To_Do_Container_Arrow_Left",
+//     "In_Progress_Container_Arrow_Left",
+//     "Await_Feedback_Arrow_Left",
+//     "Done_Arrow_Left",
+//   ];
 
-  function checkScroll() {
-    for (let i = 0; i < container.length; i++) {
-      let subContainer = document.getElementById(container[i]);
-      let rightArrow = document.getElementById(arrowRight[i]);
+//   function checkScroll() {
+//     for (let i = 0; i < container.length; i++) {
+//       let subContainer = document.getElementById(container[i]);
+//       let rightArrow = document.getElementById(arrowRight[i]);
 
-      if (subContainer.scrollWidth > subContainer.clientWidth) {
-        rightArrow.style.display = "flex";
-        rightArrow.addEventListener("click", function () {
-          subContainer.scrollLeft += 200;
-        });
-      } else {
-        rightArrow.style.display = "none";
-      }
-    }
-  }
+//       if (subContainer.scrollWidth > subContainer.clientWidth) {
+//         rightArrow.style.display = "flex";
+//         rightArrow.addEventListener("click", function () {
+//           subContainer.scrollLeft += 200;
+//         });
+//       } else {
+//         rightArrow.style.display = "none";
+//       }
+//     }
+//   }
 
-  function checkScrollEnd() {
-    for (let i = 0; i < container.length; i++) {
-      let subContainer = document.getElementById(container[i]);
-      let rightArrow = document.getElementById(arrowRight[i]);
-      let leftArrow = document.getElementById(arrowLeft[i]);
+//   function checkScrollEnd() {
+//     for (let i = 0; i < container.length; i++) {
+//       let subContainer = document.getElementById(container[i]);
+//       let rightArrow = document.getElementById(arrowRight[i]);
+//       let leftArrow = document.getElementById(arrowLeft[i]);
 
-      let scrollRight =
-        subContainer.scrollWidth -
-        subContainer.scrollLeft -
-        subContainer.clientWidth;
-      if (scrollRight <= 100) {
-        rightArrow.style.display = "none";
-      } else {
-        rightArrow.style.display = "flex";
-        rightArrow.addEventListener("click", function () {
-          subContainer.scrollLeft += 200;
-        });
-      }
+//       let scrollRight =
+//         subContainer.scrollWidth -
+//         subContainer.scrollLeft -
+//         subContainer.clientWidth;
+//       if (scrollRight <= 100) {
+//         rightArrow.style.display = "none";
+//       } else {
+//         rightArrow.style.display = "flex";
+//         rightArrow.addEventListener("click", function () {
+//           subContainer.scrollLeft += 200;
+//         });
+//       }
 
-      if (subContainer.scrollLeft >= 100) {
-        leftArrow.style.display = "flex";
-        leftArrow.addEventListener("click", function () {
-          subContainer.scrollLeft -= 200;
-        });
-      } else {
-        leftArrow.style.display = "none";
-      }
-    }
-  }
-  setTimeout(function () {
-    checkScroll();
-    checkScrollEnd();
-  }, 1000);
-  window.addEventListener("resize", checkScroll);
-  for (let i = 0; i < container.length; i++) {
-    const subContainer = document.getElementById(container[i]);
-    subContainer.addEventListener("scroll", checkScrollEnd);
-  }
-});
+//       if (subContainer.scrollLeft >= 100) {
+//         leftArrow.style.display = "flex";
+//         leftArrow.addEventListener("click", function () {
+//           subContainer.scrollLeft -= 200;
+//         });
+//       } else {
+//         leftArrow.style.display = "none";
+//       }
+//     }
+//   }
+//   setTimeout(function () {
+//     checkScroll();
+//     checkScrollEnd();
+//   }, 1000);
+//   window.addEventListener("resize", checkScroll);
+//   for (let i = 0; i < container.length; i++) {
+//     const subContainer = document.getElementById(container[i]);
+//     subContainer.addEventListener("scroll", checkScrollEnd);
+//   }
+// });

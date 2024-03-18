@@ -226,10 +226,10 @@ async function deleteNameFromTask(i) {
   let allTasks = await getItem("allTasks");
   let deletedName = contacts[i]["name"];
   for (let task of allTasks) {
-    if (task["contactsForNewTask"]) {
-      for (let j = 0; j < task["contactsForNewTask"].length; j++) {
-        if (task["contactsForNewTask"][j] === deletedName) {
-          task["contactsForNewTask"].splice(j, 1);
+    if (task["contacts"]) {
+      for (let j = 0; j < task["contacts"].length; j++) {
+        if (task["contacts"][j] === deletedName) {
+          task["contacts"].splice(j, 1);
         }
       }
     }
@@ -368,10 +368,10 @@ async function updateName(index) {
   const newName = document.getElementById("editText").value;
 
   for (let task of allTasks) {
-    if (task["contactsForNewTask"]) {
-      for (let j = 0; j < task["contactsForNewTask"].length; j++) {
-        if (task["contactsForNewTask"][j] === oldName) {
-          task["contactsForNewTask"][j] = newName;
+    if (task["contacts"]) {
+      for (let j = 0; j < task["contacts"].length; j++) {
+        if (task["contacts"][j] === oldName) {
+          task["contacts"][j] = newName;
         }
       }
     }

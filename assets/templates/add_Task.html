@@ -1,6 +1,6 @@
 <main id="main_container" class="main-container">
     <div>
-        <form onsubmit="createTask(); return false;" class="add-task-form-container">
+        <form onsubmit="createTask(); return false;" class="add-task-form-container" id="add_task_form">
             <div class="headline-and-close-button-container">
                 <div>
                     <h1>Add Task</h1>
@@ -23,6 +23,7 @@
                             src="./assets/img/arrow_drop_down.svg">
                     </div>
                     <div id="add_task_contacts_content">
+                        <div id="add_task_contacts_container" class="add-task-contacts-container"></div> 
                         <div id="add_task_contacts_icons" class="add-task-contacts-icons"></div>
                     </div>
                 </div>

@@ -24,8 +24,8 @@ async function generateTaskLargeViewHTML(
   const description = task.description ? task.description : "";
   const dueDate = task.dueDate ? formatDate(task.dueDate) : "";
   let prio = addPrioIcon(task);
-  let contacts = task.contactsForNewTask
-    ? await createContactsList(task.contactsForNewTask, true)
+  let contacts = task.contacts
+    ? await createContactsList(task.contacts, true)
     : "";
   let subtasks = task.subtasks ? await createSubtasklist(taskIndex) : "";
   let contactsHTML =
@@ -37,11 +37,12 @@ async function generateTaskLargeViewHTML(
       ? ""
       : `<div class = "board-task-subtasks-container-largeview"> <span class = "board-task-largeview-color"> Subtasks: </span>${subtasks}</div>`;
   return /*html*/ `
-      <div>
-              <div class = "board-task-category-and-closebutton-container">
-                  <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
-                  <img class="hoverCloseButton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
-              </div>
+  <div class = "board-task-category-and-closebutton-container">
+  <div class = "board-task-category board-task-category-largeview"> ${task.category} </div>
+  <img class="hoverCloseButton board-task-largeview-closebutton" onclick = "closeLargeview()" src = "./assets/img/close.svg">
+</div>
+      <div class="board-task-largeview-scrollable">
+              
               <div class = "board-task-title-largeview">${task.title}</div>
               <div class = "board-task-description-largeview">${description}</div>
               <div class="board-task-dueDate-and-priority">
@@ -50,20 +51,23 @@ async function generateTaskLargeViewHTML(
               </div>
               ${contactsHTML}
               ${subtasksHTML}
-              <div class = "board-task-delete-and-edit-container">
-                  <div id = "Board_Task_Delete_Button" onclick = "deleteTaskConfirmNotification(${taskIndex})" class = "board-task-largeview-icon">
-                      <img src = "assets/img/delete.png">
-                      <span> Delete </span>
-                  </div>
-                  <svg height="20" width="1">
-                      <line x1="0" y1="0" x2="0" y2="200" style="stroke:black; stroke-width:0.5" />
-                  </svg>
-                  <div id = "Board_Task_Edit_Button" class = "board-task-largeview-icon" onclick="editTask(${taskIndex})">
-                       <img src = "assets/img/edit.png">
-                       <span> Edit </span>
-                  </div>
-              </div>
+              
           </div>
+          <div class = "board-task-delete-and-edit-container">
+          <div id = "Board_Task_Delete_Button" onclick = "deleteTaskConfirmNotification(${taskIndex})" class = "board-task-largeview-icon">
+              <img src = "assets/img/delete.png">
+              <span> Delete </span>
+          </div>
+          <svg height="20" width="1">
+              <line x1="0" y1="0" x2="0" y2="200" style="stroke:black; stroke-width:0.5" />
+          </svg>
+          <div id = "Board_Task_Edit_Button" class = "board-task-largeview-icon" onclick="editTask(${taskIndex})">
+               <img src = "assets/img/edit.png">
+               <span> Edit </span>
+          </div>
+      </div>
+  
+        
   `;
 }
 
@@ -78,12 +82,15 @@ async function editTask(taskIndex) {
   background.className = "pop-up-backdrop";
   background.innerHTML = generateEditTaskHTML(task, taskIndex);
   document.body.appendChild(background);
+
+  // code from add_Task.js expects a few global variables
+  window.contactsInForm = task.contacts || [];
+  window.subtasks = task.subtasks || [];
+  window.prio = task.prio;
+
   await checkAssignedContacts(taskIndex);
   await selectPriorityButton(task);
   setNewDateForDueDate();
-  // code from add_Task.js expects a global variable subtasks
-  window.subtasks = task.subtasks;
-  window.prio = task.prio;
 }
 
 
@@ -100,11 +107,13 @@ function generateEditTaskHTML(task, taskIndex) {
 <main id="Edit_Task_Container">
   <div class="positionCloseButton">
     <img
-      class="hoverCloseButton"
+      id="edit_task_close_button" 
+      class="hoverCloseButton" 
       src="./assets/img/close.svg"
-      onclick="closeEditTask()"
+      onclick="closeEditTask(true)"
     />
   </div>
+  <div class="edit-task-scrollable">  
   <!-- TITLE -->
   <section class="editSection">
     <p>Title</p>
@@ -120,7 +129,7 @@ function generateEditTaskHTML(task, taskIndex) {
       id=""
       cols="30"
       rows="10"
-    >${task.description}</textarea
+    >${task.description || ''}</textarea
     >
   </section>
   <!-- DUE DATES -->
@@ -140,7 +149,7 @@ function generateEditTaskHTML(task, taskIndex) {
       <button
         onclick="setTaskPriority('urgent'); changeButtonColor(true)"
         id="edit_task_prio_button_urgent"
-        class="add-task-prio-button add-task-urgent-prio-button"
+        class="add-task-prio-button edit-task-prio-button add-task-urgent-prio-button"
         type="button"
       >
         <span> Urgent </span>
@@ -153,7 +162,7 @@ function generateEditTaskHTML(task, taskIndex) {
       <button
         onclick="setTaskPriority('medium'); changeButtonColor(true)"
         id="edit_task_prio_button_medium"
-        class="add-task-prio-button add-task-prio-button-yellow add-task-medium-prio-button"
+        class="add-task-prio-button edit-task-prio-button add-task-prio-button-yellow add-task-medium-prio-button"
         type="button"
       >
         <span> Medium </span>
@@ -166,7 +175,7 @@ function generateEditTaskHTML(task, taskIndex) {
       <button
         onclick="setTaskPriority('low'); changeButtonColor(true)"
         id="edit_task_prio_button_low"
-        class="add-task-prio-button add-task-low-prio-button"
+        class="add-task-prio-button edit-task-prio-button add-task-low-prio-button"
         type="button"
       >
         <span> Low </span>
@@ -193,7 +202,9 @@ function generateEditTaskHTML(task, taskIndex) {
         src="./assets/img/arrow_drop_down.svg"
       />
     </div>
-    <div id="edit_task_contacts_content"></div>
+    <div id="edit_task_contacts_content">
+        <div id="edit_task_contacts_container" class="add-task-contacts-container"></div> 
+    </div>
     <div id="edit_task_contacts_icons"></div>
   </section class="editSection">
   <!-- CATEGORY -->
@@ -227,17 +238,14 @@ function generateEditTaskHTML(task, taskIndex) {
   >
     ${subtasksHtml}
   </div>
-
   </section>
-  
-
-  
   <section class="edit-task-position-check-button">
     <button onclick="saveEditedTask(${taskIndex})" class="add-task-button edit-task-check-button">
       <span> Ok </span>
       <img src="./assets/img/check.png">
     </button>
   </section>
+</div>  
 </main>
     `;
 }
@@ -256,7 +264,7 @@ function generateEditTaskHTML(task, taskIndex) {
       task.dueDate = dueDate.value;
       task.category = category.value;
       task.description = description.value.trim();
-      task.contactsForNewTask = contactsForNewTask;
+      task.contacts = contactsInForm;
       task.subtasks = subtasks;
       task.prio = prio;
 
@@ -267,15 +275,9 @@ function generateEditTaskHTML(task, taskIndex) {
       await getTasks(true);
 
       await renderTasks();
+      closeEditTask(false);
       const taskLargeView = document.getElementById('Board_Task_Container_Largeview');
       taskLargeView.innerHTML = await generateTaskLargeViewHTML(task, taskIndex);
-      let editTaskDiv = document.getElementById("Edit_Task_Background");
-      if (editTaskDiv) {
-        editTaskDiv.remove();
-      }
-
-      
-      largeViewIsOpen = false;
  }
 
 
@@ -296,12 +298,12 @@ async function checkAssignedContacts(taskIndex) {
   if (contactsRendered === false) {
     let allTasks = await getTasks();
     let task = allTasks[taskIndex];
-    let assignedContacts = task["contactsForNewTask"] || [];
+    let assignedContacts = task["contacts"] || [];
+    let allContacts = await loadContacts();
 
     for (let i = 0; i < assignedContacts.length; i++) {
       let contactName = assignedContacts[i];
-
-      let allContacts = await loadContacts();
+ 
       //Index des Kontakts in der Gesamtliste aller Kontakte finden
       let contactIndex = allContacts.findIndex(
         (contact) => contact.name === contactName
@@ -312,7 +314,7 @@ async function checkAssignedContacts(taskIndex) {
     let iconContainer = document.getElementById(`edit_task_contacts_icons`);
     let iconContactHtml = '';
     
-    for (let oneContact of existingContacts) {
+    for (let oneContact of contactsInForm) {
       let contactInformation = await getContactInformation(oneContact);
       // Und fügen Sie das Icon zum iconContainer hinzu
       iconContactHtml += /*html*/ `
@@ -324,13 +326,21 @@ async function checkAssignedContacts(taskIndex) {
   }
 }
 
-function closeEditTask() {
-  existingContacts = [];
-  let editTaskDiv = document.getElementById("Edit_Task_Background");
-  if (editTaskDiv) {
-    editTaskDiv.remove();
+
+
+function closeEditTask(closeInfoDialog) {
+  clearAndCloseContactsList(true);
+  const editTaskBackdrop = document.getElementById('Edit_Task_Background');
+
+  if(editTaskBackdrop) {
+     editTaskBackdrop.remove();
+  }
+
+  if(closeInfoDialog === true) {
+    closeLargeview();
   }
 }
+
 
  function setNewDateForDueDate() {
    const newDueDateForEditTask = document.getElementById("edit_task_due_date");
@@ -347,6 +357,7 @@ function formatDate(dateString) {
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 }
+
 
 async function createContactsList(contactNames, showName) {
   let contactsList = "";
@@ -383,10 +394,6 @@ function generateContactListHTML(contact, showName) {
         <span class="item">${getIconForContact(contact)}</span>`;
   }
 }
-
-
-
-
 
 
 /* =======================
