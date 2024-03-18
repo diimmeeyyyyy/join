@@ -499,7 +499,8 @@ EDIT TASK
   left: 0;
   right: 0;
   width: 426px;
-  height: 90%;
+  height: 82%;
+  max-height: 830px;
   margin-top: 32px;
   margin-left: auto;
   margin-right: auto; 
