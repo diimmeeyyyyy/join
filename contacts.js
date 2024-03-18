@@ -33,7 +33,7 @@ async function loadContacts() {
     contacts = await getItem("allContacts");
     return contacts;
   } catch (e) {
-    console.info("Not load Contacts");
+    return [];
   }
 }
 
