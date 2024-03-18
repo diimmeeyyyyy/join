@@ -41,7 +41,6 @@ async function loadUserInitials() {
   // checkForTheSidebarTheInitials();
 }
 
-
 async function getCurrentUser() {
   let userEmailAsText = localStorage.getItem("userEmail");
   if (userEmailAsText) {
@@ -53,7 +52,6 @@ async function getCurrentUser() {
     return user;
   }
 }
-
 
 function getGreeting() {
   let currentHour = new Date().getHours();
@@ -69,7 +67,6 @@ function getGreeting() {
 
   return greetingForm;
 }
-
 
 function openDropDownHeader() {
   let existingOptions = document.querySelector(".drop-down-header");
@@ -88,18 +85,22 @@ function openDropDownHeader() {
   }
 }
 
-
-// function checkForTheSidebarTheInitials() {
-//   let userInitials = document.getElementById('User_Initials').textContent.trim();
-//   let taskSidebar = document.querySelector('.task-sidebar');
-//   if (userInitials === '') {
-//     taskSidebar.style.display = 'none';
-//   } else{
-//     taskSidebar.style.display = 'flex'
-//   }
-// }
-
-
 function goBack() {
   window.history.back();
+}
+
+async function initPrivacyPolicyAndLegalNotice() {
+  await includeHTML();
+  await checkPreviousPage();
+}
+
+async function checkPreviousPage() {
+  const referrer = document.referrer;
+
+  if (referrer.includes("log_In.html") || referrer.includes("register.html")) {
+    document.getElementById("User_Initials").style.display = "none";
+    document.querySelector(".task-sidebar").style.display = "none";
+  } else {
+    await loadUserInitials();
+  }
 }
