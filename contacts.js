@@ -29,6 +29,7 @@ async function initContacts() {
 
 /**
  * Loads contacts from storage or returns an empty array if no contacts are found.
+ * 
  * @returns {Array} An array of contacts.
  */
 async function loadContacts() {
@@ -122,6 +123,7 @@ function closeQuery() {
 
 /**
  * Deletes a contact.
+ * 
  * @param {number} i - Index of the contact to be deleted.
  */
 async function deleteContact(i) {
@@ -140,6 +142,7 @@ async function deleteContact(i) {
 
 /**
  * Deletes a contact's name from associated tasks.
+ * 
  * @param {number} i - Index of the contact whose name is to be deleted from tasks.
  */
 async function deleteNameFromTask(i) {
@@ -177,6 +180,7 @@ function oneLetterGenerator() {
 
 /**
  * Generates an icon button for a contact using their initials.
+ * 
  * @param {Object} contact - The contact object.
  * @returns {string} HTML for the icon button.
  */
@@ -217,6 +221,7 @@ function contactsSort() {
 
 /**
  * Generates a random hexadecimal color code.
+ * 
  * @returns {string} Random hexadecimal color code
  */
 function getRandomColor() {
@@ -231,6 +236,7 @@ function getRandomColor() {
 
 /**
  * Allows editing of a contact.
+ * 
  * @param {number} i - Index of the contact to be edited.
  */
 async function editContact(i) {
@@ -255,6 +261,7 @@ async function editContact(i) {
 
 /**
  * Generates HTML for the header of the edit contact form.
+ * 
  * @returns {string} HTML string for the header of the edit contact form.
  */
 function generateEditHeader() {
@@ -273,6 +280,7 @@ function generateEditHeader() {
 
 /**
  * Saves the edited contact.
+ * 
  * @param {number} i - Index of the contact being edited.
  */
 async function saveContact(i) {
@@ -297,6 +305,7 @@ async function saveContact(i) {
 
 /**
  * Updates the name of the contact in associated tasks.
+ * 
  * @param {number} index - Index of the contact whose name is to be updated.
  */
 async function updateName(index) {

@@ -24,6 +24,7 @@ async function addContact() {
 
   /**
  * Pushes the contact onto the screen.
+ * 
  * @param {number} i - Index of the contact.
  */
 function pushContact(i) {
@@ -43,6 +44,7 @@ function pushContact(i) {
 
   /**
  * Generates HTML for a contact list item.
+ * 
  * @param {number} i - Index of the contact.
  * @param {string} buttonColor - Background color for the button.
  * @returns {string} HTML string for the contact list item.
@@ -67,6 +69,7 @@ function generateContactsListHTML(i, buttonColor) {
 
   /**
  * Returns additional contact information HTML.
+ * 
  * @param {number} i - Index of the contact.
  * @returns {string} HTML string for additional contact information.
  */
@@ -88,6 +91,7 @@ function returnContactInfo(i) {
 
   /**
  * Queries the container for deleting a contact.
+ * 
  * @param {number} i - Index of the contact.
  */
 function queryContainer(i) {
@@ -140,6 +144,7 @@ async function contactList() {
 
   /**
  * Highlights the selected contact in the contact list.
+ * 
  * @param {number} i - Index of the contact to be highlighted.
  */
 function contactListColor(i) {
@@ -156,6 +161,7 @@ function contactListColor(i) {
 
   /**
  * Generates HTML for the header of the edit contact form.
+ * 
  * @returns {string} HTML string representing the header of the edit contact form.
  */
 function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
@@ -179,6 +185,7 @@ function generateEditForm(buttonColor, twolettersName, i, name, email, tel) {
   
   /**
  * Closes the edit contact form and deletes the contact.
+ * 
  * @param {number} i - Index of the contact to be deleted.
  */
 function closeEditContactDelete(i) {
