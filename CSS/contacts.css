@@ -381,10 +381,10 @@ body {
   cursor: pointer;
 }
 .edit-hover:hover img {
-    content: url("./assets/img/editTaskHover.png");
+    content: url("../assets/img/editTaskHover.png");
 }
 .delete-hover:hover img{
-  content: url("./assets/img/deleteTaskHover.png");
+  content: url("../assets/img/deleteTaskHover.png");
 }
 
 .edit-delete img p {

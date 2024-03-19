@@ -267,9 +267,9 @@ STYLE OF ONE TASK
 }
 
 #to_do_container,
-#In_Progress_Content,
-#Await_Feedback_Content,
-#Done_Content {
+#in_progress_content,
+#await_feedback_content,
+#done_content {
   height: 100%;
   position: relative;
 }
@@ -425,12 +425,12 @@ SUBTASKS
 /* ====================
 DELETE & EDIT LARGEVIEW
 ========================*/
-#Board_Task_Delete_Button:hover img {
-  content: url("./assets/img/deleteTaskHover.png");
+#board_task_delete_button:hover img {
+  content: url("../assets/img/deleteTaskHover.png");
 }
 
-#Board_Task_Edit_Button:hover img {
-  content: url("./assets/img/editTaskHover.png");
+#board_task_edit_button:hover img {
+  content: url("../assets/img/editTaskHover.png");
 }
 
 .board-task-delete-and-edit-container {
@@ -493,7 +493,7 @@ DELETE TASK CONFIRM POP-UP
 /* =========
 EDIT TASK
 ============*/
-#Edit_Task_Container {
+#edit_task_container {
   z-index: 7;
   position: absolute;
   left: 0;
@@ -598,31 +598,6 @@ EDIT TASK
   margin-top: 8px;
 }
 
-
-/* ================================
-ARROWS WHEN CONTAINER HAS MANY TASKS
-====================================*/
-/* .arrow-right {
-  display: none;
-  width: 80px;
-  height: 80px;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-.arrow-left {
-  display: none;
-  width: 80px;
-  height: 80px;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-} */
-
 .d-none {
   display: none;
 }
@@ -665,9 +640,9 @@ MEDIA-QUERIES
   }
 
   #to_do_container,
-  #In_Progress_Content,
-  #Await_Feedback_Content,
-  #Done_Content {
+  #in_progress_content,
+  #await_feedback_content,
+  #done_content {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -677,9 +652,9 @@ MEDIA-QUERIES
   }
 
   #to_do_container::-webkit-scrollbar,
-  #In_Progress_Content::-webkit-scrollbar,
-  #Await_Feedback_Content::-webkit-scrollbar,
-  #Done_Content::-webkit-scrollbar {
+  #in_progress_content::-webkit-scrollbar,
+  #await_feedback_content::-webkit-scrollbar,
+  #done_content::-webkit-scrollbar {
     display: none;
   }
 
@@ -714,7 +689,7 @@ MEDIA-QUERIES
     padding: 16px;
   }
 
-  #Edit_Task_Container {
+  #edit_task_container {
     width: 80%;
     padding: 16px;
   }

@@ -268,11 +268,11 @@ TASK OVERVIEW & GREETINGS SECTION
 }
 
 .summary-hover-effect:hover .summary-done-tasks-hover {
-  content: url("./assets/img/summary-doneTasks-hover.png");
+  content: url("../assets/img/summary-doneTasks-hover.png");
 }
 
 .summary-hover-effect:hover .summary-todo-tasks-hover {
-  content: url("./assets/img/summary-toDo-task-hover.png");
+  content: url("../assets/img/summary-toDo-task-hover.png");
 }
 
 .arrange-amount-and-status {

@@ -269,13 +269,13 @@ async function createContactsList(contactNames, showName) {
     let taskIndex = task.id;
     let progressBarWidth = getProgressBarWidth(task);
     document.getElementById(
-      `Board_Task_Progress_Bar${taskIndex}`
+      `board_task_progress_bar${taskIndex}`
     ).style.width = `${progressBarWidth}%`;
   
     let checkedCount = getCheckedCount(task["subtasks"]);
     let subtaskAmount = task["subtasks"].length;
     document.getElementById(
-      `Board_Task_Number_Of_Subtasks${taskIndex}`
+      `board_task_number_of_subtasks${taskIndex}`
     ).innerHTML = `${checkedCount}` + "/" + `${subtaskAmount}` + " Subtasks";
   }
   
@@ -331,16 +331,16 @@ async function createContactsList(contactNames, showName) {
   function generateSubtaskListHTML(taskIndex, i, subtask, checkedAttribute) {
     return /*html*/ `
         <div
-      id="Board_Task_Subtasks_Largeview${taskIndex}${i}"
+      id="board_task_subtasks_largeview${taskIndex}${i}"
       class="board-task-subtasks-largeview"
     >
       <input
         onclick="updateProgress(${taskIndex},${i});"
-        id="Board_Task_Subtask_Checkbox${taskIndex}${i}"
+        id="board_task_subtask_checkbox${taskIndex}${i}"
         type="checkbox"
         ${checkedAttribute}
       />
-      <label for="Board_Task_Subtask_Checkbox${taskIndex}${i}">
+      <label for="board_task_subtask_checkbox${taskIndex}${i}">
         &nbsp ${subtask}</label
       >
     </div>
@@ -353,9 +353,9 @@ async function createContactsList(contactNames, showName) {
    */
   function closeLargeview() {
     let largeviewPopup = document.getElementById(
-      "Board_Task_Container_Largeview"
+      "board_task_container_largeview"
     );
-    document.getElementById("Pop_Up_Backdrop").remove();
+    document.getElementById("pop_up_backdrop").remove();
     largeviewPopup.remove();
     largeViewIsOpen = false;
   }
@@ -368,7 +368,7 @@ async function createContactsList(contactNames, showName) {
   function deleteTaskConfirmNotification(i) {
     let notificationDiv = document.createElement("div");
     notificationDiv.className = "pop-up-backdrop";
-    notificationDiv.id = "Delete_Task_Confirm_Notification";
+    notificationDiv.id = "delete_task_confirm_notification";
     notificationDiv.innerHTML = /*html*/ `
       <section class="deleteTaskNotification">
         <p>Are you sure you want to delete this task?</p>
@@ -402,7 +402,7 @@ async function createContactsList(contactNames, showName) {
    */
   function closeNotification() {
     let notificationDiv = document.getElementById(
-      "Delete_Task_Confirm_Notification"
+      "delete_task_confirm_notification"
     );
     document.body.removeChild(notificationDiv);
   }
