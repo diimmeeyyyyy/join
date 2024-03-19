@@ -14,9 +14,9 @@ async function renderTaskLargeview(taskIndex) {
 
   const allTasks = await getTasks();
   const task = allTasks[taskIndex];
-  const board = document.getElementById("Board");
+  const board = document.getElementById("board");
 
-  const taskHtml = `<div id="Pop_Up_Backdrop" class="pop-up-backdrop"><div id="Board_Task_Container_Largeview" class="board-task-container-largeview">${await generateTaskLargeViewHTML(task, taskIndex)}</div></div>`;
+  const taskHtml = `<div id="pop_up_backdrop" class="pop-up-backdrop"><div id="board_task_container_largeview" class="board-task-container-largeview">${await generateTaskLargeViewHTML(task, taskIndex)}</div></div>`;
 
   board.innerHTML += taskHtml;
 }
@@ -65,14 +65,14 @@ async function generateTaskLargeViewHTML(
               
           </div>
           <div class = "board-task-delete-and-edit-container">
-          <div id = "Board_Task_Delete_Button" onclick = "deleteTaskConfirmNotification(${taskIndex})" class = "board-task-largeview-icon">
+          <div id = "board_task_delete_button" onclick = "deleteTaskConfirmNotification(${taskIndex})" class = "board-task-largeview-icon">
               <img src = "assets/img/delete.png">
               <span> Delete </span>
           </div>
           <svg height="20" width="1">
               <line x1="0" y1="0" x2="0" y2="200" style="stroke:black; stroke-width:0.5" />
           </svg>
-          <div id = "Board_Task_Edit_Button" class = "board-task-largeview-icon" onclick="editTask(${taskIndex})">
+          <div id = "board_task_edit_button" class = "board-task-largeview-icon" onclick="editTask(${taskIndex})">
                <img src = "assets/img/edit.png">
                <span> Edit </span>
           </div>
@@ -89,7 +89,7 @@ async function editTask(taskIndex) {
   const allTasks = await getTasks();
   let task = allTasks[taskIndex];
   let background = document.createElement("div");
-  background.id = "Edit_Task_Background";
+  background.id = "edit_task_background";
   background.className = "pop-up-backdrop";
   background.innerHTML = generateEditTaskHTML(task, taskIndex);
   document.body.appendChild(background);
@@ -121,7 +121,7 @@ function generateEditTaskHTML(task, taskIndex) {
   }
 
   return /*html*/ `
-<main id="Edit_Task_Container">
+<main id="edit_task_container">
   <div class="positionCloseButton">
     <img
       id="edit_task_close_button" 
@@ -297,7 +297,7 @@ function generateEditTaskHTML(task, taskIndex) {
 
       await renderTasks();
       closeEditTask(false);
-      const taskLargeView = document.getElementById('Board_Task_Container_Largeview');
+      const taskLargeView = document.getElementById('board_task_container_largeview');
       taskLargeView.innerHTML = await generateTaskLargeViewHTML(task, taskIndex);
  }
 
@@ -362,7 +362,7 @@ async function checkAssignedContacts(taskIndex) {
  */
 function closeEditTask(closeInfoDialog) {
   clearAndCloseContactsList(true);
-  const editTaskBackdrop = document.getElementById('Edit_Task_Background');
+  const editTaskBackdrop = document.getElementById('edit_task_background');
 
   if(editTaskBackdrop) {
      editTaskBackdrop.remove();

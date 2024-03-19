@@ -23,24 +23,31 @@ function addPrioIcon(task) {
     }
   }
   
-  
-  /* ================
-  DRAG & DROP FUNCTIONS
-  ===================*/
+
+  /**
+   * This function sets the ID of the currently dragged element
+   * @param {string} id - The ID of the element that is being dragged
+   */
   function startDragging(id) {
     currentDraggedElement = id;
   }
   
   
+  /**
+   * This function prevents the browser's default handling of data transfer
+   * @param {DragEvent} ev - The drag event
+   */
   function allowDrop(ev) {
     ev.preventDefault();
   }
   
   
+  /**
+   * This asynchronous function moves a task to a new status
+   * @param {string} status - The new status to which the task should be moved
+   */
   async function moveTo(status) {
     let allTasks = await getTasks();
-  
-    //Element mit der id = currentDraggedElement finden
     let task = allTasks.find((task) => task.id === currentDraggedElement);
     if (task) {
       task.status = status;
@@ -53,11 +60,19 @@ function addPrioIcon(task) {
   }
   
   
+  /**
+   * This function adds a highlight effect to an element
+   * @param {string} id - The ID of the element to be highlighted
+   */
   function hightlight(id) {
     document.getElementById(id).classList.add("drag-area-hightlight");
   }
   
   
+  /**
+   * This function removes a highlight effect from an element
+   * @param {string} id 
+   */
   function removeHightlight(id) {
     document.getElementById(id).classList.remove("drag-area-hightlight");
   }
@@ -83,16 +98,16 @@ function addPrioIcon(task) {
         taskCounts[status]++;
       }
     }
-    setDisplayStatus(document.getElementById("No_Task_To_Do"), taskCounts.toDo);
+    setDisplayStatus(document.getElementById("no_task_to_do"), taskCounts.toDo);
     setDisplayStatus(
-      document.getElementById("No_Task_In_Progress"),
+      document.getElementById("no_task_in_progress"),
       taskCounts.inProgress
     );
     setDisplayStatus(
-      document.getElementById("No_Task_Await_Feedback"),
+      document.getElementById("no_task_await_feedback"),
       taskCounts.awaitFeedback
     );
-    setDisplayStatus(document.getElementById("No_Task_Done"), taskCounts.done);
+    setDisplayStatus(document.getElementById("no_task_done"), taskCounts.done);
   }
   
   
@@ -110,12 +125,12 @@ function addPrioIcon(task) {
    * This function filters tasks based on the user's input 
    */
   function findTask() {
-    let inputfield = document.getElementById("Find_Task");
+    let inputfield = document.getElementById("find_task");
     let input = inputfield.value.toLowerCase();
-    let inputfieldSmallScreen = document.getElementById("Find_Task_SmallScreen");
+    let inputfieldSmallScreen = document.getElementById("find_task_smallScreen");
     let inputSmallScreen = inputfieldSmallScreen.value.toLowerCase();
   
-    let boardSection = document.getElementById("Board_Section_Main_Content");
+    let boardSection = document.getElementById("board_section_main_content");
     let tasks = boardSection.getElementsByClassName(
       "board-task-container-overview"
     );

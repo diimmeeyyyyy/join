@@ -29,9 +29,9 @@ async function renderTasks() {
   let tasks = [toDos, inProgress, awaitFeedback, done];
   let containerIds = [
     "to_do_container",
-    "In_Progress_Content",
-    "Await_Feedback_Content",
-    "Done_Content",
+    "in_progress_content",
+    "await_feedback_content",
+    "done_content",
   ];
 
   for (let i = 0; i < tasks.length; i++) {
@@ -121,15 +121,15 @@ function generateOneTaskHTML(
   <div class="board-task-subtask-container" ${hideProgressBar}>
     <div class="board-task-progress" role="progressbar">
       <div
-        id="Board_Task_Progress_Bar${id}"
+        id="board_task_progress_bar${id}"
         class="board-task-progress-bar"
         ${progressBarWidth}
       ></div>
     </div>
-    <span id="Board_Task_Number_Of_Subtasks${id}">${subtasksCount}</span>
+    <span id="board_task_number_of_subtasks${id}">${subtasksCount}</span>
   </div>
   <div class="board-task-container-contacts-and-prio">
-    <div id="Board_Task_Contact_Icons" class="board-task-contact-icons">${assignedPersons}</div>
+    <div id="board_task_contact_icons" class="board-task-contact-icons">${assignedPersons}</div>
     <span>${prio}</span>
   </div>
 </div>

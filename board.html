@@ -5,26 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Board</title>
     <!-- LINKED FILES -->
-    <link rel=“stylesheet“ href=“fonts.css“> 
+    <link rel=“stylesheet“ href="CSS/fonts.css"> 
     <link rel="icon" href="./assets/img/FAVICONJOIN.png" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="board.css" />
-    <link rel="stylesheet" href="add_Task_All.css" />
-    <link rel="stylesheet" href="add_Task_Popup.css" />
-    <link rel="stylesheet" href="contacts.css" />
-    <script src="utils.js"></script>
-    <script src="board.js"></script>
-    <script src="board_Task_Largeview.js"></script>
-    <script src="board_Auxiliary_Functions.js"></script>
-    <script src="add_Task.js"></script>
-    <script src="add_Task2.js"></script>
-    <script src="add_TaskTwo.js"></script>
-    <script src="storage.js"></script>
-    <script src="contacts.js"></script>
-    <script src="contactsTwo.js"></script>
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link rel="stylesheet" href="CSS/board.css" />
+    <link rel="stylesheet" href="CSS/add_Task_All.css" />
+    <link rel="stylesheet" href="CSS/add_Task_Popup.css" />
+    <link rel="stylesheet" href="CSS/contacts.css" />
+    <script src="Javascript/storage.js"></script>
+    <script src="Javascript/utils.js"></script>
+    <script src="Javascript/board.js"></script>
+    <script src="Javascript/board_Task_Largeview.js"></script>
+    <script src="Javascript/board_Auxiliary_Functions.js"></script>
+    <script src="Javascript/add_Task.js"></script>
+    <script src="Javascript/add_Task2.js"></script>
+    <script src="Javascript/contacts.js"></script>
     <!------------------>
   </head>
-
   <body onload="initBoard()">
     <div id="add_task_popup_backdrop" class="pop-up-backdrop d-none">
       <div
@@ -38,7 +35,7 @@
       <div w3-include-html="assets/templates/sidebar.html"></div>
       <div class="header-and-mainContent">
         <header w3-include-html="assets/templates/header.html"></header>
-        <main class="board" id="Board">
+        <main class="board" id="board">
           <section class="board-section-header">
             <div class="board-section-header-div">
               <span>
@@ -46,11 +43,11 @@
               </span>
 
               <div class="board-section-header-find-and-add-task-div">
-                <div class="input-box-largeScreen" id="Find_Task_Input_Wrapper">
+                <div class="input-box-largeScreen" id="find_task_input_wrapper">
                   <input
                     type="text"
                     placeholder="Find Task"
-                    id="Find_Task"
+                    id="find_task"
                     oninput="findTask()"
                   />
                   <img src="./assets/img/findTaskImg.png" />
@@ -73,7 +70,7 @@
               <input
                 type="text"
                 placeholder="Find Task"
-                id="Find_Task_SmallScreen"
+                id="find_task_smallScreen"
                 oninput="findTask()"
               />
               <img src="./assets/img/findTaskImg.png" />
@@ -81,7 +78,7 @@
           </section>
 
           <section
-            id="Board_Section_Main_Content"
+            id="board_section_main_content"
             class="board-section-mainContent"
           >
             <div class="board-mainContent-container">
@@ -92,7 +89,7 @@
                   src="./assets/img/plusButton.svg"
                 />
               </div>
-              <span id="No_Task_To_Do" class="noTasks-toDo"
+              <span id="no_task_to_do" class="noTasks-toDo"
                 >No tasks to do</span
               >
               <div
@@ -102,16 +99,6 @@
                 ondragend="removeHightlight('to_do_container')"
                 ondragleave="removeHightlight('to_do_container')"
               ></div>
-              <!-- <img
-                src="./assets/img/boardArrowRight.png"
-                id="To_Do_Container_Arrow_Right"
-                class="arrow-right"
-              /> -->
-              <!-- <img
-                src="./assets/img/boardArrowLeft.png"
-                id="To_Do_Container_Arrow_Left"
-                class="arrow-left"
-              /> -->
             </div>
             <div class="board-mainContent-container">
               <div class="board-mainContent-titleDiv">
@@ -121,26 +108,16 @@
                   src="./assets/img/plusButton.svg"
                 />
               </div>
-              <span id="No_Task_In_Progress" class="noTasks-toDo"
+              <span id="no_task_in_progress" class="noTasks-toDo"
                 >No tasks in progress</span
               >
               <span
-                id="In_Progress_Content"
-                ondrop="moveTo('inProgress');removeHightlight('In_Progress_Content')"
-                ondragover="allowDrop(event);hightlight('In_Progress_Content')"
-                ondragend="removeHightlight('In_Progress_Content')"
-                ondragleave="removeHightlight('In_Progress_Content')"
+                id="in_progress_content"
+                ondrop="moveTo('inProgress');removeHightlight('in_progress_content')"
+                ondragover="allowDrop(event);hightlight('in_progress_content')"
+                ondragend="removeHightlight('in_progress_content')"
+                ondragleave="removeHightlight('in_progress_content')"
               ></span>
-              <!-- <img
-                src="./assets/img/boardArrowRight.png"
-                id="In_Progress_Container_Arrow_Right"
-                class="arrow-right"
-              />
-              <img
-                src="./assets/img/boardArrowLeft.png"
-                id="In_Progress_Container_Arrow_Left"
-                class="arrow-left"
-              /> -->
             </div>
             <div class="board-mainContent-container">
               <div class="board-mainContent-titleDiv">
@@ -150,49 +127,29 @@
                   src="./assets/img/plusButton.svg"
                 />
               </div>
-              <span id="No_Task_Await_Feedback" class="noTasks-toDo"
+              <span id="no_task_await_feedback" class="noTasks-toDo"
                 >No tasks await feedback</span
               >
               <span
-                id="Await_Feedback_Content"
-                ondrop="moveTo('awaitFeedback');removeHightlight('Await_Feedback_Content')"
-                ondragover="allowDrop(event);hightlight('Await_Feedback_Content')"
-                ondragend="removeHightlight('Await_Feedback_Content')"
-                ondragleave="removeHightlight('Await_Feedback_Content')"
+                id="await_feedback_content"
+                ondrop="moveTo('awaitFeedback');removeHightlight('await_feedback_content')"
+                ondragover="allowDrop(event);hightlight('await_feedback_content')"
+                ondragend="removeHightlight('await_feedback_content')"
+                ondragleave="removeHightlight('await_feedback_content')"
               ></span>
-              <!-- <img
-                src="./assets/img/boardArrowRight.png"
-                id="Await_Feedback_Arrow_Right"
-                class="arrow-right"
-              />
-              <img
-                src="./assets/img/boardArrowLeft.png"
-                id="Await_Feedback_Arrow_Left"
-                class="arrow-left"
-              /> -->
             </div>
             <div class="board-mainContent-container">
               <div class="board-mainContent-titleDiv">
                 <h3>Done</h3>
               </div>
-              <span id="No_Task_Done" class="noTasks-toDo">No tasks done</span>
+              <span id="no_task_done" class="noTasks-toDo">No tasks done</span>
               <span
-                id="Done_Content"
-                ondrop="moveTo('done');removeHightlight('Done_Content')"
-                ondragover="allowDrop(event);hightlight('Done_Content')"
-                ondragend="removeHightlight('Done_Content')"
-                ondragleave="removeHightlight('Done_Content')"
+                id="done_content"
+                ondrop="moveTo('done');removeHightlight('done_content')"
+                ondragover="allowDrop(event);hightlight('done_content')"
+                ondragend="removeHightlight('done_content')"
+                ondragleave="removeHightlight('done_content')"
               ></span>
-              <!-- <img
-                src="./assets/img/boardArrowRight.png"
-                id="Done_Arrow_Right"
-                class="arrow-right"
-              />
-              <img
-                src="./assets/img/boardArrowLeft.png"
-                id="Done_Arrow_Left"
-                class="arrow-left"
-              /> -->
             </div>
           </section>
         </main>
