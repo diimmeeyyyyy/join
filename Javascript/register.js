@@ -182,9 +182,20 @@ function showAlert(message) {
   `;
   document.body.appendChild(background);
 }
-/* ====================================================
-LET INPUTFIELD-ICON + BORDER AROUND INPUTFIELD DISAPPEAR
-========================================================*/
+
+
+/**
+ * closing popUp message that tells us that the user was not found
+ */
+function closeAlert() {
+  let alertMessage = document.getElementById("Alert_Message");
+  document.body.removeChild(alertMessage);
+}
+
+
+/**
+ * let inputfield-icon & border around inputfield disappear
+ */
 document.addEventListener("click", function (event) {
   let inputBoxes = document.querySelectorAll(".input-box");
   inputBoxes.forEach(function (inputBox) {

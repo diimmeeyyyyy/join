@@ -339,10 +339,8 @@ function getCheckedCount(subtasks) {
  * @returns {string} - String that sets the display of the progress bar
  */
 function hideBar(task) {
-  if (task.subtasks) {
-    if (task.subtasks.length > 0) {
+  if (task.subtasks && task.subtasks.length > 0) {
       return "";
-    }
   } else {
     return 'style="display: none"';
   }

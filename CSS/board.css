@@ -237,6 +237,7 @@ STYLE OF ONE TASK
   font-size: 16px;
   font-weight: 400;
   color: #a8a8a8;
+  word-break: break-word;
 }
 
 .board-task-subtask-container {
@@ -313,7 +314,7 @@ STYLE OF ONE TASK
 }
 
 .board-task-largeview-closebutton {
-  margin-right: 32px;  
+  margin-right: 32px;
 }
 
 .board-task-largeview-scrollable {
@@ -369,7 +370,6 @@ DUE DATE + PRIORITY
   margin-top: 24px;
   /* Hier kannst du den gewünschten Margin-Wert einstellen */
 }
-
 
 .board-task-largeview-color {
   color: rgb(125, 136, 156);
@@ -503,16 +503,16 @@ EDIT TASK
   max-height: 830px;
   margin-top: 32px;
   margin-left: auto;
-  margin-right: auto; 
+  margin-right: auto;
   background-color: white;
   border-radius: 30px;
   padding: 36px 10px 36px 36px;
-  }
+}
 
 .edit-task-scrollable {
   max-width: 100%;
   min-width: 100%;
-  max-height: 90%; 
+  max-height: 90%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -697,11 +697,8 @@ MEDIA-QUERIES
   .edit-task-prio-button {
     font-size: 100px;
     background-color: aqua;
-
   }
-
 }
-
 
 /* ==============
 ASSIGNED CONTACTS
