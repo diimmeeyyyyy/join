@@ -3,21 +3,20 @@
  */
 async function handleSubmit() {
   let submitButton = document.activeElement.id;
-  if (submitButton === "LogIn_Button") {
+  if (submitButton === "logIn_button") {
     await logInUser();
-  } else if (submitButton === "Guest_LogIn_Button") {
+  } else if (submitButton === "guest_logIn_button") {
     localStorage.setItem("loggedInPerson", "guest");
     loadWelcomeGreeting("GUEST");
   }
 }
 
-
 /**
  * Used to check if user exists and then continue the logIn process
  */
 async function logInUser() {
-  let email = document.getElementById("Email");
-  let password = document.getElementById("Password_LogIn");
+  let email = document.getElementById("email");
+  let password = document.getElementById("password_logIn");
 
   let user = await findUser(email.value, password.value);
 
@@ -26,19 +25,17 @@ async function logInUser() {
     localStorage.setItem("loggedInPerson", "user");
     await loadWelcomeGreeting(user.name);
   } else {
-    showAlert('User not found or login credentials incorrect !');
+    showAlert("User not found or login credentials incorrect !");
   }
 }
-
 
 /**
  * closing popUp message that tells us that the user was not found
  */
 function closeAlert() {
-  let alertMessage = document.getElementById("Alert_Message");
+  let alertMessage = document.getElementById("alert_message");
   document.body.removeChild(alertMessage);
 }
-
 
 /**
  *
@@ -54,7 +51,6 @@ async function findUser(email, password) {
   return user;
 }
 
-
 /**
  * serves for saving user information
  * @param {object} user - this is the user that was found
@@ -67,7 +63,6 @@ async function storeLoggedInUser(user) {
   let key = "loggedInUser-" + user.email;
   await setItem(key, JSON.stringify(user));
 }
-
 
 /**
  * Used to display the welcome-greeting after the logIn was successfully
@@ -91,15 +86,14 @@ async function loadWelcomeGreeting(userName) {
   }, redirectDelay);
 }
 
-
 /**
  *  Used to combine greeting form and username
  * @param {string} userName - this is the username
  * @param {string} greetingForm - this is the greeting form based on the current time of logIn
  */
 function setGreetingAndName(userName, greetingForm) {
-  let greetingName = document.getElementById("Greeting_Name");
-  let greeting = document.getElementById("Greeting");
+  let greetingName = document.getElementById("greeting_name");
+  let greeting = document.getElementById("greeting");
 
   if (userName !== "GUEST") {
     greeting.innerHTML = greetingForm + ",";

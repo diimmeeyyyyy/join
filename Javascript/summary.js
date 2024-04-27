@@ -13,8 +13,8 @@ async function initSummary() {
 async function loadSummaryGreeting() {
   let loggedInPerson = localStorage.getItem("loggedInPerson");
   let greetingForm = getGreetingForm();
-  let inputfieldGreetingForm = document.getElementById("Summary_Greeting_Form");
-  let inputfieldName = document.getElementById("Greeting_Name");
+  let inputfieldGreetingForm = document.getElementById("summary_greeting_form");
+  let inputfieldName = document.getElementById("greeting_name");
 
   if (loggedInPerson === "user" && window.innerWidth > 1050) {
     let user = await getCurrentUser();
@@ -47,7 +47,7 @@ async function loadTaskInformation() {
  * @param {Array} allTasks - The array of all tasks
  */
 function getTaskAmount(allTasks) {
-  document.getElementById("Summary_Amount_Tasks").innerHTML = allTasks.length;
+  document.getElementById("summary_amount_tasks").innerHTML = allTasks.length;
 }
 
 
@@ -57,7 +57,7 @@ function getTaskAmount(allTasks) {
  */
 function getToDoTasks(allTasks) {
   let toDoTasks = allTasks.filter((task) => task.status === "toDo");
-  document.getElementById("Summary_Tasks_ToDo").innerHTML = toDoTasks.length;
+  document.getElementById("summary_tasks_toDo").innerHTML = toDoTasks.length;
 }
 
 
@@ -67,7 +67,7 @@ function getToDoTasks(allTasks) {
  */
 function getInProgressTasks(allTasks) {
   let inProgress = allTasks.filter((task) => task.status === "inProgress");
-  document.getElementById("Summary_Tasks_InProgress").innerHTML =
+  document.getElementById("summary_tasks_inProgress").innerHTML =
     inProgress.length;
 }
 
@@ -80,7 +80,7 @@ function getAwaitFeedbackTasks(allTasks) {
   let awaitFeedback = allTasks.filter(
     (task) => task.status === "awaitFeedback"
   );
-  document.getElementById("Summary_Tasks_AwaitFeedback").innerHTML =
+  document.getElementById("summary_tasks_awaitFeedback").innerHTML =
     awaitFeedback.length;
 }
 
@@ -91,7 +91,7 @@ function getAwaitFeedbackTasks(allTasks) {
  */
 function getDoneTasks(allTasks) {
   let done = allTasks.filter((task) => task.status === "done");
-  document.getElementById("Summary_Tasks_Done").innerHTML = done.length;
+  document.getElementById("summary_tasks_done").innerHTML = done.length;
 }
 
 
@@ -101,7 +101,7 @@ function getDoneTasks(allTasks) {
  */
 function getUrgentTasks(allTasks) {
   let urgentTasks = allTasks.filter((task) => task.prio === "urgent");
-  document.getElementById("Summary_Tasks_Urgent").innerHTML =
+  document.getElementById("summary_tasks_urgent").innerHTML =
     urgentTasks.length;
 }
 
@@ -115,6 +115,6 @@ function getUpcomingDueDate(allTasks) {
     (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
   );
   let upcomingDueDate = sortedTasks[0].dueDate;
-  document.getElementById("Summary_Upcoming_DueDate").innerHTML =
+  document.getElementById("summary_upcoming_dueDate").innerHTML =
     upcomingDueDate;
 }

@@ -15,7 +15,6 @@ async function includeHTML() {
   }
 }
 
-
 /**
  * This function is used to update the clicked menu-point
  * @param {number} activeLinkIndex  - The index of the active link in the menu
@@ -28,7 +27,6 @@ function updateMenuPoint(activeLinkIndex) {
   }
 }
 
-
 /**
  * This function is used to get the user-initials for the header
  */
@@ -39,12 +37,11 @@ async function loadUserInitials() {
     let user = await getCurrentUser();
     let nameParts = user.name.split(" ");
     let initials = nameParts.map((part) => part.charAt(0)).join("");
-    document.getElementById("User_Initials").innerHTML = initials;
+    document.getElementById("user_initials").innerHTML = initials;
   } else {
-    document.getElementById("User_Initials").innerHTML = "G";
+    document.getElementById("user_initials").innerHTML = "G";
   }
 }
-
 
 /**
  * This function is used to retrieve the current user from local storage
@@ -61,7 +58,6 @@ async function getCurrentUser() {
     return user;
   }
 }
-
 
 /**
  * This function determines the appropriate greeting based on the current time
@@ -81,7 +77,6 @@ function getGreetingForm() {
 
   return greetingForm;
 }
-
 
 /**
  * This function toggles the visibility of a dropdown header
@@ -103,11 +98,9 @@ function openDropDownHeader() {
   }
 }
 
-
 function goBack() {
   window.history.back();
 }
-
 
 /**
  * This function initializes the Privacy Policy and Legal Notice pages
@@ -117,7 +110,6 @@ async function initPrivacyPolicyAndLegalNotice() {
   await checkPreviousPage();
 }
 
-
 /**
  * This function checks the previous page the user visited and decides whether to display or hide the userInitails
  */
@@ -125,7 +117,7 @@ async function checkPreviousPage() {
   const referrer = document.referrer;
 
   if (referrer.includes("log_In.html") || referrer.includes("register.html")) {
-    document.getElementById("User_Initials").style.display = "none";
+    document.getElementById("user_initials").style.display = "none";
     document.querySelector(".task-sidebar").style.display = "none";
   } else {
     await loadUserInitials();

@@ -23,11 +23,11 @@ async function loadUsers() {
  */
 async function registerUser() {
   document.getElementById("Register_Button").disabled = true;
-  let name = document.getElementById("Name");
-  let email = document.getElementById("Email");
-  let password = document.getElementById("Password");
-  let confirmPassword = document.getElementById("Confirm_Password");
-  let checkbox = document.getElementById("Privacy_Policy_Checkbox");
+  let name = document.getElementById("name");
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+  let confirmPassword = document.getElementById("confirm_password");
+  let checkbox = document.getElementById("privacy_policy_checkbox");
 
   let formStatus = formValidation(
     name,
@@ -82,14 +82,14 @@ function resetForm(name, email, password, confirmPassword) {
   email.value = ``;
   password.value = ``;
   confirmPassword.value = ``;
-  document.getElementById("Register_Button").disabled = false;
+  document.getElementById("register_button").disabled = false;
 }
 
 /**
  * Display message "signed up successfully"
  */
 function signedUpSuccessfully() {
-  let message = document.getElementById("Signed_Up_Successfully_Overlay");
+  let message = document.getElementById("signed_up_successfully_overlay");
 
   message.style.display = "flex";
 
@@ -102,7 +102,7 @@ function signedUpSuccessfully() {
  * When the countdown reaches 0, the user is redirected to the "log_In.html" page
  */
 function countdownToRedirect() {
-  let countDownElement = document.getElementById("Countdown_To_LogIn");
+  let countDownElement = document.getElementById("countdown_to_logIn");
   let countdownValue = 4;
   countDownElement.innerText = countdownValue;
 
@@ -121,7 +121,7 @@ function countdownToRedirect() {
  */
 function displayPasswordRequirements() {
   document
-    .getElementById("Check_Requirements_Pop_Up")
+    .getElementById("check_requirements_pop_up")
     .classList.add("slide-down");
 }
 
@@ -130,7 +130,7 @@ function displayPasswordRequirements() {
  */
 function hidePasswordRequirements() {
   document
-    .getElementById("Check_Requirements_Pop_Up")
+    .getElementById("check_requirements_pop_up")
     .classList.remove("slide-down");
 }
 
@@ -138,11 +138,11 @@ function hidePasswordRequirements() {
  * It checks if the password contains at least one uppercase letter, one lowercase letter, one number, and is at least 8 characters long
  */
 function checkPasswordRequirements() {
-  let input = document.getElementById("Password");
-  check(input, /[A-Z]/g, "Capital_Letter_Img", "Capital");
-  check(input, /[0-9]/g, "Number_Img", "Number");
-  check(input, /.{8,}/g, "Length_Img", "Length");
-  check(input, /[a-z]/g, "Letter_Img", "Letter");
+  let input = document.getElementById("password");
+  check(input, /[A-Z]/g, "capital_Letter_Img", "capital");
+  check(input, /[0-9]/g, "number_Img", "number");
+  check(input, /.{8,}/g, "length_Img", "length");
+  check(input, /[a-z]/g, "letter_Img", "letter");
 }
 
 /**
@@ -172,7 +172,7 @@ function check(input, pattern, imgID, classID) {
 function showAlert(message) {
   let background = document.createElement("div");
   background.className = "pop-up-backdrop";
-  background.id = "Alert_Message";
+  background.id = "alert_message";
   background.innerHTML = /*html*/ `
     <div class="alert-container">
          <h3>Information</h3>
@@ -188,7 +188,7 @@ function showAlert(message) {
  * closing popUp message that tells us that the user was not found
  */
 function closeAlert() {
-  let alertMessage = document.getElementById("Alert_Message");
+  let alertMessage = document.getElementById("alert_message");
   document.body.removeChild(alertMessage);
 }
 

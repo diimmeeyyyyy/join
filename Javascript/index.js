@@ -3,7 +3,7 @@
  * This function initializes the index page
  */
 function initIndex() {
-  let indexPage = document.getElementById("Index_Page");
+  let indexPage = document.getElementById("index_page");
 
   if (window.innerWidth <= 850) {
     indexPage.innerHTML = /*html*/ `

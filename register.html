@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
     <!-- LINKED FILES -->
-    <link rel=“stylesheet“ href="CSS/fonts.css"> 
+    <link rel="“stylesheet“" href="CSS/fonts.css" />
     <link rel="stylesheet" href="CSS/log_In_and_Register.css" />
     <script src="Javascript/storage.js"></script>
     <script src="Javascript/register.js"></script>
@@ -59,23 +59,18 @@
 
       <form class="form-body" onsubmit="registerUser(); return false">
         <div class="input-box">
-          <input
-            type="text"
-            placeholder="Name"
-            id="Name"
-            required
-          />
+          <input type="text" placeholder="name" id="name" required />
           <img src="./assets/img/registerPerson.png" />
         </div>
         <div class="input-box">
-          <input type="email" placeholder="Email" id="Email" required />
+          <input type="email" placeholder="Email" id="email" required />
           <img src="./assets/img/registerEmail.png" />
         </div>
         <div class="input-box">
           <input
             type="password"
             placeholder="Password"
-            id="Password"
+            id="password"
             required
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             onfocus="displayPasswordRequirements()"
@@ -88,7 +83,7 @@
           <input
             type="password"
             placeholder="Confirm Password"
-            id="Confirm_Password"
+            id="confirm_password"
             required
           />
           <img src="./assets/img/registerLock.png" />
@@ -96,7 +91,7 @@
         <div class="checkbox-div">
           <input
             type="checkbox"
-            id="Privacy_Policy_Checkbox"
+            id="privacy_policy_checkbox"
             required
             checked
           />
@@ -105,7 +100,7 @@
           >
         </div>
 
-        <button class="register-button main-button-hover" id="Register_Button">
+        <button class="register-button main-button-hover" id="register_button">
           Sign up
         </button>
       </form>
@@ -120,32 +115,32 @@
     <!------------< POP-UP WINDOW TO CHECK PASSWORD REQUIREMENTS >------------>
     <div id="Check_Requirements_Pop_Up">
       <h3>Password must contain the following</h3>
-      <span id="Letter" class="invalid">
+      <span id="letter" class="invalid">
         <img id="Letter_Img" src="./assets/img/WrongPassword.png" />
         <p><b>lowercase</b> letter</p>
       </span>
-      <span id="Capital" class="invalid">
-        <img id="Capital_Letter_Img" src="./assets/img/WrongPassword.png" />
+      <span id="capital" class="invalid">
+        <img id="capital_Letter_Img" src="./assets/img/WrongPassword.png" />
         <p><b>capital (uppercase)</b> letter</p>
       </span>
-      <span id="Number" class="invalid">
-        <img id="Number_Img" src="./assets/img/WrongPassword.png" />
+      <span id="number" class="invalid">
+        <img id="number_Img" src="./assets/img/WrongPassword.png" />
         <p>number</p>
       </span>
-      <span id="Length" class="invalid">
-        <img id="Length_Img" src="./assets/img/WrongPassword.png" />
+      <span id="length" class="invalid">
+        <img id="length_Img" src="./assets/img/WrongPassword.png" />
         <p>Minimum <b>8 characters</b></p>
       </span>
     </div>
     <!------------------------------------------------------------------------>
     <!-------< POP-UP MESSAGE: SIGNED UP SUCCESSFULLY  >------->
-    <div id="Signed_Up_Successfully_Overlay">
+    <div id="signed_up_successfully_overlay">
       <span class="signed-up-successfully-msg">
         You Signed Up successfully!
       </span>
       <span class="redirect-to-logIn-msg"
         >Redirecting to Log-In in
-        <p id="Countdown_To_LogIn"></p
+        <p id="countdown_to_logIn"></p
       ></span>
     </div>
     <!--------------------------------------------------------->
