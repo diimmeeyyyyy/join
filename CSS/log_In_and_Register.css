@@ -275,7 +275,7 @@ BORDER-ANIMATION WHEN ONCLICK
 /* ========================
 CHECK PASSWORD REQUIREMENTS
 ============================*/
-#Check_Requirements_Pop_Up {
+#check_requirements_pop_up {
   display: flex;
   background-color: #2a3647;
   position: fixed;
@@ -297,12 +297,12 @@ CHECK PASSWORD REQUIREMENTS
     transform: translateY(0);
   }
 }
-#Check_Requirements_Pop_Up h3 {
+#check_requirements_pop_up h3 {
   color: #29abe2;
   border-bottom: 1px solid whitesmoke;
   padding: 5px;
 }
-#Check_Requirements_Pop_Up span {
+#check_requirements_pop_up span {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -318,7 +318,7 @@ CHECK PASSWORD REQUIREMENTS
 /* ===========================
 SIGNED UP SUCCESSFULLY MESSAGE
 ==============================*/
-#Signed_Up_Successfully_Overlay {
+#signed_up_successfully_overlay {
   display: none;
   flex-direction: column;
   justify-content: center;
