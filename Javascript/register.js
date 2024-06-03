@@ -139,10 +139,10 @@ function hidePasswordRequirements() {
  */
 function checkPasswordRequirements() {
   let input = document.getElementById("password");
-  check(input, /[A-Z]/g, "capital_Letter_Img", "capital");
-  check(input, /[0-9]/g, "number_Img", "number");
-  check(input, /.{8,}/g, "length_Img", "length");
-  check(input, /[a-z]/g, "letter_Img", "letter");
+  check(input, /[A-Z]/g, "capital_letter_img", "capital");
+  check(input, /[0-9]/g, "number_img", "number");
+  check(input, /.{8,}/g, "length_img", "length");
+  check(input, /[a-z]/g, "letter_img", "letter");
 }
 
 /**
